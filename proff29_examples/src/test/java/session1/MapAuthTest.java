@@ -1,8 +1,9 @@
-package session2;
+package session1;
 
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import session2.MapAuth;
 
 import java.util.HashMap;
 import java.util.Map;
