@@ -8,7 +8,6 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 19.12.15
- *
  */
 public class HelloWorld {
     public static void main(String[] args) {
