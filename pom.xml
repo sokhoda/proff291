@@ -12,6 +12,8 @@
     <modules>
         <module>proff29_examples</module>
         <module>alexandr_cherkassky</module>
+
+        <module>andrey_kallko</module>
     </modules>
 
     <properties>
