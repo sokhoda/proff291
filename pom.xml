@@ -12,9 +12,6 @@
     <modules>
         <module>proff29_examples</module>
 
-        <module>pavlo_mykolaienko</module>
-
-
         <module>andrey_kallko</module>
 
         <module>andrey_kallko</module>
@@ -22,7 +19,6 @@
         <module>pavel_semerenko</module>
         <module>olena_babenko</module>
         <module>salvador_sakho</module>
-
     </modules>
 
     <properties>
@@ -93,21 +89,12 @@
         6) Run maven build
 -->
         <!-- ORACLE JDBC driver -->
-<<<<<<< HEAD
-
-        <!--        <dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc14</artifactId>
-                    <version>10.2.0.5.0</version>
-                </dependency>-->
-=======
 <!--
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.5.0</version>
         </dependency>-->
->>>>>>> origin/master
 
         <!-- H2 JDBC driver -->
         <dependency>
