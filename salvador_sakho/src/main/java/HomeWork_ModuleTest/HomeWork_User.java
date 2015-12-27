@@ -78,7 +78,7 @@ public  class HomeWork_User implements Comparable<HomeWork_User> {
         HomeWork_User us2= new HomeWork_User("mail",234.5,"05.10.2015","milongiwit","doc");
         System.out.println(us.hashCode());
         System.out.println(us.equals(us2));
-        System.out.println(us.getSex()+"=Sex "+us.getRang()+"=range "+us.getCreated()+"=created "+us.getPass()+"=pass "+us.getLogin());
+//        System.out.println(us.getSex()+"=Sex "+us.getRang()+"=range "+us.getCreated()+"=created "+us.getPass()+"=pass "+us.getLogin());
 //        System.out.println(us.getSex().hashCode()+"=Sex "+us.getRang()+"=range "+us.getCreated().hashCode()+"=created "+us.getPass().hashCode()+"=pass "+us.getLogin().hashCode());
     }
 
