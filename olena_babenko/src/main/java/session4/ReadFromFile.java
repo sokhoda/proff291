@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class ReadFromFile {
     public static void main(String[] args) {
-        Path file = Paths.get("Hello");
+        Path file = Paths.get("Hello.txt");
         SeekableByteChannel channel = null;
 
         try {
