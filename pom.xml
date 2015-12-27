@@ -13,6 +13,7 @@
         <module>proff29_examples</module>
         <module>andrey_kallko</module>
         <module>igor_gonchar</module>
+        <module>vladymyr_danilov</module>
         <module>pavel_semerenko</module>
         <module>olena_babenko</module>
         <module>salvador_sakho</module>
@@ -86,12 +87,12 @@
         6) Run maven build
 -->
         <!-- ORACLE JDBC driver -->
-<!--
+
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.5.0</version>
-        </dependency>-->
+        </dependency>
 
         <!-- H2 JDBC driver -->
         <dependency>
