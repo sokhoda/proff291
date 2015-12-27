@@ -19,6 +19,10 @@ import java.nio.channels.SocketChannel;
  * Сервер на порту, Клиент подсоединен
  * <p/>
  * Кольцевое соединение - подключение к самом себе на тот же хост (IP = 127.0.0.1, localhost)
+ *
+ *
+ * Этот класс - это сервер, который принимает сообщение от клиента,
+ * реализованного в классе MessageToServer.java
  */
 public class Server {
     static ByteBuffer buf = ByteBuffer.allocate(100);

@@ -11,6 +11,9 @@ import java.nio.channels.SocketChannel;
  * Задание:
  * отправить серверу сообщение
  * Cуть: получить ответ и вывести на экран
+ *
+ * Считай, что это клиент, который отправляет сообщения локально на сервер,
+ * реализованный в классе Server.java
  */
 public class MessageToServer {
     public static void main(String[] args) throws IOException {
