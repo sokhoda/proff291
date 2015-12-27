@@ -26,7 +26,7 @@ public class Task1 {
                 buffer.flip();
                 arr=buffer.array();
                 System.out.println(Arrays.toString(arr));
-                System.out.println(new String(arr));
+                System.out.println(new String(arr, 0, readed));
             }
 
         } catch (Exception e) {
