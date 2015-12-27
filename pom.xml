@@ -11,11 +11,18 @@
 
     <modules>
         <module>proff29_examples</module>
+        <module>alexandr_cherkassky</module>
         <module>andrey_kallko</module>
         <module>igor_gonchar</module>
+        <module>alexandr_khoda</module>
         <module>pavel_semerenko</module>
         <module>olena_babenko</module>
         <module>salvador_sakho</module>
+        <module>lyashenko_dmitriy</module>
+        <module>sergey_kutsiy</module>
+        <module>vadim_davidenko</module>
+        <module>vladymyr_danilov</module>
+        <module>yura_skulskiy</module>
     </modules>
 
     <properties>
