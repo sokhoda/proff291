@@ -37,6 +37,7 @@ class ChengLetter implements Chengeletters {
 public class StrategiChengeLetter {
 
     public static void main(String[] args) {
+
         String s = "qwertyuiopasdfghjklzxcvbnm";
         StrategiChengeLetter sc = new StrategiChengeLetter();
         sc.chenge(new ChengLetter(), s);
