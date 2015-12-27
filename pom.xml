@@ -11,6 +11,7 @@
 
     <modules>
         <module>proff29_examples</module>
+        <module>igor_gonchar</module>
     </modules>
 
     <properties>
