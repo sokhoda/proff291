@@ -11,13 +11,21 @@
 
     <modules>
         <module>proff29_examples</module>
-        <module>olena_babenko</module>
+        <module>yuliia_nemyrovets</module>
+        <module>alexandr_cherkassky</module>
         <module>andrey_kallko</module>
         <module>sergey_kutsiy</module>
         <module>igor_gonchar</module>
+        <module>alexandr_khoda</module>
         <module>pavel_semerenko</module>
         <module>olena_babenko</module>
         <module>salvador_sakho</module>
+        <module>kristina_karpenko</module>
+        <module>lyashenko_dmitriy</module>
+        <module>sergey_kutsiy</module>
+        <module>vadim_davidenko</module>
+        <module>vladymyr_danilov</module>
+        <module>yura_skulskiy</module>
     </modules>
 
     <properties>
@@ -88,12 +96,12 @@
         6) Run maven build
 -->
         <!-- ORACLE JDBC driver -->
-
+<!--
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.5.0</version>
-        </dependency>
+        </dependency>-->
 
         <!-- H2 JDBC driver -->
         <dependency>
