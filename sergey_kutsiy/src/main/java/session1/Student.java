@@ -4,6 +4,7 @@ package session1;
  * Created with IntelliJ IDEA.
  * User: al1
  * Date: 19.12.15
+ *
  */
 public class Student {
     private String name;
