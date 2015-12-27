@@ -11,6 +11,7 @@
 
     <modules>
         <module>proff29_examples</module>
+        <module>salvador_sakho</module>
     </modules>
 
     <properties>
