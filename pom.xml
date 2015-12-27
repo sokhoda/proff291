@@ -11,6 +11,8 @@
 
     <modules>
         <module>proff29_examples</module>
+        <module>olena_babenko</module>
+        <module>andrey_kallko</module>
     </modules>
 
     <properties>
