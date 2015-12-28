@@ -2,8 +2,6 @@ package hw2;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -28,6 +24,7 @@ public class AsyncChat extends Application{
     private SocketChannel socketChannel;
     private ServerSocketChannel serverSocketChannel;
     private boolean connected;
+    private ByteBuffer buffer;
 
     @FXML
     private Button buttonOpenPort;
@@ -58,7 +55,7 @@ public class AsyncChat extends Application{
         stage.setTitle("Message me softly");
         stage.setScene(new Scene(root));
         stage.show();
-
+        buttonSend.setDisable(false);
     }
 
     private void connect(String targetIP, int targetPort) throws IOException {
@@ -72,8 +69,9 @@ public class AsyncChat extends Application{
             public void run() {
                 while (true) {
                     try {
-                        ByteBuffer buffer = ByteBuffer.allocate(50);
+                        buffer = ByteBuffer.allocate(50);
                         if(socketChannel != null) {
+                            buffer.clear();
                             socketChannel.read(buffer);
                         }
                         if(buffer.hasRemaining()) {
@@ -137,7 +135,7 @@ public class AsyncChat extends Application{
     }
 
     public void onClickSend() throws IOException {
-        ByteBuffer buffer = ByteBuffer.allocate(50);
+        buffer.clear();
         buffer.put(textMessage.getText().getBytes());
         buffer.flip();
         if (buffer.hasRemaining()) {
