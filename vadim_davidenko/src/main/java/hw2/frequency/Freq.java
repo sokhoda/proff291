@@ -79,13 +79,12 @@ public class Freq {
 
         if (text != null) {
             String[] words = text.split(" ");
-            int wordCounter = 1;
             for (String word : words) {
                 if (wordMap.containsKey(word)) {
-                    wordCounter = wordMap.get(word) + 1;
+                    wordMap.put(word, wordMap.get(word) + 1);
+                } else {
+                    wordMap.put(word, 1);
                 }
-                wordMap.put(word, wordCounter);
-                wordCounter = 1;
             }
         }
         return wordMap;
