@@ -2,6 +2,9 @@ package hw2;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,11 +26,12 @@ public class AsyncChat extends Application{
 
     private SocketChannel socketChannel;
     private ServerSocketChannel serverSocketChannel;
-    private boolean connected;
+    private String targetIP;
+    private int targetPort;
+    private int inputPort;
     private ByteBuffer buffer;
+    private final int maxMessageSize = 250;
 
-    @FXML
-    private Button buttonOpenPort;
     @FXML
     private Button buttonConnect;
     @FXML
@@ -55,93 +59,62 @@ public class AsyncChat extends Application{
         stage.setTitle("Message me softly");
         stage.setScene(new Scene(root));
         stage.show();
-        buttonSend.setDisable(false);
-    }
-
-    private void connect(String targetIP, int targetPort) throws IOException {
-        socketChannel = SocketChannel.open(new InetSocketAddress(targetIP, targetPort));
-        startChat();
-    }
-
-    private void startChat() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        buffer = ByteBuffer.allocate(50);
-                        if(socketChannel != null) {
-                            buffer.clear();
-                            socketChannel.read(buffer);
-                        }
-                        if(buffer.hasRemaining()) {
-                            textHistory.appendText("\nanother guy >> " + new String(buffer.array()));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
-
-    private void prepareForInputConnection(int inputPort) throws IOException {
-        serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.socket().bind(new InetSocketAddress(inputPort));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!connected){
-                    try {
-                        socketChannel = serverSocketChannel.accept();
-                        startChat();
-                        ByteBuffer buffer = ByteBuffer.allocate(50);
-                        buffer.put("Hi! you have connected to me".getBytes());
-                        buffer.flip();
-                        socketChannel.write(buffer);
-
-                        connected = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-    }
-
-    @FXML
-    public void onClickOpenPort() throws IOException {
-        int port = 0;
-        try {
-            port = Integer.parseInt(fieldInputPort.getText());
-        } catch (Exception e) {
-            System.out.println("Incorrect number in field \"input port\"");
-        }
-        if(port > 65535 || port < 1){
-            System.out.println("Input port number is our of range");
-        }
-        prepareForInputConnection(port);
-        buttonOpenPort.setDisable(true);
-        buttonConnect.setDisable(true);
-        textHistory.appendText("port " + port + " was opened");
     }
 
     public void onClickConnect() throws IOException {
-        int port = Integer.parseInt(fieldTargetPort.getText());
-        connect(fieldTargetIP.getText(), port);
-        buttonOpenPort.setDisable(true);
         buttonConnect.setDisable(true);
-        textHistory.appendText("you was connected to " + fieldTargetIP.getText() + " by port " + port);
+        fieldInputPort.setDisable(true);
+        fieldTargetIP.setDisable(true);
+        fieldTargetPort.setDisable(true);
+        buffer = ByteBuffer.allocate(maxMessageSize);
+        targetIP = fieldTargetIP.getText();
+        targetPort = Integer.parseInt(fieldTargetPort.getText());
+        inputPort = Integer.parseInt(fieldInputPort.getText());
+        serverSocketChannel = ServerSocketChannel.open();
+        serverSocketChannel.socket().bind(new InetSocketAddress(inputPort));
+        buttonSend.setDisable(false);
+        textMessage.setDisable(false);
+        textHistory.setDisable(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        socketChannel = serverSocketChannel.accept();
+                        buffer.clear();
+                        socketChannel.read(buffer);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                textHistory.appendText("some guy >>" + new String(buffer.array()) + "\n");
+                            }
+                        });
+                        //buffer.clear();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        textMessage.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.length() > maxMessageSize) {
+                    textMessage.setText(oldValue);
+                }
+            }
+        });
     }
 
     public void onClickSend() throws IOException {
+        socketChannel = SocketChannel.open(new InetSocketAddress(targetIP, targetPort));
         buffer.clear();
         buffer.put(textMessage.getText().getBytes());
         buffer.flip();
         if (buffer.hasRemaining()) {
             socketChannel.write(buffer);
+            textHistory.appendText(String.format("you >> ") + textMessage.getText() + "\n");
         }
-        textHistory.appendText("\n" + String.format("\n you >> ") + textMessage.getText());
         textMessage.setText("");
     }
 }
