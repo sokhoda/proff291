@@ -17,10 +17,13 @@ public class SocketChannelEx {
 
         buf.put("Merry Christmas to all colleagues and good Java study on vacations!".getBytes());
         buf.flip();
-        while (buf.hasRemaining()){
+        while (buf.hasRemaining()) {
             socketChannel.write(buf);
-            socketChannel.read(buf2);
-            System.out.println(new String(buf2.array(),0,buf2.array().length));
+        }
+        int read;
+        buf2.clear();
+        while (( read = socketChannel.read(buf2)) > 0){
+            System.out.println(new String(buf2.array(), 0, buf2.array().length));
         }
     }
 }

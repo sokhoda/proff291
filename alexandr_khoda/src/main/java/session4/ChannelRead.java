@@ -1,5 +1,7 @@
 package session4;
 
+
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SeekableByteChannel;
@@ -22,11 +24,12 @@ public class ChannelRead {
             channel = Files.newByteChannel(file);
             ByteBuffer buffer = ByteBuffer.allocate(20);
             int readed;
+
             while((readed = channel.read(buffer)) > 0) {
                 // print data from buffer
                 byte [] byteArr = buffer.array();
-//                for (int i = 0; i <byteArr.length ; i++) {
-//                    System.out.println((int)byteArr[i]);
+//                for (int i = 0; i < byteArr.length ; i++) {
+//                    System.out.println((int) byteArr[i]);
 //                }
 //                System.out.println(Arrays.toString(byteArr));
 //                System.out.println(new String (byteArr, Charset.defaultCharset()));
