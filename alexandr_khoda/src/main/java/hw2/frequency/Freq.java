@@ -13,6 +13,7 @@ public class Freq {
     private String text;
     private static final String endDelimiter = "/end";
     private Map<String, Integer> map = new TreeMap<String, Integer>();
+    private final int MaxWordLength = 15;
 
     public String setTextFromConsole() {
         Scanner scan = new Scanner(System.in);
@@ -22,24 +23,17 @@ public class Freq {
     }
 
     public String setTextFromFile(String fileName) {
-        File file1 = new File(fileName);
+        File file = new File(fileName);
         FileReader fr = null;
         String text = "";
         try {
-            fr = new FileReader(file1);
+            fr = new FileReader(file);
             Scanner scan = new Scanner(fr);
 
             while (scan.hasNextLine()) {
                 text += scan.nextLine() + '\n';
             }
             scan.close();
-
-            try {
-                fr.close();
-            }
-            catch (IOException e1) {
-                e1.printStackTrace();
-            }
             return text;
         }
         catch (FileNotFoundException e3) {
@@ -47,6 +41,15 @@ public class Freq {
             e3.printStackTrace();
             return null;
         }
+        finally {
+            try {
+                fr.close();
+            }
+            catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+
     }
 
     public Map<String, Integer> getSortMap(int ascend) {
@@ -89,19 +92,103 @@ public class Freq {
         return map.size();
     }
 
+
+    public String generateRandomText(int textLength) {
+        String text = "";
+        final int startAlphabeticCode = (int) ('А');
+        final int alphabeticSize = 32;
+
+        int symbNumLeft = textLength - text.length();
+        int curWordLen = (int) (Math.random() * MaxWordLength) + 1;
+        curWordLen = curWordLen > symbNumLeft ? symbNumLeft : curWordLen;
+
+        while (symbNumLeft > 0) {
+            String word = "";
+            for (int i = 0; i < curWordLen; i++) {
+                word += Character.toString((char) (startAlphabeticCode + Math.random() * alphabeticSize));
+            }
+            text += word + " ";
+            symbNumLeft = textLength - text.length();
+            curWordLen = (int) (Math.random() * MaxWordLength) + 1;
+            curWordLen = curWordLen > symbNumLeft ? symbNumLeft : curWordLen;
+
+        }
+        return text;
+    }
+
+    Set<String> getWordsByFrequency(int frequency) {
+        Set<String> set = new HashSet<String>();
+        if (calcWordsNum(getText()) > 0) {
+            Set<Map.Entry<String, Integer>> entries = map.entrySet();
+            for (Map.Entry<String, Integer> entry : entries) {
+                if (entry.getValue().equals(frequency)) {
+                    set.add(entry.getKey());
+                }
+            }
+            return set;
+        } else return null;
+
+    }
+
+    Set<String> getWordsByFrequencyLessThan(int frequency) {
+        Set<String> set = new HashSet<String>();
+        if (calcWordsNum(getText()) > 0) {
+            Set<Map.Entry<String, Integer>> entries = map.entrySet();
+            for (Map.Entry<String, Integer> entry : entries) {
+                if (entry.getValue().compareTo(frequency) < 0) {
+                    set.add(entry.getKey());
+                }
+            }
+            return set;
+        } else return null;
+    }
+
+    Set<String> getWordsByFrequencyMoreThan(int frequency) {
+        Set<String> set = new HashSet<String>();
+        if (calcWordsNum(getText()) > 0) {
+            Set<Map.Entry<String, Integer>> entries = map.entrySet();
+            for (Map.Entry<String, Integer> entry : entries) {
+                if (entry.getValue().compareTo(frequency) > 0) {
+                    set.add(entry.getKey());
+                }
+            }
+            return set;
+        } else return null;
+    }
+    void printAcs(){
+        calcWordsNum(getText());
+        System.out.println(getSortMap(1));
+    }
+    void printDesc(){
+        calcWordsNum(getText());
+        System.out.println(getSortMap(0));
+    }
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public Map<String, Integer> getMap() {
         return map;
     }
 
-
     public static void main(String[] args) {
         Freq f = new Freq();
 //        f.text = f.setTextFromConsole();
-        f.text = f.setTextFromFile("E:\\1\\Freq.txt");
-        System.out.println(f.text);
-        System.out.println(f.calcWordsNum(f.text));
+//        f.setText(f.setTextFromFile("E:\\1\\Freq.txt"));
+        f.setText(f.generateRandomText(1500));
+
+        System.out.println(f.getText());
+        System.out.println(f.calcWordsNum(f.getText()));
 //        System.out.println(((TreeMap<String, Integer>) f.getMap()).descendingMap());
 //        System.out.println(f.getMap());
-        System.out.println(f.getSortMap(0));
+        f.printAcs();
+        f.printDesc();
+
+        System.out.println("size = " + f.getWordsByFrequencyLessThan(2).size() + ": " +f.getWordsByFrequencyLessThan(2) );
+
     }
 }
