@@ -209,7 +209,7 @@ public class Freq {
                     break;
                 case 2:
                     System.out.println("choice 2");
-                    String temp = "/Users/elenabugercuk/IdeaProjects/prof29/src/prof29/hw2/frequency/testText.txt";
+                    String temp = "/Users/elenabugercuk/IdeaProjects/prof29/src/prof29/hw3/frequency/testText.txt";
                     text = example.setTextFromFile(temp);
                     example.textCleaner();
                     break;
