@@ -131,7 +131,7 @@ public class AsyncChat extends Application implements Runnable{
         }
     }
 
-    private void process() {
+    public void process() {
         try {
             serverSocketChannel = ServerSocketChannel.open();
             serverSocketChannel.socket().bind(new InetSocketAddress(inputPort));
