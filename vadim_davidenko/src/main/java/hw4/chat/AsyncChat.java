@@ -15,13 +15,15 @@ import java.io.IOException;
 /**
  * Created by Вадим on 05.01.2016.
  */
-public class AsyncChat extends Application implements Runnable {
+public class AsyncChat
+        extends Application
+        implements Runnable {
     @FXML
-    private TextField fieldTargetIP;
+    private TextField fieldServerIP;
     @FXML
-    private TextField fieldTargetPort;
+    private TextField fieldServerPort;
     @FXML
-    private TextField fieldSourcePort;
+    private TextField fieldClientPort;
     @FXML
     private TextArea fieldUserMessage;
     @FXML
@@ -29,9 +31,10 @@ public class AsyncChat extends Application implements Runnable {
     @FXML
     private Button buttonConnect;
 
-    private int sourcePort;
-    private int targetPort;
-    private String targetIP;
+    private int clientPort;
+    private int serverPort;
+    private String serverIP;
+    private String chatMessage;
     private final int bufferSize = 100;
 
     @Override
@@ -49,8 +52,6 @@ public class AsyncChat extends Application implements Runnable {
         launch(args);
     }
 
-
-
     @Override
     public void stop() throws Exception {
         super.stop();
@@ -62,17 +63,17 @@ public class AsyncChat extends Application implements Runnable {
     }
 
     public void onClickConnect() throws IOException {
-        if (!fieldTargetIP.getText().isEmpty() &&
-            !fieldTargetPort.getText().isEmpty() &&
-            !fieldSourcePort.getText().isEmpty()) {
+        if (!fieldServerIP.getText().isEmpty() &&
+            !fieldServerPort.getText().isEmpty() &&
+            !fieldClientPort.getText().isEmpty()) {
             // read data from fields
-            sourcePort = Integer.parseInt(fieldSourcePort.getText());
-            targetPort = Integer.parseInt(fieldTargetPort.getText());
-            targetIP = fieldTargetIP.getText();
+            clientPort = Integer.parseInt(fieldClientPort.getText());
+            serverPort = Integer.parseInt(fieldServerPort.getText());
+            serverIP = fieldServerIP.getText();
             // disable fields and button
-            fieldSourcePort.setDisable(true);
-            fieldTargetPort.setDisable(true);
-            fieldTargetIP.setDisable(true);
+            fieldClientPort.setDisable(true);
+            fieldServerPort.setDisable(true);
+            fieldServerIP.setDisable(true);
             buttonConnect.setDisable(true);
 
             new Thread(this).start();
@@ -82,13 +83,21 @@ public class AsyncChat extends Application implements Runnable {
     }
 
     public void onClickSend() {
-//        String msg = inputText.getText();
-//        if (msg != null) {
-//            chatServer.setText(msg);
-//            outputText.appendText(chatServer.getText());
-//            outputText.appendText("\n");
-//            inputText.clear();
-//        }
+        String userMessage = fieldUserMessage.getText();
+        if (userMessage != null) {
+            fieldUserMessage.clear();
+            addMessage(userMessage);
+
+
+        }
+    }
+
+    public synchronized void addMessage(String msg) {
+        if (msg != null) {
+            chatMessage += msg + "\n";
+
+
+        }
     }
 
 }
