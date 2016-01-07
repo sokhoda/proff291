@@ -18,14 +18,23 @@ public class ChatThread extends Thread {
 
     @Override
     public void run() {
+        ByteBuffer buf = ByteBuffer.allocate(100);
         while (true) {
             try {
-                ByteBuffer buf = ByteBuffer.allocate(100);
-                buf.flip();
                 StringBuilder sb = new StringBuilder();
+                buf.clear();
                 while(socketChannel.read(buf) > 0) {
                     sb.append(buf.asCharBuffer().toString());
                 }
+//                int bytesRead = socketChannel.read(buf);
+//                while (bytesRead != -1) {
+//                    buf.flip();
+//                    while(buf.hasRemaining()){
+//                        sb.append(buf.getChar());
+//                    }
+//                    buf.clear();
+//                    bytesRead = socketChannel.read(buf);
+//                }
                 String msg = sb.toString();
                 if (!msg.isEmpty()) {
                     msg = "[Other user:]\n" + msg;

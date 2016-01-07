@@ -15,39 +15,22 @@ public class Server {
         serverSocketChannel.socket().bind(new InetSocketAddress(30000));
         System.out.println("Server started");
 
-        SocketChannel socketChannel = serverSocketChannel.accept();
-        System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
-
         while(true) {
+            SocketChannel socketChannel = serverSocketChannel.accept();
+            System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
             handleRequest(socketChannel);
         }
-
     }
 
-    private static void handleRequest(SocketChannel socketChannel) throws IOException{
-        ByteBuffer buf = ByteBuffer.allocate(100);
-        buf.flip();
-        socketChannel.read(buf);
-        String msg = buf.asCharBuffer().toString();
-        if (!msg.isEmpty()) {
-            System.out.println("Received message: " + msg);
-        }
+    private static void handleRequest(SocketChannel socketChannel) throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(100);
+        socketChannel.read(buffer);
 
-        // receive message from client
-//        StringBuilder sb = new StringBuilder();
-//        int readed;
-//        while((readed = socketChannel.read(buf)) > 0) {
-//            sb.append(new String(buf.array()));
-//
-//        }
-//        sb.append(buf.asCharBuffer().toString());
-//        System.out.println("Received message: " + sb.toString());
-        // send received message back to client
-//        buf = ByteBuffer.allocate(sb.toString().length());
-//        buf.put(sb.toString().getBytes());
-//        buf.flip();
-//        while (buf.hasRemaining()) {
-//            socketChannel.write(buf);
-//        }
+        System.out.println("CLIENT >>> " + new String(buffer.array()));
+        buffer.clear();
+        buffer.put("Hi, client".getBytes());
+        buffer.flip();
+        socketChannel.write(buffer);
     }
+
 }

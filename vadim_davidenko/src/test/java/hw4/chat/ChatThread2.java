@@ -17,11 +17,11 @@ public class ChatThread2 extends Thread {
 
     @Override
     public void run() {
+        ByteBuffer buf = ByteBuffer.allocate(100);
         while (true) {
             try {
-                ByteBuffer buf = ByteBuffer.allocate(100);
-                buf.flip();
                 StringBuilder sb = new StringBuilder();
+                buf.clear();
                 while(socketChannel.read(buf) > 0) {
                     sb.append(buf.asCharBuffer().toString());
                 }

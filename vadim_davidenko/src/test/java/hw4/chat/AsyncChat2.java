@@ -81,7 +81,7 @@ public class AsyncChat2 extends Application implements Runnable {
             fieldListenPort.setDisable(true);
             fieldServerPort.setDisable(true);
             fieldIP.setDisable(true);
-            buttonConnect.setDisable(true);
+            //buttonConnect.setDisable(true);
 
             connection();
             fieldChatText.setText(chatText);
