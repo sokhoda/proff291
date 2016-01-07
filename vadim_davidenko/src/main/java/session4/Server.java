@@ -12,29 +12,42 @@ import java.nio.channels.SocketChannel;
 public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.socket().bind(new InetSocketAddress("127.0.0.1", 30000));
+        serverSocketChannel.socket().bind(new InetSocketAddress(30000));
+        System.out.println("Server started");
+
+        SocketChannel socketChannel = serverSocketChannel.accept();
+        System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
 
         while(true) {
-            SocketChannel socketChannel = serverSocketChannel.accept();
             handleRequest(socketChannel);
         }
 
     }
 
-    public static void handleRequest(SocketChannel socketChannel) throws IOException{
+    private static void handleRequest(SocketChannel socketChannel) throws IOException{
         ByteBuffer buf = ByteBuffer.allocate(100);
-        buf.put("Hello Server!".getBytes());
         buf.flip();
-
-        while (buf.hasRemaining()) {
-            socketChannel.write(buf);
+        socketChannel.read(buf);
+        String msg = buf.asCharBuffer().toString();
+        if (!msg.isEmpty()) {
+            System.out.println("Received message: " + msg);
         }
 
-        buf.flip();
-        int readed;
-        while((readed = socketChannel.read(buf)) > 0) {
-            System.out.println(new String(buf.array()));
-        }
-
+        // receive message from client
+//        StringBuilder sb = new StringBuilder();
+//        int readed;
+//        while((readed = socketChannel.read(buf)) > 0) {
+//            sb.append(new String(buf.array()));
+//
+//        }
+//        sb.append(buf.asCharBuffer().toString());
+//        System.out.println("Received message: " + sb.toString());
+        // send received message back to client
+//        buf = ByteBuffer.allocate(sb.toString().length());
+//        buf.put(sb.toString().getBytes());
+//        buf.flip();
+//        while (buf.hasRemaining()) {
+//            socketChannel.write(buf);
+//        }
     }
 }

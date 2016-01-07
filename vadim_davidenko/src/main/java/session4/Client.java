@@ -10,21 +10,21 @@ import java.nio.channels.SocketChannel;
  */
 public class Client {
     public static void main(String[] args) throws IOException {
-        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("192.168.1.121", 30000));
-
+        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 30001));
         ByteBuffer buf = ByteBuffer.allocate(100);
-        buf.put("Hello Server!".getBytes());
 
-        buf.flip();
-
-        while (buf.hasRemaining()) {
-            socketChannel.write(buf);
+        while (true) {
+            buf.clear();
+            buf.put("Hello!".getBytes());
+            buf.flip();
+            while (buf.hasRemaining()) {
+                socketChannel.write(buf);
+            }
         }
-
-        buf.flip();
-        int readed;
-        while((readed = socketChannel.read(buf)) > 0) {
-            System.out.println(new String(buf.array()));
-        }
+//        buf.flip();
+//        int readed;
+//        while((readed = socketChannel.read(buf)) > 0) {
+//            System.out.println(new String(buf.array()));
+//        }
     }
 }

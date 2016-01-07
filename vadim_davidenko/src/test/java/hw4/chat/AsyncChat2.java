@@ -21,7 +21,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by Вадим on 05.01.2016.
  */
-public class AsyncChat extends Application implements Runnable {
+public class AsyncChat2 extends Application implements Runnable {
     @FXML
     private TextField fieldIP;
     @FXML
@@ -41,7 +41,7 @@ public class AsyncChat extends Application implements Runnable {
     public static String chatText = "";
     private ServerSocketChannel serverSocketChannel;
     private SocketChannel socketChannel;
-    private ChatThread chatThread;
+    private ChatThread2 chatThread;
 
     public static void main(String[] args) throws IOException {
         launch(args);
@@ -49,10 +49,10 @@ public class AsyncChat extends Application implements Runnable {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String fxmlFile = "/fxml/chat.fxml";
+        String fxmlFile = "/fxml/chat2.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
-        stage.setTitle("P2P Chat");
+        stage.setTitle("P2P Chat 2");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -64,7 +64,7 @@ public class AsyncChat extends Application implements Runnable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    fieldChatText.appendText(chatText);
+                    fieldChatText.setText(chatText);
                 }
             });
         }
@@ -85,7 +85,7 @@ public class AsyncChat extends Application implements Runnable {
 
             connection();
             fieldChatText.setText(chatText);
-            chatThread = new ChatThread(socketChannel);
+            chatThread = new ChatThread2(socketChannel);
             chatThread.start();
         }
     }
