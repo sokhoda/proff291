@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hw4.chat.AsyncChat2">
+
+   <children>
+      <Label layoutX="14.0" layoutY="23.0" text="IP:" />
+      <Label layoutX="126.0" layoutY="23.0" prefHeight="17.0" prefWidth="42.0" text="S. Port:" />
+      <Label layoutX="230.0" layoutY="23.0" prefHeight="17.0" prefWidth="42.0" text="C. Port:" />
+
+      <TextField fx:id="fieldIP" layoutX="32.0" layoutY="19.0" prefHeight="25.0" prefWidth="82.0" text="127.0.0.1" />
+      <TextField fx:id="fieldServerPort" layoutX="165.0" layoutY="19.0" prefHeight="22.0" prefWidth="51.0" text="30001" />
+      <TextField fx:id="fieldListenPort" layoutX="270.0" layoutY="19.0" prefHeight="22.0" prefWidth="51.0" text="30000" />
+
+      <Button fx:id="buttonConnect" layoutX="356.0" layoutY="19.0" mnemonicParsing="false" onAction="#onClickConnect" prefHeight="22.0" prefWidth="76.0" text="Connect" />
+      <Button layoutX="356.0" layoutY="274.0" mnemonicParsing="false" onAction="#onClickSend" prefHeight="22.0" prefWidth="76.0" text="Send" />
+
+      <TextArea fx:id="fieldChatText" editable="false" layoutX="15.0" layoutY="64.0" prefHeight="170.0" prefWidth="417.0" />
+      <TextArea fx:id="fieldUserMessage" layoutX="15.0" layoutY="250.0" prefHeight="51.0" prefWidth="324.0" />
+   </children>
+
+</Pane>
