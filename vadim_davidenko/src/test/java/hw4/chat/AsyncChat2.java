@@ -32,8 +32,6 @@ public class AsyncChat2 extends Application implements Runnable {
     private TextArea fieldUserMessage;
     @FXML
     private TextArea fieldChatText;
-    @FXML
-    private Button buttonConnect;
 
     private int listenPort;
     private int serverPort;
@@ -42,6 +40,7 @@ public class AsyncChat2 extends Application implements Runnable {
     private ServerSocketChannel serverSocketChannel;
     private SocketChannel socketChannel;
     private ChatThread2 chatThread;
+    private boolean isConnected;
 
     public static void main(String[] args) throws IOException {
         launch(args);
@@ -60,14 +59,14 @@ public class AsyncChat2 extends Application implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
                     fieldChatText.setText(chatText);
                 }
-            });
-        }
+            }
+        });
     }
 
     public void onClickConnect() throws IOException {
@@ -81,12 +80,15 @@ public class AsyncChat2 extends Application implements Runnable {
             fieldListenPort.setDisable(true);
             fieldServerPort.setDisable(true);
             fieldIP.setDisable(true);
-            //buttonConnect.setDisable(true);
 
-            connection();
+            if (chatThread == null) {
+                chatThread = new ChatThread2(ip, listenPort);
+                chatThread.start();
+            }
+            if (!isConnected) {
+                connectionToServer();
+            }
             fieldChatText.setText(chatText);
-            chatThread = new ChatThread2(socketChannel);
-            chatThread.start();
         }
     }
 
@@ -106,26 +108,19 @@ public class AsyncChat2 extends Application implements Runnable {
         }
     }
 
-    public void connection() {
+    public void connectionToServer() {
         try {
-            // Chat attempts to connect to other chat as a client
             socketChannel = SocketChannel.open(new InetSocketAddress(ip, serverPort));
-            chatText = "Connected to server: " + socketChannel.getRemoteAddress().toString() + "\nChat started...\n";
-        } catch (Exception ignored) {
-            try {
-                // If other chat is not available then chat starts as a server to listen for other chat
-                serverSocketChannel = ServerSocketChannel.open();
-                serverSocketChannel.socket().bind(new InetSocketAddress(ip, listenPort));
-                socketChannel = serverSocketChannel.accept();
-                chatText = "Connected with client: " + socketChannel.getLocalAddress().toString()+ "\nChat started...\n";
-            } catch (IOException e) {
-                disconnect();
-                e.printStackTrace();
-            }
+            isConnected = true;
+            chatText += "Connected to server: " + socketChannel.getRemoteAddress().toString() + "\nChat started...\n";
+        } catch (IOException e) {
+            isConnected = false;
+            chatText += "Connected to server failed. Try again...\n";
+            disconnect();
         }
     }
 
-    public void sendMessage(String msg) {
+    public void  sendMessage(String msg) {
         ByteBuffer buf = ByteBuffer.allocate(msg.length());
         buf.put(msg.getBytes());
         buf.flip();
@@ -143,13 +138,6 @@ public class AsyncChat2 extends Application implements Runnable {
     }
 
     public void disconnect() {
-        try{
-            if(serverSocketChannel != null) {
-                serverSocketChannel.close();
-            }
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
         try{
             if(socketChannel != null) {
                 socketChannel.close();
