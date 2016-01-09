@@ -15,11 +15,12 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
 
 /**
  * Created by Вадим on 05.01.2016.
  */
-public class AsyncChat extends Application {
+public class AsyncChat2 extends Application {
     @FXML
     private TextField fieldIP;
     @FXML
@@ -35,7 +36,7 @@ public class AsyncChat extends Application {
     private String ip;
     public static String chatText = "";
     private SocketChannel socketChannel;
-    private ChatThread chatThread;
+    private ChatThread2 chatThread;
     public static boolean isConnected = false;
     private boolean isRefreshStarted;
 
@@ -45,10 +46,10 @@ public class AsyncChat extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String fxmlFile = "/fxml/chat.fxml";
+        String fxmlFile = "/fxml/chat2.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
-        stage.setTitle("P2P Chat 1");
+        stage.setTitle("P2P Chat 2");
         stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -103,7 +104,7 @@ public class AsyncChat extends Application {
 
             // server starts
             if (chatThread == null) {
-                chatThread = new ChatThread(ip, listenPort);
+                chatThread = new ChatThread2(ip, listenPort);
                 chatThread.start();
             }
             // client attempts to connect to other chat server
@@ -169,6 +170,5 @@ public class AsyncChat extends Application {
             e.printStackTrace();
         }
     }
-
 
 }

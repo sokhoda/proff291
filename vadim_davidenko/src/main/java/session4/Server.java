@@ -12,29 +12,19 @@ import java.nio.channels.SocketChannel;
 public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.socket().bind(new InetSocketAddress("127.0.0.1", 30000));
+        serverSocketChannel.socket().bind(new InetSocketAddress(30000));
+        System.out.println("Server started");
 
+        SocketChannel socketChannel = serverSocketChannel.accept();
+        System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
         while(true) {
-            SocketChannel socketChannel = serverSocketChannel.accept();
             handleRequest(socketChannel);
         }
-
     }
 
-    public static void handleRequest(SocketChannel socketChannel) throws IOException{
-        ByteBuffer buf = ByteBuffer.allocate(100);
-        buf.put("Hello Server!".getBytes());
-        buf.flip();
-
-        while (buf.hasRemaining()) {
-            socketChannel.write(buf);
-        }
-
-        buf.flip();
-        int readed;
-        while((readed = socketChannel.read(buf)) > 0) {
-            System.out.println(new String(buf.array()));
-        }
-
+    private static void handleRequest(SocketChannel socketChannel) throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(100);
+        socketChannel.read(buffer);
+        System.out.print(new String(buffer.array()).trim() + "\n");
     }
 }

@@ -29,6 +29,8 @@ public class AsyncChat extends Application implements Runnable{
     private ByteBuffer bufferIN;
     private ByteBuffer bufferOUT;
     private final int bufferSize = 15;
+    private String tempMessage = "";
+    private boolean keep_running = true;
 
     @FXML
     private Button buttonConnect;
@@ -44,8 +46,6 @@ public class AsyncChat extends Application implements Runnable{
     private TextArea textHistory;
     @FXML
     private TextArea textMessage;
-    private String tempMessage = "";
-    private boolean keep_running = true;
 
     public static void main(String[] args) throws Exception {
         launch(args);
@@ -109,12 +109,12 @@ public class AsyncChat extends Application implements Runnable{
 
     @Override
     public void run() {
-        reconnect();
+        process();
         while (keep_running) {
             try {
                 bufferIN = ByteBuffer.allocate(bufferSize);
                 socketChannel.read(bufferIN);
-                addAndGetMessage(new String(bufferIN.array()));
+                completeAndGetMessage(new String(bufferIN.array()));
             } catch (IOException e) {
                 try {
                     socketChannel = serverSocketChannel.accept();
@@ -125,13 +125,13 @@ public class AsyncChat extends Application implements Runnable{
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    textHistory.appendText(addAndGetMessage(null));
+                    textHistory.appendText(completeAndGetMessage(null));
                 }
             });
         }
     }
 
-    private void reconnect() {
+    public void process() {
         try {
             serverSocketChannel = ServerSocketChannel.open();
             serverSocketChannel.socket().bind(new InetSocketAddress(inputPort));
@@ -149,7 +149,7 @@ public class AsyncChat extends Application implements Runnable{
         }
     }
 
-    synchronized private String addAndGetMessage(String s) {
+    synchronized private String completeAndGetMessage(String s) {
         String prevMessage;
         if(s != null) {
             tempMessage += s;
