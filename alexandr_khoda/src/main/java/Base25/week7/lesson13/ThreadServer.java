@@ -101,7 +101,7 @@ public class ThreadServer extends Thread {
 			}
 		}
 		catch (InterruptedException e) {
-			System.out.println("авершение работы сервера. спасибо.");
+			System.out.println("завершение работы сервера. спасибо.");
 			return;
 		}
 	}

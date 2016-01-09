@@ -55,13 +55,19 @@ public class test {
         try {
             serverSocketChannel.socket().bind(new InetSocketAddress("localhost", 30000));
             serverSocketChannel.configureBlocking(false);
-
+            System.out.println("serverSocketChannel: " +
+                    serverSocketChannel.socket().toString() );
             socketChannel = SocketChannel.open(new InetSocketAddress("localhost", 30000));
             socketChannel.configureBlocking(false);
 
+            System.out.println("socketChannel: " +
+                    socketChannel.socket().toString() );
 
             clientSocketChannel = serverSocketChannel.accept();
             clientSocketChannel.configureBlocking(false);
+
+            System.out.println("clientSocketChannel: " +
+                    clientSocketChannel.socket().toString() );
         }
         catch (BindException e) {
             e.printStackTrace();
@@ -110,6 +116,21 @@ public class test {
             }
         }
         System.out.println("thank you for using chat");
+
+//        socketChannel.close();
+//        socketChannel = SocketChannel.open(new InetSocketAddress("localhost", 30000));
+//        socketChannel.configureBlocking(false);
+//
+//        System.out.println("new socketChannel: " +
+//                socketChannel.socket().toString() );
+//
+//        clientSocketChannel = serverSocketChannel.accept();
+//        clientSocketChannel.configureBlocking(false);
+//
+//        System.out.println("clientSocketChannel: " +
+//                clientSocketChannel.socket().toString() );
+
+
         serverSocketChannel.close();
         if (socketChannel != null) socketChannel.close();
         if (clientSocketChannel != null) clientSocketChannel.close();
