@@ -1,7 +1,11 @@
 package session4;
 
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
+import org.apache.commons.codec.binary.Hex;
 
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
@@ -24,9 +28,29 @@ public interface Chatable {
     final String ExitWord = "@exit";
     final String ConnectText = "Connect";
     final String DisconnectText = "Disconnect";
-    final String DisconnectMessage = "\nConnection is closed. Thank you " +
-            "for using this chat.";
+    final String DisconnectMessage = ("\nConnection is closed. Thank you " +
+            "for using this chat.\n").toUpperCase();
+    final int SleepTime = 250;
 
+    default void setStyleText(Node node, int FontSize, String textColor) {
+        node.setStyle("-fx-font-weight: bold; -fx-font-size: " + FontSize
+                + "pt; -fx-text-inner-color: " + textColor);
+    }
+
+    default boolean checkServerSocketBound(ServerSocketChannel ch, String
+            ip, int port) {
+        if (ch == null || !ch.socket().isBound() || ip == null || ip.length() ==
+                0)
+            return false;
+
+        if (ch.socket().getLocalSocketAddress().equals(new InetSocketAddress
+                (ip, port))) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     default void showWarning(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING, message);
@@ -39,7 +63,7 @@ public interface Chatable {
 
     }
 
-    default  String getAddress(AbstractSelectableChannel sc) {
+    default String getAddress(AbstractSelectableChannel sc) {
         if (sc instanceof SocketChannel) {
             SocketChannel sc1;
             sc1 = ((SocketChannel) sc);
