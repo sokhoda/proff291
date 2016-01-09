@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by s_okhoda on 04.01.2016.
  */
-public class AsyncChatTest extends Application{
+public class AsyncChatTest extends Application {
 //    public static void main(String[] args) throws IOException{
 ////        AsyncChat client1 = new AsyncChat();
 //
@@ -30,20 +30,12 @@ public class AsyncChatTest extends Application{
         AsyncChat client1 = new AsyncChat("client1");
         Stage stage1 = new Stage();
         client1.showGUI(stage1, false);
-
         new Thread(client1).start();
-
-//        Platform.runLater(client1);
 
         AsyncChat client2 = new AsyncChat("client2");
         Stage stage2 = new Stage();
         client2.showGUI(stage2, true);
-//        Platform.runLater(client2);
-
-       new Thread(client2).start();
-//        while(true){
-//            System.out.println("\t\t MAIN THREAD");
-//        }
+        new Thread(client2).start();
 
     }
 
