@@ -15,9 +15,9 @@ public class Server {
         serverSocketChannel.socket().bind(new InetSocketAddress(30000));
         System.out.println("Server started");
 
+        SocketChannel socketChannel = serverSocketChannel.accept();
+        System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
         while(true) {
-            SocketChannel socketChannel = serverSocketChannel.accept();
-            System.out.println("Connected with client: " + socketChannel.getLocalAddress().toString());
             handleRequest(socketChannel);
         }
     }
@@ -25,12 +25,6 @@ public class Server {
     private static void handleRequest(SocketChannel socketChannel) throws IOException {
         ByteBuffer buffer = ByteBuffer.allocate(100);
         socketChannel.read(buffer);
-
-        System.out.println("CLIENT >>> " + new String(buffer.array()));
-        buffer.clear();
-        buffer.put("Hi, client".getBytes());
-        buffer.flip();
-        socketChannel.write(buffer);
+        System.out.print(new String(buffer.array()).trim() + "\n");
     }
-
 }
