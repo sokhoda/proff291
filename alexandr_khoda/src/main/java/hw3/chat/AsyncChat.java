@@ -3,7 +3,6 @@ package hw3.chat;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -12,7 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import session4.Chatable;
 
@@ -23,7 +23,6 @@ import java.nio.channels.AsynchronousCloseException;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.Arrays;
 
 
 /**
@@ -53,6 +52,11 @@ public class AsyncChat extends Application implements
     private Button connectButton;
     private Button sendButton;
 
+
+    public AsyncChat() {
+
+    }
+
     public AsyncChat(String name) {
         try {
             serverSocketChannel = ServerSocketChannel.open();
@@ -73,16 +77,25 @@ public class AsyncChat extends Application implements
             ipAddress = checkIPaddressValue("IP Address", ipAddrText
                     .getText());
             try {
+                if (serverSocketChannel.socket().isBound()) {
+                    serverSocketChannel.close();
+                    serverSocketChannel = ServerSocketChannel.open();
+                }
                 serverSocketChannel.socket().bind(new InetSocketAddress
                         (ipAddress, listenPort));
                 serverSocketChannel.configureBlocking(false);
             }
             catch (IOException e) {
                 e.printStackTrace();
-                showWarning("serverSocketChannel failed to bind: socket =" +
-                        " " + ipAddress + ":" + listenPort);
+                String message = getClientName().toUpperCase() + " failed to " +
+                        "bind on " + ipAddress + ":" + listenPort;
+                showWarning(message);
+                Platform.runLater(() -> chatText.appendText("\n" + message));
                 return -1;
             }
+            Platform.runLater(() -> chatText.appendText("\n" + getClientName()
+                    .toUpperCase() + " is LISTENING ON " +
+                    serverSocketChannel.socket().toString()));
             return 1;
         }
         catch (NumberFormatException e) {
@@ -91,10 +104,29 @@ public class AsyncChat extends Application implements
         }
     }
 
+    private void manageGUIAttrib() {
+        String color;
+        if (makeChan != null || clientSocketChannel != null) {
+            color = "moccasin";
+            Platform.runLater(() -> connectButton.setText(DisconnectText));
+        }
+        else {
+            color = "white";
+            Platform.runLater(() -> connectButton.setText(ConnectText));
+        }
+
+        Region region = (Region) chatText.lookup(".content");
+        BackgroundFill color3 = new BackgroundFill(Color.web(color),
+                CornerRadii.EMPTY, Insets.EMPTY);
+        region.setBackground(new Background(color3));
+
+
+    }
+
     public void process() {
         try {
+            manageGUIAttrib();
             int readBytesNum = 0;
-//            System.out.println(clientName + " " + connectButton.getText());
 
             if (makeChan != null) {
                 readChann(makeChan);
@@ -103,12 +135,19 @@ public class AsyncChat extends Application implements
 
             if (clientSocketChannel == null) {
                 clientSocketChannel = serverSocketChannel.accept();
-                if (clientSocketChannel != null) {
-//                    clientSocketChannel.configureBlocking(false);
-                    sendMessage(clientSocketChannel, "Connection with " +
-                            getClientName() + " " +
-                            "successfully established on \"" + getAddress
-                            (clientSocketChannel) + "\"", false);
+                try {
+                    Thread.sleep(SleepTime);
+                    if (clientSocketChannel != null) {
+                        manageGUIAttrib();
+                        //                    clientSocketChannel.configureBlocking(false);
+                        sendMessage(clientSocketChannel, ("Connection with " +
+                                getClientName() + " " +
+                                "successfully established on \"").toUpperCase() + getAddress
+                                (clientSocketChannel) + "\"\n", false);
+                    }
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -127,14 +166,10 @@ public class AsyncChat extends Application implements
         if (!ch.isOpen() || ch.socket().isClosed() || !ch.socket().isBound()) {
             return readBytesNum;
         }
-        if (connectButton.getText().equals(ConnectText)) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    connectButton.setText(DisconnectText);
-                }
-            });
-        }
+
+//        if (connectButton.getText().equals(ConnectText)) {
+//            Platform.runLater(() -> connectButton.setText(DisconnectText));
+//        }
         try {
             while ((readBytesNum = ch.read(bufReceive)) > 0) {
                 String receivedMessage = buffToString(bufReceive, readBytesNum);
@@ -163,6 +198,7 @@ public class AsyncChat extends Application implements
         boundListener();
         System.out.println(getClientName() + " serverSocketChannel: " +
                 serverSocketChannel.socket().toString());
+
         while (true) {
             process();
         }
@@ -198,38 +234,49 @@ public class AsyncChat extends Application implements
         }
         finally {
             if (verbose) getChatText().appendText(DisconnectMessage);
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    connectButton.setText(ConnectText);
-                }
-            });
+//            Platform.runLater(() -> connectButton.setText(ConnectText));
             makeChan = null;
             clientSocketChannel = null;
         }
     }
 
     private void makeConnect() {
-        int sendPort;
+        int sendPort, listenPort;
         String ipAddress;
         try {
             sendPort = checkIntValue("SendToPort", sendToPortText
                     .getText(), MinPortNumber, MaxPortNumber);
             ipAddress = checkIPaddressValue("IP Address", ipAddrText
                     .getText());
+            listenPort = checkIntValue("ListenOnPort", listenOnPortText
+                    .getText(), MinPortNumber, MaxPortNumber);
+            if (!checkServerSocketBound(serverSocketChannel, ipAddress,
+                    listenPort)) {
+                boundListener();
+            }
             try {
                 makeChan = SocketChannel.open(new InetSocketAddress
                         (ipAddress, sendPort));
 //                makeChan.configureBlocking(false);
-                sendMessage(makeChan, getClientName() + " has successfully " +
-                                "connected to you on \"" + getAddress(makeChan) + "\"",
-                        false);
+                sendMessage(makeChan, (getClientName() + " has successfully " +
+                        "connected to you on \"").toUpperCase() +
+                        getAddress(makeChan) + "\"\n", false);
+
 //                System.out.println(clientName + " connect pressed: " +
 //                        "makeChan " + makeChan.socket().toString());
-                if (makeChan != null) connectButton.setText(DisconnectText);
+//                if (makeChan != null) connectButton.setText(DisconnectText);
             }
             catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                Platform.runLater(() -> {
+                    String message = "\n" + getClientName().toUpperCase() +
+                            " failed to bind on " + ipAddress + ":" +
+                            sendPort + ". IP address and/or port " +
+                            "number might not match.\n";
+                    chatText.appendText(message);
+                });
+
+
             }
         }
         catch (NumberFormatException e) {
@@ -266,7 +313,8 @@ public class AsyncChat extends Application implements
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Asynchronous Chat: " + getClientName().toUpperCase());
+        stage.setTitle("Asynchronous Chat v1.3 by O.Khodakovskyi: " +
+                getClientName().toUpperCase());
 
         connectButton = new Button(ConnectText);
         connectButton.setMinWidth(170);
@@ -287,7 +335,7 @@ public class AsyncChat extends Application implements
             public void handle(ActionEvent event) {
 
                 sendMessage(makeChan != null ? makeChan : clientSocketChannel,
-                        getInputText().getText(), true);
+                        getInputText().getText(), false);
                 getInputText().clear();
             }
         });
@@ -296,6 +344,15 @@ public class AsyncChat extends Application implements
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if (makeChan != null || clientSocketChannel != null) {
+                    connectButton.fire();
+                }
+                try {
+                    Thread.sleep(SleepTime);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.exit(0);
             }
         });
@@ -316,9 +373,11 @@ public class AsyncChat extends Application implements
         chatText = new TextArea("");
         chatText.setScrollTop(Double.MAX_VALUE);
         chatText.setEditable(false);
+        chatText.setStyle("-fx-text-inner-color: blue;");
 
         inputText = new TextArea("");
         inputText.setMaxHeight(100);
+        setStyleText(inputText, 14, "#0017F0");
 
         Scene scene = new Scene(new Group(), 920, 500);
 
@@ -377,3 +436,4 @@ public class AsyncChat extends Application implements
         return connectButton;
     }
 }
+
