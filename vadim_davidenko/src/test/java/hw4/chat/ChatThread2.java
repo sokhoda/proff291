@@ -24,26 +24,30 @@ public class ChatThread2 extends Thread {
 
     @Override
     public void run() {
+        final int BUFFER_SIZE = 100;
         try {
             serverSocketChannel = ServerSocketChannel.open();
             serverSocketChannel.socket().bind(new InetSocketAddress(ip, port));
-            AsyncChat2.updateChatText("Server started on port " + port);
+            AsyncChat2.updateChatText("Chat server is listening for client... \n");
+
             socketChannel = serverSocketChannel.accept();
+            AsyncChat.updateChatText("Client " + socketChannel.getLocalAddress().toString() + " connected to this chat\n");
+            if (!AsyncChat2.isConnected) {
+                AsyncChat.updateChatText("Click [Connect] button to connect with server\n");
+            }
         } catch (IOException e) {
             disconnect();
             e.printStackTrace();
         }
-        ByteBuffer buf = ByteBuffer.allocate(100);
+
+        ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
         while (true) {
             try {
-                StringBuilder sb = new StringBuilder();
-                buf.clear();
-                while(socketChannel.read(buf) > 0) {
-                    sb.append(buf.asCharBuffer().toString());
-                }
-                String msg = sb.toString();
+                buffer.clear();
+                socketChannel.read(buffer);
+                buffer.flip();
+                String msg = new String(buffer.array()).substring(0, buffer.limit());
                 if (!msg.isEmpty()) {
-                    msg = "[Other user:]\n" + msg;
                     AsyncChat2.updateChatText(msg);
                 }
             } catch (IOException ignored) {
