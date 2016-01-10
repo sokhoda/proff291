@@ -140,6 +140,7 @@ public class AsyncChat extends Application {
             isConnectedToServer = true;
         } catch (IOException e) {
             disconnect();
+            updateChatText("Chat server waiting for connection from other chat...\n");
         }
     }
 
@@ -176,7 +177,7 @@ public class AsyncChat extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        updateChatText("Remote server disconnected\n");
+        updateChatText("Remote chat disconnected\n");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -247,7 +248,7 @@ public class AsyncChat extends Application {
             } catch(IOException e) {
                 e.printStackTrace();
             }
-            updateChatText("Remote client disconnected\n");
+            updateChatText("Remote chat disconnected\n");
         }
     }
 
