@@ -34,7 +34,7 @@ public class AsyncChat2 extends Application {
 
     private int clientPort;
     private String ip;
-    public static String chatText = "";
+    public static StringBuffer chatText = new StringBuffer();
     private SocketChannel socketChannel;
     private ChatThread chatThread;
     private boolean isConnectedToServer;
@@ -157,12 +157,15 @@ public class AsyncChat2 extends Application {
 
     public static synchronized void updateChatText(String msg) {
         if (!msg.isEmpty()) {
-            chatText += msg;
+            chatText.append(msg);
         }
     }
 
     public static String getChatText() {
-        return chatText;
+        if (chatText != null){
+            return chatText.toString();
+        }
+        return "";
     }
 
     public void disconnect() {
