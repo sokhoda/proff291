@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
@@ -39,6 +40,7 @@ public class AsyncChat2 extends Application {
     private ChatThread chatThread;
     private boolean isConnectedToServer;
     private boolean isRefreshStarted;
+    private static final String ENCODING = "UTF-8";
 
     public static void main(String[] args) throws IOException {
         launch(args);
@@ -144,10 +146,10 @@ public class AsyncChat2 extends Application {
         }
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(String msg) throws UnsupportedEncodingException {
         String sendMsg = "<< Other user >>\n" + msg + "\n";
-        ByteBuffer buf = ByteBuffer.allocate(sendMsg.getBytes().length);
-        buf.put(sendMsg.getBytes());
+        ByteBuffer buf = ByteBuffer.allocate(sendMsg.getBytes(ENCODING).length);
+        buf.put(sendMsg.getBytes(ENCODING));
         buf.flip();
         try {
             socketChannel.write(buf);
@@ -218,7 +220,7 @@ public class AsyncChat2 extends Application {
                     buffer.clear();
                     socketChannel.read(buffer);
                     buffer.flip();
-                    String msg = new String(buffer.array()).substring(0, buffer.limit());
+                    String msg = new String(buffer.array(), ENCODING).substring(0, buffer.limit());
                     if (!msg.isEmpty()) {
                         updateChatText(msg);
                     }
