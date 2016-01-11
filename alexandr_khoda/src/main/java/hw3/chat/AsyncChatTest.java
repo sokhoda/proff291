@@ -1,11 +1,7 @@
 package hw3.chat;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
-import scala.App;
-
-import java.io.IOException;
 
 /**
  * Created by s_okhoda on 04.01.2016.
