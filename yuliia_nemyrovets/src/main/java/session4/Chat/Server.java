@@ -10,17 +10,17 @@ import java.nio.channels.SocketChannel;
  * Created by Юлия on 27.12.2015.
  */
 public class Server {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.socket().bind(new InetSocketAddress(1111));
         while (true) {
             SocketChannel socketChannel = serverSocketChannel.accept();
-           handleRequest(socketChannel);
+            handleRequest(socketChannel);
         }
 
     }
 
-    public static void handleRequest(SocketChannel socketChannel) throws IOException {
+    public static void handleRequest(SocketChannel socketChannel) throws IOException, InterruptedException {
         ByteBuffer buf = ByteBuffer.allocate(100);
         socketChannel.read(buf);
         buf.put("Hello, Client".getBytes());
@@ -28,15 +28,14 @@ public class Server {
         while (true) {
             socketChannel.write(buf);
             buf.clear();
-
-            int readed=socketChannel.read(buf);
+            int readed = socketChannel.read(buf);
             buf.flip();
+            System.out.println(new String(buf.array(), 0, readed));
 
-            System.out.println(new String(buf.array(),0,readed));
-
-
+            Thread.sleep(1000);
         }
 
     }
 }
+
 
