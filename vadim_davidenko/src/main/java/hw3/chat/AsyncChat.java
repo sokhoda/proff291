@@ -41,19 +41,15 @@ public class AsyncChat extends Application {
     private ChatThread chatThread;
     private boolean isRefreshStarted;
     private boolean isClientConnected;
-    private boolean isPortsSwapped;
     private String chatTitle;
     private static final String ENCODING = "UTF-8";
 
-    public AsyncChat(String chatTitle, boolean isPortsSwapped) {
-        this.isPortsSwapped = isPortsSwapped;
+    public AsyncChat(String chatTitle) {
         this.chatTitle = chatTitle;
-        chatText = new StringBuffer();
     }
 
     public AsyncChat(){
         chatTitle = "P2P Chat";
-        isPortsSwapped = false;
         chatText = new StringBuffer();
     }
 
@@ -101,12 +97,6 @@ public class AsyncChat extends Application {
     }
 
     public void onClickConnect() {
-        fieldUserMessage.setWrapText(true);
-        fieldChatText.setWrapText(true);
-        if (isPortsSwapped) {
-            swapPorts();
-            isPortsSwapped = false;
-        }
         if (!fieldIP.getText().isEmpty() && !fieldClientPort.getText().isEmpty() &&
                 !fieldListenPort.getText().isEmpty()) {
 
@@ -157,12 +147,6 @@ public class AsyncChat extends Application {
         } catch (IOException e) {
             disconnectClient();
         }
-    }
-
-    public void swapPorts() {
-        String temp = fieldListenPort.getText();
-        fieldListenPort.setText(fieldClientPort.getText());
-        fieldClientPort.setText(temp);
     }
 
     public synchronized void updateChatText(String msg) {
@@ -289,3 +273,4 @@ public class AsyncChat extends Application {
     }
 
 }
+
