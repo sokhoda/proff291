@@ -51,13 +51,16 @@ public class AsyncChat extends Application implements
     private boolean crossPort;
     private Button connectButton;
     private Button sendButton;
+    private String partnerName = null;
 
+    private int sendReceiveStat = -1;
 
     public AsyncChat() {
 
     }
 
     public AsyncChat(String name) {
+
         try {
             serverSocketChannel = ServerSocketChannel.open();
             this.clientName = name;
@@ -119,8 +122,6 @@ public class AsyncChat extends Application implements
         BackgroundFill color3 = new BackgroundFill(Color.web(color),
                 CornerRadii.EMPTY, Insets.EMPTY);
         region.setBackground(new Background(color3));
-
-
     }
 
     public void process() {
@@ -140,9 +141,10 @@ public class AsyncChat extends Application implements
                     if (clientSocketChannel != null) {
                         manageGUIAttrib();
                         //                    clientSocketChannel.configureBlocking(false);
-                        sendMessage(clientSocketChannel, ("Connection with " +
-                                getClientName() + " " +
-                                "successfully established on \"").toUpperCase() + getAddress
+                        sendMessage(clientSocketChannel, getClientName() +
+                                Delimiter + ("Connection with " +
+                                getClientName() + " successfully established on \"")
+                                .toUpperCase() + getAddress
                                 (clientSocketChannel) + "\"\n", false);
                     }
                 }
@@ -161,25 +163,43 @@ public class AsyncChat extends Application implements
 
     }
 
+
     private int readChann(SocketChannel ch) throws IOException {
         int readBytesNum = 0;
         if (!ch.isOpen() || ch.socket().isClosed() || !ch.socket().isBound()) {
             return readBytesNum;
         }
 
-//        if (connectButton.getText().equals(ConnectText)) {
-//            Platform.runLater(() -> connectButton.setText(DisconnectText));
-//        }
         try {
             while ((readBytesNum = ch.read(bufReceive)) > 0) {
                 String receivedMessage = buffToString(bufReceive, readBytesNum);
-                if (!receivedMessage.equals(DisconnectMessage)) {
-                    getChatText().appendText("\n" + getClientName() + " \"" +
-                            getAddress(ch) + "\" received: " + "\n" + receivedMessage);
+                if (partnerName == null) {
+                    String[] connectionMessage = receivedMessage.split
+                            (Delimiter);
+                    if (receivedMessage.indexOf(Delimiter) >= 0 &&
+                            connectionMessage.length > 1) {
+                        partnerName = connectionMessage[0];
+                        getChatText().appendText("\n" + connectionMessage[1]);
+                    }
+                    else {
+                        getChatText().appendText("\nINVALID CONNECTION " +
+                                "MESSAGE FORMAT RECEIVED.");
+                    }
                 }
                 else {
-                    getChatText().appendText(DisconnectMessage);
-                    makeDisconnect(false);
+
+                    if (!receivedMessage.equals(DisconnectMessage)) {
+//                    getChatText().appendText("\n" + getClientName() + " \"" +
+//                            getAddress(ch) + "\" received: " + "\n" + receivedMessage);
+                        getChatText().appendText("\n" + (sendReceiveStat != 0 ?
+                                getPartner() + " says:\n" : "") +
+                                receivedMessage);
+                        setSendReceiveStat(0);
+                    }
+                    else {
+                        getChatText().appendText(DisconnectMessage);
+                        makeDisconnect(false);
+                    }
                 }
                 bufReceive.clear();
             }
@@ -234,9 +254,10 @@ public class AsyncChat extends Application implements
         }
         finally {
             if (verbose) getChatText().appendText(DisconnectMessage);
-//            Platform.runLater(() -> connectButton.setText(ConnectText));
             makeChan = null;
             clientSocketChannel = null;
+            partnerName = null;
+            setSendReceiveStat(-1);
         }
     }
 
@@ -258,13 +279,13 @@ public class AsyncChat extends Application implements
                 makeChan = SocketChannel.open(new InetSocketAddress
                         (ipAddress, sendPort));
 //                makeChan.configureBlocking(false);
-                sendMessage(makeChan, (getClientName() + " has successfully " +
-                        "connected to you on \"").toUpperCase() +
+                sendMessage(makeChan, getClientName() + Delimiter +
+                        (getClientName() + " has successfully " +
+                                "connected to you on \"").toUpperCase() +
                         getAddress(makeChan) + "\"\n", false);
 
 //                System.out.println(clientName + " connect pressed: " +
 //                        "makeChan " + makeChan.socket().toString());
-//                if (makeChan != null) connectButton.setText(DisconnectText);
             }
             catch (Exception e) {
                 //e.printStackTrace();
@@ -296,10 +317,14 @@ public class AsyncChat extends Application implements
             while (bufSend.hasRemaining()) {
                 channel.write(bufSend);
                 if (verbose) {
-                    chatText.appendText("\n"
-                            + getClientName() + " sends on \"" +
-                            getAddress(channel) + "\"\n" +
+//                    chatText.appendText("\n"
+//                            + getClientName() + " sends on \"" +
+//                            getAddress(channel) + "\"\n" +
+//                            buffToString(bufSend, bufSend.limit()));
+                    chatText.appendText((sendReceiveStat != 1 ? "\n\tYour " +
+                            "answer:":"") + "\n\t" +
                             buffToString(bufSend, bufSend.limit()));
+                    setSendReceiveStat(1);
                 }
             }
             bufSend.flip();
@@ -335,7 +360,7 @@ public class AsyncChat extends Application implements
             public void handle(ActionEvent event) {
 
                 sendMessage(makeChan != null ? makeChan : clientSocketChannel,
-                        getInputText().getText(), false);
+                        getInputText().getText(), true);
                 getInputText().clear();
             }
         });
@@ -434,6 +459,14 @@ public class AsyncChat extends Application implements
 
     public Button getConnectButton() {
         return connectButton;
+    }
+
+    public String getPartner() {
+        return partnerName;
+    }
+
+    public void setSendReceiveStat(int sendReceiveStat) {
+        this.sendReceiveStat = sendReceiveStat;
     }
 }
 
