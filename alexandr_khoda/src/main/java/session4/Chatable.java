@@ -30,6 +30,7 @@ public interface Chatable {
     final String DisconnectText = "Disconnect";
     final String DisconnectMessage = ("\nConnection is closed. Thank you " +
             "for using this chat.\n").toUpperCase();
+    final String Delimiter = String.valueOf((char)(19));
     final int SleepTime = 250;
 
     default void setStyleText(Node node, int FontSize, String textColor) {
