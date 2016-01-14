@@ -13,6 +13,24 @@ public class User {
     private double rate;
     private boolean sex;
 
+    public User(String login, String pass, GregorianCalendar regDate, double rate, boolean sex) {
+        this.login = login;
+        this.pass = pass;
+        this.regDate = regDate;
+        this.rate = rate;
+        this.sex = sex;
+    }
+
+    public User() {
+    }
+
+    public User(String login, String pass, GregorianCalendar regDate) {
+        this.login = login;
+        this.pass = pass;
+        this.regDate = regDate;
+        this.rate = 0;
+        this.sex = false; //man
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -20,9 +38,9 @@ public class User {
         if (obj == null || this.getClass() != obj.getClass()) return false;
 
         User user = (User) obj;
-        if (login.equals(user.getLogin())
-                && pass.equals(user.getPass())
-                && regDate.equals(user.getRegDate())
+        if ((login != null ? login.equals(user.getLogin()): user.getLogin() == null)
+                && (pass != null ? pass.equals(user.getPass()): user.getPass() == null)
+                && (regDate != null ? regDate.equals(user.getRegDate()): user.getRegDate() == null)
                 && Double.compare(rate, user.getRate()) == 0
                 && sex == user.isSex()) {
             return true;

@@ -12,4 +12,12 @@
 
     <artifactId>alexandr_khoda</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>8.40.10</version>
+        </dependency>
+    </dependencies>
+
 </project>
