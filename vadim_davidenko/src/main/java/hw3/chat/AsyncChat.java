@@ -21,7 +21,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by Вадим on 05.01.2016.
  */
-public class AsyncChat extends Application {
+public class AsyncChat extends Application implements Runnable {
     @FXML
     private TextField fieldIP;
     @FXML
@@ -50,24 +50,26 @@ public class AsyncChat extends Application {
 
     public AsyncChat(){
         chatTitle = "P2P Chat";
-        chatText = new StringBuffer();
+    }
+
+    @Override
+    public void run() {}
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        createStage(stage);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        disconnectClient();
+        chatThread.disconnectServer();
+        System.exit(0);
     }
 
 //    public static void main(String[] args) throws IOException {
 //        launch(args);
 //    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        createStage(stage);
-        stage.show();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-        System.exit(0);
-    }
 
     public void createStage(Stage stage) throws IOException {
         String fxmlFile = "/fxml/chat.fxml";
@@ -77,10 +79,12 @@ public class AsyncChat extends Application {
         stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.show();
     }
 
     public void process() {
         // text area refreshing thread starts
+        chatText = new StringBuffer();
         if (!isRefreshStarted) {
             refreshChatWindow();
             isRefreshStarted = true;
@@ -115,7 +119,6 @@ public class AsyncChat extends Application {
         if (!fieldUserMessage.getText().isEmpty()) {
             String msg = fieldUserMessage.getText();
             if (msg.trim().equalsIgnoreCase("exit")) {
-                disconnectClient();
                 stop();
             }
             if (isClientConnected) {
