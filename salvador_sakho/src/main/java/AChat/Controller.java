@@ -49,13 +49,7 @@ public class Controller {
     @FXML
     TextArea IPField;
 
-    @FXML
-    public void servOn1() {
-//        if (ss == null) {
-//            ss = new ServerSalva(Integer.parseInt(portField.getText()));
-//            ss.start();
-//        }
-    }
+
 
     @FXML
     public void makeAction() {
