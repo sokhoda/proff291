@@ -26,20 +26,30 @@ public class ServerSalva extends Thread{
         this.port = port;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
     private  int port;
+    private  String ip;
     private SocketChannel scForlisten;
     private ServerSocketChannel ssc;
     Controller con = new Controller();
+
 @Override
     public void run() {
     try {
         ssc = ServerSocketChannel.open();
         ssc.socket().bind(new InetSocketAddress(getPort()));
         System.out.println("I am hear");
-        if(!con.isClientConnected()){
-        con.connectionServer(ssc,getPort());
-        }
-        System.out.println("I am hear2");
+        System.out.println("Server On");
+//        if(!con.isClientConnected()){
+//         System.out.println("I am hear2");
+//        }
+
         scForlisten=ssc.accept();
 
     } catch (IOException e) {
@@ -53,9 +63,9 @@ public class ServerSalva extends Thread{
             scForlisten.read(bb);
             bb.flip();
             String messText= new String(bb.array());
-            if (!messText.isEmpty()) {///метод вывода в окно(messText)
+            if (!messText.isEmpty()) {
               con.chatMess(messText);//Должен выводить в окно текст
-                System.out.println(messText);
+              System.out.println(messText);
             }
         }catch (IOException e)
         {

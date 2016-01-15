@@ -4,12 +4,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AChat.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AChat.Controller">
    <children>
-      <Button fx:id="btn2" layoutX="153.0" layoutY="69.0" mnemonicParsing="false" onAction="#makeAction" text="Send" />
-      <TextField fx:id="tf1" layoutX="213.0" layoutY="69.0" prefHeight="25.0" prefWidth="134.0" promptText="Message" />
-      <TextField fx:id="portField" editable="false" layoutX="361.0" layoutY="69.0" prefHeight="25.0" prefWidth="94.0" promptText="port number" text="4548" />
-      <Button fx:id="servOn" layoutX="17.0" layoutY="31.0" mnemonicParsing="false" onAction="#servOn1" text="turn on server" />
-      <TextField fx:id="tf2" editable="false" layoutX="76.0" layoutY="102.0" prefHeight="63.0" prefWidth="353.0" promptText="messages" />
+      <Button fx:id="btn2" layoutX="339.0" layoutY="282.0" mnemonicParsing="false" onAction="#makeAction" prefHeight="25.0" prefWidth="111.0" text="отправить" />
+      <Button fx:id="servOn" layoutX="8.0" layoutY="27.0" mnemonicParsing="false" onAction="#servOn1" text="turn on server" />
+      <TextArea fx:id="tf2" layoutX="32.0" layoutY="84.0" prefHeight="178.0" prefWidth="425.0" promptText="текс чата" />
+      <TextArea fx:id="tf1" layoutX="14.0" layoutY="277.0" prefHeight="34.0" prefWidth="271.0" promptText="Текст сообщения" />
+      <TextArea fx:id="portField" layoutX="412.0" layoutY="27.0" prefHeight="25.0" prefWidth="90.0" />
+      <TextArea fx:id="IPField" layoutX="305.0" layoutY="27.0" prefHeight="25.0" prefWidth="90.0" promptText="IP" text="127.0.0.1" />
+      <Button fx:id="conServ" layoutX="127.0" layoutY="27.0" mnemonicParsing="false" onAction="#connectionServer" text="Подключение к серверу" />
    </children>
 </Pane>

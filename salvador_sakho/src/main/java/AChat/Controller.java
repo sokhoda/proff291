@@ -1,6 +1,7 @@
 package AChat;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -40,36 +41,38 @@ public class Controller {
    // ByteBuffer buffer = ByteBuffer.allocate(1000);
 
     @FXML
-    TextField tf1;
+    TextArea tf1;
     @FXML
-    TextField tf2;
+    TextArea tf2;
     @FXML
-    TextField portField;
+    TextArea portField;
+    @FXML
+    TextArea IPField;
 
     @FXML
     public void servOn1() {
-        if (ss == null) {
-            ss = new ServerSalva(Integer.parseInt(portField.getText()));
-            ss.setPort(Integer.parseInt(portField.getText()));
-            ss.start();
-        }
+//        if (ss == null) {
+//            ss = new ServerSalva(Integer.parseInt(portField.getText()));
+//            ss.start();
+//        }
     }
 
     @FXML
     public void makeAction() {
         String st=tf1.getText();
-
         massegeSender(st);
         System.out.println(st);
         tf1.clear();
     }
-
-    public void connectionServer(ServerSocketChannel s, int portnumber){
+    @FXML
+    public void connectionServer(){
         try {
-            clientsockChan = SocketChannel.open(new InetSocketAddress(portnumber));
+            ss = new ServerSalva(Integer.parseInt(portField.getText()));
+            ss.start();
+            clientsockChan = SocketChannel.open(new InetSocketAddress(ss.getPort()));
             isClientConnected=true;
-            System.out.println("hello");
-
+            System.out.println(clientsockChan.getLocalAddress()+" "+clientsockChan.getRemoteAddress());
+            System.out.println("hello you are connected to chat");
         }catch (IOException e)
         {
             System.out.println(e+" connectionServer");
@@ -92,6 +95,6 @@ public class Controller {
 
     }
     public void chatMess(String cm){
-        tf2.setText(cm);
+        tf2.appendText(String.format("Your masseg ")+cm);
     }
 }
