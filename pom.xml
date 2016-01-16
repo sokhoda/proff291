@@ -18,11 +18,18 @@
 
         <module>andrey_kallko</module>
 
+        <module>olena_babenko</module>
         <module>dima_rutskiy</module>
+        <module>dima_rutskiy_web</module>
+
+        <module>andrey_kallko</module>
+
+        <module>andrey_kallko</module>
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
         <module>alexandr_khoda</module>
         <module>pavel_semerenko</module>
+        <module>pavel_semerenko_web</module>
         <module>salvador_sakho</module>
         <module>kristina_karpenko</module>
         <module>lyashenko_dmitriy</module>
@@ -32,6 +39,7 @@
         <module>yura_skulskiy</module>
         <module>igor_gonchar_web</module>
 
+        <module>olena_babenko_web</module>
     </modules>
 
     <properties>
