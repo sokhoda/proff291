@@ -45,6 +45,7 @@
         <module>igor_gonchar_web</module>
 
         <module>olena_babenko_web</module>
+        <module>alexandr_cherkassky_web</module>
     </modules>
 
     <properties>
