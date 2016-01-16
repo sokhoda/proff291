@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ChatWindow extends Application {
-    private boolean isServer = true;//start as server with true value, then change to false value and start as client
+    private boolean isServer = false;//start as server with true value, then change to false value and start as client
 
     private ChatConnection connection = isServer ? createChatServer() : createChatClient();
     private TextArea chatArea;
