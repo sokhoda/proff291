@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AChat.Controller">
+   <children>
+      <Button fx:id="btn2" layoutX="339.0" layoutY="282.0" mnemonicParsing="false" onAction="#makeAction" prefHeight="25.0" prefWidth="111.0" text="отправить" />
+      <TextArea fx:id="tf2" layoutX="32.0" layoutY="84.0" prefHeight="178.0" prefWidth="425.0" promptText="текс чата" />
+      <TextArea fx:id="tf1" layoutX="14.0" layoutY="277.0" prefHeight="34.0" prefWidth="271.0" promptText="Текст сообщения" />
+      <TextArea fx:id="portField" layoutX="346.0" layoutY="27.0" prefHeight="25.0" prefWidth="143.0" promptText="Введите номер порта" />
+      <TextArea fx:id="IPField" layoutX="227.0" layoutY="27.0" prefHeight="25.0" prefWidth="90.0" promptText="IP" text="127.0.0.1" />
+      <Button fx:id="conServ" layoutX="23.0" layoutY="27.0" mnemonicParsing="false" onAction="#connectionServer" text="Подключение к серверу" />
+   </children>
+</Pane>

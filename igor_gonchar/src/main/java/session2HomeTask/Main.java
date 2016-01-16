@@ -9,7 +9,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         TextGenerator tg = new TextGenerator();
-        tg.setTestForParsing(tg.setTextFromFile("D:\\Pragramming\\Java\\Intelij Projects\\proff29\\igor_gonchar\\src\\main\\resources\\test.txt"));
+        tg.setTestForParsing(tg.setTextFromFile("D:\\Pragramming\\Java\\Intelij Projects\\proff29\\igor_gonchar\\src\\main\\resources\\session4\\test.txt"));
         String aaa = tg.getTestForParsing();
         Set<String> list = tg.getWordsByFrequency(2);
         System.out.println("-----------");

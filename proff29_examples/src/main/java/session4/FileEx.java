@@ -19,10 +19,11 @@ public class FileEx {
 
         try {
             channel = Files.newByteChannel(file);
-            ByteBuffer buffer = ByteBuffer.allocate(20);
+            ByteBuffer buffer = ByteBuffer.allocate(3);
             int readed;
             while((readed = channel.read(buffer)) > 0) {
-                // print data from buffer
+                System.out.print(new String(buffer.array(), 0, readed));
+                buffer.rewind();
             }
         } catch (Exception e) {
             e.printStackTrace();
