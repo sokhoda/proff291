@@ -3,6 +3,7 @@ package main.java.web.domain;
 import javax.persistence.*;
 import java.util.Date;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: al1
