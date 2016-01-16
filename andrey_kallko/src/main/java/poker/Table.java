@@ -68,7 +68,7 @@ public class Table extends Application {
 
 
 
-    Text probablyStrategy = new Text(); //временное поле текст стратегия игры компа и другие тестовые данные
+    Text showTempText = new Text(); //временное поле текст стратегия игры компа и другие тестовые данные
     String phase = "pref";// возможные значения pref, flop, turn, rive;
 
 
@@ -295,9 +295,9 @@ public class Table extends Application {
         act4.setLayoutY(480);
 
 
-        probablyStrategy.setLayoutY(150);
-        probablyStrategy.setLayoutX(400);
-        probablyStrategy.setText("Буду думать...");
+        showTempText.setLayoutY(150);
+        showTempText.setLayoutX(400);
+        showTempText.setText("Буду думать...");
 
 
         gPlane.getChildren().add(myCard1);
@@ -325,7 +325,7 @@ public class Table extends Application {
         gPlane.getChildren().add(nextLevel);
         gPlane.getChildren().add(timeAnnot);
         gPlane.getChildren().add(nextTime);
-        gPlane.getChildren().add(probablyStrategy);
+        gPlane.getChildren().add(showTempText);
 
 
         // жеребьевка и добавление клавиш для основной игры
@@ -365,7 +365,7 @@ public class Table extends Application {
             @Override
             public void handle(Event event) {
                 preflop.interrupt();
-                probablyStrategy.setText("Буду думать...");
+                showTempText.setText("Буду думать...");
                 betSize.setText("0");
             cash.pot = cash.myBet+cash.compBet;
             cash.compStack=cash.compStack+cash.pot;
@@ -915,7 +915,14 @@ public class Table extends Application {
             nabor[5] = deck.getCard(8);
             nabor[6] = deck.getCard(9);
 
-            // Проверка 
+            // Проверка на роял флеш
+
+            // Проверка на стреет флеш
+
+            // Проверка на каре
+
+            // Проверка на фулл
+
 
 
             // Проверка на ФЛЕШ
@@ -941,12 +948,16 @@ public class Table extends Application {
 
             if ((c>4)||(d>4)||(h>4)||(s>4)) {
                 System.out.println("Найден флеш!!!");
-                probablyStrategy.setText(probablyStrategy.getText()+"А у вас флешик нашелся!!!!");
+                showTempText.setText(showTempText.getText()+"А у вас флешик нашелся!!!!");
                 return result;
             }
             // окончание проверки на ФЛЕШ
 
 
+            // Проверка на стреет
+
+
+            // Проверка на две пары
 
             
             // Проверка на пару тройку и каре
@@ -970,7 +981,7 @@ public class Table extends Application {
             while (i<14){
                 if (checkPair[i]>3) {
                     System.out.println("Найдена каре!!!!");
-                    probablyStrategy.setText(probablyStrategy.getText()+" А у вас есть четыре одинаковых!!!!");
+                    showTempText.setText(showTempText.getText()+" А у вас есть четыре одинаковых!!!!");
                     return result;
                 }
                 i++;
@@ -979,7 +990,7 @@ public class Table extends Application {
             while (i<14){
                 if (checkPair[i]>2) {
                     System.out.println("Найдена тройка!!!!");
-                    probablyStrategy.setText(probablyStrategy.getText()+" А у вас есть три одинаковых!!!!");
+                    showTempText.setText(showTempText.getText()+" А у вас есть три одинаковых!!!!");
                     return result;
                 }
                 i++;
@@ -989,7 +1000,7 @@ public class Table extends Application {
             while (i<14){
                 if (checkPair[i]>1) {
                     System.out.println("Найдена пара!!!!");
-                    probablyStrategy.setText(probablyStrategy.getText()+" А у вас есть две одинаковых!!!!");
+                    showTempText.setText(showTempText.getText()+" А у вас есть две одинаковых!!!!");
                     return result;}
 
                 i++;
@@ -997,6 +1008,9 @@ public class Table extends Application {
 
 
             // Окончание проверки на пару.
+
+
+            // Проверка на хай карту
 
 
             return result;
@@ -1042,7 +1056,7 @@ public class Table extends Application {
             if ((chance>=5900)&&(chance<6300)) {desition="Играю бет разумный колл";}
             if ((chance>=6300)&&(chance<6600)) {desition="Играю бет большой колл";}
             if ((chance>=6600)) {desition="Играю бет оллин";}
-            probablyStrategy.setText(desition);
+            showTempText.setText(desition);
 
         }
 
