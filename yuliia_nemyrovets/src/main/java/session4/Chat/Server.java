@@ -12,7 +12,7 @@ import java.nio.channels.SocketChannel;
 public class Server {
     public static void main(String[] args) throws IOException, InterruptedException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.socket().bind(new InetSocketAddress(1111));
+        serverSocketChannel.socket().bind(new InetSocketAddress(12000));
         while (true) {
             SocketChannel socketChannel = serverSocketChannel.accept();
             handleRequest(socketChannel);
@@ -20,22 +20,20 @@ public class Server {
 
     }
 
-    public static void handleRequest(SocketChannel socketChannel) throws IOException, InterruptedException {
+    public static void handleRequest(SocketChannel socketChannel) throws IOException {
         ByteBuffer buf = ByteBuffer.allocate(100);
         socketChannel.read(buf);
-        buf.put("Hello, Client".getBytes());
+        System.out.println(new String(buf.array()));
+        buf.clear();
+        buf.put("Hello, Client. How are you".getBytes());
         buf.flip();
-        while (true) {
-            socketChannel.write(buf);
-            buf.clear();
-            int readed = socketChannel.read(buf);
-            buf.flip();
-            System.out.println(new String(buf.array(), 0, readed));
 
-            Thread.sleep(1000);
-        }
+        socketChannel.write(buf);
+
 
     }
+
 }
+
 
 
