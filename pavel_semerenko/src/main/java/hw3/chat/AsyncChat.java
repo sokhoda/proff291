@@ -27,8 +27,7 @@ public class AsyncChat extends Application implements Runnable{
     private int targetPort;
     private int inputPort;
     private ByteBuffer bufferIN;
-    private ByteBuffer bufferOUT;
-    private final int bufferSize = 15;
+    private final int bufferSize = 50;
     private String tempMessage = "";
     private boolean keep_running = true;
 
@@ -72,7 +71,6 @@ public class AsyncChat extends Application implements Runnable{
         fieldTargetIP.setDisable(true);
         fieldTargetPort.setDisable(true);
         bufferIN = ByteBuffer.allocate(bufferSize);
-        bufferOUT = ByteBuffer.allocate(bufferSize);
         targetIP = fieldTargetIP.getText();
         targetPort = Integer.parseInt(fieldTargetPort.getText());
         inputPort = Integer.parseInt(fieldInputPort.getText());
@@ -84,27 +82,14 @@ public class AsyncChat extends Application implements Runnable{
     }
 
     public void onClickSend() throws IOException {
-        int currPosition = 0;
-        String message = textMessage.getText();
-        send("some guy >> ");
-        while(currPosition < message.length()){
-            send(message.substring(currPosition, Integer.min(currPosition + bufferSize, message.length())));
-            currPosition += bufferSize;
-        }
-        send("\n");
+        String message = "some guy >> " + textMessage.getText() + "\n";
+        ByteBuffer bufferOUT = ByteBuffer.allocate(message.length());
+        bufferOUT.clear();
+        bufferOUT.put(message.getBytes());
+        bufferOUT.flip();
+        socketChannel.write(bufferOUT);
         textHistory.appendText(String.format("you >> ") + textMessage.getText() + "\n");
         textMessage.setText("");
-    }
-
-    private void send(String substring) throws IOException {
-        bufferOUT.clear();
-        bufferOUT.put(substring.getBytes());
-        bufferOUT.flip();
-
-        ByteBuffer bf = ByteBuffer.allocate(bufferSize);
-        bf.put(substring.getBytes());
-        bf.flip();
-        socketChannel.write(bf);
     }
 
     @Override
@@ -112,9 +97,16 @@ public class AsyncChat extends Application implements Runnable{
         process();
         while (keep_running) {
             try {
-                bufferIN = ByteBuffer.allocate(bufferSize);
+                bufferIN.clear();
                 socketChannel.read(bufferIN);
-                completeAndGetMessage(new String(bufferIN.array()));
+                bufferIN.flip();
+                completeAndGetMessage(new String(bufferIN.array()).substring(0, bufferIN.limit()));
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        textHistory.appendText(completeAndGetMessage(null));
+                    }
+                });
             } catch (IOException e) {
                 try {
                     socketChannel = serverSocketChannel.accept();
@@ -122,12 +114,6 @@ public class AsyncChat extends Application implements Runnable{
                     e1.printStackTrace();
                 }
             }
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    textHistory.appendText(completeAndGetMessage(null));
-                }
-            });
         }
     }
 
