@@ -23,6 +23,7 @@ public class AsyncChatTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         AsyncChat client1 = new AsyncChat("client1");
         Stage stage1 = new Stage();
         client1.showGUI(stage1, false);
