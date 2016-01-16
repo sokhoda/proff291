@@ -213,7 +213,7 @@ public class AsyncChat extends Application {
 
         @Override
         public void run() {
-            final int BUFFER_SIZE = 100;
+            final int BUFFER_SIZE = 5;
             try {
                 serverSocketChannel = ServerSocketChannel.open();
                 serverSocketChannel.socket().bind(new InetSocketAddress(ip, port));
