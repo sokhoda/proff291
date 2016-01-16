@@ -12,8 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import java.awt.Desktop;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -318,12 +317,12 @@ public class AsyncChat extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            Desktop.getDesktop().open(new File("D:/chat4.jar"));
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
+//        try {
+//            Desktop.getDesktop().open(new File("D:/chat4.jar"));
+//        } catch (IOException e) {
+//
+//            e.printStackTrace();
+//        }
         launch();
 
     }
