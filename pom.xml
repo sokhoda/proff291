@@ -11,14 +11,15 @@
 
     <modules>
         <module>proff29_examples</module>
-
-        <module>andrey_kallko</module>
+        <module>proff29_examples_web</module>
 
         <module>andrey_kallko</module>
         <module>igor_gonchar</module>
         <module>pavel_semerenko</module>
         <module>olena_babenko</module>
         <module>salvador_sakho</module>
+        <module>pavlo_mykolaienko</module>
+        <module>pavlo_mykolaienko_web</module>
     </modules>
 
     <properties>

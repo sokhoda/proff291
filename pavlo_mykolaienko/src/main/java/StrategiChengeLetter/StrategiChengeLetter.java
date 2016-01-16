@@ -41,6 +41,7 @@ public class StrategiChengeLetter {
         String s = "qwertyuiopasdfghjklzxcvbnm";
         StrategiChengeLetter sc = new StrategiChengeLetter();
         sc.chenge(new ChengLetter(), s);
+
     }
 
     public void chenge(Chengeletters o, String s) {
