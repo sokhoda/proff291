@@ -215,6 +215,7 @@ public class AsyncChat extends Application implements
 
     @Override
     public void run() {
+        System.out.println(Thread.currentThread().getName());
         boundListener();
         System.out.println(getClientName() + " serverSocketChannel: " +
                 serverSocketChannel.socket().toString());
