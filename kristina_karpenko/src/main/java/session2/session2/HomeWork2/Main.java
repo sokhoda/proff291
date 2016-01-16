@@ -22,7 +22,7 @@ public class Main {
         System.out.println(text);
 //================================================================
 
-        freq.setTextFromFile("C://file.txt");
+       // freq.setTextFromFile("C://file.txt");
         System.out.println(text);
 //================================================================
         List<String> text2 = freq.getFreq();
