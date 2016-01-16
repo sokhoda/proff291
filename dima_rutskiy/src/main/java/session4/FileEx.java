@@ -6,6 +6,7 @@ import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,11 +20,12 @@ public class FileEx {
 
         try {
             channel = Files.newByteChannel(file);
-            ByteBuffer buffer = ByteBuffer.allocate(3);
+            ByteBuffer buffer = ByteBuffer.allocate(20);
             int readed;
             while((readed = channel.read(buffer)) > 0) {
-                System.out.print(new String(buffer.array(), 0, readed));
-                buffer.rewind();
+                System.out.println(Arrays.toString(buffer.array()));
+                String string= new String(buffer.array());
+                System.out.println(string);
             }
         } catch (Exception e) {
             e.printStackTrace();
