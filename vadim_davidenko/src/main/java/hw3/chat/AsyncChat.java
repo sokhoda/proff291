@@ -21,7 +21,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by Вадим on 05.01.2016.
  */
-public class AsyncChat extends Application implements Runnable {
+public class AsyncChat extends Application {
     @FXML
     private TextField fieldIP;
     @FXML
@@ -51,9 +51,6 @@ public class AsyncChat extends Application implements Runnable {
     public AsyncChat(){
         chatTitle = "P2P Chat";
     }
-
-    @Override
-    public void run() {}
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -254,6 +251,7 @@ public class AsyncChat extends Application implements Runnable {
                     }
                 }
             }
+
         }
 
         public void disconnectServer() {
