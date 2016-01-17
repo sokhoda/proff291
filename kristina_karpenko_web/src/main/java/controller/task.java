@@ -32,7 +32,7 @@ public class task extends HttpServlet {
 
         String reqLog = req.getParameter("login");
         String reqPas = req.getParameter("password");
-        if( users.containsKey(reqLog)){
+        if( users.containsKey(reqLog)&&users.containsValue(reqPas)){
             resp.getWriter().print("Hello, "+reqLog);
         }
         else {
