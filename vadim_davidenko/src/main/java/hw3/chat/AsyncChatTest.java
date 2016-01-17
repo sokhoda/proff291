@@ -19,7 +19,7 @@ public class AsyncChatTest extends Application {
         chat2.start(stage2);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         launch(args);
     }
 }
