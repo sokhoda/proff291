@@ -10,5 +10,10 @@
     </head>
     <body>
         <h3>Hello proff29!!!</h3>
+    <form action="/users" method="post">
+        <input type="text" name="login" value = ""/>
+        <input type="text" name="password"  value = "" />
+        <input type="submit" value="post"/>
+    </form>
     </body>
 </html>
