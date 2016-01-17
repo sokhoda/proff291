@@ -59,14 +59,12 @@ public class AsyncChat extends Application {
 
     @Override
     public void stop() throws Exception {
-        disconnectClient();
-        chatThread.disconnectServer();
         System.exit(0);
     }
 
-//    public static void main(String[] args) throws IOException {
-//        launch(args);
-//    }
+    public static void main(String[] args) throws IOException {
+        launch(args);
+    }
 
     public void createStage(Stage stage) throws IOException {
         String fxmlFile = "/fxml/chat.fxml";
@@ -205,6 +203,7 @@ public class AsyncChat extends Application {
         private SocketChannel listenSocketChannel;
         private String ip;
         private int port;
+        private boolean isServerConnected;
 
         public ChatThread(String ip, int port) {
             this.ip = ip;
@@ -213,24 +212,16 @@ public class AsyncChat extends Application {
 
         @Override
         public void run() {
-            final int BUFFER_SIZE = 100;
-            try {
-                serverSocketChannel = ServerSocketChannel.open();
-                serverSocketChannel.socket().bind(new InetSocketAddress(ip, port));
-                updateChatText("Chat server waiting for connection from other chat...\n");
+            final int BUFFER_SIZE = 50;
 
-                listenSocketChannel = serverSocketChannel.accept();
-                updateChatText("Client " + listenSocketChannel.getLocalAddress().toString() +
-                        " connected to this chat\n");
-                if (!isClientConnected) {
-                    connectToServer();
-                }
-                if (isClientConnected && listenSocketChannel.isConnected()) {
-                    updateChatText("Chat started...\n");
-                }
-            } catch (IOException e) {
-                disconnectServer();
-                return;
+            if (!isServerConnected) {
+                connectToClient();
+            }
+            if (!isClientConnected) {
+                connectToServer();
+            }
+            if (isClientConnected && isServerConnected) {
+                updateChatText("Chat started...\n");
             }
             ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
             while (true) {
@@ -251,20 +242,35 @@ public class AsyncChat extends Application {
                     }
                 }
             }
+        }
 
+        public void connectToClient() {
+            try {
+                serverSocketChannel = ServerSocketChannel.open();
+                serverSocketChannel.socket().bind(new InetSocketAddress(ip, port));
+                updateChatText("Chat server waiting for connection from other chat...\n");
+
+                listenSocketChannel = serverSocketChannel.accept();
+                updateChatText("Client " + listenSocketChannel.getLocalAddress().toString() +
+                        " connected to this chat\n");
+                isServerConnected = true;
+            } catch (IOException e) {
+                disconnectServer();
+                isServerConnected = false;
+            }
         }
 
         public void disconnectServer() {
             try{
-                if(serverSocketChannel != null) {
-                    serverSocketChannel.close();
+                if(listenSocketChannel != null) {
+                    listenSocketChannel.close();
                 }
             } catch(IOException e) {
                 e.printStackTrace();
             }
             try{
-                if(listenSocketChannel != null) {
-                    listenSocketChannel.close();
+                if(serverSocketChannel != null) {
+                    serverSocketChannel.close();
                 }
             } catch(IOException e) {
                 e.printStackTrace();
