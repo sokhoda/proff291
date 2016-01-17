@@ -9,6 +9,49 @@
         <title>Proff29</title>
     </head>
     <body>
-        <h3>Hello proff29!!!</h3>
+        <form action="/form" method="post">
+            <input type="text" name="login" value="Sveta"/>
+            <input type="submit" value="POST"/>
+        </form>
+
+        <h1>Hello proff29!!!</h1>
+        <p>Para</p>
+        <a href="http://www.google.com.ua">Link</a>
+        <br/>
+        <img src="img/murano.jpg"/>
+        <br/>
+        <q>qoatation</q>
+
+        <ol start="5" type="A">
+            <li>item</li>
+            <li>item</li>
+            <li>item</li>
+        </ol>
+
+        <ul>
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+        </ul>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>First</th>
+                    <th colspan="2">Last</th>
+                    <%--<th>Age</th>--%>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alex</td>
+                    <td>Bonasevich</td>
+                    <td>35</td>
+                </tr>
+
+            </tbody>
+
+            <tfoot></tfoot>
+        </table>
     </body>
 </html>
