@@ -14,7 +14,7 @@
 
 <h3>&nbsp;&nbsp;Registration form</h3>
 
-<form action="/registrationForm" method="post">
+<form action="/regform" method="post">
   <table border="1" cellpadding="5" align="left">
     <tr>
       <td>Name:</td>
@@ -37,18 +37,11 @@
       <td><input type="password" name="confirmPassword" size="10" maxlength="10"/></td>
     </tr>
     <tr>
-      <td colspan="2" align="center"><input type="submit" value="Submit"/></td>
+      <td align="center"><input type="submit" value="Submit"/></td>
+      <td align="center"><a href="/loginform.jsp">Login</a></td>
     </tr>
   </table>
 
-  <!--
-  <p>Name: <input type="text" name="name" size="25" maxlength="25"/></p>
-  <p>Surname: <input type="text" name="surname" size="25" maxlength="25"/></p>
-  <p>Login: <input type="text" name="login" size="10" maxlength="10"/></p>
-  <p>Password: <input type="text" name="password" size="10" maxlength="10"/></p>
-  <p>Confirm password: <input type="text" name="confirmPassword" size="10" maxlength="10"/></p>
-  <input type="submit" value="POST"/>
-  -->
 </form>
 
 
