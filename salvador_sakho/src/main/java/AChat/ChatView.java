@@ -18,12 +18,9 @@ public class ChatView extends Application {
 
     @Override
     public void start(Stage primaryStageUser1) throws IOException {
-
-
         Parent root = FXMLLoader.load(getClass().getResource("/sample.fxml"));
         primaryStageUser1.setTitle("User1");
         primaryStageUser1.setScene( new Scene(root,300,275));
         primaryStageUser1.show();
-
     }
 }
