@@ -11,29 +11,25 @@ import java.nio.channels.SocketChannel;
  */
 public class ServerSalva extends Thread{
 
-    ServerSalva(int port){
-        this.port=port;
-    }
     ServerSalva(){
     }
 
-
-    public int getPort() {
-        return port;
+    ServerSalva(String ip,int port){
+        this.listenPort=port;
+        this.ip=ip;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+
+    public int getWritingPort() {
+        return writingPort;
     }
 
-    public String getIp() {
-        return ip;
+    public void setWritingPort(int writingPort) {
+        this.writingPort = writingPort;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-    private  int port;
+    private  int listenPort;
+    private  int writingPort;
     private  String ip;
     private SocketChannel scForlisten;
     private ServerSocketChannel ssc;
@@ -43,14 +39,15 @@ public class ServerSalva extends Thread{
     public void run() {
     try {
         ssc = ServerSocketChannel.open();
-        ssc.socket().bind(new InetSocketAddress(getPort()));
+        ssc.socket().bind(new InetSocketAddress(ip,listenPort));
         System.out.println("I am hear");
+
         System.out.println("Server On");
-//        if(!con.isClientConnected()){
-//         System.out.println("I am hear2");
-//        }
 
         scForlisten=ssc.accept();
+
+        System.out.println(scForlisten.getLocalAddress()+" "+scForlisten.getRemoteAddress()+" Сервер");
+        System.out.println(scForlisten.isConnected());
 
     } catch (IOException e) {
         System.out.println("serverTurnOn " + e);
@@ -63,15 +60,17 @@ public class ServerSalva extends Thread{
             scForlisten.read(bb);
             bb.flip();
             String messText= new String(bb.array());
-            if (!messText.isEmpty()) {
-              con.chatMess(messText);//Должен выводить в окно текст
-              System.out.println(messText);
-            }
+              System.out.println(messText +" текст сообщения");
+            scForlisten.write(bb);
+                bb.clear();
+                con.chatMess(scForlisten);//Должен выводить в окно текст
+
         }catch (IOException e)
         {
             System.out.println("Reading from scForlisten "+e);
         }
     }
+
 }
 
 }
