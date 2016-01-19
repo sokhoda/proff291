@@ -16,7 +16,7 @@
         </br>
         <input type="password" name="password"/>
         </br>
-        <input type="submit" value="Send to Serv_upd"/>
+        <input type="submit" value="Send to Serv_upd_1705"/>
     </form>
     </br></br>
 <%!
