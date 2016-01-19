@@ -12,47 +12,40 @@
     <modules>
         <module>proff29_examples</module>
         <module>proff29_examples_web</module>
-
         <module>valeriy_mazur</module>
         <module>yuliia_nemyrovets</module>
         <module>yuliia_nemyrovets_web</module>
         <module>alexandr_cherkassky</module>
+        <module>alexandr_cherkassky_web</module>
         <module>lidia_gaidukova</module>
         <module>lidia_gaidukova_web</module>
-
-
+        <module>alexandr_khoda</module>
         <module>alexandr_khoda_web</module>
         <module>dima_rutskiy</module>
-        <module>sergey_kutsiy</module>
-
-
-        <module>andrey_kallko</module>
         <module>dima_rutskiy_web</module>
-
-        <module>andrey_kallko</module>
-
-        <module>olena_babenko</module>
         <module>igor_gonchar</module>
+        <module>igor_gonchar_web</module>
+        <module>lyashenko_dmitriy</module>
+        <module>lyashenko_dmitriy_web</module>
+        <module>olena_babenko</module>
+        <module>olena_babenko_web</module>
         <module>vladymyr_danilov</module>
-        <module>alexandr_khoda</module>
+        <module>vladymyr_danilov_web</module>
+        <module>andrey_kallko</module>
+        <module>andrey_kallko_web</module>
         <module>pavel_semerenko</module>
         <module>pavel_semerenko_web</module>
         <module>salvador_sakho</module>
         <module>salvador_sakho_web</module>
+        <module>sergey_kutsiy</module>
+        <module>sergey_kutsiy_web</module>
         <module>kristina_karpenko</module>
         <module>kristina_karpenko_web</module>
-        <module>lyashenko_dmitriy</module>
-        <module>lyashenko_dmitriy_web</module>
-        <module>sergey_kutsiy</module>
-
         <module>vadim_davidenko</module>
-        <!--<module>vladymyr_danilov</module> -->
-      <!--  <module>vladymyr_danilov_web</module> -->
+        <module>vadim_davidenko_web</module>
         <module>yura_skulskiy</module>
-      <!--  <module>igor_gonchar_web</module> -->
+        <module>yura_skulskiy_web</module>
 
-        <module>olena_babenko_web</module>
-        <module>alexandr_cherkassky_web</module>
     </modules>
 
     <properties>

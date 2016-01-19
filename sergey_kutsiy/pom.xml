@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-
-    <artifactId>vadim_davidenko_web</artifactId>
+    <artifactId>sergey_kutsiy</artifactId>
     <packaging>war</packaging>
 </project>

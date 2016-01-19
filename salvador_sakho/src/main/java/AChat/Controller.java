@@ -24,7 +24,6 @@ public class Controller {
     }
 
 
-
     public boolean isClientConnected() {
         return isClientConnected;
     }
@@ -33,62 +32,80 @@ public class Controller {
         isClientConnected = clientConnected;
     }
 
+
+
+    public String getTextOfChat() {
+        return textOfChat;
+    }
+
+    public void setTextOfChat(String textOfChat) {
+        this.textOfChat = textOfChat;
+    }
+
     private String masse;
     private ServerSalva ss;
     private SocketChannel clientsockChan;
-    private ServerSocketChannel servSockChen;
+    private SocketChannel clientsockChanForListen;
     private boolean isClientConnected;
-   // ByteBuffer buffer = ByteBuffer.allocate(1000);
+    private String textOfChat;
+    public String ip;
 
     @FXML
-    TextArea tf1;
+    private TextArea tf1;
     @FXML
-    TextArea tf2;
+    private TextArea tf2;
     @FXML
-    TextArea portField;
+    private TextArea portField;
     @FXML
-    TextArea IPField;
+    private  TextArea ipArea;
 
-
-
-    @FXML
-    public void makeAction() {
-        String st=tf1.getText();
-        massegeSender(st);
-        System.out.println(st);
-        tf1.clear();
-    }
     @FXML
     public void connectionServer(){
         try {
-            ss = new ServerSalva(Integer.parseInt(portField.getText()));
-            ss.start();
-            clientsockChan = SocketChannel.open(new InetSocketAddress(ss.getPort()));
-            isClientConnected=true;
-            System.out.println(clientsockChan.getLocalAddress()+" "+clientsockChan.getRemoteAddress());
+            if(!portField.getText().isEmpty()) {
+
+                ss = new ServerSalva(ipArea.getText(),Integer.parseInt(portField.getText()));
+                ss.setWritingPort(Integer.parseInt(portField.getText())+15);
+            }else
+            {portField.setText("54594");ipArea.setText("127.0.0.1");
+                ss = new ServerSalva(ipArea.getText(),Integer.parseInt(portField.getText()));}
+                ss.start();
+            clientsockChan = SocketChannel.open(new InetSocketAddress(ipArea.getText(),Integer.parseInt(portField.getText())));
+             isClientConnected=true;
+            System.out.println(clientsockChan.getLocalAddress()+" "+clientsockChan.getRemoteAddress() +" Клиент");
             System.out.println("hello you are connected to chat");
         }catch (IOException e)
         {
             System.out.println(e+" connectionServer");
         }
     }
-
-    public void massegeSender(String mess)
+    @FXML
+    public void massegeSender()
     {
         try {
             ByteBuffer buffer = ByteBuffer.allocate(1000);
-            String message = mess + "  from Salva";
+            String message = tf1.getText();
             buffer.put(message.getBytes());
             buffer.flip();
             clientsockChan.write(buffer);
-            System.out.println(buffer);
+           // System.out.println(buffer);
         }catch (IOException e)
         {
             System.out.println("massegeSender "+e);
         }
 
     }
-    public void chatMess(String cm){
-        tf2.appendText(String.format("Your masseg ")+cm);
+    public void chatMess(SocketChannel sc) throws IOException{
+        ByteBuffer buffer = ByteBuffer.allocate(1000);
+        sc.read(buffer);
+        buffer.flip();
+        String messText= new String(buffer.array());
+        System.out.println(messText);
+        tf2.setText(messText);
     }
+//        @FXML
+//    public void chatSows(){
+//            getTextOfChat();
+//        tf2.appendText(getTextOfChat());
+//    }
 }
