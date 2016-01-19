@@ -15,7 +15,9 @@
 
 <h3>&nbsp;&nbsp;Login form</h3>
 
-<form action="/loginform" method="post">
+<div style="float: left">
+
+<form action="/loginForm" method="post">
     <table border="1" cellpadding="5" align="left">
         <tr>
             <td>Login:</td>
@@ -32,6 +34,15 @@
     </table>
 
 </form>
+
+</div>
+<div style="clear: both"></div>
+
+<p>
+    ${empty_field_err_msg}
+    ${wrong_password_err_msg}
+    ${not_registered_err_msg}
+</p>
 
 </body>
 
