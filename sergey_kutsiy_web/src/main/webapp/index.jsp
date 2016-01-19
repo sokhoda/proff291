@@ -12,11 +12,11 @@
 </head>
 <body>
     <form action="/form" method="POST">
-        <input type="text" name="login"/>
+        <input type="text" name="login/>
         </br>
         <input type="password" name="password"/>
         </br>
-        <input type="submit" value="Send"/>
+        <input type="submit" value="Send to Serv"/>
     </form>
     </br></br>
 <%!
