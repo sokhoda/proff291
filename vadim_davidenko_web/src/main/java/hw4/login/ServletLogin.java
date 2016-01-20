@@ -56,7 +56,7 @@ public class ServletLogin extends HttpServlet {
                     msgName = "wrong_password_err_msg";
                 }
             } else {
-                msg = "Sorry, but user with such login is not registered yet.<br/>Please, registration first.";
+                msg = "Sorry, but user with such login is not registered yet. Please, registration first.";
                 msgName = "not_registered_err_msg";
             }
         }
