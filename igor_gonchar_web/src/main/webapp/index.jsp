@@ -8,31 +8,27 @@
 <%! public int counter = -1; %>
 <html>
 <head>
-    <title>Proff29</title>
+    <title>Igor Web Application</title>
 </head>
 <body>
-<h3>Hello proff29!!! I am Igor!!!</h3>
+<table>
+    <tbody>
+    <tr>
+        <td colspan="2" align="center"><h2>Choose an action to perform</h2></td>
+    </tr>
+    <tr align="center">
+        <td><a href="registerPage.jsp">
+            <button>Login Form</button>
+        </a></td>
+        <td><a href="authorizationPage.jsp">
+            <button>Authorization Form</button>
+        </a></td>
+    </tr>
+<tr align="center">
+    <td colspan="2"><img src="http://blog.englishexamswithnikki.org/wp-content/uploads/2013/01/I-can-do.jpg" width="500"/></td>
+</tr>
 
-<form action="/form" method="post">
-    <input type="text" name="login" value="Igor"/>
-    <input type="password" name="password" size="15" maxlength="25">
-    <input type="submit" value="POST"/>
-
-    <%!
-
-        public void methodAny() {
-
-        }
-    %>
-    <%
-        Date date = new Date();
-        // out.ptintln(date);
-    %>
-    <br/>
-    <%=  counter++  %>
-    <br/>
-    <%= date %>
-</form>
-
+    </tbody>
+</table>
 </body>
 </html>

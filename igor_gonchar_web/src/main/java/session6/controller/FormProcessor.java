@@ -29,7 +29,7 @@ public class FormProcessor extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Hello Servlet");
+        response.getWriter().println("Hello Servlet from /form page");
     }
 
     @Override

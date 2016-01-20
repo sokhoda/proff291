@@ -1,3 +1,4 @@
+<%@ page import="java.util.Map" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим
@@ -14,8 +15,10 @@
 
 <h3>&nbsp;&nbsp;Registration form</h3>
 
-<form action="/regform" method="post">
-  <table border="1" cellpadding="5" align="left">
+<div style="float: left">
+
+<form action="/regForm" method="post">
+  <table border="1" cellpadding="5">
     <tr>
       <td>Name:</td>
       <td><input type="text" name="name" size="20" maxlength="20"/></td>
@@ -41,9 +44,41 @@
       <td align="center"><a href="/loginform.jsp">Login</a></td>
     </tr>
   </table>
-
 </form>
 
+</div>
+<div style="clear: both"></div>
+
+<p>
+    ${empty_field_err_msg}
+    ${confirm_password_err_msg}
+    ${congratulations_msg}
+    ${already_registered_msg}
+</p>
+
+<table border="1" cellpadding="5">
+    <%
+    Map<String, String[]> users = (Map<String, String[]>)request.getAttribute("users");
+    if(users != null && !users.isEmpty()) {%>
+        <tr>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Reg. date</th>
+        </tr>
+        <%
+        for (Map.Entry<String, String[]> user : users.entrySet()){%>
+        <tr>
+            <td><%=user.getKey()%></td>
+            <td><%=user.getValue()[0]%></td>
+            <td><%=user.getValue()[1]%></td>
+            <td><%=user.getValue()[2]%></td>
+            <td><%=user.getValue()[3]%></td>
+        </tr>
+        <%}
+    }%>
+</table>
 
 </body>
 </html>
