@@ -1,16 +1,13 @@
 package hw4.login;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Вадим on 17.01.2016.
  */
 public class Registration {
-    private static Map<String, String[]> users = new HashMap<String, String[]>();
+    private static Map<String, String[]> users = new LinkedHashMap<String, String[]>();
     private final static String USERS_BASE_FILE_PATH = "C:/users_base.txt";
 
     static {

@@ -60,6 +60,7 @@ public class ServletRegistration extends HttpServlet {
                     if (Registration.addUser(login, userData)) {
                         msg = "Your registration is successful. Congratulations!";
                         msgName = "congratulations_msg";
+                        pageAddress = "/userbase.jsp";
                         req.setAttribute("users", Registration.getUserMap());
                     }
                 } else {
