@@ -7,26 +7,18 @@ import java.util.*;
  * Created by Вадим on 17.01.2016.
  */
 public class Registration {
-    private static Map<String, String[]> users = new LinkedHashMap<String, String[]>();
+
+    private static Map<String, String[]> users = Collections.synchronizedMap(new LinkedHashMap<String, String[]>());
     private final static String USERS_BASE_FILE_PATH = "C:/users_base.txt";
 
     static {
         readUsersBase();
     }
 
-    public static boolean addUser(String userLogin, String[] userData) {
+    public static synchronized boolean addUser(String userLogin, String[] userData) {
         if (!users.containsKey(userLogin)) {
             users.put(userLogin, userData);
             writeUserToBase(userLogin, userData);
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean removeUser(String userLogin) {
-        if (users.containsKey(userLogin)) {
-            users.remove(userLogin);
-            updateUsersBase();
             return true;
         }
         return false;
@@ -51,7 +43,7 @@ public class Registration {
         return users.containsKey(userLogin);
     }
 
-    public static void writeUserToBase(String userLogin, String[] userData) {
+    public static synchronized void writeUserToBase(String userLogin, String[] userData) {
         File file = new File(USERS_BASE_FILE_PATH);
         PrintWriter pw = null;
         try{
@@ -101,6 +93,9 @@ public class Registration {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    // Currently unused methods
+
     public static void updateUsersBase() {
         File file = new File(USERS_BASE_FILE_PATH);
         PrintWriter pw = null;
@@ -128,6 +123,15 @@ public class Registration {
         }
     }
 
+    public static synchronized boolean removeUser(String userLogin) {
+        if (users.containsKey(userLogin)) {
+            users.remove(userLogin);
+            updateUsersBase();
+            return true;
+        }
+        return false;
+    }
+
     public static void printUserList() {
         StringBuilder userList = new StringBuilder("\n| [login] | [password] | [Name] | [Surname] | [reg. date] |\n");
         userList.append("-----------------------------------------------------------\n");
@@ -148,6 +152,5 @@ public class Registration {
 
         System.out.println(userList.toString());
     }
-
 
 }

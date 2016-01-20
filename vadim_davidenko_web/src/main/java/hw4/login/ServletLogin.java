@@ -40,7 +40,7 @@ public class ServletLogin extends HttpServlet {
 
         String msg = "";
         String msgName = "";
-        String pageAddress = "/loginform.jsp";
+        String pageAddress = "/login_form.jsp";
 
         if (login.isEmpty() ||  password.isEmpty()) {
             msg = "Please, fill in all fields";
@@ -49,8 +49,7 @@ public class ServletLogin extends HttpServlet {
             Authorization authorization = new Authorization();
             if (authorization.isLoginCorrect(login)) {
                 if (authorization.isAuthorized(login, password)) {
-                    pageAddress = "/index.jsp";
-
+                    pageAddress = "/sample.jsp";
                 } else {
                     msg = "Your password is incorrect!";
                     msgName = "wrong_password_err_msg";

@@ -34,6 +34,7 @@ public class ServletRegistration extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = req.getParameterMap();
+
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
         String confirmPassword = parameterMap.get("confirmPassword")[0].trim();
@@ -44,7 +45,7 @@ public class ServletRegistration extends HttpServlet {
 
         String msg = "";
         String msgName = "";
-        String pageAddress = "/regform.jsp";
+        String pageAddress = "/reg_form.jsp";
 
         if (name.isEmpty() || surname.isEmpty() || login.isEmpty() ||
                 password.isEmpty() || confirmPassword.isEmpty()) {
@@ -60,7 +61,7 @@ public class ServletRegistration extends HttpServlet {
                     if (Registration.addUser(login, userData)) {
                         msg = "Your registration is successful. Congratulations!";
                         msgName = "congratulations_msg";
-                        pageAddress = "/userbase.jsp";
+                        pageAddress = "/users_base.jsp";
                         req.setAttribute("users", Registration.getUserMap());
                     }
                 } else {
