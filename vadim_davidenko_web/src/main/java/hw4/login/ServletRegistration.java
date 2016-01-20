@@ -27,13 +27,13 @@ public class ServletRegistration extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        service(req, resp);
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, String[]> parameterMap = request.getParameterMap();
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<String, String[]> parameterMap = req.getParameterMap();
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
         String confirmPassword = parameterMap.get("confirmPassword")[0].trim();
@@ -58,18 +58,19 @@ public class ServletRegistration extends HttpServlet {
                 if (!Registration.isUserExist(login)) {
                     String[] userData = new String[]{password, name, surname, regDate};
                     if (Registration.addUser(login, userData)) {
-                        msg = "Your registration is successful.<br/>Congratulations!";
+                        msg = "Your registration is successful. Congratulations!";
                         msgName = "congratulations_msg";
-                        request.setAttribute("users", Registration.getUserMap());
+                        pageAddress = "/userbase.jsp";
+                        req.setAttribute("users", Registration.getUserMap());
                     }
                 } else {
-                    msg = "Sorry, but user with such login is already registered.<br/>Please, try another one.";
+                    msg = "Sorry, but user with such login is already registered. Please, try another one.";
                     msgName = "already_registered_msg";
                 }
             }
         }
-        request.setAttribute(msgName, msg);
-        request.getRequestDispatcher(pageAddress).forward(request, response);
+        req.setAttribute(msgName, msg);
+        req.getRequestDispatcher(pageAddress).forward(req, resp);
     }
 
 }
