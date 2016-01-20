@@ -1,13 +1,11 @@
-/*label {*/
-    /*display: inline-block;*/
-    /*text-align: right;*/
-    /*width: 200px;*/
-    /*font-weight: bold;*/
-    /*font-family: Arial;*/
-    /*!*background-color: gold;*!*/
-    /*color: saddlebrown;*/
-    /*line-height: 200%;*/
-/*}*/
+h1{
+    text-align: center;
+    font-weight: bold;
+    font-family: "Times New Roman";
+    /*background-color: gold;*/
+    color: firebrick;
+    line-height: 200%;
+}
 input[type=text]{
     text-align: right;
     width: 60px;
@@ -15,7 +13,7 @@ input[type=text]{
     background-color: blanchedalmond;
 }
 
-input[type=button]{
+input[type=submit]{
     width: 150px;
     font-weight: bold;
     color: crimson;

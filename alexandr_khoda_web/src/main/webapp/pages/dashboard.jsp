@@ -14,12 +14,11 @@
         </style>
     </head>
     <body>
-        <form action="/ClientServlet" method="get">
+        <form action="/taxi" method="get">
           <table width="100%">
               <thead>
-                  <tr align="center" style="font-size: x-large; font-weight:
-                  bold; color: firebrick" >
-                      <td colspan="100%">Главное меню</td>
+                  <tr>
+                      <th colspan="100%"><h1>Главное меню</h1></th>
                   </tr>
               </thead>
               <tbody>
@@ -48,8 +47,7 @@
                           <input type="radio" name="selAct"
                                  value="showClientsGtSum"> Вывести всех
                           клиентов наездивших на сумму больше
-                          <input type="text" name="clientOrderSum" placeholder="100"
-                                 value="100"> грн.
+                          <input type="text" name="clientOrderSum" value="100"> грн.
                       </td>
                   </tr>
                   <tr>

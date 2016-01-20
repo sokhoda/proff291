@@ -1,23 +1,20 @@
-label {
-    display: inline-block;
-    text-align: right;
-    width: 200px;
+h1 {
+    text-align: center;
     font-weight: bold;
-    font-family: Arial;
+    font-family: "Times New Roman";
     /*background-color: gold;*/
-    color: saddlebrown;
-    line-height: 200%;
-}
-input[type=text]{
-    display: inline-block;
-    text-align: right;
-    width: 300px;
-    font-weight: bold;
-    background-color: skyblue;
     color: firebrick;
-    line-height: 150%;
 }
-
+h3 {
+    text-align: center;
+    font-weight: bold;
+    font-family: "Times New Roman";
+    /*background-color: gold;*/
+    color: navy;
+}
+tr{
+    text-align: center;
+}
 input[type=submit]{
     display: inline-block;
     text-align: left;

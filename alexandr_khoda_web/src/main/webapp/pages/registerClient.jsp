@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-<form action="/ClientServlet" method="post">
+<form action="/taxi" method="post">
     <img <%--height="100px" width="100px" --%>
             src="../img/newUser.jpg" align="left"
             style="margin-right: 20px">

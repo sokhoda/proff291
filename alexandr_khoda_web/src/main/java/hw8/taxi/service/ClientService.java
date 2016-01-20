@@ -5,6 +5,7 @@ import hw8.taxi.exception.ClientException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by s_okhoda on 20.01.2016.
@@ -14,6 +15,8 @@ public class ClientService {
 
     public ClientService() {
     }
+
+
 
     public boolean createClient(String name, String surname, String phone,
                                String address) throws ClientException{
@@ -28,21 +31,29 @@ public class ClientService {
         clients.add(new Client(name, surname, phone, address));
         return true;
     }
+
     public List showClientsByPortion(int portionSize){
         List<Client> list = new ArrayList<Client> ();
         if (portionSize == 0) return null;
 
-        return list;
+        return clients;
     }
     public List showClientsGtSum(int sum){
         List<Client> list = new ArrayList<Client> ();
 
-        return list;
+        return clients;
     }
     public List showClientsLastMonth(){
         List<Client> list = new ArrayList<Client> ();
 
-        return list;
+        return clients;
     }
 
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
 }
