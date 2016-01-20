@@ -12,16 +12,16 @@
 </head>
 <body>
 
-  <table border="1" cellpadding="1" width="100%">
+  <table border="1" cellpadding="1" width="100%" align="center">
     <tr valign="center">
       <th width="33.33%" align="center">
-        <h2>Header 1</h2>
+        <a href="loginform.jsp"><h3>Login</h3></a>
       </th>
       <th width="33.33%" align="center">
-        <h2>Header 2</h2>
+          <a href="regform.jsp"><h3>Registration</h3></a>
       </th>
       <th width="33.33%" align="center">
-        <h2>Header 3</h2>
+        <h3>Header 3</h3>
       </th>
     </tr>
     <tr>
@@ -32,17 +32,17 @@
     </tr>
   </table>
 
-  <table border="1" cellpadding="3" width="100%">
+  <table border="1" cellpadding="3" width="100%" align="center">
     <tr>
-      <td width="20%" align="center"><h3>Раздел 1</h3></td>
-      <td width="20%" align="center"><h3>Раздел 2</h3></td>
-      <td width="20%" align="center"><h3>Раздел 3</h3></td>
-      <td width="20%" align="center"><h3>Раздел 4</h3></td>
-      <td width="20%" align="center"><h3>Раздел 5</h3></td>
+      <td width="20%" align="center"><h4>Раздел 1</h4></td>
+      <td width="20%" align="center"><h4>Раздел 2</h4></td>
+      <td width="20%" align="center"><h4>Раздел 3</h4></td>
+      <td width="20%" align="center"><h4>Раздел 4</h4></td>
+      <td width="20%" align="center"><h4>Раздел 5</h4></td>
     </tr>
   </table>
 
-  <table border="1" cellpadding="10" width="100%">
+  <table border="1" cellpadding="10" width="100%" align="center">
     <tr>
       <td width="15%" align="left" valign="top">
         <br/>
@@ -60,7 +60,7 @@
         <br/>
       </td>
 
-      <td width="70%" align="left" valign="top">
+      <td align="left" valign="top">
         <img src="http://kor.ill.in.ua/m/610x385/1743162.jpeg" align="right" width="570" height="360"/>
         <h3>В Одессе крупный пожар: горит рынок</h3>
         <p>

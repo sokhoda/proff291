@@ -5,6 +5,10 @@ package hw4.login;
  */
 public class Authorization {
 
+    public boolean isLoginCorrect(String userLogin) {
+        return Registration.isUserExist(userLogin);
+    }
+
     public boolean isAuthorized(String userLogin, String password) {
         if(Registration.isUserExist(userLogin)) {
             String[] userData = Registration.getUserData(userLogin);

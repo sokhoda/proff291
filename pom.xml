@@ -12,7 +12,6 @@
     <modules>
         <module>proff29_examples</module>
         <module>proff29_examples_web</module>
-
         <module>valeriy_mazur</module>
         <module>valeriy_mazur_web</module>
         <module>yuliia_nemyrovets</module>
@@ -20,8 +19,7 @@
         <module>alexandr_cherkassky</module>
         <module>lidia_gaidukova</module>
         <module>lidia_gaidukova_web</module>
-
-
+        <module>alexandr_khoda</module>
         <module>alexandr_khoda_web</module>
         <module>dima_rutskiy</module>
         <!--<module>sergey_kutsiy</module>-->
@@ -49,8 +47,9 @@
         <module>vadim_davidenko</module>
         <!--<module>vladymyr_danilov</module>-->
 
+        <module>vadim_davidenko_web</module>
         <module>yura_skulskiy</module>
-        <module>igor_gonchar_web</module>
+        <module>yura_skulskiy_web</module>
 
 
         <module>olena_babenko_web</module>
