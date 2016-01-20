@@ -11,17 +11,17 @@ import java.util.Map;
 
 /**
  * Created by s_okhoda on 17.01.2016.
+ *
  */
 @WebServlet("/form")
 public class FormProcessor extends HttpServlet {
-    Map<String, String> users =new HashMap<>();
+    Map<String, String> users = new HashMap<>();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         resp.getWriter().println("Hello servlet1");
-        req.setAttribute("name","al1");
-        req.getRequestDispatcher("/pages/MyTable.jsp").forward(req, resp);
+
     }
     @Override
     public void init(){
@@ -33,20 +33,25 @@ public class FormProcessor extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+            throws IOException, ServletException {
 //        String login = req.getParameter("login");
-        Map<String,String []> paramMap = req.getParameterMap();
+        Map<String, String []> paramMap = req.getParameterMap();
         int count;
 
         String login = paramMap.get("login")[0];
         String pass = paramMap.get("pass")[0];
 
         if (users.containsKey(login) && users.get(login).equals(pass)){
-            resp.getWriter().println("Hallo "+ login);
+            resp.getWriter().println("Hallo " + login);
         }
         else{
-            resp.getWriter().println("Bye "+ login);
+            resp.getWriter().println("Bye " + login);
         }
+
+        req.setAttribute("name", login);
+        req.setAttribute("surname", pass);
+        req.getRequestDispatcher("/pages/MyTable.jsp").forward(req, resp);
+
 //        resp.getWriter().println("Your name is " + login);
 
     }

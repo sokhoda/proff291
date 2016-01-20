@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 /**
  * Created by s_okhoda on 05.01.2016.
  */
-public class etse {
+public class CheckSyntax {
     public static void main(String[] args){
         Random rnd = new Random();
         String s = "ddf1";
