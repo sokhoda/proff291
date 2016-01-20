@@ -24,13 +24,13 @@
 
         <module>alexandr_khoda_web</module>
         <module>dima_rutskiy</module>
-        <module>sergey_kutsiy</module>
+        <!--<module>sergey_kutsiy</module>-->
 
 
         <module>andrey_kallko</module>
         <module>dima_rutskiy_web</module>
 
-        <module>andrey_kallko</module>
+        <!--<module>andrey_kallko</module>-->
 
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
@@ -44,13 +44,14 @@
         <module>kristina_karpenko_web</module>
         <module>lyashenko_dmitriy</module>
         <module>lyashenko_dmitriy_web</module>
-        <module>sergey_kutsiy</module>
+
 
         <module>vadim_davidenko</module>
-        <!--<module>vladymyr_danilov</module> -->
-      <!--  <module>vladymyr_danilov_web</module> -->
+        <!--<module>vladymyr_danilov</module>-->
+
         <module>yura_skulskiy</module>
         <module>igor_gonchar_web</module>
+
 
         <module>olena_babenko_web</module>
         <module>alexandr_cherkassky_web</module>
