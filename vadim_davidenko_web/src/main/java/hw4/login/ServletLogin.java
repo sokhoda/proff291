@@ -39,12 +39,9 @@ public class ServletLogin extends HttpServlet {
         String password = parameterMap.get("password")[0].trim();
 
         String msg = "";
-        String msgName = "";
         String pageAddress = "/login_form.jsp";
-
         if (login.isEmpty() ||  password.isEmpty()) {
             msg = "Please, fill in all fields";
-            msgName = "empty_field_err_msg";
         } else {
             Authorization authorization = new Authorization();
             if (authorization.isLoginCorrect(login)) {
@@ -52,14 +49,12 @@ public class ServletLogin extends HttpServlet {
                     pageAddress = "/sample.jsp";
                 } else {
                     msg = "Your password is incorrect!";
-                    msgName = "wrong_password_err_msg";
                 }
             } else {
                 msg = "Sorry, but user with such login is not registered yet. Please, registration first.";
-                msgName = "not_registered_err_msg";
             }
         }
-        request.setAttribute(msgName, msg);
+        request.setAttribute("server_msg", msg);
         request.getRequestDispatcher(pageAddress).forward(request, response);
     }
 

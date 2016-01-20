@@ -49,11 +49,7 @@
 </div>
 <div style="clear: both"></div>
 
-<p style="color: red">
-    ${empty_field_err_msg}
-    ${confirm_password_err_msg}
-    ${already_registered_msg}
-</p>
+<p style="color: red"><b>${server_msg}</b></p>
 
 </body>
 
