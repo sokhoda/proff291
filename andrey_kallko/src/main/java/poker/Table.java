@@ -6,34 +6,39 @@ package poker;/**
 
 import javafx.animation.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import scala.Int;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
 
 
 public class Table extends Application {
     Stage plane = new Stage();
     private Text nextTime = new Text();  //счетчик до следующего уровня
-    private Countdown level = new Countdown(1); // класс поток обратный таймер
+    private Countdown level = new Countdown(6); // класс поток обратный таймер в минутах
     private Preflop preflop = new Preflop(); // класс поток раздача префлоп
     private Flop flop = new Flop(); // класс поток раздача флоп
     private Turn turn = new Turn();
@@ -55,6 +60,7 @@ public class Table extends Application {
     Text showCompBet = new Text(); // текст размер ставки компьютера в этом раунде;
     Text showMyStackValue = new Text(); // текст размер моего стека
     Text showCompStackValue = new Text(); //текст размер стека компьютера
+    TextField showBank = new TextField();
     Group gPlane = new Group(); // группа картинок для графики стола
     ImageView flop1 = new ImageView(); // картинка первоя карты флопа
     ImageView flop2 = new ImageView(); // картинка второй карты флопа
@@ -63,14 +69,22 @@ public class Table extends Application {
     ImageView showriver = new ImageView(); // картинка карты ривера
 
 
+    // Переменные для окна предзапуска игры.
+    Text dirStatus = new Text();
+    String mainPath = new String(); // путь к основной папке, в которой хранятся профайлы игроков и архивы игры
+    String altPath = "";  // если основной папки нет комп предложит создать ее по этому адресу
+    Stage preStage = new Stage();
+    boolean finded=true; //техническая для поиска возможной дирректории
+
+
     ArrayList <String> handLog = new ArrayList<>();// запись истории руки.
 
 
 
 
     Text showTempText = new Text(); //временное поле текст стратегия игры компа и другие тестовые данные
-    String phase = "pref";// возможные значения pref, flop, turn, rive;
-
+    String phase = "blin";// возможные значения blin, pref, flop, turn, rive;
+    boolean step=true;
 
 
 
@@ -97,6 +111,22 @@ public class Table extends Application {
         // * передать ход человеку
         // * отрисовать флоп/терн/ривер
         // * передать ход определителю победителя
+
+        int last=handLog.size()-1;
+        System.out.println(handLog.get(last) + " !!!!");
+
+        if(handLog.get(last).startsWith("humablin")) {
+            System.out.println("Пора компьтеру определиться на префлопе.");
+            analysis.preflopStrategyDispetcher();
+
+        }
+
+        if(handLog.get(last).startsWith("humapref")) {
+            System.out.println("Пора компьтеру определиться на префлопе.");
+            analysis.preflopStrategyDispetcher();
+
+        }
+
         
     }
 
@@ -104,7 +134,8 @@ public class Table extends Application {
 
 
 
-
+        //preload.run();
+        preloader();
 
         plane.setTitle("HeadsUp Trainer.     (c) tri___ton");
 
@@ -165,13 +196,13 @@ public class Table extends Application {
         button.setLayoutY(dealerY);
 
 
-        TextField bank = new TextField();
-        bank.setAlignment(Pos.BASELINE_RIGHT);
-        bank.setLayoutX(130);
-        bank.setLayoutY(250);
-        bank.setMaxWidth(80);
-        bank.setEditable(false);
-        bank.setText("0");
+
+        showBank.setAlignment(Pos.BASELINE_RIGHT);
+        showBank.setLayoutX(130);
+        showBank.setLayoutY(250);
+        showBank.setMaxWidth(80);
+        showBank.setEditable(false);
+        showBank.setText("0");
 
 
         Text bankText = new Text();
@@ -270,10 +301,13 @@ public class Table extends Application {
         act1.setLayoutY(480);
 
 
-        Button act2 = new Button(); // кнопка чек/колл
-        act2.setText("Check | Call");
-        act2.setLayoutX(450);
-        act2.setLayoutY(480);
+        Button blindCall = new Button(); // кнопка чек/колл
+        blindCall.setText("Check || Call");
+        blindCall.setLayoutX(450);
+        blindCall.setLayoutY(480);
+        blindCall.setVisible(true);
+
+
 
 
         betSize.setAlignment(Pos.BASELINE_RIGHT);
@@ -296,7 +330,7 @@ public class Table extends Application {
 
 
         showTempText.setLayoutY(150);
-        showTempText.setLayoutX(400);
+        showTempText.setLayoutX(300);
         showTempText.setText("Буду думать...");
 
 
@@ -310,7 +344,7 @@ public class Table extends Application {
         gPlane.getChildren().add(showturn);
         gPlane.getChildren().add(showriver);
         gPlane.getChildren().add(button);  //dealer img
-        gPlane.getChildren().add(bank);
+        gPlane.getChildren().add(showBank);
         gPlane.getChildren().add(bankText);
         gPlane.getChildren().add(showMyBet);
         gPlane.getChildren().add(myStack);
@@ -328,17 +362,14 @@ public class Table extends Application {
         gPlane.getChildren().add(showTempText);
 
 
+
         // жеребьевка и добавление клавиш для основной игры
         toss.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
                 gPlane.getChildren().remove(toss);
                 gPlane.getChildren().add(start);
-                gPlane.getChildren().add(act1);
-                gPlane.getChildren().add(act2);
-                gPlane.getChildren().add(act3);
-                gPlane.getChildren().add(act4);
-                gPlane.getChildren().add(betSize);
+
                 toss();
 
 
@@ -351,6 +382,11 @@ public class Table extends Application {
             @Override
             public void handle(Event startevent) {
                 gPlane.getChildren().remove(start);
+                gPlane.getChildren().add(act1);
+                gPlane.getChildren().add(blindCall);
+                gPlane.getChildren().add(act3);
+                gPlane.getChildren().add(act4);
+                gPlane.getChildren().add(betSize);
                 level.start();
                 myCard1.setImage(new Image("file:/Users/elenabugercuk/Documents/workspace/img/backside.jpg", 100.0, 200.0, true, true));
                 compCard1.setImage(new Image("file:/Users/elenabugercuk/Documents/workspace/img/backside.jpg", 100.0, 200.0, true, true));
@@ -366,21 +402,17 @@ public class Table extends Application {
             public void handle(Event event) {
                 preflop.interrupt();
                 showTempText.setText("Буду думать...");
-                betSize.setText("0");
-            cash.pot = cash.myBet+cash.compBet;
-            cash.compStack=cash.compStack+cash.pot;
+                betSize.setText("");// сброс текстового поля размера рейза
+                cash.pot = cash.pot + cash.myBet+cash.compBet;
+                cash.compStack=cash.compStack+cash.pot;
+                cash.pot=0;
+                cash.myBet=0;
+                cash.compBet=0;
+                showCompStackValue.setText(""+cash.compStack);
+                showBank.setText("0");
+                showMyBet.setText("0");
+                showCompBet.setText("0");
 
-
-                if (cash.compDealer) {
-                    cash.compDealer=false;
-                    dealerY=370;
-                    button.setLayoutY(dealerY);
-                } else {
-                    cash.compDealer=true;
-                    dealerY=90;
-                    button.setLayoutY(dealerY);
-
-                }
                 newHand.run();
 
 
@@ -393,26 +425,54 @@ public class Table extends Application {
 
         // действие по кнопке Чек/Колл
 
-        act2.setOnAction(new EventHandler() {
+
+
+        blindCall.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                betSize.setText("0");
+                System.out.println("Do moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
+                step=true;
+                betSize.setText("");
                 cash.myStack=cash.myStack+cash.myBet;
-                cash.myBet=0;
                 cash.myBet=cash.compBet;
                 cash.myStack=cash.myStack-cash.myBet;
                 showMyStackValue.setText(""+cash.myStack);
                 showMyBet.setText(""+cash.myBet);
                 String toLog="huma"+phase+cash.myBet;
+                System.out.println("Posle moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
                 handLog.add(toLog);
-                analysis.preflopGreenGren();
-                analysis.WinCombination(deck.getCard(1), deck.getCard(2));
+                analysis.preflopGreenGreen();
                 System.out.println(handLog.toString());
 
-                flop.run();
-                turn.run();
-                river.run();
+                // изменение функции кнопки по мере перехода фазы.
 
+                if ((phase.equals("pref"))&&(step)) {
+                    step=false;
+                    System.out.println("Этап Flop");
+                    flop.run();
+                    event=null;
+                    phase="pref";
+                }
+
+                if ((phase.equals("flop"))&&(step)) {
+                    step=false;
+                    System.out.println("Этап Turn");
+                    turn.run();
+                    event=null;
+                    phase="flop";
+                }
+
+                if ((phase.equals("turn"))&&(step)) {
+                    step=false;
+                    System.out.println("Этап River");
+                    river.run();
+                    event=null;
+                    phase="blin";
+                }
+
+
+
+                event=null;
             }
         });
 
@@ -422,8 +482,10 @@ public class Table extends Application {
         act4.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
+
                 int bet = cash.myStack;
                 betSize.setText(""+bet);
+                event=null;
 
             }
         });
@@ -445,12 +507,272 @@ public class Table extends Application {
 
         Scene planeScene = new Scene(gPlane, 840, 540);
         plane.setScene(planeScene);
-        plane.show();
+
 
 
 
 
     }
+
+
+
+    // проверка и настройка системы перед запуском
+
+    public void preloader() throws IOException {
+
+
+        Group preGroup = new Group();
+
+
+        File [] root = File.listRoots();
+        Path startPath = root[0].toPath(); // определение корневого каталога
+
+
+        dirStatus.setText("Нажмите для начала поиска нужной папки.");
+        dirStatus.setLayoutX(70);
+        dirStatus.setLayoutY(50);
+
+        Button dirFind = new Button("Serch");
+        dirFind.setLayoutX(180);
+        dirFind.setLayoutY(150);
+
+        preGroup.getChildren().add(dirStatus);
+        preGroup.getChildren().add(dirFind);
+
+
+        TextField propPath = new TextField();
+        propPath.setLayoutX(30);
+        propPath.setLayoutY(30);
+        propPath.setMinWidth(250);
+
+        Button close = new Button("Close");
+        close.setLayoutX(90);
+        close.setLayoutY(150);
+
+        Button makeDir = new Button("Создать");
+        makeDir.setLayoutX(310);
+        makeDir.setLayoutY(30);
+
+
+
+        Scene preScene = new Scene(preGroup, 400, 200);
+        preStage.setScene(preScene);
+        preStage.show();
+
+
+        dirFind.setOnAction(new EventHandler() {
+            @Override
+            public void handle(Event event) {
+
+
+                dirStatus.setVisible(true);
+
+                mainPath="";
+                PrintFiles pf = new PrintFiles();
+                dirStatus.setText("                     Поиск начался....");
+
+                ProgressBar bar = new ProgressBar();
+                bar.setVisible(true);
+                bar.setLayoutX(50);
+                bar.setLayoutY(100);
+                bar.setMinWidth(300);
+                preGroup.getChildren().add(bar);
+
+
+                // создание бекграундового процесса по поиску нужной папки.
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        Files.walkFileTree(startPath, pf);
+                        return null;
+                    }
+                };
+
+
+                bar.progressProperty().bind(task.progressProperty());// статус бар во время поиска папки
+                new Thread(task).start();
+
+
+                // процессы выполняемые после окончания поиска папки
+
+                task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        bar.setVisible(false);
+                        dirStatus.setVisible(false);
+
+
+                        if (mainPath.equals("")) {
+                            Group newGroup = new Group();
+
+                            newGroup.getChildren().add(propPath);
+                            propPath.setText(altPath);
+                            dirFind.setText("Ресарт.");
+                            dirFind.setDisable(true);
+                            newGroup.getChildren().add(makeDir);
+                            newGroup.getChildren().add(close);
+                            newGroup.getChildren().add(dirFind);
+                            Scene newScene = new Scene(newGroup, 400, 200);
+                            preStage.setScene(newScene);
+                            preStage.show();
+
+                        } else {
+                            System.out.println("Папка успешно найдена. Переходим к выбору игрока");
+                            preStage.close();
+                            try {
+                                choseUser();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+
+
+                    }
+                });
+
+                if (mainPath!=""){
+                    dirStatus.setText(dirStatus.getText() + "      Ура!!!! Нашли!!!");
+
+                }
+
+            }
+        });
+
+
+    close.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            preStage.close();
+
+        }
+    });
+
+
+
+        // !!!!!!!!!!!!!Дошлифовать создание папки с учетом возможности ручного ввода пути!!!!!!!!
+
+        makeDir.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dirFind.setDisable(false);
+                propPath.setText(propPath.getText()+"/HUpoker");
+                new File(propPath.getText()).mkdirs();
+
+                File check = new File(propPath.getText());
+                if (check.isHidden()==true) {
+                    System.out.println("Cant make");
+                    propPath.setText("Не удалось создать папку. Выберите другой путь.");
+                } else {
+                    System.out.println("I did it!");
+                }
+            }
+        });
+
+    }
+
+
+
+
+    public void choseUser() throws IOException {
+
+        System.out.println("Переходим к выбору игрока!");
+
+
+        Stage userStage = new Stage();
+        Group userGroup = new Group();
+
+        ArrayList<String> findedUsers = new ArrayList<>();
+        ObservableList users = FXCollections.observableArrayList(findedUsers);
+
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                File serchDir = new File(mainPath+"/User");
+                File [] temp = serchDir.listFiles();
+                int i=0;
+                int size = temp.length;
+                while (i<size){
+                    if (temp[i].getName().endsWith(".txt")) {
+                    System.out.println(""+temp[i].getName());
+                        findedUsers.add(""+temp[i].getName());
+                    }
+                    i++;
+                }
+                return null;
+            }
+        };
+        new Thread(task).start();
+
+        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                users.setAll(findedUsers);
+            }
+        });
+
+
+        Text anonce = new Text("Или создайте нового.");
+        anonce.setLayoutX(30);
+        anonce.setLayoutY(250);
+
+        TextField newName = new TextField("Введите имя нового игрока");
+        newName.setLayoutX(30);
+        newName.setLayoutY(260);
+        newName.setMinWidth(260);
+        newName.setEditable(true);
+
+        Button create = new Button("Create");
+        create.setLayoutX(320);
+        create.setLayoutY(260);
+
+
+        Button chose = new Button("Chose");
+        chose.setLayoutX(320);
+        chose.setLayoutY(30);
+
+        Text anonce1 = new Text("Выберите существующего игрока.");
+        anonce1.setLayoutX(30);
+        anonce1.setLayoutY(20);
+
+
+        ComboBox userList = new ComboBox(users);
+        userList.setLayoutX(30);
+        userList.setLayoutY(30);
+        userList.setMinWidth(260);
+        userList.setAccessibleText("Chose existing user.");
+
+
+        userGroup.getChildren().add(newName);
+        userGroup.getChildren().add(create);
+        userGroup.getChildren().add(userList);
+        userGroup.getChildren().add(chose);
+        userGroup.getChildren().add(anonce);
+        userGroup.getChildren().add(anonce1);
+
+        Scene userScene = new Scene(userGroup, 400, 300);
+        userStage.setScene(userScene);
+        userStage.show();
+
+        newName.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                newName.setText("");
+            }
+        });
+
+        chose.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                userStage.close();
+                plane.show();
+            }
+        });
+
+    }
+
 
 
 
@@ -529,6 +851,7 @@ public class Table extends Application {
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intRiver+".jpg";
             Image iRiver = new Image(temp1, 100.0, 200.0, true, true);
             showriver.setImage(iRiver);
+
             Thread.currentThread().interrupt();
 
         }
@@ -550,6 +873,7 @@ public class Table extends Application {
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intTurn+".jpg";
             Image iTurn = new Image(temp1, 100.0, 200.0, true, true);
             showturn.setImage(iTurn);
+
             Thread.currentThread().interrupt();
 
         }
@@ -563,6 +887,15 @@ public class Table extends Application {
         }
 
         public void run (){
+            cash.pot=cash.compBet+cash.myBet;
+            cash.myBet=0;
+            cash.compBet=0;
+            showBank.setText(""+cash.pot);
+            showMyBet.setText("0");
+            showCompBet.setText("0");
+
+            System.out.println("Posle flopa bank=" + cash.pot+ " mojstek="+cash.myStack + "compst=" + cash.compStack +" " + cash.myBet + " " + cash.compBet);
+
             int intFlop1 = deck.getCard(5);
             int intFlop2 = deck.getCard(6);
             int intFlop3 = deck.getCard(7);
@@ -576,6 +909,7 @@ public class Table extends Application {
             flop1.setImage(iFlop1);
             flop2.setImage(iFlop2);
             flop3.setImage(iFlop3);
+
             Thread.currentThread().interrupt();
 
         }
@@ -591,6 +925,16 @@ public class Table extends Application {
         }
 
         public void run(){
+            if (cash.compDealer) {
+                cash.compDealer=false;
+                dealerY=370;
+                button.setLayoutY(dealerY);
+            } else {
+                cash.compDealer=true;
+                dealerY=90;
+                button.setLayoutY(dealerY);
+
+            }
             handLog.clear();// очистка истории
             Image back = new Image("file:/Users/elenabugercuk/Documents/workspace/img/backside.jpg", 100, 200, true, true);
             flop1.setImage(back);
@@ -615,6 +959,7 @@ public class Table extends Application {
             }
             cash.makeBlind();
             preflop.run();
+
             Thread.currentThread().interrupt();
 
         }
@@ -642,12 +987,61 @@ public class Table extends Application {
                 Image preflop2 = new Image(temp2, 100.0, 200.0, true, true);
                 myCard1.setImage(preflop1);
                 myCard2.setImage(preflop2);
+                phase="pref";
+                superBrain();
+
                 Thread.currentThread().interrupt();
 
 
         }
     }
 
+    // определение победителя на шоудауне.
+
+    public void  whoWin(int[] human, int[]comp){
+
+        System.out.println("Процесс определения победителя");
+        int size=6;
+        int i=0;
+        int result=0;
+
+        while(i<size){
+            if (human[i]>comp[i]){
+                result=1;
+                break;
+            }
+
+            if (human[i]<comp[i]) {
+                result=-1;
+                break;
+            }
+
+            i++;
+        }
+
+        if (result==0) {
+            System.out.println(" Ничья.");
+            showTempText.setText(showTempText.getText() + " SPLIT");
+            cash.split();
+
+        }
+
+        if (result==1) {
+            System.out.println(" Человек победил.");
+            showTempText.setText(showTempText.getText() + " Human WIN");
+            cash.humanWin();
+
+        }
+
+        if (result==-1) {
+            System.out.println("Выиграл компьютер.");
+            showTempText.setText(showTempText.getText() + " Comp WIN");
+            cash.compWin();
+
+        }
+
+
+    }
 
 
     // Класс поток обратного отсчета до следующего уровня блиндов
@@ -842,6 +1236,103 @@ public class Table extends Application {
 
         }
 
+
+        public void compChecCall (){
+            System.out.println("Играю Чек/Кол");
+            showTempText.setText("Играю Чек/Колл");
+            int delta=cash.myBet-cash.compBet;
+            cash.compBet=cash.compBet+delta;
+            cash.compStack=cash.compStack-delta;
+            showCompBet.setText(""+cash.compBet);
+            showCompStackValue.setText(""+cash.compStack);
+            String toLog="comp"+phase+(""+cash.compBet);
+            handLog.add(toLog);
+
+
+        }
+
+        public void compPass(){
+            System.out.println("Do pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
+            System.out.println("Играю пас");
+            showTempText.setText("Пас!");
+            String toLog = "comp" + phase +"0";
+            handLog.add(toLog);
+            System.out.println(handLog.toString());
+
+            cash.pot=cash.pot+cash.myBet+cash.compBet;
+            cash.myStack=cash.myStack+cash.pot;
+            cash.myBet=0;
+            cash.compBet=0;
+            cash.pot=0;
+            showMyStackValue.setText(""+cash.myStack);
+            showBank.setText("0");
+            System.out.println("После pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
+
+            newHand.run();
+        }
+
+
+        public void compRaise(){
+            int delta=0;
+            if (cash.pot==0){
+                // Этап префлоп
+                delta=3*cash.blind[level]-cash.compBet;
+
+            } else {
+                // После флопа
+                delta=cash.pot/2-cash.compBet;
+            }
+            cash.compBet=cash.compBet+delta;
+            cash.compStack=cash.compStack-delta;
+            showCompStackValue.setText(""+cash.compStack);
+            showCompBet.setText(""+cash.compBet);
+            String toLog = "comp" + phase + (""+cash.compBet);
+            handLog.add(toLog);
+            System.out.println(handLog.toString());
+
+        }
+
+        public void humanWin (){
+
+            cash.myStack=cash.myStack+cash.pot;
+            cash.pot=0;
+
+            showBank.setText("0");
+            showMyStackValue.setText(""+cash.myStack);
+
+        }
+
+        public void compWin(){
+            cash.compStack=cash.compStack+cash.pot;
+            cash.pot=0;
+
+            showBank.setText("0");
+            showCompStackValue.setText(""+cash.compStack);
+
+
+        }
+
+        public void split(){
+            if (cash.pot%2==1) {
+                if (compDealer) {
+                    cash.pot--;
+                    cash.myStack++;
+                } else {
+                    cash.pot--;
+                    cash.compStack++;
+                }
+            }
+            cash.myStack=cash.myStack+(cash.pot)/2;
+            cash.compStack=cash.compStack+(cash.pot)/2;
+            cash.pot=0;
+
+
+            showCompStackValue.setText(""+cash.compStack);
+            showCompStackValue.setText(""+cash.myStack);
+            showBank.setText("0");
+
+
+        }
     }
 
 
@@ -908,28 +1399,182 @@ public class Table extends Application {
             int[] nabor = new int[7];
             nabor[0] = card1;
             nabor[1] = card2;
-            // расписать постепенное заполнение остальных ячеек по мере движения фазы, чтобы одним методом проверять наличие комбинации на любой стадии.
+            // !!!!!!расписать постепенное заполнение остальных ячеек по мере движения фазы, чтобы одним методом проверять наличие комбинации на любой стадии.
             nabor[2] = deck.getCard(5);
             nabor[3] = deck.getCard(6);
             nabor[4] = deck.getCard(7);
             nabor[5] = deck.getCard(8);
             nabor[6] = deck.getCard(9);
 
+
+
             // Проверка на роял флеш
+
+            HashMap <Integer, String> royal = new HashMap<>();
+            royal.put(nabor[0], "");
+            royal.put(nabor[1], "");
+            royal.put(nabor[2], "");
+            royal.put(nabor[3], "");
+            royal.put(nabor[4], "");
+            royal.put(nabor[5], "");
+            royal.put(nabor[6], "");
+
+            if ((royal.containsKey(101))&&(royal.containsKey(110))&&(royal.containsKey(111))&&(royal.containsKey(112))&&(royal.containsKey(113))) {
+                System.out.println("Найден флеш!!!");
+                showTempText.setText(showTempText.getText()+" Рояль ");
+                result[0]=9;
+                return result;
+            }
+
+            if ((royal.containsKey(201))&&(royal.containsKey(210))&&(royal.containsKey(211))&&(royal.containsKey(212))&&(royal.containsKey(213))) {
+                System.out.println("Найден флеш!!!");
+                showTempText.setText(showTempText.getText()+" Рояль ");
+                result[0]=9;
+                return result;
+            }
+
+            if ((royal.containsKey(301))&&(royal.containsKey(310))&&(royal.containsKey(311))&&(royal.containsKey(312))&&(royal.containsKey(313))) {
+                System.out.println("Найден флеш!!!");
+                showTempText.setText(showTempText.getText()+" Рояль ");
+                result[0]=9;
+                return result;
+            }
+
+            if ((royal.containsKey(401))&&(royal.containsKey(410))&&(royal.containsKey(411))&&(royal.containsKey(412))&&(royal.containsKey(413))) {
+                System.out.println("Найден флеш!!!");
+                showTempText.setText(showTempText.getText()+" Рояль ");
+                result[0]=9;
+                return result;
+            }
 
             // Проверка на стреет флеш
 
+
+
+            HashMap <Integer, String> straitFlash = new HashMap<>();
+            straitFlash.put(nabor[0], "");
+            straitFlash.put(nabor[1], "");
+            straitFlash.put(nabor[2], "");
+            straitFlash.put(nabor[3], "");
+            straitFlash.put(nabor[4], "");
+            straitFlash.put(nabor[5], "");
+            straitFlash.put(nabor[6], "");
+
+            int i=0;
+            while (i<7){
+                Integer key = nabor[i];
+                Integer key1= key-1;
+                Integer key2=key-2;
+                Integer key3=key-3;
+                Integer key4=key-4;
+
+                Integer key5=key+1;
+                Integer key6=key+2;
+
+                if ((straitFlash.containsKey(key1))&&(straitFlash.containsKey(key2))&&(straitFlash.containsKey(key3))&&(straitFlash.containsKey(key4))) {
+                    System.out.println("Редкий случай Стрит флэш!!!!");
+
+                    result[0]=8;
+                    if (straitFlash.containsKey(key5)){
+                        if (straitFlash.containsKey(key6)){result[1]=key6;} else{result[1]=key5;}
+                    } else {result[1]=key;}
+                    showTempText.setText(showTempText.getText()+" Стреет флэш "+result[1]);
+                    return result;
+                }
+
+                i++;
+            }
+
+
+
             // Проверка на каре
+
+            i=0;
+            int [] care = new int[7];
+            i=0;
+            while (i<7){
+                care[i]=nabor[i]-(nabor[i]/100)*100;
+                if (care[i]==1) {care[i]=14;}
+                i++;
+            }
+
+            int[] checkCare = new int[15];
+
+            i=0;
+            while (i<7){
+                checkCare[care[i]]++;
+                i++;
+            }
+            i=0;
+            while (i>0){
+                if (checkCare[i]>3) {
+                    System.out.println("Найдена каре!!!!");
+                    showTempText.setText(showTempText.getText()+" Каре ");
+                    result[0]=7;
+                    result[1]=i;
+                    int k=14;
+                    while (k>0){
+                        if ((k!=i)&&(checkCare[k]>0)){
+                            result[2]=k;
+                            k=1; //для выхода из цикла
+                        }
+                        k=k-1;
+                    }
+                    showTempText.setText(showTempText.getText()+" Каре " + result[1] + " " + result[2]);
+                    return result;
+                }
+                i++;
+            }
+
 
             // Проверка на фулл
 
 
 
+            int [] full = new int[7];
+            i=0;
+            while (i<7){
+                full[i]=nabor[i]-(nabor[i]/100)*100;
+                if(full[i]==1){full[i]=14;}
+                i++;
+            }
+
+            int[] checkFull = new int[15];
+
+            i=0;
+            while (i<7){
+                checkFull[full[i]]++;
+                i++;
+            }
+            i=14;
+            while (i>0){
+                if (checkFull[i]==3) {
+
+                    int j=14;
+                    while (j>0){
+                        if ((checkFull[j]>=2)&&(i!=j)){
+                            System.out.println("Найден фулл-хаус!!!!");
+                            result[0]=6;
+                            result[1]=i;
+                            result[2]=j;
+                            showTempText.setText(showTempText.getText()+" Фулл-хаус " + result[1]+" " + result[2]);
+                            return result;
+                        }
+                        j--;
+                    }
+                }
+                i--;
+            }
+
+
+
+
             // Проверка на ФЛЕШ
             int [] flash = new int[7];
-            int i=0;
+            i=0;
             while (i<7) {
                 flash[i]=nabor[i]/100;
+                if (flash[i]==1){flash[i]=14;}
                 i++;
             }
             int s=0;
@@ -948,7 +1593,38 @@ public class Table extends Application {
 
             if ((c>4)||(d>4)||(h>4)||(s>4)) {
                 System.out.println("Найден флеш!!!");
-                showTempText.setText(showTempText.getText()+"А у вас флешик нашелся!!!!");
+
+                result[0]=5;
+                int maxLimit=415; // максимальный ранг карты не мойет быть выше
+                int minLimit=100;
+                if (c>4){maxLimit=115;}
+                if (d>4) {minLimit=200;maxLimit=215;}
+                if (h>4) {minLimit=300; maxLimit=315;}
+                if (s>4) {minLimit=400;}
+
+                int[] checkFlash = new int[15];
+
+                i=0;
+                while (i<7){
+                    if ((nabor[i]>minLimit)&&(nabor[i]<maxLimit)){
+                    checkFlash[nabor[i]-minLimit]++;}
+                    i++;
+                }
+
+                System.out.println("Flash" + Arrays.toString(checkFlash));
+
+                i=14;
+                int k=1;
+
+                while(i>0){
+                    if (checkFlash[i]>0){
+                        result[k]=i;
+                        k++;
+                    }
+                    if(k==6){i=1;}
+                    i--;
+                }
+                showTempText.setText(showTempText.getText()+" Флеш " + result[1]+" " + result[2]+ " " + result[3]);
                 return result;
             }
             // окончание проверки на ФЛЕШ
@@ -957,18 +1633,149 @@ public class Table extends Application {
             // Проверка на стреет
 
 
+            int [] straight = new int[7];
+            i=0;
+            while (i<7){
+                straight[i]=nabor[i]-(nabor[i]/100)*100;
+                if (straight[i]==1){
+                    straight[i]=14;
+                }
+                i++;
+            }
+
+            int[] checkStraight = new int[15];
+
+            i=0;
+            while (i<7){
+                checkStraight[straight[i]]++;
+                i++;
+            }
+
+            if(checkStraight[14]!=0) {
+                checkStraight[1]=1;
+            }
+
+            i=14;
+
+            System.out.println("preStraight" + Arrays.toString(straight));
+            System.out.println("Straight" + Arrays.toString(checkStraight));
+            while(i>4){
+
+                if((checkStraight[i])*(checkStraight[i-1])*(checkStraight[i-2])*(checkStraight[i-3])*(checkStraight[i-4])!=0){
+                    System.out.println("Найден Стрит!!!!!");
+                    result[0]=4;
+                    result[1]=i;
+                    showTempText.setText(showTempText.getText()+" Стрит " + result[1]);
+                    return result;
+                }
+
+                i=i-1;
+
+            }
+
+
+            // Проверка на тройку
+
+
+            int [] trips = new int[7];
+            i=0;
+            while (i<7){
+                trips[i]=nabor[i]-(nabor[i]/100)*100;
+                if (trips[i]==1){trips[i]=14;}
+                i++;
+            }
+
+            int[] checkTrips = new int[15];
+
+            i=0;
+            while (i<7){
+                checkTrips[trips[i]]++;
+                i++;
+            }
+
+            i=14;
+            while (i>0){
+                if (checkTrips[i]>2) {
+                    System.out.println("Найдена тройка!!!!");
+                    result[0]=3;
+                    result[1]=i;
+                    int k=14;
+                    int l=2;
+                    while(k>0){
+                        if((i!=k)&&(checkTrips[k]>0)){
+                            result[l]=k;
+                            l++;
+
+                        }
+                        if (l==4){k=1;}
+                        k--;
+                    }
+                    showTempText.setText(showTempText.getText()+" Тройка " + result[1]+ " "+ result[2] + " " + result[3]);
+                    return result;
+                }
+                i--;
+            }
+
             // Проверка на две пары
 
-            
-            // Проверка на пару тройку и каре
+
+
+            int [] twoPair = new int[7];
+            i=0;
+            while (i<7){
+                twoPair[i]=nabor[i]-(nabor[i]/100)*100;
+                if(twoPair[i]==1){twoPair[i]=14;}
+                i++;
+            }
+
+            int[] checkTwoPair = new int[15];
+
+            i=0;
+            while (i<7){
+                checkTwoPair[twoPair[i]]++;
+                i++;
+            }
+            i=14;
+            while (i>0){
+                if (checkTwoPair[i]==2) {
+
+                    int j=14;
+                    while (j>0){
+                        if ((checkTwoPair[j]==2)&&(i!=j)){
+                            System.out.println("Найденo ДВЕ Пары");
+
+                            result[0]=2;
+                            result[1]=i;
+                            result[2]=j;
+                            int l=14;
+                            while (l>0){
+                                if ((l!=i)&&(l!=j)&&(checkTwoPair[l]>0)){
+                                    result[3]=l;
+                                    l=1;
+                                }
+                                l--;
+                            }
+                            showTempText.setText(showTempText.getText()+" ДВЕ Пары " + result[1] + " " + result[2] + " "+ result[3]);
+                            return result;
+                        }
+                        j--;
+                    }
+                }
+                i--;
+            }
+
+
+
+            // Проверка на пару
             int [] pair = new int[7];
             i=0;
             while (i<7){
                 pair[i]=nabor[i]-(nabor[i]/100)*100;
+                if(pair[i]==1) {pair[i]=14;}
                 i++;
             }
 
-            int[] checkPair = new int[14];
+            int[] checkPair = new int[15];
 
             i=0;
             while (i<7){
@@ -977,49 +1784,104 @@ public class Table extends Application {
             }
 
             System.out.println("Ранги" + Arrays.toString(checkPair));
-            i=0;
-            while (i<14){
-                if (checkPair[i]>3) {
-                    System.out.println("Найдена каре!!!!");
-                    showTempText.setText(showTempText.getText()+" А у вас есть четыре одинаковых!!!!");
-                    return result;
-                }
-                i++;
-            }
-            i=0;
-            while (i<14){
-                if (checkPair[i]>2) {
-                    System.out.println("Найдена тройка!!!!");
-                    showTempText.setText(showTempText.getText()+" А у вас есть три одинаковых!!!!");
-                    return result;
-                }
-                i++;
-            }
 
-            i=0;
-            while (i<14){
+            i=14;
+            while (i>0){
                 if (checkPair[i]>1) {
                     System.out.println("Найдена пара!!!!");
-                    showTempText.setText(showTempText.getText()+" А у вас есть две одинаковых!!!!");
+
+                    result[0]=1;
+                    result[1]=i;
+                    int j=14;
+                    int k=2;
+                    while (j>0){
+                        if((j!=i)&&(checkPair[j]>0)){
+                            result[k]=j;
+                            k++;
+                        }
+                        if(k==5){j=1;}
+                        j--;
+                    }
+                    showTempText.setText(showTempText.getText()+" Пара " + result[1] + " " +result[2] + " "+result[3]);
                     return result;}
 
-                i++;
+                i--;
             }
 
 
-            // Окончание проверки на пару.
+
 
 
             // Проверка на хай карту
 
+            int [] high = new int[7];
+            i=0;
+            while (i<7){
+                high[i]=nabor[i]-(nabor[i]/100)*100;
+                if (high[i]==1){
+                    high[i]=14;
+                }
+                i++;
+            }
 
+            int[] checkHigh = new int[15];
+
+            i=0;
+            while (i<7){
+                checkHigh[high[i]]++;
+                i++;
+            }
+
+            result[0]=0;
+            i=14;
+            int k=1;
+            while((i>0)&&(k<6)){
+                if(checkHigh[i]>0){
+                    result[k]=i;
+                    k++;
+                    }
+                i=i-1;
+                }
+
+            System.out.println("Всего лишь старшая карта.");
+            showTempText.setText(showTempText.getText()+" Хай " + result[1] + " " + result[2]);
             return result;
+        }
+
+
+
+        // Методы определяюшие поведение компьютера
+
+        public void preflopStrategyDispetcher() {
+            preflopGreenGreen();
+            //preflopGreenYelow();
+            //preflopGreenOrange();
+            //preflopGreenRed();
+            //preflopYelowGreen();
+            //preflopYelowYelow();
+            //preflopYelowOrange();
+            //preflopYelowRed();
+            //preflopOrangeGreen();
+            //preflopOrangeYelow();
+            //preflopOrangeOrange();
+            //preflopOrangeRed();
+
 
         }
 
 
-        // разработка стратегии на префлопе для обоич м больше 100
-        public void preflopGreenGren(){
+
+        public void flopStrategyDispetcher() {}
+
+
+        public void turnStrategyDispetcher() {}
+
+
+        public void riverStrategyDispetcher() {}
+
+
+        // разработка стратегии на префлопе для обоих м больше 100
+        public void preflopGreenGreen(){
 
 
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(3) + ".jpg";
@@ -1034,9 +1896,9 @@ public class Table extends Application {
             System.out.println("Начало анализа.");
             Arrays.fill(preflopStrategy, 0);
             String compHand=stringHand(deck.getCard(3), deck.getCard(4));
-            System.out.println(deck.getCard(3) + " " + deck.getCard(4));
+            //System.out.println(deck.getCard(3) + " " + deck.getCard(4));
             String altHand=""+compHand.charAt(1)+compHand.charAt(0)+compHand.charAt(2);
-            System.out.println(compHand+" "+altHand);
+            //System.out.println(compHand+" "+altHand);
             String procent="";
             int i=0;
             while (i<169) {
@@ -1050,12 +1912,37 @@ public class Table extends Application {
             System.out.println(procent);
             int chance = Integer.parseInt(procent);
             String desition ="";
-            if (chance<4990) {desition="Я бы пассaнул...";}
-            if ((chance>=4990)&&(chance<5180)){desition="Играю колл пасс.";}
-            if ((chance>=5180)&&(chance<5900)) {desition="Играю колл колл";}
-            if ((chance>=5900)&&(chance<6300)) {desition="Играю бет разумный колл";}
-            if ((chance>=6300)&&(chance<6600)) {desition="Играю бет большой колл";}
-            if ((chance>=6600)) {desition="Играю бет оллин";}
+            if (chance<4990) {
+                desition="Я бы пассaнул...        ";
+                int last=handLog.size()-1;
+                String lastbetSize1 =handLog.get(last).substring(8);
+                String lastbetSize2 =handLog.get(last-1).substring(8);
+                System.out.println(lastbetSize1 + " " + lastbetSize2);
+                if(lastbetSize1.equals(lastbetSize2)) {
+                    cash.compChecCall();
+                } else {
+                    cash.compPass();}
+            }
+            if ((chance>=4990)&&(chance<5180)){
+                desition="Играю колл пасс.      ";
+                cash.compChecCall();
+            }
+            if ((chance>=5180)&&(chance<5900)) {
+                desition="Играю колл колл.       ";
+                cash.compChecCall();
+            }
+            if ((chance>=5900)&&(chance<6300)) {
+                desition="Играю бет разумный колл.        ";
+                cash.compRaise();
+            }
+            if ((chance>=6300)&&(chance<6600)) {
+                desition="Играю бет большой колл.         ";
+                cash.compRaise();
+            }
+            if ((chance>=6600)) {
+                desition="Играю бет оллин.           ";
+                cash.compRaise();
+            }
             showTempText.setText(desition);
 
         }
@@ -1086,6 +1973,82 @@ public class Table extends Application {
     }
 
 
+    // Класс обходящий все дерево компьтера в поисках нужной папки.
+
+    public class PrintFiles extends SimpleFileVisitor<Path> {
+
+        // Поиск нужной дирректории.
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+
+
+            if (((dir.endsWith("Program Files"))||(dir.endsWith("Applications")))&&(finded)){
+
+               altPath=""+dir;
+                finded=false;
+                System.out.println("Потенциально "+ dir+ " Размер " + altPath.length() + " " + finded );
+            }
+
+            if (dir.endsWith("HUPoker")){
+                System.out.println("Найдена дирректория");
+                mainPath=""+ dir;
+                System.out.println(mainPath);
+                dirStatus.setText(mainPath);
+                return FileVisitResult.TERMINATE;
+
+            }
+            return FileVisitResult.CONTINUE;
+        }
+
+    // Отлавливание всякиx ошибок.
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc) {
+            System.err.println(exc);
+            return FileVisitResult.CONTINUE;
+        }
+    }
+
+
+    public class Opponent {
+        int oppHands;
+        int oppWinnings;
+
+        double oppVpp;
+        double oppPfr;
+        double opp3bet;
+        double opp4bet;
+        double oppFold3bet;
+
+        double oppContbet;
+        double oppFoldcontbet;
+        double oppCheckraise;
+
+        double oppBetRiver;
+
+        double oppWentShowdown;
+        double oppWinshodown;
+        double oppWinriveraction;
+
+
+        public Opponent(){
+
+        }
+
+
+    }
+
+
+
 }
 
 
+//                if ((phase.equals("river"))&&(step)){
+//                    int [] humaComb=new int[6];
+//                    humaComb=analysis.WinCombination(deck.getCard(1), deck.getCard(2));
+//                    int [] compComb = new int[6];
+//                    compComb=analysis.WinCombination(deck.getCard(3),deck.getCard(4));
+//                    System.out.println("Человек " + Arrays.toString(humaComb));
+//                    System.out.println("Компьютер " + Arrays.toString(compComb));
+//                    whoWin(humaComb, compComb);
+//
+//                }
