@@ -38,11 +38,11 @@ public class Freq {
         return str;
     }
 
-    public String setTextFromFile(String fileName) {
+    public String setTextFromFile(String fileName) throws IOException {
         String str = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "CP1251"));
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "CP1251"));
-            while ((str = br.readLine()) != null) {
+               while ((str = br.readLine()) != null) {
                 text.add(str);
             }
             br.close();
@@ -50,9 +50,8 @@ public class Freq {
             System.out.println("Error in method setTextFromFile: FileNotFoundException");
         } catch (IOException e) {
             System.out.println("Error in method setTextFromFile: IOException");
-        }
-        finally {
-
+        } finally {
+            br.close();
         }
         return str;
     }
