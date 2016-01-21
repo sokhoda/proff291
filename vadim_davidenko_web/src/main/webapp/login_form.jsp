@@ -1,4 +1,4 @@
-<%--
+%--
   Created by IntelliJ IDEA.
   User: v.davidenko
   Date: 18.01.2016

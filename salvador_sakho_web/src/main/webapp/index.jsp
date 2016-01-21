@@ -1,14 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: al1
-  Date: 21.11.15
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-    <head>
-        <title>Proff29</title>
-    </head>
-    <body>
-        <h3>Hello proff29!!!</h3>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Сounter</title>
+</head>
+<body>
+<h2>Count Java</h2>
+<%!
+    int count=5;
+//    count = 5;
+%>
+
+<input
+<%= count++%>
+/>
+
+</body>
 </html>
