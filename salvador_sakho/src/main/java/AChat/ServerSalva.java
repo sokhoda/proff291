@@ -11,67 +11,69 @@ import java.nio.channels.SocketChannel;
  */
 public class ServerSalva extends Thread{
 
-    ServerSalva(int port){
-        this.port=port;
-    }
     ServerSalva(){
     }
 
-
-    public int getPort() {
-        return port;
+    ServerSalva(String ip,int port){
+        this.listenPort=port;
+        this.ip=ip;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+
+    public int getWritingPort() {
+        return writingPort;
     }
 
-    public String getIp() {
-        return ip;
+    public void setWritingPort(int writingPort) {
+        this.writingPort = writingPort;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-    private  int port;
+    private  int listenPort;
+    private  int writingPort;
     private  String ip;
     private SocketChannel scForlisten;
+    private SocketChannel scForWrite;
     private ServerSocketChannel ssc;
+    private ServerSocketChannel sscForWrite;
     Controller con = new Controller();
 
 @Override
     public void run() {
     try {
         ssc = ServerSocketChannel.open();
-        ssc.socket().bind(new InetSocketAddress(getPort()));
+        ssc.socket().bind(new InetSocketAddress(ip,listenPort));
         System.out.println("I am hear");
+
+         sscForWrite= ServerSocketChannel.open();
+         sscForWrite.socket().bind(new InetSocketAddress(ip,listenPort+5));
         System.out.println("Server On");
-//        if(!con.isClientConnected()){
-//         System.out.println("I am hear2");
-//        }
+
 
         scForlisten=ssc.accept();
+        scForWrite=sscForWrite.accept();
 
     } catch (IOException e) {
         System.out.println("serverTurnOn " + e);
     }
 
-    ByteBuffer bb= ByteBuffer.allocate(1000);
+    ByteBuffer bbIN= ByteBuffer.allocate(10);
+
     while (true){
         try {
-            bb.clear();
-            scForlisten.read(bb);
-            bb.flip();
-            String messText= new String(bb.array());
-            if (!messText.isEmpty()) {
-              con.chatMess(messText);//Должен выводить в окно текст
-              System.out.println(messText);
-            }
+            bbIN.clear();
+            scForlisten.read(bbIN);
+            bbIN.flip();
+            String messText= new String(bbIN.array()+" перед записью в канал");
+               System.out.println(scForWrite.getLocalAddress()+" "+scForWrite.getRemoteAddress()+" Сервер/порт для записи");
+            scForWrite.write(bbIN);
+            Controller cont= new Controller(scForWrite);
+            cont.chatMess();// метод con.chatMess берет байты из канала приобразует и выводит в окно вывода
         }catch (IOException e)
         {
             System.out.println("Reading from scForlisten "+e);
         }
     }
+
 }
 
 }

@@ -12,7 +12,6 @@
     <modules>
         <module>proff29_examples</module>
         <module>proff29_examples_web</module>
-
         <module>valeriy_mazur</module>
         <module>valeriy_mazur_web</module>
         <module>yuliia_nemyrovets</module>
@@ -20,17 +19,16 @@
         <module>alexandr_cherkassky</module>
         <module>lidia_gaidukova</module>
         <module>lidia_gaidukova_web</module>
-
-
+        <module>alexandr_khoda</module>
         <module>alexandr_khoda_web</module>
         <module>dima_rutskiy</module>
-        <module>sergey_kutsiy</module>
+        <!--<module>sergey_kutsiy</module>-->
 
 
         <module>andrey_kallko</module>
         <module>dima_rutskiy_web</module>
 
-        <module>andrey_kallko</module>
+        <!--<module>andrey_kallko</module>-->
 
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
@@ -44,13 +42,15 @@
         <module>kristina_karpenko_web</module>
         <module>lyashenko_dmitriy</module>
         <module>lyashenko_dmitriy_web</module>
-        <module>sergey_kutsiy</module>
+
 
         <module>vadim_davidenko</module>
-        <!--<module>vladymyr_danilov</module> -->
-      <!--  <module>vladymyr_danilov_web</module> -->
+        <!--<module>vladymyr_danilov</module>-->
+
+        <module>vadim_davidenko_web</module>
         <module>yura_skulskiy</module>
-      <!--  <module>igor_gonchar_web</module> -->
+        <module>yura_skulskiy_web</module>
+
 
         <module>olena_babenko_web</module>
         <module>alexandr_cherkassky_web</module>
