@@ -30,13 +30,14 @@
                   <tr>
                       <td>
                           <input type="radio" name="selAct"
-                                 value="createClient">Зарегистрировать клиента
+                                 value="createClient"> Зарегистрировать клиента
                       </td>
                   </tr>
                   <tr>
                       <td>
                           <input type="radio" name="selAct"
-                                 value="showClientsByPortion">Вывести всех клиентов порциями по
+                                 value="showClientsByPortion"> Вывести всех
+                          клиентов порциями по
                           <input type="text" name="clientQuantity"
                                  placeholder="10" value="10" >
                           человек

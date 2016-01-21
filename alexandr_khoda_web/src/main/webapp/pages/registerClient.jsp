@@ -28,32 +28,34 @@
     <img <%--height="100px" width="100px" --%>
             src="../img/newUser.jpg" align="left"
             style="margin-right: 20px">
-    <label for="login1">Name: </label>
+    <label for="login1">Имя: </label>
     <input  type="text" placeholder="Надія" name="login" id="login1"><br>
 
-    <label for="surname">Surname: </label>
+    <label for="surname">Фамилия: </label>
     <input  type="text" placeholder="Міцненька" name="surname" id="surname"><br>
 
-    <label for="phone">Phone: </label>
+    <label for="phone">Телефон: </label>
     <input  type="text" placeholder="+38 097 111 22 33" name="phone" id="phone"><br>
 
-    <label for="address">Address: </label>
+    <label for="address">Адрес: </label>
     <input  type="text" placeholder="25, I. Franka Str, app. 7, 03051 Kyiv"
             name="address" id="address"><br>
 
-    <label for="sum">Total Order Amount: </label>
-    <input  type="text" value="0.0" name="sum" id="sum"><label> грн.</label> <br>
+    <label for="sum">Общая сумма заказов: </label>
+    <input  type="text" value="0.0" name="sum" id="sum"><label
+        style="width: 35px">грн.</label>
+    <br>
 
     <%! String curDate =
             new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
     %>
 
-    <label for="date">Last Order Date: </label>
+    <label for="date">Дата последнего заказа: </label>
     <input  type="text" name="LastOrderDate" id="date" value = <%= curDate %>><br>
     <br>
 
     <br>
-    <input  type="submit" value="Register" id="reg">
+    <input  type="submit" value="Зарегистрировать" id="reg">
 
 </form>
 </body>

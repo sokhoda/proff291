@@ -14,13 +14,19 @@ public class Client {
     private GregorianCalendar lastOrderDate;
 
     public Client(String name, String surname, String phone, String address) {
+        this(name, surname, phone, address, 0, null);
+    }
+
+    public Client(String name, String surname, String phone, String address,
+                  int totalOrderAmount, GregorianCalendar lastOrderDate) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.address = address;
-        this.totalOrderAmount = 0;
-        this.lastOrderDate = null;
+        this.totalOrderAmount = totalOrderAmount;
+        this.lastOrderDate = lastOrderDate;
     }
+
     public Client(){
 
     }

@@ -15,8 +15,10 @@ input[type=text]{
 
 input[type=submit]{
     width: 150px;
+    margin-left: 100px;
+    text-align: center;
+    font-size: x-large;
     font-weight: bold;
-    color: crimson;
-    background-color:lightgreen;
+    color: forestgreen;
     line-height: 200%;
 }

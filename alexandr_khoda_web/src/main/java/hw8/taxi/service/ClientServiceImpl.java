@@ -3,6 +3,7 @@ package hw8.taxi.service;
 import hw8.taxi.domain.Client;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -56,6 +57,8 @@ public class ClientServiceImpl {
             { "Romanovych", "1" }, { "Sergijivna", "0" },
             { "Sergijovych", "1" }, { "JYrijivna", "0" }, { "JYrijovych", "1" }, };
 
+    private  final int TotalOrderSum = 10000;
+
     public ClientServiceImpl(){
 
     }
@@ -66,10 +69,27 @@ public class ClientServiceImpl {
         for (int i = 0; i < quantity; i++) {
             String[] human = getRandHumanName();
             clientService.getClients().add(new Client(human[0], human[1], getRandPhone(),
-                    "ADDRESS" + rand.nextInt(1000)));
+                    "ADDRESS" + rand.nextInt(1000), rand.nextInt
+                    (TotalOrderSum),getRandDate(4, 2013, 12, 1, 28, 1)));
         }
     }
+    public GregorianCalendar getRandDate(int kYear, int minYear, int kMonth,
+                                         int minMonth, int kDay, int minDay) {
 
+        int year = rand.nextInt(kYear) + minYear;
+        int month = rand.nextInt(kMonth) + minMonth;
+        int dayOfMonth = rand.nextInt(kDay) + minDay;
+
+        GregorianCalendar date = new GregorianCalendar(year, month, dayOfMonth);
+        while (date.compareTo(new GregorianCalendar()) > 0){
+            year = rand.nextInt(kYear) + minYear;
+            month = rand.nextInt(kMonth) + minMonth;
+            dayOfMonth = rand.nextInt(kDay) + minDay;
+
+            date = new GregorianCalendar(year, month, dayOfMonth);
+        }
+        return date;
+    }
     public String getRandPhone(){
         String[] code = {"095", "050", "097", "067", "066", "099"};
         String phoneNum = code[rand.nextInt(code.length)];

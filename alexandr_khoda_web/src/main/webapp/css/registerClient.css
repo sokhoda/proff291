@@ -19,8 +19,9 @@ input[type=text]{
 }
 
 input[type=submit]{
-    display: inline-block;
-    text-align: left;
+    width: 250px;
+    margin-left: 450px;
+    text-align: center;
     font-size: x-large;
     font-weight: bold;
     color: forestgreen;

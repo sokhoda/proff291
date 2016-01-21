@@ -14,7 +14,15 @@ h3 {
 }
 tr{
     text-align: center;
+    font-weight:bold;
 }
+td{
+    width: 15%;
+}
+table td.shrink{
+    width: 5%;
+}
+
 input[type=submit]{
     display: inline-block;
     text-align: left;

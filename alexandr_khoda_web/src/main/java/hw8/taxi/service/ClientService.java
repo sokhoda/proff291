@@ -12,7 +12,6 @@ import java.util.Random;
  */
 public class ClientService {
     private List<Client> clients = new ArrayList<Client>();
-
     public ClientService() {
     }
 
