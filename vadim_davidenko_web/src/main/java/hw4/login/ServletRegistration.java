@@ -14,8 +14,8 @@ import java.util.Map;
  * Created by Вадим on 17.01.2016.
  */
 
-@WebServlet("/regform")
-public class RegistrationAction extends HttpServlet {
+@WebServlet("/regForm")
+public class ServletRegistration extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -28,7 +28,13 @@ public class RegistrationAction extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        service(req, resp);
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = req.getParameterMap();
+
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
         String confirmPassword = parameterMap.get("confirmPassword")[0].trim();
@@ -37,31 +43,29 @@ public class RegistrationAction extends HttpServlet {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String regDate = df.format(new Date());
 
-        // Registration
+        String msg = "";
+        String pageAddress = "/reg_form.jsp";
         if (name.isEmpty() || surname.isEmpty() || login.isEmpty() ||
                 password.isEmpty() || confirmPassword.isEmpty()) {
-            resp.getWriter().println("Please, fill in all fields");
-            return;
-            // stay on this page
-        }
-        if (!password.equals(confirmPassword)) {
-            resp.getWriter().println("The password confirmation does not match!");
-            return;
-            // stay on this page
-        }
-        if (!Registration.isUserExist(login)) {
-            String[] userData = new String[]{password, name, surname, regDate};
-            if (Registration.addUser(login, userData)) {
-                resp.getWriter().println("Your registration is successful. Congratulations!");
-                resp.getWriter().println(Registration.printUserList());
-                // go to Congratulations page
-            }
+            msg = "Please, fill in all fields";
         } else {
-            resp.getWriter().println("Sorry, but user with such login is already registered.\nPlease, try another one.");
-            // stay on this page
+            if (!password.equals(confirmPassword)) {
+                msg = "The password confirmation does not match!";
+            } else {
+                if (!Registration.isUserExist(login)) {
+                    String[] userData = new String[]{password, name, surname, regDate};
+                    if (Registration.addUser(login, userData)) {
+                        msg = "Your registration is successful. Congratulations!";
+                        pageAddress = "/users_base.jsp";
+                        req.setAttribute("users", Registration.getUserMap());
+                    }
+                } else {
+                    msg = "Sorry, but user with such login is already registered. Please, try another one.";
+                }
+            }
         }
-
+        req.setAttribute("server_msg", msg);
+        req.getRequestDispatcher(pageAddress).forward(req, resp);
     }
-
 
 }
