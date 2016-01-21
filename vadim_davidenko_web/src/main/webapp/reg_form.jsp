@@ -13,8 +13,7 @@
 </head>
 <body>
 
-<h3>Registration form</h3>
-
+<h3>Registration</h3>
 <div style="float: left">
 
 <form action="/regForm" method="post">
@@ -41,8 +40,8 @@
     </tr>
     <tr><td colspan="2"><hr/></td></tr>
     <tr>
-      <td align="center"><input type="submit" value="Submit"/></td>
-      <td align="center"><a href="/loginform.jsp">Login</a></td>
+      <td align="center"><input type="submit" value="Submit" style="width: 100px"/></td>
+      <td align="center"><a href="/login_form.jsp">Login page</a></td>
     </tr>
   </table>
 </form>
@@ -50,11 +49,7 @@
 </div>
 <div style="clear: both"></div>
 
-<p style="color: red">
-    ${empty_field_err_msg}
-    ${confirm_password_err_msg}
-    ${already_registered_msg}
-</p>
+<p style="color: red"><b>${server_msg}</b></p>
 
 </body>
 
