@@ -14,8 +14,8 @@ import java.util.Map;
 
 @WebServlet("/form")
 public class FormProcessor extends HttpServlet {
-   public String log;
-   public String pass;
+    public String log;
+    public String pass;
 
     //карта, на уровне инита ее заполняем, сравниваем
     public void init() {
@@ -36,7 +36,8 @@ public class FormProcessor extends HttpServlet {
         if (login.equals(log) && pass.equals(pass)) {//if Strings log and pass
             response.getWriter().print("Hello, user " + login);
         } else {
-            response.getWriter().print("Bye, user " + login);
+            request.getRequestDispatcher("regform.jsp").forward(request, response);
         }
     }
 }
+
