@@ -1,0 +1,24 @@
+h1{
+    text-align: center;
+    font-weight: bold;
+    font-family: "Times New Roman";
+    /*background-color: gold;*/
+    color: firebrick;
+    line-height: 200%;
+}
+input[type=text]{
+    text-align: right;
+    width: 60px;
+    font-weight: bold;
+    background-color: blanchedalmond;
+}
+
+input[type=submit]{
+    width: 150px;
+    margin-left: 100px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    color: forestgreen;
+    line-height: 200%;
+}

@@ -12,21 +12,24 @@ import java.util.Arrays;
 public class Task2 {
     public static void main(String[] args) throws IOException {
         SocketChannel myChanell = SocketChannel.open(
-                new InetSocketAddress ("192.168.1.121", 30000)
+                new InetSocketAddress ("127.0.0.1", 2000)
         );
         ByteBuffer buf = ByteBuffer.allocate(100);
         String str = "Hi!";
         buf.put(str.getBytes());
 
         buf.flip();
+
+
         byte[] arr = new byte[1000];
         while (buf.hasRemaining()) {
             myChanell.write(buf);
-            buf.clear();
-            myChanell.read(buf);
-            arr=buf.array();
+            //buf.clear();
+
+            //myChanell.read(buf);
+            //arr=buf.array();
             //System.out.println(Arrays.toString(arr));
-            System.out.println(new String(arr));
+            //System.out.println(new String(arr));
         }
 
 
