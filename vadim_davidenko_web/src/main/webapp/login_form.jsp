@@ -13,7 +13,7 @@
 
 <body>
 
-<h3>&nbsp;&nbsp;Login form</h3>
+<h3>Login</h3>
 
 <div style="float: left">
 
@@ -29,8 +29,8 @@
         </tr>
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
-            <td align="center"><input type="submit" value="Login"/></td>
-            <td align="center"><a href="/regform.jsp">Registration</a></td>
+            <td align="center"><input type="submit" value="Login" style="width: 100px"/></td>
+            <td align="center"><a href="/reg_form.jsp">Registration</a></td>
         </tr>
     </table>
 
@@ -39,11 +39,7 @@
 </div>
 <div style="clear: both"></div>
 
-<p style="color: red">
-    ${empty_field_err_msg}
-    ${wrong_password_err_msg}
-    ${not_registered_err_msg}
-</p>
+<p style="color: red"><b>${server_msg}</b></p>
 
 </body>
 
