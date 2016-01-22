@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Controller.FormProcessor" %><%--
   Created by IntelliJ IDEA.
   User: lenchi
   Date: 22.01.16
@@ -12,12 +12,11 @@
 </head>
 <body>
 <h3>Registration form</h3>
+
 <form action="/registration" method="post">
-    <input type="text" name="UserLogin" placeholder="username" required autofocus />
-    <input type="text"  name="UserPass" placeholder="password" required />
+    <input type="text" name="UserLogin" placeholder="username" required autofocus/>
+    <input type="text" name="UserPass" placeholder="password" required/>
     <input type="submit" name="Register" value="Finish"/>
 </form>
-
-
 </body>
 </html>
