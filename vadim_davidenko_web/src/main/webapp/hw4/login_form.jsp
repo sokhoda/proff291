@@ -1,10 +1,11 @@
-%--
+<%--
   Created by IntelliJ IDEA.
   User: v.davidenko
   Date: 18.01.2016
   Time: 14:51
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,7 +31,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
             <td align="center"><input type="submit" value="Login" style="width: 100px"/></td>
-            <td align="center"><a href="/reg_form.jsp">Registration</a></td>
+            <td align="center"><a href="/hw4/reg_form.jsp">Registration</a></td>
         </tr>
     </table>
 
