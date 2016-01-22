@@ -27,8 +27,8 @@ input[type=password]{
     line-height: 150%;
 }
 input[type=submit]{
-    display: inline-block;
-    text-align: left;
+    /*display: inline-block;*/
+    width: auto;
     font-size: x-large;
     font-weight: bold;
     color: forestgreen;

@@ -31,3 +31,11 @@ input[type=submit]{
     color: forestgreen;
     line-height: 200%;
 }
+button{
+    display: inline-block;
+    text-align: left;
+    font-size: small;
+    font-weight: bold;
+    font-family: Arial;
+    color: forestgreen;
+}

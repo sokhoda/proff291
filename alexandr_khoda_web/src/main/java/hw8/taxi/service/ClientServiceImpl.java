@@ -57,7 +57,7 @@ public class ClientServiceImpl {
             { "Romanovych", "1" }, { "Sergijivna", "0" },
             { "Sergijovych", "1" }, { "JYrijivna", "0" }, { "JYrijovych", "1" }, };
 
-    private  final int TotalOrderSum = 10000;
+    private final int TotalOrderSum = 10000;
 
     public ClientServiceImpl(){
 

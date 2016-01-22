@@ -14,7 +14,7 @@ import java.util.Map;
  *
  */
 @WebServlet("/form")
-public class FormProcessor extends HttpServlet {
+public class AuthenticationServ extends HttpServlet {
     Map<String, String> users = new HashMap<>();
 
     @Override
@@ -28,11 +28,10 @@ public class FormProcessor extends HttpServlet {
         users.put("Iryna", "123");
         users.put("Petro", "poi432");
         users.put("Ivan", "abc123");
-
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
 //        String login = req.getParameter("login");
         Map<String, String []> paramMap = req.getParameterMap();
@@ -42,17 +41,14 @@ public class FormProcessor extends HttpServlet {
         String pass = paramMap.get("pass")[0];
 
         if (users.containsKey(login) && users.get(login).equals(pass)){
-            resp.getWriter().println("Hallo " + login);
+            req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, res);
+//            req.getRequestDispatcher("index.jsp").forward(req, res);
         }
         else{
-            resp.getWriter().println("Bye " + login);
+            req.setAttribute("FailedAuth","Your Login and/or password are not" +
+                    " correct. Please try once more.");
+            req.getRequestDispatcher("index.jsp").forward(req, res);
         }
-
-        req.setAttribute("name", login);
-        req.setAttribute("surname", pass);
-        req.getRequestDispatcher("/pages/MyTable.jsp").forward(req, resp);
-
-//        resp.getWriter().println("Your name is " + login);
 
     }
 }
