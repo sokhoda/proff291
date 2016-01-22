@@ -15,10 +15,10 @@
 <table border="1" cellpadding="1" width="100%" align="center">
   <tr valign="center">
     <th width="33.33%" align="center">
-      <a href="login_form.jsp"><h3>Login</h3></a>
+      <a href="hw4/login_form.jsp"><h3>Login</h3></a>
     </th>
     <th width="33.33%" align="center">
-      <a href="reg_form.jsp"><h3>Registration</h3></a>
+      <a href="hw4/reg_form.jsp"><h3>Registration</h3></a>
     </th>
     <th width="33.33%" align="center">
       <h3>Header 3</h3>

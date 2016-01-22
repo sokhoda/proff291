@@ -9,54 +9,50 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%!
-    String name;
-    String surname;
-    String phone;
-    String address;
-    double totalOrderAmount;
-    GregorianCalendar lastOrderDate;
-%>
-<head>
-    <title>Registration Form</title>
-    <style>
-        <%@include file='/css/registerClient.css' %>
-    </style>
-</head>
-<body>
-<form action="/taxi" method="post">
-    <img <%--height="100px" width="100px" --%>
-            src="../img/newUser.jpg" align="left"
-            style="margin-right: 20px">
-    <label for="login1">Имя: </label>
-    <input  type="text" placeholder="Надія" name="login" id="login1"><br>
+    <head>
+        <title>Registration Form</title>
+        <style>
+            <%@include file='/css/registerClient.css' %>
+        </style>
+    </head>
 
-    <label for="surname">Фамилия: </label>
-    <input  type="text" placeholder="Міцненька" name="surname" id="surname"><br>
+    <body>
+    <form action="/taxi" method="post">
+        <img <%--height="100px" width="100px" --%>
+                src="../img/newUser.jpg" align="left"
+                style="margin-right: 20px">
+        <label for="name">Имя: </label>
+        <input  type="text" placeholder="Надія" name="name" id="name"><br>
 
-    <label for="phone">Телефон: </label>
-    <input  type="text" placeholder="+38 097 111 22 33" name="phone" id="phone"><br>
+        <label for="surname">Фамилия: </label>
+        <input  type="text" placeholder="Міцненька" name="surname" id="surname"><br>
 
-    <label for="address">Адрес: </label>
-    <input  type="text" placeholder="25, I. Franka Str, app. 7, 03051 Kyiv"
-            name="address" id="address"><br>
+        <label for="phone">Телефон: </label>
+        <input  type="text" placeholder="+38 097 111 22 33" name="phone" id="phone"><br>
 
-    <label for="sum">Общая сумма заказов: </label>
-    <input  type="text" value="0.0" name="sum" id="sum"><label
-        style="width: 35px">грн.</label>
-    <br>
+        <label for="address">Адрес: </label>
+        <input  type="text" placeholder="25, I. Franka Str, app. 7, 03051 Kyiv"
+                name="address" id="address">
+        <br>
+        <br>
+        <input  type="submit" name="back" value="Назад в главное меню"
+                style="margin-left: 5%;">
+        <input  type="submit" name="register" value="Зарегистрировать"
+                style="margin: 40px" >
+        <br>
+        <%
+            if (request.getAttribute("FailedRegistration") != null){
+        %>
+                <label class="regMessage" style="color:red;">${FailedRegistration}</label>
+        <%
+            }
+            if (request.getAttribute("SuccessfulRegistration") != null){
+        %>
+                <label class="regMessage" style="color:blue;">${SuccessfulRegistration}</label>
+        <%
+            }
+        %>
 
-    <%! String curDate =
-            new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
-    %>
-
-    <label for="date">Дата последнего заказа: </label>
-    <input  type="text" name="LastOrderDate" id="date" value = <%= curDate %>><br>
-    <br>
-
-    <br>
-    <input  type="submit" value="Зарегистрировать" id="reg">
-
-</form>
-</body>
+    </form>
+    </body>
 </html>

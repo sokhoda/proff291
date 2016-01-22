@@ -41,7 +41,7 @@
     <tr><td colspan="2"><hr/></td></tr>
     <tr>
       <td align="center"><input type="submit" value="Submit" style="width: 100px"/></td>
-      <td align="center"><a href="/login_form.jsp">Login page</a></td>
+      <td align="center"><a href="/hw4/login_form.jsp">Login page</a></td>
     </tr>
   </table>
 </form>

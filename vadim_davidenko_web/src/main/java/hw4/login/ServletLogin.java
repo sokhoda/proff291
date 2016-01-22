@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -25,7 +27,6 @@ public class ServletLogin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @Override
@@ -35,18 +36,19 @@ public class ServletLogin extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
+
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
-
         String msg = "";
-        String pageAddress = "/login_form.jsp";
+        String pageAddress = "hw4/login_form.jsp";
+
         if (login.isEmpty() ||  password.isEmpty()) {
             msg = "Please, fill in all fields";
         } else {
             Authorization authorization = new Authorization();
             if (authorization.isLoginCorrect(login)) {
                 if (authorization.isAuthorized(login, password)) {
-                    pageAddress = "/sample.jsp";
+                    pageAddress = "hw4/sample.jsp";
                 } else {
                     msg = "Your password is incorrect!";
                 }
