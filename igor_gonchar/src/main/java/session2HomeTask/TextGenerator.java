@@ -8,7 +8,8 @@ import java.util.*;
  */
 
 
-public class TextGenerator {
+public class
+TextGenerator {
     private BufferedReader brFromConsole;
     private BufferedReader brFromFile;
 
