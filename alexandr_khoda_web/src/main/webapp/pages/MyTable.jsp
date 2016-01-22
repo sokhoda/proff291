@@ -12,6 +12,11 @@
 </head>
 
 <body>
+${name}
+<%
+    String s1 = (String) request.getAttribute("surname");
+    out.println(s1);
+%>
 <table border="1">
     <thead>
     <tr>
