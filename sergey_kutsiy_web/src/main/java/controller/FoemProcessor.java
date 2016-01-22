@@ -19,6 +19,7 @@ public class FoemProcessor extends HttpServlet {
     public void init(){
 
     }
+
     @Override
     public void doPost (HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String login = req.getParameter("login");
