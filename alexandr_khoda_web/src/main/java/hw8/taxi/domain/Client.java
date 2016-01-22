@@ -31,12 +31,14 @@ public class Client {
     public Client(){
 
     }
+
     @Override
     public String toString(){
         SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
         return getName() + " " + getSurname() + ", " + getTotalOrderAmount()
                 + ", " + format1.format(getLastOrderDate().getTime()) + "\n";
     }
+
     public String getName() {
         return name;
     }

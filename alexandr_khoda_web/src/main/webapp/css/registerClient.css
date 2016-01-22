@@ -4,7 +4,6 @@ label {
     width: 200px;
     font-weight: bold;
     font-family: Arial;
-    /*background-color: gold;*/
     color: saddlebrown;
     line-height: 200%;
 }
@@ -12,7 +11,7 @@ label.regMessage {
     display: inline-block;
     text-align: center;
     width: 100%;
-    margin-top:10%;
+    margin-top: 10%;
     font-weight: bold;
     font-family: Arial;
     font-size: x-large;
