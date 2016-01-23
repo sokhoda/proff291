@@ -1,14 +1,25 @@
 <%--
   Created by IntelliJ IDEA.
-  User: al1
-  Date: 21.11.15
+  User: Вадим
+  Date: 16.01.2016
+  Time: 13:40
+  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-    <head>
-        <title>Proff29</title>
-    </head>
-    <body>
-        <h3>Hello proff29!!!</h3>
-    </body>
+<head>
+    <title></title>
+</head>
+<body>
+
+<div style="background-color: #d4ecff" align="center">
+<h2>Choose page</h2>
+
+<p><b><a href="hw4/login_form.jsp">Login</a></b></p>
+
+<p><b><a href="hw4/reg_form.jsp">Registration</a></b></p>
+
+<p><b><a href="hw4/sample.jsp">Sample</a></b></p>
+</div>
+</body>
 </html>
