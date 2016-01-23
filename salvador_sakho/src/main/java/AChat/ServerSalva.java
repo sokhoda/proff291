@@ -32,7 +32,9 @@ public class ServerSalva extends Thread{
     private  int writingPort;
     private  String ip;
     private SocketChannel scForlisten;
+    private SocketChannel scForWrite;
     private ServerSocketChannel ssc;
+    private ServerSocketChannel sscForWrite;
     Controller con = new Controller();
 
 @Override
@@ -42,29 +44,30 @@ public class ServerSalva extends Thread{
         ssc.socket().bind(new InetSocketAddress(ip,listenPort));
         System.out.println("I am hear");
 
+         sscForWrite= ServerSocketChannel.open();
+         sscForWrite.socket().bind(new InetSocketAddress(ip,listenPort+5));
         System.out.println("Server On");
 
-        scForlisten=ssc.accept();
 
-        System.out.println(scForlisten.getLocalAddress()+" "+scForlisten.getRemoteAddress()+" Сервер");
-        System.out.println(scForlisten.isConnected());
+        scForlisten=ssc.accept();
+        scForWrite=sscForWrite.accept();
 
     } catch (IOException e) {
         System.out.println("serverTurnOn " + e);
     }
 
-    ByteBuffer bb= ByteBuffer.allocate(1000);
+    ByteBuffer bbIN= ByteBuffer.allocate(10);
+
     while (true){
         try {
-            bb.clear();
-            scForlisten.read(bb);
-            bb.flip();
-            String messText= new String(bb.array());
-              System.out.println(messText +" текст сообщения");
-            scForlisten.write(bb);
-                bb.clear();
-                con.chatMess(scForlisten);//Должен выводить в окно текст
-
+            bbIN.clear();
+            scForlisten.read(bbIN);
+            bbIN.flip();
+            String messText= new String(bbIN.array()+" перед записью в канал");
+               System.out.println(scForWrite.getLocalAddress()+" "+scForWrite.getRemoteAddress()+" Сервер/порт для записи");
+            scForWrite.write(bbIN);
+            Controller cont= new Controller(scForWrite);
+            cont.chatMess();// метод con.chatMess берет байты из канала приобразует и выводит в окно вывода
         }catch (IOException e)
         {
             System.out.println("Reading from scForlisten "+e);

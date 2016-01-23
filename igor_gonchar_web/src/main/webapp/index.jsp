@@ -8,31 +8,42 @@
 <%! public int counter = -1; %>
 <html>
 <head>
-    <title>Proff29</title>
+    <title>Igor Web Application</title>
 </head>
 <body>
-<h3>Hello proff29!!! I am Igor!!!</h3>
 
-<form action="/form" method="post">
-    <input type="text" name="login" value="Igor"/>
-    <input type="password" name="password" size="15" maxlength="25">
-    <input type="submit" value="POST"/>
+<table border="1">
+    <tbody>
 
-    <%!
+    <form action="/authorizationForm" method="post">
+        <tr>
+            <td rowspan="5"><img
+                    src="http://medias.lescontamines.com/images/prestataires/multitailles/800x600_22262-Logo_taxi.jpg"
+                    height="200"/>
+            </td>
+            <td  align="center"><b>Login Form:</b></td>
+        </tr>
+        <td><input type="text" name="login"/></td>
+        <tr>
+            <td><input type="password" name="password"/></td>
+        </tr>
 
-        public void methodAny() {
+        <tr>
+            <td><input type="submit" value="Login" style="width:100%"/></td>
 
-        }
-    %>
-    <%
-        Date date = new Date();
-        // out.ptintln(date);
-    %>
-    <br/>
-    <%=  counter++  %>
-    <br/>
-    <%= date %>
-</form>
+        </tr>
+    </form>
+    <tr>
+        <td><a href="registerPage.jsp">
+            <button style="width:100%">Register Now</button>
+        </a></td>
+
+    </tr>
+    </tbody>
+</table>
+<p>
+    ${auth_result}
+</p>
 
 </body>
 </html>
