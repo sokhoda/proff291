@@ -11,20 +11,8 @@
     <title>My app</title>
 </head>
 <body>
-    <form action="/form" method="POST">
-        <input type="text" name="login"/>
-        </br>
-        <input type="password" name="password"/>
-        </br>
-        <input type="submit" value="Send to Serv_upd_1705"/>
-    </form>
-    </br></br>
-<%!
-    static int count=0;
-%>
-
-    <%= count++ %>
-
-
+    <script>
+        console.log('Hello world!!!');
+    </script>
 </body>
 </html>

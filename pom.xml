@@ -21,7 +21,8 @@
         <module>alexandr_khoda</module>
         <module>alexandr_khoda_web</module>
         <module>dima_rutskiy</module>
-        <!--<module>sergey_kutsiy</module>-->
+        <module>sergey_kutsiy</module>
+        <module>sergey_kutsiy_web</module>
 
 
         <module>andrey_kallko</module>
