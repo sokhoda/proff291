@@ -11,9 +11,7 @@ import java.util.Random;
  * Created by s_okhoda on 20.01.2016.
  */
 public class ClientServiceImpl {
-
     private ClientService clientService = new ClientService();
-
     private Random rand = new Random();
 
     private String[][] sirNames = { { "Arzhajeva", "0" }, { "Barabash", "10" },
@@ -70,7 +68,7 @@ public class ClientServiceImpl {
             String[] human = getRandHumanName();
             clientService.getClients().add(new Client(human[0], human[1], getRandPhone(),
                     "ADDRESS" + rand.nextInt(1000), rand.nextInt
-                    (TotalOrderSum),getRandDate(4, 2013, 12, 1, 28, 1)));
+                    (TotalOrderSum), getRandDate(4, 2013, 12, 1, 28, 1)));
         }
     }
     public GregorianCalendar getRandDate(int kYear, int minYear, int kMonth,
@@ -101,7 +99,6 @@ public class ClientServiceImpl {
     }
 
     public String[] getRandHumanName() {
-
         if (sirNames.length == 0 || names.length == 0
                 || patronymicName.length == 0) return null;
 

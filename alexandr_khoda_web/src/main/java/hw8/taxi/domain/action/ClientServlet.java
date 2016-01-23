@@ -48,7 +48,6 @@ public class ClientServlet extends HttpServlet {
 
             if (users.containsKey(login) && users.get(login).equals(pass)){
                 req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, res);
-//            req.getRequestDispatcher("index.jsp").forward(req, res);
             }
             else{
                 req.setAttribute("FailedAuth","Your Login and/or password are not" +
@@ -93,7 +92,6 @@ public class ClientServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         List<Client> clientList = null;
-//        clientServiceImpl.getClientService().setClientOrderSum();
 
         Integer quantity = checkIntValue(req, res, "clientQuantity");
         if (quantity == null) {
@@ -110,8 +108,7 @@ public class ClientServlet extends HttpServlet {
         req.setAttribute("clientServiceImpl", clientServiceImpl);
 
         if (req.getParameter("selAct").equals("createClient")){
-            req.getRequestDispatcher("/pages/registerClient.jsp").forward
-                    (req,res);
+            req.getRequestDispatcher("/pages/registerClient.jsp").forward(req,res);
             return;
         }
 

@@ -62,7 +62,6 @@ public class ClientService {
     }
     public List showClientsLastMonth(){
         List<Client> list = new ArrayList<Client> ();
-//        int curMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         GregorianCalendar curGregDate = new GregorianCalendar();
 
         for (Client client: clients) {
@@ -77,9 +76,10 @@ public class ClientService {
         }
         return list;
     }
+
     public int daysBetween2Dates(GregorianCalendar gc1, GregorianCalendar gc2){
         return (int)((gc1.getTimeInMillis() - gc2.getTimeInMillis()) /(
-                1000*60*60*24));
+                1000 * 60 * 60 * 24));
     }
 
     public List<Client> getClients() {
