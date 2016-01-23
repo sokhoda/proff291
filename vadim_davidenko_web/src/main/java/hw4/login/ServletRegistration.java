@@ -20,8 +20,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @WebServlet("/regForm")
 public class ServletRegistration extends HttpServlet {
 
-    private Registration usersBase  = new Registration();
-
     @Override
     public void init() throws ServletException {
     }
@@ -56,16 +54,16 @@ public class ServletRegistration extends HttpServlet {
             if (!password.equals(confirmPassword)) {
                 msg = "The password confirmation does not match!";
             } else {
-                if (!usersBase.isUserExist(login)) {
+                if (!Registration.isUserExist(login)) {
                     String[] userData = new String[]{password, name, surname, regDate};
                     synchronized (ServletRegistration.class) {
-                        isAdded = usersBase.addUser(login, userData);
+                        isAdded = Registration.addUser(login, userData);
                     }
                 }
                 if (isAdded) {
                     msg = "Your registration is successful. Congratulations!";
                     pageAddress = "hw4/users_base.jsp";
-                    req.setAttribute("users", usersBase.getUserMap());
+                    req.setAttribute("users", Registration.getUserMap());
                 } else {
                     msg = "Sorry, but user with such login is already registered. Please, try another one.";
                 }

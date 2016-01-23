@@ -8,15 +8,14 @@ import java.util.*;
  */
 public class Registration {
 
-    private Map<String, String[]> users;
+    private static Map<String, String[]> users = new LinkedHashMap<String, String[]>();;
     private final static String USERS_BASE_FILE_PATH = "C:/users_base.txt";
 
-    public Registration() {
-        users = new LinkedHashMap<String, String[]>();
+    static {
         readUsersBase();
     }
 
-    public boolean addUser(String userLogin, String[] userData) {
+    public static boolean addUser(String userLogin, String[] userData) {
         if (!users.containsKey(userLogin)) {
             users.put(userLogin, userData);
             writeUserToBase(userLogin, userData);
@@ -25,26 +24,26 @@ public class Registration {
         return false;
     }
 
-    public String[] getUserData(String userLogin) {
+    public static String[] getUserData(String userLogin) {
         if (users.containsKey(userLogin)) {
             return users.get(userLogin);
         }
         return null;
     }
 
-    public Map<String, String[]> getUserMap(){
+    public static Map<String, String[]> getUserMap(){
         return users;
     }
 
-    public int getSize() {
+    public static int getSize() {
         return users.size();
     }
 
-    public boolean isUserExist(String userLogin) {
+    public static boolean isUserExist(String userLogin) {
         return users.containsKey(userLogin);
     }
 
-    public void writeUserToBase(String userLogin, String[] userData) {
+    public static void writeUserToBase(String userLogin, String[] userData) {
         File file = new File(USERS_BASE_FILE_PATH);
         PrintWriter pw = null;
         try{
@@ -67,7 +66,7 @@ public class Registration {
         }
     }
 
-    public void readUsersBase() {
+    public static void readUsersBase() {
         File file = new File(USERS_BASE_FILE_PATH);
         BufferedReader br = null;
         if (file.exists()) {
@@ -97,7 +96,7 @@ public class Registration {
     /////////////////////////////////////////////////////////////////////////////////
     // Currently unused methods
 
-    public void updateUsersBase() {
+    public static void updateUsersBase() {
         File file = new File(USERS_BASE_FILE_PATH);
         PrintWriter pw = null;
         try{
@@ -124,7 +123,7 @@ public class Registration {
         }
     }
 
-    public boolean removeUser(String userLogin) {
+    public static boolean removeUser(String userLogin) {
         if (users.containsKey(userLogin)) {
             users.remove(userLogin);
             updateUsersBase();
@@ -133,7 +132,7 @@ public class Registration {
         return false;
     }
 
-    public void printUserList() {
+    public static void printUserList() {
         StringBuilder userList = new StringBuilder("\n| [login] | [password] | [Name] | [Surname] | [reg. date] |\n");
         userList.append("-----------------------------------------------------------\n");
         Set<Map.Entry<String, String[]>> entries = users.entrySet();
