@@ -2,10 +2,10 @@ h1{
     text-align: center;
     font-weight: bold;
     font-family: "Times New Roman";
-    /*background-color: gold;*/
     color: firebrick;
     line-height: 100%;
 }
+
 input[type=text]{
     text-align: right;
     width: 60px;
@@ -15,17 +15,15 @@ input[type=text]{
 
 input[type=submit]{
     width: auto;
-    /*margin-left: 100px;*/
     text-align: center;
     font-size: x-large;
     font-weight: bold;
     color: forestgreen;
     line-height: 200%;
 }
+
 #TaxiImg{
     margin-top: 2%;
     width: 60%;
     height: 130%;
-    /*text-align: center;*/
-    /*display: block;*/
 }

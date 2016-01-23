@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by skuciy on 21.01.2016.
  */
 @WebServlet("/register")
-public class RegisterProcessor extends HttpServlet {
+public class  RegisterProcessor extends HttpServlet {
 
     @Override
     public void doPost (HttpServletRequest req, HttpServletResponse resp) throws IOException{
