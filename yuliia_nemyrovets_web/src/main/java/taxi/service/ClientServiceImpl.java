@@ -36,9 +36,9 @@ public class ClientServiceImpl implements ClientService {
         if (portionSize <= 0) {
             return null;
         }
-        int count = 0;
+      portionSize=0;
         while (clients.size() != portionSize) {
-            list.add(clients.get(count++));
+            list.add(clients.get(portionSize++));
         }
         return clients;
     }

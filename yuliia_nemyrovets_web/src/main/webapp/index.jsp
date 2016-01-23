@@ -8,6 +8,9 @@
 <html>
 <head>
     <title>Proff29</title>
+    <script> console.log('Hello JS');
+
+    </script>
     <style>
         table {
 
