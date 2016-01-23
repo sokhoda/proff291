@@ -25,6 +25,9 @@ public class FormProcessor extends HttpServlet {
 
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
-         response.getWriter().print("Hello servlet");
+        request.setAttribute("name", "al1");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+
+        response.getWriter().print("Hello servlet");
     }
 }

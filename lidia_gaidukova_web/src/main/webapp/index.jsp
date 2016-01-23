@@ -9,6 +9,21 @@
         <title>Proff29</title>
     </head>
     <body>
-        <h3>Hello proff29!!!</h3>
+      <form ation="/form" method = "post">
+          <input type ="text"
+                 name="login"
+                 value="Servlet"/>
+          <input type = "submit" value="POST"/>
+      </form>
+
+    <%
+        String count ="Counter";
+        Integer i= 0;
+        i++;
+
+            System.out.println("Counter: " +i);
+
+
+    %>
     </body>
 </html>
