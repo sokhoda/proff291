@@ -8,10 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login_upd</title>
 </head>
 <body>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<form action="/logon" method="post">
     <table border="0" align="center" rules="none" width="300">
         <tr>
             <td align="right">
@@ -40,8 +42,8 @@
             </td>
         </tr>
     </table>
-
-    <%--<img src="images/key.jpg" align="center">--%>
+</form>
+<%--<img src="images/key.jpg" align="center">--%>
 
 
 
