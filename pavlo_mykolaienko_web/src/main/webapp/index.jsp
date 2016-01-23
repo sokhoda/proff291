@@ -6,9 +6,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Proff29</title>
+    <title>Form</title>
 </head>
 <body>
-<h3>Hello world!!!</h3>
+<h3></h3>Form</h3>
+<form>
+    <input type="text" name="Login"/>
+    <input type="text" name="Password"/>
+    <input type="submit" value="post"/>
+</form>
+
 </body>
 </html>

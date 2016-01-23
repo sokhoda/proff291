@@ -44,7 +44,7 @@
     <tr style="height:70%">
         <td colspan="2">текст короткий</td>
 
-        <td colspan="4" align=left><img width="300px" src="3.jpg">Картинка </img> </td>
+        <td colspan="4" align=left><img width="300px" src="Lighthouse.jpg">Картинка </img> </td>
 
 
     </tr>
