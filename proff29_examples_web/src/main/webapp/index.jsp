@@ -8,9 +8,12 @@
 <html>
     <head>
         <title>Proff29</title>
+
+
     </head>
     <body>
-        <form action="/form" method="post">
+    <script src="js/script.js" type="text/javascript"></script>
+    <form action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>
         </form>
