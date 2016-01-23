@@ -26,10 +26,10 @@
                     </div>
                     <form action="/form" method="post">
                         <div class="form-group">
-                            <input type="text" name="Login" placeholder="username" autofocus required/>
+                            <input type="text" name="Login" placeholder="username" autofocus required autocomplete="off"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="Password" placeholder="password" required/>
+                            <input type="text" name="Password" placeholder="password" required autocomplete="off"/>
                         </div>
                         <hr/>
                         <div class="form-group">

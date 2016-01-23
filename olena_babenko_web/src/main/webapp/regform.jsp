@@ -29,10 +29,10 @@
                     <form action="/registration" method="post">
                         <div class="form-group">
                             <input type="text" name="UserLogin" placeholder="username" required
-                                   autofocus/>
+                                   autofocus autocomplete="off"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="UserPass" placeholder="password" required/>
+                            <input type="text" name="UserPass" placeholder="password" required autocomplete="off"/>
                         </div>
                         <hr/>
                         <input type="submit" name="Register" value="Finish" class="btn btn-default"/>
