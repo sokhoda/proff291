@@ -9,7 +9,7 @@
         <title>Proff29</title>
     </head>
     <body>
-        <h3>Hello proff29!!!</h3>
+        <h3>Welcome!</h3>
     <form action="/users" method="post">
         <input type="text" name="login" value = ""/>
         <input type="text" name="password"  value = "" />
