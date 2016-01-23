@@ -42,7 +42,7 @@
         <br/>
         <img src="img/murano.jpg"/>
         <br/>
-        <q>qoatation</q>
+        <q name="" id="" class="" onclick="val = 5;functionFun()">qoatation</q>
 
         <ol start="5" type="A">
             <li>item</li>
