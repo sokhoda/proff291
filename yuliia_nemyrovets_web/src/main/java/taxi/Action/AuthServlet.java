@@ -17,14 +17,14 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        doGet(req, resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // super.doGet(req, resp);
         Map<String, String[]> paramterMap = req.getParameterMap();
-        String login = paramterMap.get("name")[0];
+        String login = paramterMap.get("login")[0];
         String password = paramterMap.get("password")[0];
         String message = "";
         String page = "/loginClient.jsp";

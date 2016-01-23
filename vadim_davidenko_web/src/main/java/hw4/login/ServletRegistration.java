@@ -58,7 +58,7 @@ public class ServletRegistration extends HttpServlet {
             } else {
                 if (!usersBase.isUserExist(login)) {
                     String[] userData = new String[]{password, name, surname, regDate};
-                    synchronized (usersBase) {
+                    synchronized (ServletRegistration.class) {
                         isAdded = usersBase.addUser(login, userData);
                     }
                 }

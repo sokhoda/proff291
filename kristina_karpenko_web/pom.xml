@@ -7,6 +7,13 @@
     <groupId>proff29</groupId>
     <artifactId>kristina_karpenko_web</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+    </dependencies>
 
-    
+
 </project>
