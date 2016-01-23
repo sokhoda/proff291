@@ -4,6 +4,7 @@
   Date: 21.11.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.Date" %>
 <html>
     <head>
         <title>Proff29</title>
@@ -13,6 +14,24 @@
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>
         </form>
+
+        <%!
+            public void globalMethod() {
+
+            }
+
+            int field;
+        %>
+
+        ${name}
+
+        <%
+            String name = (String)request.getAttribute("name");
+            Date date = new Date();
+            out.println(name);
+        %>
+        <br/>
+        <%= "Это датаЖ " + date %>
 
         <h1>Hello proff29!!!</h1>
         <p>Para</p>
