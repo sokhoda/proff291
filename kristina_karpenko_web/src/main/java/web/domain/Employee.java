@@ -1,5 +1,10 @@
 package main.java.web.domain;
 
+import javax.persistence.Entity;
+
+
+
+
 import javax.persistence.*;
 import java.util.Date;
 

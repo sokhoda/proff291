@@ -11,5 +11,5 @@
 
 
     <artifactId>vadim_davidenko_web</artifactId>
-
+    <packaging>war</packaging>
 </project>
