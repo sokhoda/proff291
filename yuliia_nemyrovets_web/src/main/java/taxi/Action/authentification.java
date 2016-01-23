@@ -3,7 +3,7 @@ package taxi.Action;
 /**
  * Created by Юлия on 22.01.2016.
  */
-public class Authentification {
+class Authentification {
     Registration registration=new Registration();
     public boolean isClientExist(String login){
         return registration.isExist(login);
