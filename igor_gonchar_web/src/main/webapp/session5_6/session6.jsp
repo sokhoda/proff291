@@ -36,7 +36,7 @@
 
 </form>
 
-<a href="registerPage.jsp">
+<a href="../registerPage.jsp">
 <button> Login Re-direct</button></a>
 
 </body>
