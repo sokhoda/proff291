@@ -1,5 +1,6 @@
 package web.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
