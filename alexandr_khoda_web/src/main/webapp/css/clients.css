@@ -2,23 +2,24 @@ h1 {
     text-align: center;
     font-weight: bold;
     font-family: "Times New Roman";
-    /*background-color: gold;*/
     color: firebrick;
 }
 h3 {
     text-align: center;
     font-weight: bold;
     font-family: "Times New Roman";
-    /*background-color: gold;*/
     color: navy;
 }
+
 tr{
     text-align: center;
     font-weight:bold;
 }
+
 td{
     width: 15%;
 }
+
 table td.shrink{
     width: 5%;
 }
