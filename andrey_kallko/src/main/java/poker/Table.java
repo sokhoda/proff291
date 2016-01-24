@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -30,6 +31,7 @@ import scala.Int;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
@@ -112,20 +114,116 @@ public class Table extends Application {
         // * отрисовать флоп/терн/ривер
         // * передать ход определителю победителя
 
+        System.out.print("Супер Мозг работает. На входе: ");
+
         int last=handLog.size()-1;
-        System.out.println(handLog.get(last) + " !!!!");
+        System.out.println(handLog.get(last-1) + " " + handLog.get(last));
+        String subLast = handLog.get(last).substring(4);
+        String subPreLast= handLog.get(last-1).substring(4);
 
-        if(handLog.get(last).startsWith("humablin")) {
-            System.out.println("Пора компьтеру определиться на префлопе.");
-            analysis.preflopStrategyDispetcher();
+        String stad=handLog.get(last).substring(4,8);
+
+        boolean dec=true;
+
+        // торги на этом етапе закончены.  Dве последние ставки равны и сделаны на текузей стадии. Переход к следуюзей стадии
+
+        if(((subLast.equals(subPreLast))&&(phase.equals(stad)))&&(dec)) {
+
+            dec=false;
+            System.out.println("Torgi na faze " + stad +" zakonheni. Sdaem kartu.");
+            if (stad.equals("pref")) {
+                flop.run();
+                return;
+            }
+
+
+            if (stad.equals("flop")) {
+                turn.run();
+                return;
+            }
+
+            if (stad.equals("turn")) {
+                river.run();
+                return;
+            }
+
+            if (stad.equals("rive")) {
+
+                System.out.println("Javno ktoto viigral");
+                analysis.handEnd();
+                return;
+            }
+
+            System.out.println("Что то пошло не так!");
+            return;
 
         }
 
-        if(handLog.get(last).startsWith("humapref")) {
-            System.out.println("Пора компьтеру определиться на префлопе.");
-            analysis.preflopStrategyDispetcher();
 
+        if ((handLog.get(last).startsWith("humapref")&&(phase.equals("flop")))&&(dec)) {
+            dec=false;
+            System.out.println("Перешли на флоп. Первум чодит человек");
+            return;
         }
+
+
+        if ((handLog.get(last).startsWith("comppref")&&(phase.equals("flop")))&&(dec)) {
+            dec=false;
+            System.out.println("Перешли на флоп. Первум xодит komp");
+            //flopdispether а пока временно чек кол
+            cash.compChecCall();
+            return;
+        }
+
+        if ((handLog.get(last).startsWith("humablin"))&&(dec)) {
+            dec=false;
+            System.out.println("Блины поставлены. Начинаем торги.");
+            analysis.preflopStrategyDispetcher();
+            return;
+        }
+
+
+        if (((handLog.get(last-1).startsWith("compblin"))&&(handLog.get(last).startsWith("humapref")))&& (dec)){
+            dec=false;
+            System.out.println("Comp ne diller. Pora stavit preflop");
+            analysis.preflopStrategyDispetcher();
+            return;
+        }
+
+
+        if ((handLog.get(last).startsWith("huma"))&&(dec)){
+                dec=false;
+            if (phase.equals("flop")) {
+                System.out.println("Peredat hod dispecheru flopa");
+                cash.compChecCall();
+                return;
+            }
+
+            if (phase.equals("turn")) {
+                System.out.println("Peredat hod dispecheru turna");
+                cash.compChecCall();
+                return;
+            }
+
+            if (phase.equals("rive")) {
+                System.out.println("Peredat hod dispecheru rivera");
+                cash.compChecCall();
+                return;
+            }
+            System.out.println("Что то пошло не так! 2");
+
+            return;
+        }
+
+        // Устранение лисчнего цчек на флопе
+
+
+
+
+        System.out.println();
+        System.out.println("SuperMozg Reshenija ne nashel " + handLog.get(last-1) + " " + handLog.get(last) + " faza " + phase + " PredHod " + stad);
+
+
 
         
     }
@@ -412,6 +510,10 @@ public class Table extends Application {
                 showBank.setText("0");
                 showMyBet.setText("0");
                 showCompBet.setText("0");
+                String toLog = "huma" + phase+"0";
+                handLog.add(toLog);
+                System.out.println("Итоговая история руки ");
+                System.out.println(handLog.toString());
 
                 newHand.run();
 
@@ -430,7 +532,7 @@ public class Table extends Application {
         blindCall.setOnAction(new EventHandler() {
             @Override
             public void handle(Event event) {
-                System.out.println("Do moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
+                //System.out.println("Do moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
                 step=true;
                 betSize.setText("");
                 cash.myStack=cash.myStack+cash.myBet;
@@ -439,43 +541,59 @@ public class Table extends Application {
                 showMyStackValue.setText(""+cash.myStack);
                 showMyBet.setText(""+cash.myBet);
                 String toLog="huma"+phase+cash.myBet;
-                System.out.println("Posle moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
+               // System.out.println("Posle moego chek " + cash.compStack + " " + cash.compBet + " " + cash.pot+ " " + cash.myBet + " " + cash.myStack);
                 handLog.add(toLog);
-                analysis.preflopGreenGreen();
+
                 System.out.println(handLog.toString());
+
+                System.out.println("После нажатием кнопки " + phase +" " + step);
 
                 // изменение функции кнопки по мере перехода фазы.
 
                 if ((phase.equals("pref"))&&(step)) {
                     step=false;
                     System.out.println("Этап Flop");
-                    flop.run();
-                    event=null;
-                    phase="pref";
+//                    flop.run();
+//                    event=null;
+//                    System.out.println("В нажатии кнопки чек меяем стадию префлоп на флоп");
+//                    phase="flop";
+                    superBrain();
                 }
 
                 if ((phase.equals("flop"))&&(step)) {
                     step=false;
-                    System.out.println("Этап Turn");
-                    turn.run();
-                    event=null;
-                    phase="flop";
+                    System.out.println("Нажатие кнопки на флопе");
+                    superBrain();
                 }
 
                 if ((phase.equals("turn"))&&(step)) {
                     step=false;
-                    System.out.println("Этап River");
-                    river.run();
-                    event=null;
-                    phase="blin";
+
+                    System.out.println("Нажатие кнопки на терне");
+                    superBrain();
                 }
 
+
+                if ((phase.equals("rive"))&&(step)) {
+                    step=false;
+                    System.out.println("Нажатие кнопки на ривере");
+                    superBrain();
+                }
 
 
                 event=null;
             }
         });
 
+
+        //Действие по клавише бет/рэйз
+
+        act3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cash.compAgressor=false;
+            }
+        });
 
         // действие по кнопке оллин
 
@@ -851,7 +969,8 @@ public class Table extends Application {
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intRiver+".jpg";
             Image iRiver = new Image(temp1, 100.0, 200.0, true, true);
             showriver.setImage(iRiver);
-
+            phase="rive";
+            superBrain();
             Thread.currentThread().interrupt();
 
         }
@@ -873,7 +992,8 @@ public class Table extends Application {
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intTurn+".jpg";
             Image iTurn = new Image(temp1, 100.0, 200.0, true, true);
             showturn.setImage(iTurn);
-
+            phase="turn";
+            superBrain();
             Thread.currentThread().interrupt();
 
         }
@@ -894,7 +1014,7 @@ public class Table extends Application {
             showMyBet.setText("0");
             showCompBet.setText("0");
 
-            System.out.println("Posle flopa bank=" + cash.pot+ " mojstek="+cash.myStack + "compst=" + cash.compStack +" " + cash.myBet + " " + cash.compBet);
+            //System.out.println("Posle flopa bank=" + cash.pot+ " mojstek="+cash.myStack + "compst=" + cash.compStack +" " + cash.myBet + " " + cash.compBet);
 
             int intFlop1 = deck.getCard(5);
             int intFlop2 = deck.getCard(6);
@@ -909,6 +1029,9 @@ public class Table extends Application {
             flop1.setImage(iFlop1);
             flop2.setImage(iFlop2);
             flop3.setImage(iFlop3);
+            System.out.println("В методе флоп меняем фазу на флоп");
+            phase="flop";
+            superBrain();
 
             Thread.currentThread().interrupt();
 
@@ -987,7 +1110,9 @@ public class Table extends Application {
                 Image preflop2 = new Image(temp2, 100.0, 200.0, true, true);
                 myCard1.setImage(preflop1);
                 myCard2.setImage(preflop2);
+            System.out.print("В методе preflop.run Меняем стадию " + phase + "на ");
                 phase="pref";
+            System.out.println(phase);
                 superBrain();
 
                 Thread.currentThread().interrupt();
@@ -1190,6 +1315,9 @@ public class Table extends Application {
         int level;
         int[] blind;
         boolean compDealer;
+        int myM;
+        int compM;
+        boolean compAgressor;
 
 
 
@@ -1210,6 +1338,7 @@ public class Table extends Application {
 
 
             if (compDealer) {
+                compAgressor=false;
                 if (blind[level]/2>compStack) {compBet=compStack;} else {compBet = blind[level]/2;}
                 if (compBet==compStack) {myBet=compBet;}
                 if (blind[level]>myStack) {myBet=myStack;} else {myBet=blind[level];}
@@ -1218,6 +1347,7 @@ public class Table extends Application {
                     handLog.add("humablin" + myBet);
 
             } else {
+                compAgressor=true;
                 if (blind[level]/2>myStack) {myBet=myStack;} else {myBet = blind[level]/2;}
                 if (myBet==myStack) {compBet=myBet;}
                 if (blind[level]>compStack) {compBet=compStack;} else {compBet=blind[level];}
@@ -1237,7 +1367,25 @@ public class Table extends Application {
         }
 
 
+
+        public void humanCheckCall(){
+            System.out.println( "Человек играет чек/колл");
+            int delta=cash.compBet-cash.myBet;
+            cash.myBet=cash.myBet+delta;
+            cash.myStack=cash.myStack-delta;
+            String toLog="huma"+phase+(""+cash.compBet);
+            handLog.add(toLog);
+            System.out.println(handLog.toString());
+            showMyBet.setText(""+cash.myBet);
+            showMyStackValue.setText(""+cash.myStack);
+            superBrain();
+
+        }
+
         public void compChecCall (){
+
+
+            System.out.println("CompBet=" + cash.compBet);
             System.out.println("Играю Чек/Кол");
             showTempText.setText("Играю Чек/Колл");
             int delta=cash.myBet-cash.compBet;
@@ -1245,14 +1393,15 @@ public class Table extends Application {
             cash.compStack=cash.compStack-delta;
             showCompBet.setText(""+cash.compBet);
             showCompStackValue.setText(""+cash.compStack);
-            String toLog="comp"+phase+(""+cash.compBet);
+            String toLog="comp"+phase+cash.compBet;
             handLog.add(toLog);
-
+            System.out.println(handLog.toString());
+            superBrain();
 
         }
 
         public void compPass(){
-            System.out.println("Do pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
+           // System.out.println("Do pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
             System.out.println("Играю пас");
             showTempText.setText("Пас!");
             String toLog = "comp" + phase +"0";
@@ -1266,13 +1415,14 @@ public class Table extends Application {
             cash.pot=0;
             showMyStackValue.setText(""+cash.myStack);
             showBank.setText("0");
-            System.out.println("После pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
+            //System.out.println("После pasa pot "+cash.pot+"MB="+cash.myBet+"CB="+cash.compBet+"MS="+cash.myStack+"CS="+cash.compStack);
 
             newHand.run();
         }
 
 
         public void compRaise(){
+            compAgressor=true;
             int delta=0;
             if (cash.pot==0){
                 // Этап префлоп
@@ -1286,33 +1436,46 @@ public class Table extends Application {
             cash.compStack=cash.compStack-delta;
             showCompStackValue.setText(""+cash.compStack);
             showCompBet.setText(""+cash.compBet);
-            String toLog = "comp" + phase + (""+cash.compBet);
+            String toLog = "comp" + phase + cash.compBet;
             handLog.add(toLog);
             System.out.println(handLog.toString());
+            superBrain();
 
         }
 
         public void humanWin (){
 
+            cash.pot=cash.pot+cash.myBet+cash.compBet;
+            cash.myBet=0;
+            cash.compBet=0;
             cash.myStack=cash.myStack+cash.pot;
             cash.pot=0;
 
             showBank.setText("0");
             showMyStackValue.setText(""+cash.myStack);
+            showMyBet.setText("0");
+            showCompBet.setText("0");
 
         }
 
         public void compWin(){
+            cash.pot=cash.pot+cash.myBet+cash.compBet;
+            cash.myBet=0;
+            cash.compBet=0;
             cash.compStack=cash.compStack+cash.pot;
             cash.pot=0;
 
             showBank.setText("0");
             showCompStackValue.setText(""+cash.compStack);
-
+            showMyBet.setText("0");
+            showCompBet.setText("0");
 
         }
 
         public void split(){
+            cash.pot=cash.pot+cash.myBet+cash.compBet;
+            cash.myBet=0;
+            cash.compBet=0;
             if (cash.pot%2==1) {
                 if (compDealer) {
                     cash.pot--;
@@ -1330,6 +1493,8 @@ public class Table extends Application {
             showCompStackValue.setText(""+cash.compStack);
             showCompStackValue.setText(""+cash.myStack);
             showBank.setText("0");
+            showMyBet.setText("0");
+            showCompBet.setText("0");
 
 
         }
@@ -1883,8 +2048,9 @@ public class Table extends Application {
         // разработка стратегии на префлопе для обоих м больше 100
         public void preflopGreenGreen(){
 
+            step=false;
 
-            String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(3) + ".jpg";
+            String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(3) + ".jpg"; // временный показ карт компьютера
             String temp2 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(4) + ".jpg";
             Image preflop1 = new Image(temp1, 100.0, 200.0, true, true);
             Image preflop2 = new Image(temp2, 100.0, 200.0, true, true);
@@ -1915,11 +2081,12 @@ public class Table extends Application {
             if (chance<4990) {
                 desition="Я бы пассaнул...        ";
                 int last=handLog.size()-1;
-                String lastbetSize1 =handLog.get(last).substring(8);
+                String lastbetSize1 =handLog.get(last).substring(8); // чек с плохой картой на блайнде
                 String lastbetSize2 =handLog.get(last-1).substring(8);
-                System.out.println(lastbetSize1 + " " + lastbetSize2);
+                //System.out.println(lastbetSize1 + " " + lastbetSize2);
                 if(lastbetSize1.equals(lastbetSize2)) {
                     cash.compChecCall();
+                    System.out.println("Комп играет чек  на блайнде");
                 } else {
                     cash.compPass();}
             }
@@ -1944,7 +2111,7 @@ public class Table extends Application {
                 cash.compRaise();
             }
             showTempText.setText(desition);
-
+            superBrain();
         }
 
         public String stringHand (int card1, int card2){
@@ -1968,6 +2135,17 @@ public class Table extends Application {
             if (card1/100==card2/100) {end="s";} else {end="o";}
             String result = begin+middle+end;
             return result;
+        }
+
+
+        public void handEnd (){
+            int [] humaComb=new int[6];
+            humaComb=analysis.WinCombination(deck.getCard(1), deck.getCard(2));
+            int [] compComb = new int[6];
+            compComb=analysis.WinCombination(deck.getCard(3),deck.getCard(4));
+            System.out.println("Человек " + Arrays.toString(humaComb));
+            System.out.println("Компьютер " + Arrays.toString(compComb));
+            whoWin(humaComb, compComb);
         }
 
     }
@@ -2006,12 +2184,19 @@ public class Table extends Application {
             System.err.println(exc);
             return FileVisitResult.CONTINUE;
         }
+
+
+
+
+
     }
 
 
-    public class Opponent {
+    public class Opponent implements Serializable {
+        String name;
         int oppHands;
-        int oppWinnings;
+        double oppWinnings;
+        double oppOverBet;
 
         double oppVpp;
         double oppPfr;
@@ -2024,11 +2209,15 @@ public class Table extends Application {
         double oppCheckraise;
 
         double oppBetRiver;
+        double oppblockBetRiver;
+        double oppOverBettRiver;
+
 
         double oppWentShowdown;
         double oppWinshodown;
         double oppWinriveraction;
-
+        double oppWinBlockBetRiver;
+        double oppWinOverBetRiver;
 
         public Opponent(){
 
@@ -2041,14 +2230,3 @@ public class Table extends Application {
 
 }
 
-
-//                if ((phase.equals("river"))&&(step)){
-//                    int [] humaComb=new int[6];
-//                    humaComb=analysis.WinCombination(deck.getCard(1), deck.getCard(2));
-//                    int [] compComb = new int[6];
-//                    compComb=analysis.WinCombination(deck.getCard(3),deck.getCard(4));
-//                    System.out.println("Человек " + Arrays.toString(humaComb));
-//                    System.out.println("Компьютер " + Arrays.toString(compComb));
-//                    whoWin(humaComb, compComb);
-//
-//                }
