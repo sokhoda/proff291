@@ -147,6 +147,7 @@ public class ClientChatWindow extends Application {
         }
 
         private void startProcess() throws IOException {
+            System.out.println("Enter a message");
             while (true) {
                 int channels = this.selector.select();
 
@@ -172,7 +173,7 @@ public class ClientChatWindow extends Application {
         }
 
         private void connect(SelectionKey key) throws IOException {
-            System.out.println("Client has connected to server");
+            //System.out.println("Client has connected to server");
             this.socketChannel.finishConnect();
             this.socketChannel.register(this.selector, SelectionKey.OP_WRITE);
 

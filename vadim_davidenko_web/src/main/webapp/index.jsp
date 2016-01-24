@@ -12,13 +12,14 @@
 </head>
 <body>
 
+<div style="background-color: #d4ecff" align="center">
 <h2>Choose page</h2>
 
-<p><b><a href="login_form.jsp">Login</a></b></p>
+<p><b><a href="hw4/login_form.jsp">Login</a></b></p>
 
-<p><b><a href="reg_form.jsp">Registration</a></b></p>
+<p><b><a href="hw4/reg_form.jsp">Registration</a></b></p>
 
-<p><b><a href="sample.jsp">Sample</a></b></p>
-
+<p><b><a href="hw4/sample.jsp">Sample</a></b></p>
+</div>
 </body>
 </html>

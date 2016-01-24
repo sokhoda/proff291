@@ -4,15 +4,37 @@
   Date: 21.11.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.Date" %>
 <html>
     <head>
         <title>Proff29</title>
+
+
     </head>
     <body>
-        <form action="/form" method="post">
+    <script src="js/script.js" type="text/javascript"></script>
+    <form action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>
         </form>
+
+        <%!
+            public void globalMethod() {
+
+            }
+
+            int field;
+        %>
+
+        ${name}
+
+        <%
+            String name = (String)request.getAttribute("name");
+            Date date = new Date();
+            out.println(name);
+        %>
+        <br/>
+        <%= "Это датаЖ " + date %>
 
         <h1>Hello proff29!!!</h1>
         <p>Para</p>
@@ -20,7 +42,7 @@
         <br/>
         <img src="img/murano.jpg"/>
         <br/>
-        <q>qoatation</q>
+        <q name="" id="" class="" onclick="val = 5;functionFun()">qoatation</q>
 
         <ol start="5" type="A">
             <li>item</li>

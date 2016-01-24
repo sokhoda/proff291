@@ -7,8 +7,44 @@
 <html>
     <head>
         <title>Proff29</title>
+        <script>
+            console.log('Hello JS');
+            var array=new Array();
+            var arrString='';
+            for(var i=0; i<12; i++){
+                array[i]=i;
+                arrString=arrString+' '+array[i];
+            }
+
+                console.log('before: '+arrString);
+            var arrStringAfter='';
+            for(var i=0; i<3; i++){
+                var temp=array[array.length-i-1];
+                array[array.length-i-1]=array[i];
+                array[i]=temp;
+            }
+            for( var i=0; i<array.length;i++){
+                arrStringAfter=arrStringAfter+' '+array[i];
+            }
+            console.log('after: '+arrStringAfter);
+
+
+
+
+
+
+        </script>
     </head>
     <body>
+    <%! int count =0;
+       /* public void countUsers(){
+            count=count++;
+        };*/
+
+    %>
+
+
+
         <form action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>

@@ -8,14 +8,14 @@ import java.util.*;
  */
 public class Registration {
 
-    private static Map<String, String[]> users = Collections.synchronizedMap(new LinkedHashMap<String, String[]>());
+    private static Map<String, String[]> users = new LinkedHashMap<String, String[]>();;
     private final static String USERS_BASE_FILE_PATH = "C:/users_base.txt";
 
     static {
         readUsersBase();
     }
 
-    public static synchronized boolean addUser(String userLogin, String[] userData) {
+    public static boolean addUser(String userLogin, String[] userData) {
         if (!users.containsKey(userLogin)) {
             users.put(userLogin, userData);
             writeUserToBase(userLogin, userData);
@@ -43,7 +43,7 @@ public class Registration {
         return users.containsKey(userLogin);
     }
 
-    public static synchronized void writeUserToBase(String userLogin, String[] userData) {
+    public static void writeUserToBase(String userLogin, String[] userData) {
         File file = new File(USERS_BASE_FILE_PATH);
         PrintWriter pw = null;
         try{
@@ -123,7 +123,7 @@ public class Registration {
         }
     }
 
-    public static synchronized boolean removeUser(String userLogin) {
+    public static boolean removeUser(String userLogin) {
         if (users.containsKey(userLogin)) {
             users.remove(userLogin);
             updateUsersBase();
