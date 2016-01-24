@@ -5,10 +5,56 @@
 val = 55;
 console.log('Hello JS' + val);
 var functionFun = function() {
-    //alert(val);
+    //alert(vaz);
     //alert('Fun function ' + arguments.length);
-    //var val = 4;
-    alert(val);
-    return 3;
+    var vaz = 4;
+    //var obj = [];
+
+    var obj = {
+        field : 1,
+        field2 : 'поле',
+        du : function () {
+            alert(this.field + this.field2 + this.id);
+        }
+    };
+    obj['id'] = 1;
+    function Class() {
+        this.field = 12;
+        this.method = function() {
+            this.field = 45;
+            return this.field;
+        };
+    }
+
+    var obj = new Class();
+    //alert(obj.field + obj.method());
+
+    var vector = new Array(3);
+
+    //var sub = Object.create(obj);
+    var sub = {};
+    sub.__proto__ = obj;
+
+    //alert(sub.hasOwnProperty('field'));
+
+/*    function Obj() {
+        var _data = "foo";
+        this.getData = function() {
+            return _data;
+        };
+        this.setData = function(data) {
+            _data = data;
+        }
+    }
+
+
+    var incaps = new Obj();
+    alert(incaps.getData());
+    incaps.setData(12);
+    alert(incaps.getData());
+    alert(incaps._data);*/
+    //obj.du();
+
+
 };
 //alert(functionFun());
