@@ -1,6 +1,7 @@
 package hw8.taxi.service;
 
 import hw8.taxi.domain.Client;
+import hw8.taxi.domain.Order;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -12,6 +13,7 @@ import java.util.Random;
  */
 public class ClientServiceImpl {
     private ClientService clientService = new ClientService();
+    private OrderService orderService = new OrderService();
     private Random rand = new Random();
 
     private String[][] sirNames = { { "Arzhajeva", "0" }, { "Barabash", "10" },
@@ -66,7 +68,8 @@ public class ClientServiceImpl {
 
         for (int i = 0; i < quantity; i++) {
             String[] human = getRandHumanName();
-            clientService.getClients().add(new Client(human[0], human[1], getRandPhone(),
+            clientService.getClients().add(new Client(i,human[0], human[1],
+                    getRandPhone(),
                     "ADDRESS" + rand.nextInt(1000), rand.nextInt
                     (TotalOrderSum), getRandDate(4, 2013, 12, 1, 28, 1)));
         }
@@ -163,5 +166,13 @@ public class ClientServiceImpl {
 
     public void setPatronymicName(String[][] patronymicName) {
         this.patronymicName = patronymicName;
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
     }
 }

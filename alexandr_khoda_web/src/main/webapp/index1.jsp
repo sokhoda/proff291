@@ -13,7 +13,11 @@
             textarea { width: 100%; border: 1px solid #333; padding: 4px; }
             ul { width: 100px; height: 430px;  padding: 30px 30px 10px 30px; }
 
+
         </style>
+        <script>
+            console.log('Hello JS');
+        </script>
     </head>
         <body>
         <%
