@@ -37,14 +37,14 @@
     %>
     <br/>
     <%= "Это датаЖ " + date %>
-
+<q name="ddd" onclick="var val = 5"></q>
     <h1>Hello proff29!!!</h1>
     <p>Para</p>
     <a href="http://www.google.com.ua">Link</a>
     <br/>
    <%-- <img src="img/murano.jpg"/>--%>
     <br/>
-    <q>qoatation</q>
+    <q>quatation</q>
 
     <ol start="5" type="A">
         <li>item</li>
