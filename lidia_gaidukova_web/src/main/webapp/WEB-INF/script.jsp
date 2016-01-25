@@ -16,6 +16,14 @@
         alert('Fun function'+arguments.length);
     }
     fun1();
+   var functionfun = function fun3() {
+       val = 3;
+      function closure(){
+          val= 6;
+      } ;
+       return 3;
+   }(fun1());
+    alert (functionfun);
 </script>
 
 </body>
