@@ -4,6 +4,13 @@
 
 val = 55;
 console.log('Hello JS' + val);
+function createTree(node, tabs) {
+    tabs += '&nbsp;&nbsp;&nbsp;';
+    document.writeln(tabs + node.tagName + '<br/>');
+    for (var i=0; i < node.childNodes.length; i++) {
+        createTree(node.childNodes.item(i), tabs);
+    }
+}
 var functionFun = function() {
     //alert(vaz);
     //alert('Fun function ' + arguments.length);
@@ -55,6 +62,9 @@ var functionFun = function() {
     alert(incaps._data);*/
     //obj.du();
 
-
+    var doc = document.documentElement;
+    document.write(doc.nodeType);
+    document.write(doc.tagName);
+    document.write(doc.childNodes);
 };
 //alert(functionFun());
