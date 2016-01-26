@@ -5,6 +5,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
+<%@ include file="index_TAXI.jsp"%>
+
+<script src="JS/test.js" type="text/javascript">    </script>
 
 <html>
     <head>
@@ -14,13 +17,13 @@
         </script>
     </head>
     <body>
-    <script src="JS/test.js" type="text/javascript">    </script>
-    <%
-        request.getRequestDispatcher("index_TAXI.jsp").forward(request, response);
-    %>
+    <%--<script src="JS/phone.js" type="text/javascript">    </script>--%>
+    <%--<script src="JS/test.js" type="text/javascript">    </script>--%>
 
-    <%--<p id="outText1" onclick=" global =2; functionFun()" >text1</p>--%>
-    <%--<p id="outText2"></p>--%>
+        <%--<%request.getRequestDispatcher("index_TAXI.jsp").forward(request, response);%>--%>
+
+    <p id="outText1" onclick=" global =2; functionFun()" >text1</p>
+    <p id="outText2"></p>
 
     <%--<script>--%>
         <%--var vector = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);--%>
