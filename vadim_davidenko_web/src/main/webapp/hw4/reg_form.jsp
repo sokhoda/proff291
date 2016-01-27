@@ -16,11 +16,11 @@
 <h3>Registration</h3>
 <div style="float: left">
 
-<form action="/regForm" method="post">
+<form name="regForm" action="/regForm" method="post">
   <table border="0" cellpadding="6" style="background-color: #d4ecff">
     <tr>
       <td>Name:</td>
-      <td><input type="text" name="name" size="25" maxlength="25"/></td>
+      <td><input type="text" name="userName" size="25" maxlength="25"/></td>
     </tr>
     <tr>
       <td>Surname:</td>
@@ -40,7 +40,7 @@
     </tr>
     <tr><td colspan="2"><hr/></td></tr>
     <tr>
-      <td align="center"><input type="submit" value="Submit" style="width: 100px"/></td>
+      <td align="center"><input type="button" value="Submit" onclick="submitForm(document.regForm)" style="width: 100px"/></td>
       <td align="center"><a href="/hw4/login_form.jsp">Login page</a></td>
     </tr>
   </table>
@@ -50,6 +50,33 @@
 <div style="clear: both"></div>
 
 <p style="color: red"><b>${server_msg}</b></p>
+
+<script>
+    function submitForm(form) {
+        if(!checkEmptyFields(form)) {
+            alert("Please, fill in all fields!");
+            return;
+        }
+        if(!checkConfirmPassword(form)) {
+            alert("The password confirmation does not match!");
+            return;
+        }
+        form.submit();
+    }
+
+    function checkEmptyFields(form) {
+        return (form.userName.value.trim() &&
+                form.surname.value.trim() &&
+                form.login.value.trim() &&
+                form.password.value.trim() &&
+                form.confirmPassword.value.trim());
+    }
+
+    function checkConfirmPassword(form) {
+        return (form.password.value === form.confirmPassword.value);
+    }
+
+</script>
 
 </body>
 
