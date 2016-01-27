@@ -47,26 +47,24 @@ function mirrorArray(vector, uBound){
          //
          //alert(sub.hasOwnProperty('field'));
 
+    var d;
 
 
  };
-function printDOM(node){
-    node.write(node.tagName);
-    node.write(node.innerHTML);
-
-    var childList = node.childNodes;
-
-    while (childList.length != 0){
-        printDOM(childList.item());
+function printDOM(pref, node){
+    document.writeln(pref + node.tagName + " = " + node.innerText +  '<br>' );
+    pref += '&nbsp;&nbsp;&nbsp;';
+    var i = 0;
+    while (i < node.childNodes.length){
+        printDOM(pref, node.childNodes.item(i++));
     }
 }
 
 function getTree(){
     var doc = document.documentElement;
-    var node = doc;
-    while (node.hasChildNodes() ){
-        printDOM(node);
-    }
+        printDOM('', doc);
+
 };
+
 //alert(functionFun());
 
