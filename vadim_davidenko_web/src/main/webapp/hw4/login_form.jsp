@@ -53,7 +53,6 @@
     function checkEmptyFields(form) {
         return (form.login.value.trim() &&  form.password.value.trim());
     }
-
 </script>
 
 </body>

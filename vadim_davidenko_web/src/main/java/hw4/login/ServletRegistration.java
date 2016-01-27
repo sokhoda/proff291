@@ -72,5 +72,4 @@ public class ServletRegistration extends HttpServlet {
         req.setAttribute("server_msg", msg);
         req.getRequestDispatcher(pageAddress).forward(req, resp);
     }
-
 }

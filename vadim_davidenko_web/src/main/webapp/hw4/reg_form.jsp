@@ -48,7 +48,6 @@
 
 </div>
 <div style="clear: both"></div>
-
 <p style="color: red"><b>${server_msg}</b></p>
 
 <script>
