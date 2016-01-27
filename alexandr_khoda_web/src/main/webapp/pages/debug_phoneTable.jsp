@@ -11,6 +11,7 @@
   </head>
 <body>
 <button id="createTableButton" onclick="generatePhoneTable()">Create Table
+    <%--<input type="text" on>--%>
 </button>
 
 <%--<button type="submit" class="but">press</button>--%>

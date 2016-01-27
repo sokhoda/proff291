@@ -1,6 +1,7 @@
 /**
  * Created by s_okhoda on 24.01.2016.
  */
+var tbl, arr;
 
 function Phone(no, balance) {
     this.no = no;
@@ -39,14 +40,14 @@ function Phone(no, balance) {
 var tableRows = 3;
 
 function generatePhoneTable(){
-    var arr = new Array();
+    arr = new Array();
     var i;
     //debugger;
     for ( i = 0; i < tableRows; i++){
         arr.push(new Phone(getRandNumber(), Math.round(Math.random() * 1000)));
         //document.write(arr[i].toString1() + '<br>')
     }
-    removeStartButton('createTableButton');
+    removeElemByID('createTableButton', true);
     createTable(arr);
     setAttr('css/table.css');
 };
@@ -61,51 +62,36 @@ function setAttr(cssFile){
 
 }
 
-function getNewTextEdit(value, name, id, clas){
-    var edit = document.createElement('input');
-    edit.setAttribute("type","text");
-    edit.setAttribute("name", name);
-    edit.setAttribute("value", value);
-    edit.setAttribute("id", id);
-    edit.setAttribute("class", clas);
 
-    return edit;
-}
-
-
-function getNewButton(text, name, id, clas){
-    var button = document.createElement('button');
-    button.setAttribute("type","submit");
-    button.setAttribute("name", name);
-    button.setAttribute("id", id);
-    button.setAttribute("class", clas);
-    button.innerText = text;
-    return button;
-}
-
-function removeStartButton(id){
+function removeElemByID(id, selfRemoval){
     var myNode = document.getElementById(id);
 
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
-    myNode.parentNode.removeChild(myNode);
+    if (selfRemoval) {
+        myNode.parentNode.removeChild(myNode);
+    }
 }
 
 function createTable(arr){
     var body = document.getElementsByTagName('body')[0];
 
 
-    var tbl = document.createElement('table');
-    var row, cell, button;
+     tbl = document.createElement('table');
+
+    var row, cell, button, butEdit;
 
     for (var i = 0; i < arr.length; i++){
         row = tbl.insertRow(i);
+        row.setAttribute("id", i + "row");
         //row.style.borderBottom = "1px";
         cell = row.insertCell(0);
+
         cell.setAttribute("class","column-left-bottom");
-        cell.appendChild(getNewTextEdit(arr[i].getNo(), 'edit', i + 'edNo', "column-left-bottom"));
-        //cell.innerHTML = arr[i].getNo();
+        //var editNo = getNewTextEdit(arr[i].getNo(), 'edit', i + 'edNo', "");
+        //editNo.setAttribute("value", editNo.style.fontFamily.toString())
+        cell.innerHTML = arr[i].getNo();
 
         cell = row.insertCell(1);
         cell.setAttribute("class","column-left-bottom right");
@@ -113,11 +99,14 @@ function createTable(arr){
 
         cell = row.insertCell(2);
         cell.setAttribute("class","but");
+
         cell.appendChild(getNewButton("delete",'delButton', i + 'delButton', "but"));
 
         cell = row.insertCell(3);
         cell.setAttribute("class","but");
-        cell.appendChild(getNewButton("edit",'edButton', i + 'edButton', "but"));
+        butEdit = getNewButton("edit",'edButton', i + 'edButton', "but");
+        //debugger;
+        cell.appendChild(butEdit);
     }
 
     var theader =  tbl.createTHead();
@@ -135,6 +124,66 @@ function createTable(arr){
     //tbl.setAttribute("color","#f00");
     body.appendChild(tbl);
 
+}
+
+function butEditOnClick(butEdit){
+    var inx = parseInt(butEdit.getAttribute("id"));
+    if (isNaN(inx)){
+        return;
+    }
+        //alert(inx);
+        var cellVal = tbl.rows.namedItem(inx + "row").cells[0];
+        var editNo = getNewTextEdit(arr[inx].getNo(), 'edit', inx + 'edNo', "edit");
+        editNo.onchange = function () { editOnchange();};
+        cellVal.innerHTML= '';
+        cellVal.appendChild(editNo);
+        editNo.focus();
+            //str += cellVal.firstChild.value + ', ';
+}
+
+function editOnBlur(edit){
+    var inx = parseInt(edit.getAttribute("id"));
+    if (isNaN(inx)){
+        return;
+    }
+    var cellVal = tbl.rows.namedItem(inx + "row").cells[0];
+    cellVal.innerHTML= edit.value;
+    edit.remove();
+}
+
+function editOnchange(edit){
+    alert('editOnCahange()');
+}
+
+function getNewTextEdit(value, name, id, clas){
+    var edit = document.createElement('input');
+    edit.setAttribute("type","text");
+    edit.setAttribute("name", name);
+    edit.setAttribute("value", value);
+    edit.setAttribute("id", id);
+    edit.setAttribute("class", clas);
+    edit.onblur = function() {editOnBlur(edit)};
+
+    return edit;
+}
+
+
+function getNewButton(text, name, id, clas){
+    var button = document.createElement('button');
+    button.setAttribute("type","submit");
+    button.setAttribute("name", name);
+    button.setAttribute("id", id);
+    button.setAttribute("class", clas);
+    if (name == 'delButton') {
+        button.onclick = function () {
+            butEditOnClick(button)
+        };
+    }
+    else if(name == 'edButton' ){
+
+    }
+    button.innerText = text;
+    return button;
 }
 
 
