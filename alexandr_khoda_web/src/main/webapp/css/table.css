@@ -1,0 +1,42 @@
+table{
+    border-collapse: collapse;
+    font-size: small;
+}
+
+table td.column-left-bottom {
+     border-left:   2px solid navy;
+     border-bottom: 2px solid navy;
+     padding:0 2% 0 2%;
+     width: auto;
+ }
+
+table td.right, th.right {
+    border-right:   2px solid navy;
+    padding: 0 2% 0 2%;
+    min-width: 100%;
+}
+
+table th.column-left-bottom-top {
+    border-left:    2px solid navy;
+    border-bottom:  2px solid navy;
+    border-top:     2px solid navy;
+    padding:0 2% 0 2%;
+    min-width: 100%;
+ }
+
+table td.top {
+    border-top:     2px solid navy;
+    padding:0 2% 0 2%;
+}
+
+button.but{
+    /*-webkit-box-sizing: content-box;*/
+    margin-left: 5px;
+    min-width: 50px;
+    font-size: small;
+    color: darkgreen;
+    padding:1% 2% 1% 2%;
+}
+input[type = "text"]{
+    max-width: 100%;
+}
