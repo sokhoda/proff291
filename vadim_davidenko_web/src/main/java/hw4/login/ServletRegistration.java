@@ -39,7 +39,7 @@ public class ServletRegistration extends HttpServlet {
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
         String confirmPassword = parameterMap.get("confirmPassword")[0].trim();
-        String name = parameterMap.get("name")[0].trim();
+        String name = parameterMap.get("userName")[0].trim();
         String surname = parameterMap.get("surname")[0].trim();
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String regDate = df.format(new Date());
@@ -72,5 +72,4 @@ public class ServletRegistration extends HttpServlet {
         req.setAttribute("server_msg", msg);
         req.getRequestDispatcher(pageAddress).forward(req, resp);
     }
-
 }
