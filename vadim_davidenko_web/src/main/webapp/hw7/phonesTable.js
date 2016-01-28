@@ -11,10 +11,10 @@ var PhonesTable = {
         table.border = '0';
         table.cellPadding = '6';
         table.align = 'center';
-        table.style = 'background-color: #d4ecff';
+        table.bgColor = '#d4ecff';
 
-        addTableHeader(table);
-        addPhonesData(table);
+        addTableHeader();
+        addPhonesData();
     }
 };
 
@@ -26,10 +26,12 @@ PhonesTable.phones = [
 ];
 PhonesTable.createTableHTML();
 
-function addTableHeader(table) {
+function addTableHeader() {
     var doc = document;
+    var table = doc.getElementById('telephones');
     var tr = doc.createElement('tr');
     table.appendChild(tr);
+
     var colNames = ['Telephones', 'Number', 'Balance', 'Actions'];
     for (var i = 0; i < colNames.length; i++) {
         var th = doc.createElement('th');
@@ -37,10 +39,11 @@ function addTableHeader(table) {
         th.innerHTML = colNames[i];
         if (i == 3) {
             th.colSpan = '2';
-            th.style = 'align: center';
+            th.align = 'center';
+            //th.style = 'align: center';
         }
     }
-    tr = document.createElement('tr');
+    tr = doc.createElement('tr');
     table.appendChild(tr);
     var td = doc.createElement('td');
     tr.appendChild(td);
@@ -49,8 +52,10 @@ function addTableHeader(table) {
     td.appendChild(hr);
 }
 
-function addPhonesData(table) {
+function addPhonesData() {
     var doc = document;
+    var table = doc.getElementById('telephones');
+
     for (var i = 0; i <PhonesTable.phones.length; i++) {
         var tr = doc.createElement('tr');
         table.appendChild(tr);
@@ -63,33 +68,33 @@ function addPhonesData(table) {
         tr.appendChild(td);
         var input = doc.createElement('input');
         td.appendChild(input);
-        input.id = 'phoneNumber';
-        input.name = 'phoneNumber';
         input.type = 'text';
         input.size = '15';
-        input.disabled = 'true';
+        input.disabled = true;
         input.value = PhonesTable.phones[i].number;
+        input.onblur = function() {
+            if(!this.isDisabled) this.disabled = true;
+        };
 
         td = doc.createElement('td');
         tr.appendChild(td);
         input = doc.createElement('input');
         td.appendChild(input);
-        input.id = 'balance';
-        input.name = 'balance';
         input.type = 'text';
         input.size = '10';
-        input.disabled = 'true';
+        input.disabled = true;
         input.value = PhonesTable.phones[i].balance;
+        input.onblur = function() {
+            if(!this.isDisabled) this.disabled = true;
+        };
 
         td = doc.createElement('td');
         tr.appendChild(td);
         input = doc.createElement('input');
         td.appendChild(input);
         input.type = 'button';
-        input.value = 'Update';
-        input.onclick = function() {
-            updatePhone(this);
-        };
+        input.value = 'Modify';
+        input.onclick = function() { modifyPhone(this); };
 
         td = doc.createElement('td');
         tr.appendChild(td);
@@ -97,32 +102,20 @@ function addPhonesData(table) {
         td.appendChild(input);
         input.type = 'button';
         input.value = 'Delete';
-        input.onclick = function() {
-            deletePhone(this);
-        };
+        input.onclick = function() { deletePhone(this); };
     }
 }
 
-function updatePhone(input) {
-    var tr = input.parentNode.parentNode;
-
-    var td = tr.childNodes[1];
-    var numberField = td.firstElementChild;
+function modifyPhone(elem) {
+    var tr = elem.parentNode.parentNode;
+    var numberField = tr.childNodes[1].firstElementChild;
     numberField.disabled = false;
-
-    td = tr.childNodes[2];
-    var balanceField = td.firstElementChild;
+    var balanceField = tr.childNodes[2].firstElementChild;
     balanceField.disabled = false;
-
 }
 
-function deletePhone(input) {
-    if(!confirm('Are you sure to delete this phone?')) {
-        return;
-    }
-    var index = input.parentNode.parentNode.rowIndex;
+function deletePhone(elem) {
+    if(!confirm('Are you sure to delete this phone?')) return;
+    var index = elem.parentNode.parentNode.rowIndex;
     document.getElementById('telephones').deleteRow(index);
-
-
-
 }

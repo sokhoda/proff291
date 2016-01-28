@@ -31,7 +31,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
             <td align="center"><input type="button" value="Login" onclick="submitLoginData(document.loginForm)" style="width: 100px"/></td>
-            <td align="center"><a href="/hw4/reg_form.jsp">Registration</a></td>
+            <td align="center"><a href="/hw5/reg_form.jsp">Registration</a></td>
         </tr>
      </table>
 </form>
