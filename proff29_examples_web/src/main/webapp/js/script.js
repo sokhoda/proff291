@@ -44,7 +44,7 @@ var functionFun = function() {
 
     //alert(sub.hasOwnProperty('field'));
 
-/*    function Obj() {
+   function Obj() {
         var _data = "foo";
         this.getData = function() {
             return _data;
@@ -57,14 +57,14 @@ var functionFun = function() {
 
     var incaps = new Obj();
     alert(incaps.getData());
-    incaps.setData(12);
-    alert(incaps.getData());
-    alert(incaps._data);*/
+    //incaps.setData(12);
+    //alert(incaps.getData());
+    //alert(incaps._data);
     //obj.du();
 
-    var doc = document.documentElement;
-    document.write(doc.nodeType);
-    document.write(doc.tagName);
-    document.write(doc.childNodes);
+    //var doc = document.documentElement;
+    //document.write(doc.nodeType);
+    //document.write(doc.tagName);
+    //document.write(doc.childNodes);
 };
 //alert(functionFun());

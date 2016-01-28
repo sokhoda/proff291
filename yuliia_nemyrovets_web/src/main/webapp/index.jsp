@@ -16,7 +16,7 @@
 //        }
 //        fun();
     </script>
-    <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/alexEx.js" type="text/javascript"></script>
   <%--  <script src="js/telephone.js" type="text/javascript"></script>--%>
     <style>
         table {

@@ -10,9 +10,11 @@
     <title>Phone Table</title>
   </head>
 <body>
-<button id="createTableButton" onclick="generatePhoneTable()">Create Table
-    <%--<input type="text" on>--%>
-</button>
+<button id="createTableButton"
+        onclick="generatePhoneTable(document.getElementById('BookSize').value)">
+        Create Table</button>
+<label for="BookSize" style="margin: 0 10px 0 20px ">Quantity of phone numbers:</label>
+<input type="text" id="BookSize" style="width: 40px" value="50">
 
 <%--<button type="submit" class="but">press</button>--%>
     <%--<table>--%>
