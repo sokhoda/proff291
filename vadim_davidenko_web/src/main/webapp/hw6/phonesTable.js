@@ -2,79 +2,127 @@
  * Created by Вадим on 23.01.2016.
  */
 
-var phones = [ {
-    phoneName: 'iPhone',
-    number: '+380 5554433',
-    balance: '1000.00'
-},{
-    phoneName: 'Samsung',
-    number: '+380 1112233',
-    balance: '500.00'
-}, {
-    phoneName: 'Lenovo',
-    number: '+380 9998877',
-    balance: '300.00'
-} ];
+var PhonesTable = {
+    phones: [],
+    createTableHTML: function() {
+        var table = document.createElement('table');
+        document.body.appendChild(table);
+        table.id = 'telephones';
+        table.border = '0';
+        table.cellPadding = '6';
+        table.align = 'center';
+        table.style = 'background-color: #d4ecff';
 
-var table = document.getElementById('telephones');
+        addTableHeader(table);
+        addPhonesData(table);
+    }
+};
 
-init(phones, table);
+PhonesTable.phones = [
+    { phoneName: 'iPhone', number: '+380 5554433', balance: '1000.00' },
+    { phoneName: 'Samsung', number: '+380 1112233', balance: '500.00' },
+    { phoneName: 'Lenovo', number: '+380 9998877', balance: '300.00'},
+    { phoneName: 'Sony', number: '+380 2225511', balance: '600.00'}
+];
+PhonesTable.createTableHTML();
 
-function init(phones, table) {
+function addTableHeader(table) {
+    var doc = document;
+    var tr = doc.createElement('tr');
+    table.appendChild(tr);
+    var colNames = ['Telephones', 'Number', 'Balance', 'Actions'];
+    for (var i = 0; i < colNames.length; i++) {
+        var th = doc.createElement('th');
+        tr.appendChild(th);
+        th.innerHTML = colNames[i];
+        if (i == 3) {
+            th.colSpan = '2';
+            th.style = 'align: center';
+        }
+    }
+    tr = document.createElement('tr');
+    table.appendChild(tr);
+    var td = doc.createElement('td');
+    tr.appendChild(td);
+    td.colSpan = '5';
+    var hr = doc.createElement('hr');
+    td.appendChild(hr);
+}
 
-    for (var i=0; i<phones.length; i++) {
-        var tr = document.createElement('tr');
+function addPhonesData(table) {
+    var doc = document;
+    for (var i = 0; i <PhonesTable.phones.length; i++) {
+        var tr = doc.createElement('tr');
         table.appendChild(tr);
 
-        var td1 = document.createElement('td');
-        td1.innerHTML = phones[i].phoneName;
-        tr.appendChild(td1);
+        var td = doc.createElement('td');
+        tr.appendChild(td);
+        td.innerHTML = PhonesTable.phones[i].phoneName;
 
-        var td2 = document.createElement('td');
-        tr.appendChild(td2);
-        var input2 = document.createElement('input');
-        input2.id = 'phoneNumber';
-        input2.name = 'phoneNumber';
-        input2.type = 'text';
-        input2.size = '15';
-        input2.disabled = 'true';
-        input2.value = phones[i].number;
-        td2.appendChild(input2);
+        td = doc.createElement('td');
+        tr.appendChild(td);
+        var input = doc.createElement('input');
+        td.appendChild(input);
+        input.id = 'phoneNumber';
+        input.name = 'phoneNumber';
+        input.type = 'text';
+        input.size = '15';
+        input.disabled = 'true';
+        input.value = PhonesTable.phones[i].number;
 
-        var td3 = document.createElement('td');
-        tr.appendChild(td3);
-        var input3 = document.createElement('input');
-        input3.id = 'balance';
-        input3.name = 'balance';
-        input3.type = 'text';
-        input3.size = '15';
-        input3.disabled = 'true';
-        input3.value = phones[i].balance;
-        td3.appendChild(input3);
+        td = doc.createElement('td');
+        tr.appendChild(td);
+        input = doc.createElement('input');
+        td.appendChild(input);
+        input.id = 'balance';
+        input.name = 'balance';
+        input.type = 'text';
+        input.size = '10';
+        input.disabled = 'true';
+        input.value = PhonesTable.phones[i].balance;
 
-        var td4 = document.createElement('td');
-        tr.appendChild(td4);
-        var input4 = document.createElement('input');
-        input4.type = 'button';
-        input4.value = 'Update';
-        input4.onclick = updatePhone(this);
-        td4.appendChild(input4);
+        td = doc.createElement('td');
+        tr.appendChild(td);
+        input = doc.createElement('input');
+        td.appendChild(input);
+        input.type = 'button';
+        input.value = 'Update';
+        input.onclick = function() {
+            updatePhone(this);
+        };
 
-        var td5 = document.createElement('td');
-        tr.appendChild(td5);
-        var input5 = document.createElement('input');
-        input5.type = 'button';
-        input5.value = 'Delete';
-        input5.onclick = deletePhone(this);
-        td5.appendChild(input5);
+        td = doc.createElement('td');
+        tr.appendChild(td);
+        input = doc.createElement('input');
+        td.appendChild(input);
+        input.type = 'button';
+        input.value = 'Delete';
+        input.onclick = function() {
+            deletePhone(this);
+        };
     }
+}
+
+function updatePhone(input) {
+    var tr = input.parentNode.parentNode;
+
+    var td = tr.childNodes[1];
+    var numberField = td.firstElementChild;
+    numberField.disabled = false;
+
+    td = tr.childNodes[2];
+    var balanceField = td.firstElementChild;
+    balanceField.disabled = false;
 
 }
 
-function updatePhone(phone) {
+function deletePhone(input) {
+    if(!confirm('Are you sure to delete this phone?')) {
+        return;
+    }
+    var index = input.parentNode.parentNode.rowIndex;
+    document.getElementById('telephones').deleteRow(index);
 
-}
 
-function deletePhone(phone) {
 
 }
