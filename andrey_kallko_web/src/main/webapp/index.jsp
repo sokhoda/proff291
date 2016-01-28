@@ -11,6 +11,20 @@
     <title>New Phone Application</title>
 </head>
 <body>
+<script>
+    var btn = document.createElement('input');
+    btn.id = 'b1';
+    btn.type = 'button';
+    btn.value = 'knopka';
+    btn.setAttribute('onclick', 'obj.HandleClick1();');
+    document.body.appendChild(btn);
+
+    var HandleClick1=event;
+
+</script>
+
+
+
 
 </body>
 </html>
