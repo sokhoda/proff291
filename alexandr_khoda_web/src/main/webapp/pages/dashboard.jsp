@@ -71,14 +71,20 @@
                              value="showClientsLastMonth" checked>
                       Вывести всех клиентов, делавших заказы за последний месяц
                   </td>
+              </tr>
+              <tr>
                   <td>
                       <input type="radio" name="selAct" value="createOrder">
                       Оформить заказ
                   </td>
+              </tr>
+              <tr>
                   <td>
                       <input type="radio" name="selAct" value="editOrder">
                       Отредактировать заказ
                   </td>
+              </tr>
+              <tr>
                   <td>
                       <input type="radio" name="selAct" value="showOrdersSum">
                       Вывести список заказов на сумму в диапазоне от
@@ -89,6 +95,8 @@
                           clientServiceImpl.getOrderService().getMaxOrderSum()
                           %>" > грн.
                   </td>
+              </tr>
+              <tr>
                   <td>
                       <input type="radio" name="selAct" value="showOrdersByPortion">
                       Вывести список всех заказов порциями по

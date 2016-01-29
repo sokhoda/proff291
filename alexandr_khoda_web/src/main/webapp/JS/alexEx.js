@@ -37,7 +37,8 @@ var functionFun = function() {
     //alert(obj.field + obj.method());
 
     var vector = new Array(3);
-
+//vector.splice()
+    
     //var sub = Object.create(obj);
     var sub = {};
     sub.__proto__ = obj;
@@ -45,20 +46,20 @@ var functionFun = function() {
     //alert(sub.hasOwnProperty('field'));
 
    function Obj() {
-        var _data = "foo";
+         this._data = "foo";
         this.getData = function() {
-            return _data;
+            return this._data;
         };
         this.setData = function(data) {
-            _data = data;
+            this._data = data;
         }
     }
 
 
     var incaps = new Obj();
     alert(incaps.getData());
-    //incaps.setData(12);
-    //alert(incaps.getData());
+    incaps.setData(12);
+    alert(incaps.getData());
     //alert(incaps._data);
     //obj.du();
 

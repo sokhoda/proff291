@@ -11,8 +11,14 @@
     <title>My app</title>
 </head>
 <body>
+    <%--подключить скрипт из файла--%>
+    <%--<script src="js/phone.js" type="text/javascript"></script>--%>
     <script>
-        console.log('Hello world!!!');
+        var fun = function () {
+            alert('123')
+        }
     </script>
+    <button onclick="fun()">Click!</button>
+
 </body>
 </html>
