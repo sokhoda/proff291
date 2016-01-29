@@ -8,9 +8,13 @@
 <html>
     <head>
         <title>Proff29</title>
+
+
     </head>
     <body>
-        <form action="/form" method="post">
+    <script src="js/script.js" type="text/javascript"></script>
+    <button onclick="createTree(document.documentElement,'')">Create Tree</button>
+    <form action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>
         </form>
@@ -39,7 +43,8 @@
         <br/>
         <img src="img/murano.jpg"/>
         <br/>
-        <q>qoatation</q>
+
+        <q name="" id="" class="" onclick="val = 5;functionFun()">qoatation</q>
 
         <ol start="5" type="A">
             <li>item</li>

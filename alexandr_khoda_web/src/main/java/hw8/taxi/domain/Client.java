@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
  * Created by s_okhoda on 20.01.2016.
  */
 public class Client {
+    private int id;
     private String name;
     private String surname;
     private String phone;
@@ -14,12 +15,14 @@ public class Client {
     private int totalOrderAmount;
     private GregorianCalendar lastOrderDate;
 
-    public Client(String name, String surname, String phone, String address) {
-        this(name, surname, phone, address, 0, null);
+    public Client(int id, String name, String surname, String phone, String
+            address) {
+        this(id, name, surname, phone, address, 0, null);
     }
 
-    public Client(String name, String surname, String phone, String address,
-                  int totalOrderAmount, GregorianCalendar lastOrderDate) {
+    public Client(int id, String name, String surname, String phone, String
+            address, int totalOrderAmount, GregorianCalendar lastOrderDate) {
+       this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -85,5 +88,13 @@ public class Client {
 
     public GregorianCalendar getLastOrderDate() {
         return lastOrderDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

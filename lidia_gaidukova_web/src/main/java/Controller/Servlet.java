@@ -15,7 +15,7 @@ public class Servlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String loginloc =req.getParameter("Login");
         String passloc = req.getParameter("Pass");
-        if(login==loginloc&&pass==passloc){
+        if(login.equals(loginloc)&&pass.equals(passloc)){
             resp.getWriter().print("Your name is " + login);
 
         }else

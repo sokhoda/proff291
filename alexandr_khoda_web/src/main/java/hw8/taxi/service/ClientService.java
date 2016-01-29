@@ -17,11 +17,61 @@ public class ClientService {
     private int lastPrintedClientInx = -1;
     private int clientQuantity = 7;
     private int clientOrderSum = 100;
+
+
     private final String footer = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private final int numOfClients = 20;
-
+    private final int maxClientID = 10000;
+    private Random rand = new Random();
     public ClientService() {
+    }
+    public int binarySearchByID(int id){
+        if (clients == null) return -1;
+        int lBound = 0;
+        int rBound = clients.size() - 1;
+
+        boolean cond = (clients.get(lBound).getId() == id)
+                || (clients.get(rBound).getId() == id);
+
+        while ((!cond) && (rBound - lBound) > 1) {
+            int center = (rBound + lBound) / 2;
+
+            if (id < clients.get(center).getId()) rBound = center;
+            else lBound = center;
+            cond = (clients.get(lBound).getId() == id)
+                    || (clients.get(rBound).getId() == id);
+        }
+        if (cond) {
+            if (clients.get(lBound).getId() == id) return lBound;
+            else return rBound;
+        }
+        else return -1;
+    }
+    public Client getByID(int id){
+        int inx = binarySearchByID((id));
+        if (inx >= 0) {
+            return clients.get(inx);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public void sortByID(int direction){ // >=0 asc
+        clients.sort(new Comparator<Client>() {
+            @Override
+            public int compare(Client client1, Client client2) {
+                int dif = client1.getId() - client2.getId();
+                if (direction >= 0 ){
+                    return dif;
+                }
+                else{
+                    return -dif;
+                }
+
+            }
+        });
     }
 
     public boolean createClient(String name, String surname, String phone,
@@ -33,8 +83,12 @@ public class ClientService {
                 phone.trim().length() == 0){
             throw new ClientException("Client Data can not have ZERO LENGTH");
         }
-
-        clients.add(new Client(name, surname, phone, address));
+        int randID = rand.nextInt(maxClientID);
+        sortByID(0);
+        while(getByID(randID) != null){
+            randID = rand.nextInt(maxClientID);
+        }
+        clients.add(new Client(randID, name, surname, phone, address));
         return true;
     }
 
@@ -121,4 +175,6 @@ public class ClientService {
     public int getNumOfClients() {
         return numOfClients;
     }
+
+
 }
