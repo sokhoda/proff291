@@ -9,6 +9,15 @@
 <html>
 <head>
     <title></title>
+
+    <script type="text/javascript">
+        var doc = document.documentElement;
+        //   while (doc.childNodes.item()){
+        //    document.write(doc.childNodes.item())
+        //  }
+
+    </script>
+
 </head>
 <body>
 <table style="height:100%" width=100% align=center border=1 name=maintable>
