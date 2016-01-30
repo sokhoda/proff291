@@ -11,9 +11,15 @@
 <body>
 <script src="js/createOrderTable.js" type="text/javascript"></script>
 <h2>Authorization was successful!</h2>
-<img src="http://dayfun.ru/wp-content/uploads/2014/11/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82%D0%B0-%D0%94%D0%B0%D1%83%D0%BD%D0%B8.jpg"/>
+<div id="imagePlage">
+    <%--<img src="http://dayfun.ru/wp-content/uploads/2014/11/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82%D0%B0-%D0%94%D0%B0%D1%83%D0%BD%D0%B8.jpg"/>--%>
+</div>
 <br>
 <button name="tableCreate" onclick="createTable()">Create Table</button>
+<a href="index.jsp">
+
+    <button name="backWelcomePage">Back To Home</button>
+</a>
 <div id="tableDiv">
 
 </div>

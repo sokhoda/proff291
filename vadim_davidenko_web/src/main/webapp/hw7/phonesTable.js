@@ -114,6 +114,7 @@ function modifyPhone(elem) {
     balanceField.disabled = false;
 }
 
+
 function deletePhone(elem) {
     if(!confirm('Are you sure to delete this phone?')) return;
     var index = elem.parentNode.parentNode.rowIndex;
