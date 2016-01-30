@@ -16,8 +16,8 @@
 <h2>List of registered users</h2>
 <h4 style="color: green">${server_msg}</h4>
 
-<p><a href="/hw4/login_form.jsp">Login</a></p>
-<p><a href="/hw4/reg_form.jsp">Registration</a></p>
+<p><a href="/hw5/login_form.jsp">Login</a></p>
+<p><a href="/hw5/reg_form.jsp">Registration</a></p>
 
 <table border="0" cellpadding="6"  style="background-color: #d4ecff">
     <%

@@ -13,13 +13,14 @@
 <body>
 
 <div style="background-color: #d4ecff" align="center">
-<h2>Choose page</h2>
+  <h2>Welcome to TAXI service</h2>
 
-<p><b><a href="hw4/login_form.jsp">Login</a></b></p>
+  <p><b><a href="dashboard.jsp">Menu</a></b></p>
+  <p><b><a href="orders.jsp">Orders</a></b></p>
+  <p><b><a href="order.jsp">New order</a></b></p>
+  <p><b><a href="clients.jsp">Clients</a></b></p>
+  <p><b><a href="registerClient.jsp">Client registration</a></b></p>
 
-<p><b><a href="hw4/reg_form.jsp">Registration</a></b></p>
-
-<p><b><a href="hw4/sample.jsp">Sample</a></b></p>
 </div>
 </body>
 </html>

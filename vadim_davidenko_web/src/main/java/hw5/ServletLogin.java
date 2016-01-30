@@ -1,6 +1,4 @@
-package hw4.login;
-
-import com.sun.net.httpserver.HttpServer;
+package hw5;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,10 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -40,7 +34,7 @@ public class ServletLogin extends HttpServlet {
         String login = parameterMap.get("login")[0].trim();
         String password = parameterMap.get("password")[0].trim();
         String msg = "";
-        String pageAddress = "hw4/login_form.jsp";
+        String pageAddress = "hw5/login_form.jsp";
 
         if (login.isEmpty() ||  password.isEmpty()) {
             msg = "Please, fill in all fields";
@@ -48,7 +42,7 @@ public class ServletLogin extends HttpServlet {
             Authorization authorization = new Authorization();
             if (authorization.isLoginCorrect(login)) {
                 if (authorization.isAuthorized(login, password)) {
-                    pageAddress = "hw4/sample.jsp";
+                    pageAddress = "hw5/sample.jsp";
                 } else {
                     msg = "Your password is incorrect!";
                 }

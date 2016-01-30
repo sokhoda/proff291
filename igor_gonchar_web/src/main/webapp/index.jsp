@@ -9,23 +9,23 @@
 <html>
 <head>
     <title>Igor Web Application</title>
-   <%-- <script>
-        console.log('Hello JS');
-        var mainArray = [1, 2, 3, 4, 5, 6, 7, 8];
-        var temp;
-        for (var i = 0; i < 3; i++) {
-            temp = mainArray[i];
-            mainArray[i] = mainArray[mainArray.length-i-1];
-            mainArray[mainArray.length-i-1] = temp;
-        }
-        console.log(mainArray);
+    <%-- <script>
+         console.log('Hello JS');
+         var mainArray = [1, 2, 3, 4, 5, 6, 7, 8];
+         var temp;
+         for (var i = 0; i < 3; i++) {
+             temp = mainArray[i];
+             mainArray[i] = mainArray[mainArray.length-i-1];
+             mainArray[mainArray.length-i-1] = temp;
+         }
+         console.log(mainArray);
 
-        function functionName(){
-            alert('Function message');
-        }
-        functionName(); //Vizov funkziyi
+         function functionName(){
+             alert('Function message');
+         }
+         functionName(); //Vizov funkziyi
 
-    </script>--%>
+     </script>--%>
 </head>
 <body>
 <script src="js/script.js" type="text/javascript"></script>
@@ -46,7 +46,8 @@
         </tr>
 
         <tr>
-            <td><input type="submit" value="Login" style="width:100%" onclick="aaa()" <%--onclick="functionName()"--%>/></td>
+            <td><input type="submit" value="Login"
+                       style="width:100%" <%--onclick="aaa()"--%> <%--onclick="functionName()"--%>/></td>
 
         </tr>
     </form>
@@ -61,6 +62,9 @@
 <p>
     ${auth_result}
 </p>
-<button onclick="createTree(document.documentElement, '')">Create tree</button>
+<%--<button onclick="createTree(document.documentElement, '')">Create tree</button>--%>
+<a href="dashboard.jsp">
+    <button>Order page</button>
+</a>
 </body>
 </html>

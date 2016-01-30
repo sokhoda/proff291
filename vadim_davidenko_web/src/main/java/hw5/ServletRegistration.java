@@ -1,4 +1,4 @@
-package hw4.login;
+package hw5;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Вадим on 17.01.2016.
@@ -44,7 +41,7 @@ public class ServletRegistration extends HttpServlet {
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String regDate = df.format(new Date());
         String msg = "";
-        String pageAddress = "hw4/reg_form.jsp";
+        String pageAddress = "hw5/reg_form.jsp";
         boolean isAdded = false;
 
         if (name.isEmpty() || surname.isEmpty() || login.isEmpty() ||
@@ -62,7 +59,7 @@ public class ServletRegistration extends HttpServlet {
                 }
                 if (isAdded) {
                     msg = "Your registration is successful. Congratulations!";
-                    pageAddress = "hw4/users_base.jsp";
+                    pageAddress = "hw5/users_base.jsp";
                     req.setAttribute("users", Registration.getUserMap());
                 } else {
                     msg = "Sorry, but user with such login is already registered. Please, try another one.";
