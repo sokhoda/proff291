@@ -67,4 +67,7 @@ var functionFun = function() {
     //document.write(doc.tagName);
     //document.write(doc.childNodes);
 };
+
+
+
 //alert(functionFun());
