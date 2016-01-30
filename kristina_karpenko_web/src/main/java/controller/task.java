@@ -33,10 +33,10 @@ public class task extends HttpServlet {
         String reqLog = req.getParameter("login");
         String reqPas = req.getParameter("password");
         if( users.containsKey(reqLog)&&users.containsValue(reqPas)){
-            resp.getWriter().print("Hello, "+reqLog);
+            req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
         }
         else {
-            resp.getWriter().print("Bye, "+reqLog);
+            resp.getWriter().print("Error authorization, "+reqLog);
         }
 
 
