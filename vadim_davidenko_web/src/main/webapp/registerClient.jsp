@@ -12,7 +12,23 @@
 </head>
 <body>
 
-<h3>Client registration</h3>
+<h2>Client registration</h2>
+
+<%--Menu line--%>
+<table width="600px" border="0" cellpadding="3" style="background-color: #d4ecff">
+  <tr>
+    <td width="16%" align="center"><a href="dashboard.jsp">Home</a></td>
+    <td width="16%" align="center"><a href="orders.jsp">Orders</a></td>
+    <td width="16%" align="center"><a href="order.jsp">New order</a></td>
+    <td width="16%" align="center"><a href="clients.jsp">Clients</a></td>
+    <td width="16%" align="center" style="background-color: lightgreen"
+            ><b><a href="registerClient.jsp">New client</a></b></td>
+    <td width="16%" align="center"><a href="index.jsp">Logout</a></td>
+  </tr>
+</table>
+<br/>
+
+<%--Client registration form--%>
 <div style="float: left">
 
   <form name="regForm" action="/clientServlet" method="post">
@@ -33,18 +49,21 @@
         <td>Phone:</td>
         <td><input type="text" name="clientPhone" value="380" size="12" maxlength="12"/></td>
       </tr>
-      <tr><td colspan="2"><hr/></td></tr>
-      <tr>
-        <td align="center"><input type="button" value="Submit" onclick="submitForm(document.regForm)" style="width: 70px"/></td>
-        <td align="center"><a href="index.jsp">Welcome page</a></td>
-      </tr>
+      <tr><td colspan="2" align="center">
+        <hr/>
+        <input type="button" value="Submit" onclick="submitForm(document.regForm)" style="width: 100px"/>
+      </td></tr>
     </table>
   </form>
 
 </div>
 <div style="clear: both"></div>
-<p style="color: red"><b>${server_msg}</b></p>
 
+<%--Server messages--%>
+<p style="color: green"><b>${clientServlet_msg}</b></p>
+<p style="color: red"><b>${clientServlet_err_msg}</b></p>
+
+<%--Checking fields script--%>
 <script>
   function submitForm(form) {
     if(!checkEmptyFields(form)) {
@@ -57,13 +76,11 @@
     }
     form.submit();
   }
-
   function checkEmptyFields(form) {
     return (form.clientName.value.trim() &&
             form.clientSurname.value.trim() &&
             form.clientPhone.value.trim());
   }
-
   function checkPhoneNumber(form) {
       var phoneNumber = +form.clientPhone.value.replace(' ', '');
       return (!isNaN(phoneNumber) && phoneNumber.length == 12);
