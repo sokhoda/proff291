@@ -82,8 +82,8 @@
             form.clientPhone.value.trim());
   }
   function checkPhoneNumber(form) {
-      var phoneNumber = +form.clientPhone.value.replace(' ', '');
-      return (!isNaN(phoneNumber) && phoneNumber.length == 12);
+      var phoneNumber = form.clientPhone.value;
+      return (!isNaN(+phoneNumber) && phoneNumber.length == 12);
   }
 
 </script>

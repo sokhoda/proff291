@@ -43,11 +43,11 @@
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
         <td>Show by sum of orders, more:</td>
-        <td align="right"><input type="text" name="gtSum" value="1000" size="4" maxlength="10"/></td>
+        <td align="right"><input type="text" name="gtSum" size="4" maxlength="10"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="month"></td>
-        <td>Show by last month ordered:</td>
+        <td>Show by last month ordered</td>
         <td></td>
       </tr>
       <tr><td colspan="3" align="center">
@@ -71,26 +71,22 @@
   %>
   <h3>${clientListTitle}</h3>
   <tr>
+    <th>ID</th>
     <th>Name</th>
     <th>Surname</th>
     <th>Phone</th>
     <th>Address</th>
-    <th>Sum</th>
-    <th>Last date</th>
   </tr>
-  <tr>
-    <td colspan="6"><hr/></td>
-  </tr>
+  <tr><td colspan="5"><hr/></td></tr>
   <%
     for (Client client : clients){
   %>
   <tr>
-    <td><%=client.getName()%></td>
-    <td><%=client.getSurname()%></td>
-    <td><%=client.getPhone()%></td>
-    <td><%=client.getAddress()%></td>
-    <td><%=client.getAmount()%></td>
-    <td><%=client.getLastOrderDate()%></td>
+    <td><%= String.valueOf(client.getId()) %></td>
+    <td><%= client.getName() %></td>
+    <td><%= client.getSurname() %></td>
+    <td><%= client.getPhone() %></td>
+    <td><%= client.getAddress() %></td>
   </tr>
   <%
       }

@@ -23,9 +23,11 @@ import java.util.Map;
 @WebServlet("/clientServlet")
 public class ClientServlet extends HttpServlet {
 
+    private ClientServiceImpl clientService = new ClientServiceImpl();
+    private int portionStartPos;
     final static String CLIENT_CREATED_MSG = "New client created successfully";
     final static String NO_CLIENTS_FOUND_MSG = "No clients found";
-    final static String CLIENT_REGISTRATION_PAGE = "registeredClient.jsp";
+    final static String CLIENT_REGISTRATION_PAGE = "registerClient.jsp";
     final static String CLIENT_LIST_PAGE = "clients.jsp";
 
     @Override
@@ -46,7 +48,6 @@ public class ClientServlet extends HttpServlet {
         String address = parameterMap.get("clientAddress")[0].trim();
         String phone = parameterMap.get("clientPhone")[0].trim();
 
-        ClientServiceImpl clientService = new ClientServiceImpl();
         boolean isCreated = false;
         try {
             synchronized (ClientServlet.class) {
@@ -68,25 +69,29 @@ public class ClientServlet extends HttpServlet {
         String showBy = parameterMap.get("showBy")[0];
 
         ClientServiceImpl clientService = new ClientServiceImpl();
-        List<Client> clients;
+        List<Client> clients = null;
         String title = "";
         switch (showBy) {
             case "portion":
                 int portionSize = Integer.parseInt(parameterMap.get("portionSize")[0]);
                 clients = clientService.showClientsByPortion(portionSize);
-                title = "Clients 1 - " + String.valueOf(portionSize);
+                if (portionSize > clients.size()) {
+                    portionSize = clients.size();
+                }
+                title = "Clients " + String.valueOf(portionStartPos + 1) + " - " +
+                        String.valueOf(portionStartPos + portionSize);
                 break;
             case "sum":
+                portionStartPos = 0;
                 int gtSum = Integer.parseInt(parameterMap.get("gtSum")[0]);
                 clients = clientService.showClientsGtSum(gtSum);
                 title = "Clients ordered on sum greater " + String.valueOf(gtSum);
                 break;
             case "month":
+                portionStartPos = 0;
                 clients = clientService.showClientsLastMonth();
                 title = "Clients ordered in the last month";
                 break;
-            default:
-                clients = null;
         }
         if (clients != null && !clients.isEmpty()) {
             req.setAttribute("clientList", clients);

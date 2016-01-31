@@ -1,6 +1,8 @@
 package hw8.taxi.domain;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * Created by v.davidenko on 29.01.2016.
@@ -13,35 +15,40 @@ import java.io.Serializable;
 public class Order implements Serializable {
 
     private Long id;
-    private Client client;
+    private Long clientId;
     private String amount;
     private String addressFrom;
     private String addressTo;
+    private String orderDate;   // DD.MM.YYYY
+
     private static final long serialVersionUID = 1L;
 
-    public Order(Long id, Client client, String amount, String addressFrom, String addressTo) {
+    public Order(Long id, Long clientId, String amount, String addressFrom, String addressTo) {
         this.id = id;
-        this.client = client;
+        this.clientId = clientId;
         this.amount = amount;
         this.addressFrom = addressFrom;
         this.addressTo = addressTo;
+        DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT);
+        orderDate = df.format(new Date());
     }
 
     public Order() {
-        client = new Client();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT);
+        orderDate = df.format(new Date());
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order)) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Order)) return false;
 
-        Order order = (Order) o;
+        Order order = (Order) obj;
 
         if (!addressFrom.equals(order.addressFrom)) return false;
         if (!addressTo.equals(order.addressTo)) return false;
         if (!amount.equals(order.amount)) return false;
-        if (!client.equals(order.client)) return false;
+        if (!clientId.equals(order.clientId)) return false;
         if (!id.equals(order.id)) return false;
 
         return true;
@@ -50,7 +57,7 @@ public class Order implements Serializable {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + client.hashCode();
+        result = 31 * result + clientId.hashCode();
         result = 31 * result + amount.hashCode();
         result = 31 * result + addressFrom.hashCode();
         result = 31 * result + addressTo.hashCode();
@@ -61,10 +68,11 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", client=" + client +
+                ", clientId=" + clientId +
                 ", amount='" + amount + '\'' +
                 ", addressFrom='" + addressFrom + '\'' +
                 ", addressTo='" + addressTo + '\'' +
+                ", orderDate=" + orderDate +
                 '}';
     }
 
@@ -76,12 +84,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getAmount() {
@@ -106,5 +114,13 @@ public class Order implements Serializable {
 
     public void setAddressTo(String addressTo) {
         this.addressTo = addressTo;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 }
