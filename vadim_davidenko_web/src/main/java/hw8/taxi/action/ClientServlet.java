@@ -69,23 +69,28 @@ public class ClientServlet extends HttpServlet {
 
         ClientServiceImpl clientService = new ClientServiceImpl();
         List<Client> clients;
+        String title = "";
         switch (showBy) {
             case "portion":
                 int portionSize = Integer.parseInt(parameterMap.get("portionSize")[0]);
                 clients = clientService.showClientsByPortion(portionSize);
+                title = "Clients 1 - " + String.valueOf(portionSize);
                 break;
             case "sum":
                 int gtSum = Integer.parseInt(parameterMap.get("gtSum")[0]);
                 clients = clientService.showClientsGtSum(gtSum);
+                title = "Clients ordered on sum greater " + String.valueOf(gtSum);
                 break;
             case "month":
                 clients = clientService.showClientsLastMonth();
+                title = "Clients ordered in the last month";
                 break;
             default:
                 clients = null;
         }
         if (clients != null && !clients.isEmpty()) {
             req.setAttribute("clientList", clients);
+            req.setAttribute("clientListTitle", title);
             req.getRequestDispatcher(CLIENT_LIST_PAGE).forward(req, resp);
         } else {
             req.setAttribute("clientServlet_err_msg", NO_CLIENTS_FOUND_MSG);

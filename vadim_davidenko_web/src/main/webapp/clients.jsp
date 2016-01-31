@@ -69,6 +69,7 @@
     List<Client> clients = (List<Client>)request.getAttribute("clientList");
     if(clients != null && !clients.isEmpty()){
   %>
+  <h3>${clientListTitle}</h3>
   <tr>
     <th>Name</th>
     <th>Surname</th>
