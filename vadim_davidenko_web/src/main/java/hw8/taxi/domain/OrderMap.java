@@ -19,80 +19,61 @@ public class OrderMap {
     }
 
     public OrderMap() {
-        orderMap = readMap();
+        orderMap = deserialization(ORDER_BASE_FILE_PATH);
     }
 
     public boolean addOrder(Order order) {
-        if (order == null || isOrderExist(order)) return false;
+        if (order == null || isOrderExist(order)) {
+            return false;
+        }
         orderMap.put(order.getId(), order);
-        saveOrder(order);
+        serialization(orderMap, ORDER_BASE_FILE_PATH);
         return true;
     }
 
     public boolean replaceOrder(Order order) {
-        if (order == null || !isOrderExist(order)) return false;
+        if (order == null || !isOrderExist(order)) {
+            return false;
+        }
         orderMap.replace(order.getId(), order);
-        saveOrderMap(orderMap);
+        serialization(orderMap, ORDER_BASE_FILE_PATH);
         return true;
     }
 
     public boolean isOrderExist(Order order) {
-        return (order != null && orderMap.containsKey(order.getId()) &&
-            orderMap.get(order.getId()).equals(order));
+        return (order != null && orderMap.containsKey(order.getId()));
     }
 
     public Order getOrderById(Long id) {
-        if (id == null || id == 0) return null;
+        if (id == null || id == 0) {
+            return null;
+        }
         return orderMap.get(id);
     }
 
-    /////////////////////////////////////////////
-    public void saveOrder(Order order) {
-        if (order == null){
-            return;
-        }
-        File file = new File(ORDER_BASE_FILE_PATH);
-        PrintWriter pw = null;
-        try{
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-            String[] orderData = {
-                    String.valueOf(order.getId()), order.getAmount(),
-                    order.getAddressFrom(), order.getAddressTo(),
-                    order.getClient().getName(), order.getClient().getSurname(),
-                    order.getClient().getPhone(), order.getClient().getAddress()
-            };
-            StringBuilder sb = new StringBuilder();
-            for (String value : orderData) {
-                    sb.append(value);
-                    sb.append("\t");
-                }
-            sb.replace(sb.length() - 1, sb.length(), "\n");
-            pw.print(sb.toString());
-        } catch(IOException e) {
-            e.printStackTrace();
-        } finally{
-            if(pw!= null) {
-                pw.close();
-            }
-        }
-    }
-
-    public void saveOrderMap(Map<Long, Order> orders) {
+    public boolean serialization(Map<Long, Order> orders, String fileName) {
         if (orders.isEmpty()){
-            return;
+            return false;
         }
-        File file = new File(ORDER_BASE_FILE_PATH);
+        File file = new File(fileName);
         PrintWriter pw = null;
+
         try{
             pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
             Set<Map.Entry<Long, Order>> entries = orders.entrySet();
 
             for (Map.Entry<Long, Order> entry : entries) {
                 String[] orderData = {
-                        String.valueOf(entry.getValue().getId()), entry.getValue().getAmount(),
-                        entry.getValue().getAddressFrom(), entry.getValue().getAddressTo(),
-                        entry.getValue().getClient().getName(), entry.getValue().getClient().getSurname(),
-                        entry.getValue().getClient().getPhone(), entry.getValue().getClient().getAddress()
+                        String.valueOf(entry.getValue().getId()),
+                        entry.getValue().getAmount(),
+                        entry.getValue().getAddressFrom(),
+                        entry.getValue().getAddressTo(),
+                        entry.getValue().getClient().getName(),
+                        entry.getValue().getClient().getSurname(),
+                        entry.getValue().getClient().getPhone(),
+                        entry.getValue().getClient().getAddress(),
+                        entry.getValue().getClient().getAmount(),
+                        entry.getValue().getClient().getLastOrderDate()
                 };
                 StringBuilder sb = new StringBuilder();
                 for (String value : orderData) {
@@ -102,6 +83,8 @@ public class OrderMap {
                 sb.replace(sb.length() - 1, sb.length(), "\n");
                 pw.print(sb.toString());
             }
+            return true;
+
         } catch(IOException e) {
             e.printStackTrace();
         } finally{
@@ -109,12 +92,14 @@ public class OrderMap {
                 pw.close();
             }
         }
+        return false;
     }
 
-    public Map<Long, Order> readMap() {
+    public Map<Long, Order> deserialization(String fileName) {
         Map<Long, Order> orders = new LinkedHashMap<Long, Order>();
-        File file = new File(ORDER_BASE_FILE_PATH);
+        File file = new File(fileName);
         BufferedReader br = null;
+
         if (file.exists()) {
             try{
                 br = new BufferedReader(new FileReader(file));
@@ -122,6 +107,7 @@ public class OrderMap {
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split("\t");
                     Order order = new Order();
+
                     order.setId(Long.valueOf(values[0]));
                     order.setAmount(values[1]);
                     order.setAddressFrom(values[2]);
@@ -130,6 +116,9 @@ public class OrderMap {
                     order.getClient().setSurname(values[5]);
                     order.getClient().setPhone(values[6]);
                     order.getClient().setAddress(values[7]);
+                    order.getClient().setAmount(values[8]);
+                    order.getClient().setLastOrderDate(values[9]);
+
                     orders.put(order.getId(), order);
                 }
             } catch(IOException e) {
@@ -147,7 +136,6 @@ public class OrderMap {
         return orders;
     }
 
-    /////////////////////////////////////////////
     public Map<Long, Order> getOrderMap() { return orderMap; }
 
     public void setOrderMap(Map<Long, Order> orderMap) { this.orderMap = orderMap; }

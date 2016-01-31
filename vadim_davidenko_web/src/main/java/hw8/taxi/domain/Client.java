@@ -1,26 +1,41 @@
 package hw8.taxi.domain;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Created by v.davidenko on 29.01.2016.
  *
  * клиент:
- *  имя, фамилия, телефон, адрес
+ *  имя, фамилия, телефон, адрес, сумма, дата последнего заказа
  */
-public class Client {
+public class Client implements Serializable {
 
     private String name;
     private String surname;
     private String phone;
     private String address;
+    private String amount;
+    private String lastOrderDate;
+    private static final long serialVersionUID = 1L;
 
     public Client(String name, String surname, String phone, String address) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.address = address;
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        lastOrderDate = df.format(new Date());
+        amount = "0.00";
     }
 
-    public Client() {}
+    public Client() {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        lastOrderDate = df.format(new Date());
+        amount = "0.00";
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -29,7 +44,6 @@ public class Client {
 
         Client client = (Client) o;
 
-        if (!address.equals(client.address)) return false;
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -42,7 +56,6 @@ public class Client {
         int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + address.hashCode();
         return result;
     }
 
@@ -53,6 +66,8 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", amount='" + amount + '\'' +
+                ", lastOrderDate=" + lastOrderDate +
                 '}';
     }
 
@@ -67,6 +82,14 @@ public class Client {
     public String getSurname() {
         return surname;
     }
+
+    public String getAmount() { return amount; }
+
+    public void setAmount(String amount) { this.amount = amount; }
+
+    public String getLastOrderDate() { return lastOrderDate; }
+
+    public void setLastOrderDate(String lastOrderDate) { this.lastOrderDate = lastOrderDate; }
 
     public void setSurname(String surname) {
         this.surname = surname;

@@ -1,20 +1,23 @@
 package hw8.taxi.domain;
 
+import java.io.Serializable;
+
 /**
  * Created by v.davidenko on 29.01.2016.
  *
  * заказ:
  *  дата, клиент, сумма, адрес подачи, адрес назначения
  * клиент:
- *  имя, фамилия, телефон, адрес
+ *  имя, фамилия, телефон, адрес, сумма, дата последнего заказа
  */
-public class Order {
+public class Order implements Serializable {
 
     private Long id;
-    private Client client = new Client();
+    private Client client;
     private String amount;
     private String addressFrom;
     private String addressTo;
+    private static final long serialVersionUID = 1L;
 
     public Order(Long id, Client client, String amount, String addressFrom, String addressTo) {
         this.id = id;
@@ -24,7 +27,9 @@ public class Order {
         this.addressTo = addressTo;
     }
 
-    public Order() {}
+    public Order() {
+        client = new Client();
+    }
 
     @Override
     public boolean equals(Object o) {
