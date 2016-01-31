@@ -16,7 +16,8 @@
     <script src="js/script.js" type="text/javascript"></script>
     <script src="js/alexEx.js" type="text/javascript"></script>
     <button onclick="createTree(document.documentElement,'')">Create Tree</button>
-    <form action="/form" method="post">
+    <button onclick="functionFun()">Test</button>
+    <form id="table" action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>
             <input type="submit" value="POST"/>
         </form>
