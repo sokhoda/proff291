@@ -12,7 +12,7 @@
 
     </head>
     <body>
-    <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/alexEx.js" type="text/javascript"></script>
     <button onclick="createTree(document.documentElement,'')">Create Tree</button>
     <form action="/form" method="post">
             <input type="text" name="login" value="Sveta"/>

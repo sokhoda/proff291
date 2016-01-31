@@ -7,6 +7,18 @@
 <%@page import="java.util.Date" %>
 <html>
 <head>
+    <title>Table</title>
+</head>
+<style>
+    .b1 {
+        background: darkblue;
+        color: white; /* Белые буквы */
+        font-size: 10pt; /* Размер шрифта в пунктах */
+        text-align: center;
+        width: 300px;
+        height: 50px;
+        align: center;
+    }
     <title>Proff29</title>
     <script>
 
@@ -16,7 +28,7 @@
 //        }
 //        fun();
     </script>
-    <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/alexEx.js" type="text/javascript"></script>
   <%--  <script src="js/telephone.js" type="text/javascript"></script>--%>
     <style>
         table {
