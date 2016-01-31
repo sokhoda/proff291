@@ -13,14 +13,9 @@
 <body>
 
 <div style="background-color: #d4ecff" align="center">
-  <h2>Welcome to TAXI service</h2>
-
-  <p><b><a href="dashboard.jsp">Menu</a></b></p>
-  <p><b><a href="orders.jsp">Orders</a></b></p>
-  <p><b><a href="order.jsp">New order</a></b></p>
-  <p><b><a href="clients.jsp">Clients</a></b></p>
-  <p><b><a href="registerClient.jsp">Client registration</a></b></p>
-
+  <h1>Welcome to TAXI service!</h1>
+  <h3><a href="dashboard.jsp">Menu</a></h3>
 </div>
+
 </body>
 </html>

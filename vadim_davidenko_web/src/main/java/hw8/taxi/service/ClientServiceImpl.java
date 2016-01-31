@@ -1,6 +1,6 @@
 package hw8.taxi.service;
 
-import hw8.taxi.domain.Order;
+import hw8.taxi.domain.Client;
 import hw8.taxi.exception.ClientException;
 
 import java.util.LinkedList;
@@ -16,22 +16,22 @@ public class ClientServiceImpl implements ClientService {
         return true;
     }
 
-    public List showClientsByPortion(int portionSize) {
-        List<Order> list = new LinkedList<>();
+    public List<Client> showClientsByPortion(int portionSize) {
+        List<Client> list = new LinkedList<Client>();
 
 
         return list;
     }
 
-    public List showClientsGtSum(int sum) {
-        List<Order> list = new LinkedList<>();
+    public List<Client> showClientsGtSum(int sum) {
+        List<Client> list = new LinkedList<Client>();
 
 
         return list;
     }
 
-    public List showClientsLastMonth() {
-        List<Order> list = new LinkedList<>();
+    public List<Client> showClientsLastMonth() {
+        List<Client> list = new LinkedList<Client>();
 
 
         return list;
