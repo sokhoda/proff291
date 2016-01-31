@@ -37,7 +37,8 @@ var functionFun = function() {
     //alert(obj.field + obj.method());
 
     var vector = new Array(3);
-
+//vector.splice()
+    
     //var sub = Object.create(obj);
     var sub = {};
     sub.__proto__ = obj;

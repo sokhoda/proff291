@@ -10,6 +10,7 @@
     <title>Registration</title>
 </head>
 <body>
+<script src="js/registerForm.js" type="text/javascript"></script>
 
 <table border="1">
 

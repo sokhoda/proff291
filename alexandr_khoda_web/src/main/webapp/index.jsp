@@ -26,6 +26,7 @@
     <%--<p onclick="functionFun()">text1</p>--%>
     <button id="createTableButton" onclick="generatePhoneTable()">Create Table
     </button>
+
 </body>
 </html>
 
