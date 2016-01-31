@@ -7,10 +7,29 @@
 <%@page import="java.util.Date" %>
 <html>
 <head>
+    <title>Table</title>
+</head>
+<style>
+    .b1 {
+        background: darkblue;
+        color: white; /* Белые буквы */
+        font-size: 10pt; /* Размер шрифта в пунктах */
+        text-align: center;
+        width: 300px;
+        height: 50px;
+        align: center;
+    }
     <title>Proff29</title>
-    <script> console.log('Hello JS');
+    <script>
 
+//           console.log('Hello JS');
+//        function fun() {
+//            alert('Fun Function');
+//        }
+//        fun();
     </script>
+    <script src="js/alexEx.js" type="text/javascript"></script>
+  <%--  <script src="js/telephone.js" type="text/javascript"></script>--%>
     <style>
         table {
 
@@ -26,15 +45,15 @@
     </style>
 </head>
 <body>
-<table border="1" width="200" >
+<table border="1" width="200">
     <tr>
         <td>
-            <a href="loginClient.jsp"> <h3>LogIn</h3></a>
+            <a href="loginClient.jsp"><h3>LogIn</h3></a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="registeredClient.jsp" ><h3>Registration</h3></a>
+            <a href="registeredClient.jsp"><h3>Registration</h3></a>
         </td>
     </tr>
 </table>
@@ -42,7 +61,9 @@
 <table border="1">
 
     <tr>
-        <th width="33%" colspan="2"> First</th>
+        <%--<th width="33%" colspan="2" name="" id="" class="" onclick="val = 5;Telephone()"> First</th>--%>
+            <th width="33%" colspan="2" name="" id="" class="" onclick="val = 5;functionFun()"> First</th>
+           <%-- <th width="33%" colspan="2" name="" id="" class="" onclick="val = 5;Tree()"> First</th>--%>
         <th width="33%" colspan="2"> Second</th>
         <th width="33%" colspan="2">Third</th>
     </tr>
