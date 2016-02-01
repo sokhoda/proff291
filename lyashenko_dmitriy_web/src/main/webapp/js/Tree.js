@@ -1,6 +1,7 @@
 /**
- * Created by al1 on 28.11.15.
+ * Created by Admin on 26.01.2016.
  */
+
 
 val = 55;
 console.log('Hello JS' + val);
@@ -31,9 +32,6 @@ var functionFun = function() {
             this.field = 45;
             return this.field;
         };
-        this.toString = function() {
-            return 2;
-        }
     }
 
     var obj = new Class();
@@ -45,9 +43,29 @@ var functionFun = function() {
     var sub = {};
     sub.__proto__ = obj;
 
+    //alert(sub.hasOwnProperty('field'));
 
-    alert(obj + sub);
+    /*    function Obj() {
+     var _data = "foo";
+     this.getData = function() {
+     return _data;
+     };
+     this.setData = function(data) {
+     _data = data;
+     }
+     }
 
 
+     var incaps = new Obj();
+     alert(incaps.getData());
+     incaps.setData(12);
+     alert(incaps.getData());
+     alert(incaps._data);*/
+    //obj.du();
+
+    var doc = document.documentElement;
+    document.write(doc.nodeType);
+    document.write(doc.tagName);
+    document.write(doc.childNodes);
 };
 //alert(functionFun());
