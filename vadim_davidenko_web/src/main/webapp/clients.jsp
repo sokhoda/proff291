@@ -76,8 +76,9 @@
     <th>Surname</th>
     <th>Phone</th>
     <th>Address</th>
+    <th>${orderSum} ${orderDate}</th>
   </tr>
-  <tr><td colspan="5"><hr/></td></tr>
+  <tr><td colspan="6"><hr/></td></tr>
   <%
     for (Client client : clients){
   %>
@@ -87,6 +88,10 @@
     <td><%= client.getSurname() %></td>
     <td><%= client.getPhone() %></td>
     <td><%= client.getAddress() %></td>
+    <% if (client.getOrdersSum() != null) { %>
+    <td><%= client.getOrdersSum() %></td> <% } %>
+    <% if (client.getLastOrderedDate() != null) { %>
+    <td><%= client.getLastOrderedDate() %></td> <% } %>
   </tr>
   <%
       }

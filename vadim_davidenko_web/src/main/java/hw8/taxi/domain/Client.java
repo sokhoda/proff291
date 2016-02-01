@@ -19,6 +19,9 @@ public class Client implements Serializable {
     private String phone;
     private String address;
 
+    private String ordersSum;
+    private String lastOrderedDate;
+
     private static final long serialVersionUID = 1L;
 
     public Client(Long id, String name, String surname, String phone, String address) {
@@ -104,5 +107,21 @@ public class Client implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getOrdersSum() {
+        return ordersSum;
+    }
+
+    public void setOrdersSum(String ordersSum) {
+        this.ordersSum = ordersSum;
+    }
+
+    public String getLastOrderedDate() {
+        return lastOrderedDate;
+    }
+
+    public void setLastOrderedDate(String lastOrderedDate) {
+        this.lastOrderedDate = lastOrderedDate;
     }
 }

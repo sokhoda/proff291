@@ -76,6 +76,7 @@ public class ClientServiceImpl implements ClientService {
                 }
             }
             if (clientSum > sum) {
+                client.setOrdersSum(String.valueOf(clientSum));
                 outputList.add(client);
             }
         }
@@ -98,6 +99,7 @@ public class ClientServiceImpl implements ClientService {
                 Order order = (Order)entry.getValue();
                 String orderMonth = order.getOrderDate().substring(3, 5);
                 if (order.getClientId().equals(client.getId()) && orderMonth.equals(currentMonth)) {
+                    client.setLastOrderedDate(order.getOrderDate());
                     outputList.add(client);
                     break;
                 }

@@ -85,11 +85,13 @@ public class ClientServlet extends HttpServlet {
                 portionStartPos = 0;
                 int gtSum = Integer.parseInt(parameterMap.get("gtSum")[0]);
                 clients = clientService.showClientsGtSum(gtSum);
+                req.setAttribute("orderSum", "Sum of orders");
                 title = "Clients ordered on sum greater " + String.valueOf(gtSum);
                 break;
             case "month":
                 portionStartPos = 0;
                 clients = clientService.showClientsLastMonth();
+                req.setAttribute("orderDate", "Last order date");
                 title = "Clients ordered in the last month";
                 break;
         }
