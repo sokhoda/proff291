@@ -1,22 +1,12 @@
 package session6HomeTask;
 
-import jdk.internal.util.xml.impl.Pair;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,7 +42,6 @@ public class Register extends HttpServlet {
         if (message.equals("You have been registered")) {
             RegisterBase.setUserMap(login, password);
         }
-
 
         request.setAttribute("reg_result", message);
         request.getRequestDispatcher(pageAddress).forward(request, response);
