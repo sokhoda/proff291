@@ -13,16 +13,17 @@ import java.util.*;
  */
 public class ClientServiceImpl implements ClientService {
 
-    private List<Client> clientList = new LinkedList<Client>();
+    private Map<Long, Client> clientMap = new LinkedHashMap<Long, Client>();
     private final static String CLIENT_BASE_FILE_PATH = "C:/client_base.txt";
     private int portionStartPos;
+    private ArrayList<Client> clientList;
 
-    public ClientServiceImpl(List<Client> clientList) {
-        this.clientList = clientList;
+    public ClientServiceImpl(Map<Long, Client> clientMap) {
+        this.clientMap = clientMap;
     }
 
     public ClientServiceImpl() {
-        clientList = deserialization(CLIENT_BASE_FILE_PATH);
+        clientMap = deserialization(CLIENT_BASE_FILE_PATH);
     }
 
     public boolean createClient(String name, String surname, String phone, String address)
@@ -32,28 +33,36 @@ public class ClientServiceImpl implements ClientService {
                 phone == null || phone.isEmpty()) {
             throw new ClientException("Client creation failed, empty Name and/or Surname and/or Phone number");
         }
-        Long id = (long)(clientList.size() + 1);
+        Long id = (long)(clientMap.size() + 1);
         Client newClient = new Client(id, name, surname, phone, address);
-        if (clientList.contains(newClient)) {
-            throw new ClientException("Client creation failed, such client already exists");
-        }
-        clientList.add(newClient);
 
-        if (!serialization(clientList, CLIENT_BASE_FILE_PATH)) {
-            clientList.remove(newClient);
+        Set<Map.Entry<Long, Client>> entries = clientMap.entrySet();
+        for (Map.Entry entry : entries) {
+            Client client = (Client) entry.getValue();
+            if (newClient.equals(client)) {
+                throw new ClientException("Client creation failed, such client already exists");
+            }
+        }
+        clientMap.put(newClient.getId(), newClient);
+
+        if (!serialization(clientMap, CLIENT_BASE_FILE_PATH)) {
+            clientMap.remove(newClient.getId());
             throw new ClientException("Client creation failed, database error");
         }
         return true;
     }
 
     public List<Client> showClientsByPortion(int portionSize) {
+        Set<Map.Entry<Long, Client>> entries = clientMap.entrySet();
+        for (Map.Entry entry : entries) {
+            clientList.add((Client) entry.getValue());
+        }
         if (clientList.size() < portionSize) {
             portionSize = clientList.size();
         }
         List<Client> outputList = new ArrayList<Client>();
         if (portionStartPos + portionSize <= clientList.size()) {
-            ArrayList<Client> clientArrayList = new ArrayList<Client>(clientList);
-            outputList = clientArrayList.subList(portionStartPos, portionStartPos + portionSize);
+            outputList = clientList.subList(portionStartPos, portionStartPos + portionSize);
         }
         portionStartPos += portionSize;
         return outputList;
@@ -61,16 +70,19 @@ public class ClientServiceImpl implements ClientService {
 
     public List<Client> showClientsGtSum(int sum) {
         portionStartPos = 0;
-        List<Client> outputList = new LinkedList<Client>();
 
         OrderServiceImpl orderService = new OrderServiceImpl();
         Map<Long, Order> orderMap = orderService.getOrderMap();
-        Set<Map.Entry<Long, Order>> entries = orderMap.entrySet();
+        Set<Map.Entry<Long, Client>> clientEntries = clientMap.entrySet();
+        List<Client> outputList = new LinkedList<Client>();
 
-        for (Client client : clientList) {
+        for (Map.Entry clientEntry : clientEntries) {
+            Client client = (Client) clientEntry.getValue();
             int clientSum = 0;
-            for (Map.Entry entry : entries) {
-                Order order = (Order)entry.getValue();
+            Set<Map.Entry<Long, Order>> orderEntries = orderMap.entrySet();
+
+            for (Map.Entry orderEntry : orderEntries) {
+                Order order = (Order)orderEntry.getValue();
                 if (order.getClientId().equals(client.getId())) {
                     clientSum += Integer.parseInt(order.getAmount());
                 }
@@ -85,19 +97,24 @@ public class ClientServiceImpl implements ClientService {
 
     public List<Client> showClientsLastMonth() {
         portionStartPos = 0;
-        List<Client> outputList = new LinkedList<Client>();
-
-        OrderServiceImpl orderService = new OrderServiceImpl();
-        Map<Long, Order> orderMap = orderService.getOrderMap();
-        Set<Map.Entry<Long, Order>> entries = orderMap.entrySet();
 
         DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT);  // DD.MM.YYYY
         String currentMonth = df.format(new Date()).substring(3, 5);
 
-        for (Client client : clientList) {
-            for (Map.Entry entry : entries) {
-                Order order = (Order)entry.getValue();
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        Map<Long, Order> orderMap = orderService.getOrderMap();
+        Set<Map.Entry<Long, Client>> clientEntries = clientMap.entrySet();
+        List<Client> outputList = new LinkedList<Client>();
+
+        for (Map.Entry clientEntry : clientEntries) {
+            Client client = (Client) clientEntry.getValue();
+            int clientSum = 0;
+            Set<Map.Entry<Long, Order>> orderEntries = orderMap.entrySet();
+
+            for (Map.Entry orderEntry : orderEntries) {
+                Order order = (Order)orderEntry.getValue();
                 String orderMonth = order.getOrderDate().substring(3, 5);
+
                 if (order.getClientId().equals(client.getId()) && orderMonth.equals(currentMonth)) {
                     client.setLastOrderedDate(order.getOrderDate());
                     outputList.add(client);
@@ -108,17 +125,14 @@ public class ClientServiceImpl implements ClientService {
         return outputList;
     }
 
-    public List<Client> getClientList() {
-        return clientList;
-    }
+    public Map<Long, Client> getClientMap() { return clientMap; }
 
-    public void setClientList(List<Client> clientList) {
-        this.clientList = clientList;
-    }
+    public void setClientMap(Map<Long, Client> clientMap) { this.clientMap = clientMap; }
 
     ///////////////////////////////////////////////////////////////////////////
-    public boolean serialization(List<Client> clients, String fileName) {
-        if (clients.isEmpty()) {
+
+    public boolean serialization(Map<Long, Client> clients, String fileName) {
+        if (clients.isEmpty()){
             return false;
         }
         File file = new File(fileName);
@@ -126,13 +140,23 @@ public class ClientServiceImpl implements ClientService {
 
         try{
             pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-            for (Client client : clients) {
-                String record = client.getId().toString() + "\t" +
-                        client.getName() + "\t" +
-                        client.getSurname() + "\t" +
-                        client.getPhone() + "\t" +
-                        client.getAddress() + "\n";
-                pw.print(record);
+            Set<Map.Entry<Long, Client>> entries = clients.entrySet();
+
+            for (Map.Entry<Long, Client> entry : entries) {
+                String[] clientData = {
+                        entry.getValue().getId().toString(),
+                        entry.getValue().getName(),
+                        entry.getValue().getSurname(),
+                        entry.getValue().getPhone(),
+                        entry.getValue().getAddress()
+                };
+                StringBuilder sb = new StringBuilder();
+                for (String value : clientData) {
+                    sb.append(value);
+                    sb.append("\t");
+                }
+                sb.replace(sb.length() - 1, sb.length(), "\n");
+                pw.print(sb.toString());
             }
             return true;
 
@@ -146,8 +170,8 @@ public class ClientServiceImpl implements ClientService {
         return false;
     }
 
-    public List<Client> deserialization(String fileName) {
-        List<Client> clients = new LinkedList<Client>();
+    public Map<Long, Client> deserialization(String fileName) {
+        Map<Long, Client> orders = new LinkedHashMap<Long, Client>();
         File file = new File(fileName);
         BufferedReader br = null;
 
@@ -165,7 +189,7 @@ public class ClientServiceImpl implements ClientService {
                     client.setPhone(values[3]);
                     client.setAddress(values[4]);
 
-                    clients.add(client);
+                    orders.put(client.getId(), client);
                 }
             } catch(IOException e) {
                 e.printStackTrace();
@@ -179,7 +203,6 @@ public class ClientServiceImpl implements ClientService {
                 }
             }
         }
-        return clients;
+        return orders;
     }
 }
-

@@ -34,10 +34,19 @@ public class OrderServiceImpl implements OrderService {
                 addressTo == null || addressTo.isEmpty()) {
             throw new OrderException("Order creation failed, empty Id and/or Client and/or Address");
         }
-        if (orderMap.containsKey(id)) {
-            throw new OrderException("Order creation failed, such order already exists");
+        ClientServiceImpl clientService = new ClientServiceImpl();
+        if (!clientService.getClientMap().containsKey(client.getId())) {
+            throw new OrderException("Order creation failed, such client does not exist");
         }
         Order newOrder = new Order(id, client.getId(), amount, addressFrom, addressTo);
+
+        Set<Map.Entry<Long, Order>> entries = orderMap.entrySet();
+        for (Map.Entry entry : entries) {
+            Order order = (Order) entry.getValue();
+            if (newOrder.equals(order)) {
+                throw new OrderException("Order creation failed, such order already exists");
+            }
+        }
         orderMap.put(newOrder.getId(), newOrder);
 
         if (!serialization(orderMap, ORDER_BASE_FILE_PATH)) {
@@ -48,11 +57,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo) {
-        Order order = orderMap.get(id);
-        order.setClientId(client.getId());
-        order.setAmount(amount);
-        order.setAddressFrom(addressFrom);
-        order.setAddressTo(addressTo);
+        orderMap.get(id).setClientId(client.getId());
+        orderMap.get(id).setAmount(amount);
+        orderMap.get(id).setAddressFrom(addressFrom);
+        orderMap.get(id).setAddressTo(addressTo);
 
         serialization(orderMap, ORDER_BASE_FILE_PATH);
     }
