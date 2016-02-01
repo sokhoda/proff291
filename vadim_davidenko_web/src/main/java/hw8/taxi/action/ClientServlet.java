@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * Created by v.davidenko on 29.01.2016.
  *
- *  dashboard.jsp - страница со списком функций
  */
 
 @WebServlet("/clientServlet")

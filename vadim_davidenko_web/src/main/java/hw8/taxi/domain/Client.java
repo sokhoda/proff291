@@ -8,8 +8,6 @@ import java.util.GregorianCalendar;
 /**
  * Created by v.davidenko on 29.01.2016.
  *
- * клиент:
- *  имя, фамилия, телефон, адрес, сумма, дата последнего заказа
  */
 public class Client implements Serializable {
 
@@ -38,10 +36,7 @@ public class Client implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Client client = (Client) o;
-
-        if (!id.equals(client.id)) return false;
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -51,8 +46,7 @@ public class Client implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + phone.hashCode();
         return result;

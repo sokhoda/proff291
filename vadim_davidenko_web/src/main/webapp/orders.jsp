@@ -49,7 +49,7 @@
       </tr>
       <tr><td colspan="4" align="center">
         <hr/>
-        <input type="submit" value="Select" style="width: 100px"/>
+        <input type="submit" value="Show" style="width: 100px"/>
       </td></tr>
     </table>
   </form>
@@ -68,7 +68,6 @@
   %>
   <h3>${orderListTitle}</h3>
   <tr>
-    <th>#</th>
     <th>ID</th>
     <th>Client ID</th>
     <th>Amount</th>
@@ -76,13 +75,11 @@
     <th>To</th>
     <th>Date</th>
   </tr>
-  <tr><td colspan="7"><hr/></td></tr>
+  <tr><td colspan="6"><hr/></td></tr>
   <%
-    int i = 1;
     for (Order order : orders){
   %>
   <tr>
-    <td><%= i++ %></td>
     <td><%= order.getId() %></td>
     <td><%= order.getClientId() %></td>
     <td><%= order.getAmount() %></td>

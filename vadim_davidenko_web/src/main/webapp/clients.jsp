@@ -52,7 +52,7 @@
       </tr>
       <tr><td colspan="3" align="center">
         <hr/>
-        <input type="submit" value="Select" style="width: 100px"/>
+        <input type="submit" value="Show" style="width: 100px"/>
       </td></tr>
     </table>
   </form>

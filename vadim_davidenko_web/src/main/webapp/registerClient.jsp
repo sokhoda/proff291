@@ -51,7 +51,7 @@
       </tr>
       <tr><td colspan="2" align="center">
         <hr/>
-        <input type="button" value="Submit" onclick="submitForm(document.regForm)" style="width: 100px"/>
+        <input type="button" value="Save" onclick="submitForm(document.regForm)" style="width: 100px"/>
       </td></tr>
     </table>
   </form>

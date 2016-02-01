@@ -7,10 +7,6 @@ import java.util.Date;
 /**
  * Created by v.davidenko on 29.01.2016.
  *
- * заказ:
- *  дата, клиент, сумма, адрес подачи, адрес назначения
- * клиент:
- *  имя, фамилия, телефон, адрес, сумма, дата последнего заказа
  */
 public class Order implements Serializable {
 
@@ -42,22 +38,18 @@ public class Order implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Order)) return false;
-
         Order order = (Order) obj;
-
         if (!addressFrom.equals(order.addressFrom)) return false;
         if (!addressTo.equals(order.addressTo)) return false;
         if (!amount.equals(order.amount)) return false;
         if (!clientId.equals(order.clientId)) return false;
-        if (!id.equals(order.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + clientId.hashCode();
+        int result = clientId.hashCode();
         result = 31 * result + amount.hashCode();
         result = 31 * result + addressFrom.hashCode();
         result = 31 * result + addressTo.hashCode();
