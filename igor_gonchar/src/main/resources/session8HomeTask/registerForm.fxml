@@ -5,16 +5,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="session8HomeTask.Main">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="session8HomeTask.Main">
    <children>
-      <Button fx:id="loginButton" layoutX="189.0" layoutY="250.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="25.0" prefWidth="98.0" text="Login" />
-      <Button fx:id="registerButton" layoutX="189.0" layoutY="72.0" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="25.0" prefWidth="98.0" text="Register" />
+      <Button fx:id="loginButton" layoutX="200.0" layoutY="206.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="25.0" prefWidth="98.0" text="Login" />
+      <Button fx:id="registerButton" layoutX="200.0" layoutY="72.0" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="25.0" prefWidth="98.0" text="Register" />
       <TextField fx:id="registerLogin" layoutX="14.0" layoutY="36.0" promptText="Enter login" />
       <PasswordField fx:id="registerPassword" layoutX="14.0" layoutY="72.0" promptText="Enter password" />
       <PasswordField fx:id="registerRepassword" layoutX="14.0" layoutY="105.0" promptText="Re-enter password" />
       <Line endX="100.0" layoutX="107.0" layoutY="148.0" startX="-100.0" strokeWidth="0.0" />
-      <TextField fx:id="loginLogin" layoutX="14.0" layoutY="225.0" promptText="Enter login" />
-      <PasswordField fx:id="loginPassword" layoutX="14.0" layoutY="270.0" promptText="Enter password" />
-      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutY="160.0" prefHeight="37.0" prefWidth="313.0" />
+      <TextField fx:id="loginLogin" layoutX="14.0" layoutY="187.0" promptText="Enter login" />
+      <PasswordField fx:id="loginPassword" layoutX="14.0" layoutY="218.0" promptText="Enter password" />
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutY="138.0" prefHeight="37.0" prefWidth="313.0" />
+      <TextArea fx:id="textArea" layoutX="14.0" layoutY="253.0" prefHeight="218.0" prefWidth="284.0" />
    </children>
 </Pane>
