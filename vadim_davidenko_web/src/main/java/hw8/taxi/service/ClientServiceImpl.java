@@ -15,8 +15,7 @@ public class ClientServiceImpl implements ClientService {
 
     private Map<Long, Client> clientMap = new LinkedHashMap<Long, Client>();
     private final static String CLIENT_BASE_FILE_PATH = "C:/client_base.txt";
-    private int portionStartPos;
-    private ArrayList<Client> clientList;
+    private static int portionStartPos;
 
     public ClientServiceImpl(Map<Long, Client> clientMap) {
         this.clientMap = clientMap;
@@ -33,7 +32,8 @@ public class ClientServiceImpl implements ClientService {
                 phone == null || phone.isEmpty()) {
             throw new ClientException("Client creation failed, empty Name and/or Surname and/or Phone number");
         }
-        Long id = (long)(clientMap.size() + 1);
+        Long id = sequenceNumber(clientMap.keySet());
+        if (id.equals(1L)) id += 100;
         Client newClient = new Client(id, name, surname, phone, address);
 
         Set<Map.Entry<Long, Client>> entries = clientMap.entrySet();
@@ -54,8 +54,10 @@ public class ClientServiceImpl implements ClientService {
 
     public List<Client> showClientsByPortion(int portionSize) {
         Set<Map.Entry<Long, Client>> entries = clientMap.entrySet();
-        for (Map.Entry entry : entries) {
-            clientList.add((Client) entry.getValue());
+        List<Client> clientList = new ArrayList<Client>();
+
+        for (Map.Entry<Long, Client> entry : entries) {
+            clientList.add(entry.getValue());
         }
         if (clientList.size() < portionSize) {
             portionSize = clientList.size();
@@ -78,9 +80,9 @@ public class ClientServiceImpl implements ClientService {
 
         for (Map.Entry clientEntry : clientEntries) {
             Client client = (Client) clientEntry.getValue();
-            int clientSum = 0;
             Set<Map.Entry<Long, Order>> orderEntries = orderMap.entrySet();
 
+            int clientSum = 0;
             for (Map.Entry orderEntry : orderEntries) {
                 Order order = (Order)orderEntry.getValue();
                 if (order.getClientId().equals(client.getId())) {
@@ -108,7 +110,6 @@ public class ClientServiceImpl implements ClientService {
 
         for (Map.Entry clientEntry : clientEntries) {
             Client client = (Client) clientEntry.getValue();
-            int clientSum = 0;
             Set<Map.Entry<Long, Order>> orderEntries = orderMap.entrySet();
 
             for (Map.Entry orderEntry : orderEntries) {
@@ -125,6 +126,14 @@ public class ClientServiceImpl implements ClientService {
         return outputList;
     }
 
+    public Long sequenceNumber(Set<Long> numbers) {
+        Long max = 0L;
+        for (Long number : numbers) {
+            if (max.compareTo(number) < 0) max = number;
+        }
+        return ++max;
+    }
+
     public Map<Long, Client> getClientMap() { return clientMap; }
 
     public void setClientMap(Map<Long, Client> clientMap) { this.clientMap = clientMap; }
@@ -139,7 +148,7 @@ public class ClientServiceImpl implements ClientService {
         PrintWriter pw = null;
 
         try{
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
             Set<Map.Entry<Long, Client>> entries = clients.entrySet();
 
             for (Map.Entry<Long, Client> entry : entries) {

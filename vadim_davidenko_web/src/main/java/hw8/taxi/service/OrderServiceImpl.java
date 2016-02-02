@@ -15,8 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Map<Long, Order> orderMap = new LinkedHashMap<Long, Order>();
     private final static String ORDER_BASE_FILE_PATH = "C:/order_base.txt";
     private final static int SHOW_PORTION_SIZE = 5;
-    private int portionStartPos;
-    private ArrayList<Order> orderList;
+    private static int portionStartPos;
 
     public OrderServiceImpl(Map<Long, Order> orderMap) {
         this.orderMap = orderMap;
@@ -82,6 +81,8 @@ public class OrderServiceImpl implements OrderService {
 
     public List<Order> showOrdersByPortion() {
         Set<Map.Entry<Long, Order>> entries = orderMap.entrySet();
+        List<Order> orderList = new ArrayList<Order>();
+
         for (Map.Entry entry : entries) {
             orderList.add((Order) entry.getValue());
         }
@@ -110,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
         PrintWriter pw = null;
 
         try{
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+            pw = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
             Set<Map.Entry<Long, Order>> entries = orders.entrySet();
 
             for (Map.Entry<Long, Order> entry : entries) {

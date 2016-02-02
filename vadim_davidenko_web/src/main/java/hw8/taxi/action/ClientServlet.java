@@ -77,8 +77,10 @@ public class ClientServlet extends HttpServlet {
                 if (portionSize > clients.size()) {
                     portionSize = clients.size();
                 }
+                req.setAttribute("portionSize", String.valueOf(portionSize));
                 title = "Clients " + String.valueOf(portionStartPos + 1) + " - " +
                         String.valueOf(portionStartPos + portionSize);
+                portionStartPos += portionSize;
                 break;
             case "sum":
                 portionStartPos = 0;

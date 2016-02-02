@@ -51,7 +51,7 @@
       </tr>
       <tr><td colspan="2" align="center">
         <hr/>
-        <input type="button" value="Save" onclick="submitForm(document.regForm)" style="width: 100px"/>
+        <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
       </td></tr>
     </table>
   </form>
@@ -65,25 +65,23 @@
 
 <%--Checking fields script--%>
 <script>
-  function submitForm(form) {
-    if(!checkEmptyFields(form)) {
-      alert("Please, fill in all fields!");
-      return;
-    }
-    if(!checkPhoneNumber(form)) {
-      alert("Please, enter correct phone number (12 digits)");
-      return;
-    }
-    form.submit();
+
+  function submitRegForm(form) {
+    if (checkFields(form)) form.submit();
   }
-  function checkEmptyFields(form) {
-    return (form.clientName.value.trim() &&
-            form.clientSurname.value.trim() &&
-            form.clientPhone.value.trim());
-  }
-  function checkPhoneNumber(form) {
+  function checkFields(form) {
+      if(!form.clientName.value.trim() ||
+              !form.clientSurname.value.trim() ||
+              !form.clientPhone.value.trim()) {
+          alert("Please, fill in all fields!");
+          return false;
+      }
       var phoneNumber = form.clientPhone.value;
-      return (!isNaN(+phoneNumber) && phoneNumber.length == 12);
+      if(isNaN(+phoneNumber) || phoneNumber.length != 12) {
+          alert("Please, enter correct phone number (12 digits)");
+          return false;
+      }
+      return true;
   }
 
 </script>

@@ -1,3 +1,5 @@
+<%@ page import="hw8.taxi.domain.Client" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: v.davidenko
@@ -28,50 +30,67 @@
 </table>
 <br/>
 
-
 <div style="float: left">
 
 <%--Order management form--%>
     <form name="selectForm" action="/orderServlet" method="post">
         <table border="0" cellpadding="6" style="background-color: #d4ecff">
             <tr>
-                <td><input type="button" value="New order" onclick="submitSelectForm(selectForm, regForm, 'new')" style="width: 100px"/></td>
+                <td><input type="button" value="New order" onclick="submitSelectForm(document.selectForm, 'new')" style="width: 100px"/></td>
                 <td><input type="text" name="selectAction" hidden/>&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="button" value="Edit order" onclick="submitSelectForm(selectForm, regForm, 'edit')" style="width: 100px"/></td>
-                <td><input type="text" name="orderId" size="3" maxlength="10"/></td>
+                <td><input type="button" value="Edit order" onclick="submitSelectForm('edit')" style="width: 100px"/></td>
+                <td><input type="text" name="id" size="4" maxlength="4"/></td>
             </tr>
         </table>
     </form>
 
 <%--Order registration form--%>
-    <form name="regForm" action="/orderServlet" method="post" hidden>
+    <form name="regForm" action="/orderServlet" method="post">
         <table border="0" cellpadding="6" style="background-color: #d4ecff">
+            <%
+                List<Client> clients = (List<Client>)request.getAttribute("clientList");
+                String clientId = (String)request.getAttribute("clientId");
+                if(clients != null && !clients.isEmpty()){
+            %>
+            <tr><td><input type="text" name="formAction" value="${action}" hidden/>&nbsp;&nbsp;&nbsp;</td></tr>
+            <tr>
+                <td>Order ID:</td>
+                <td><input type="text" name="orderId" value="${orderId}" size="4" maxlength="4"/></td>
+            </tr>
             <tr>
                 <td>Client full name:</td>
-                <td><select size="5" name="client">
+                <td><select size="5" name="clientId">
                     <option disabled>Select client name &nbsp;&nbsp;&nbsp;</option>
-                    <option value="client 1">Client 1</option>
-                    <option value="client 2">Client 2</option>
-                    <option value="client 3">Client 3</option>
-                    <option value="client 4">Client 4</option>
+                    <%
+                        for (Client client : clients){
+                    %>
+                    <option value="<%= String.valueOf(client.getId()) %>"
+                            <% if (String.valueOf(client.getId()).equals(clientId)) { %><%= "selected"%><% } %> >
+                        <%= client.getName() + " " + client.getSurname() %></option>
+                    <%
+                        }
+                    %>
                 </select></td>
             </tr>
             <tr>
-                <td>Order cost amount:</td>
-                <td><input type="text" name="amount" size="5" maxlength="5"/></td>
+                <td>Order cost address:</td>
+                <td><input type="text" name="address" value="${address}" size="10" maxlength="10"/></td>
             </tr>
             <tr>
                 <td>Original address:</td>
-                <td><input type="text" name="addressFrom" size="20" maxlength="50"/></td>
+                <td><input type="text" name="addressFrom" value="${addressFrom}" size="20" maxlength="50"/></td>
             </tr>
             <tr>
                 <td>Destination address:</td>
-                <td><input type="text" name="addressTo" size="20" maxlength="50"/></td>
+                <td><input type="text" name="addressTo" value="${addressTo}" size="20" maxlength="50"/></td>
             </tr>
             <tr><td colspan="2" align="center">
                 <hr/>
                 <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
             </td></tr>
+            <%
+                }
+            %>
         </table>
     </form>
 
@@ -84,32 +103,35 @@
 
 <%--Checking fields script--%>
 <script>
-    function submitSelectForm(selectForm, regForm, selectedValue) {
-        var orderId = +selectForm.orderId.value;
+    function submitSelectForm(form, selectedValue) {
         if (selectedValue === 'edit') {
-            if (orderId.trim() || isNaN(orderId) || orderId.search('.') || orderId.search(',')) {
+            var orderId = form.id.value;
+            if (isNaN(+orderId) || orderId.search('.') || orderId.search(',')) {
                 alert("Please, enter order ID as integer number");
+                return;
             }
         }
-        regForm.hidden = false;
-        selectForm.selectAction.value = selectedValue;
-        selectForm.submit();
+        form.selectAction.value = selectedValue;
+        form.submit();
     }
 
     function submitRegForm(form) {
-        if(form.client.value.trim() ||
-                form.amount.value.trim() ||
-                form.addressFrom.value.trim() ||
-                form.addressTo.value.trim()) {
+        if (checkFields(form)) form.submit();
+    }
+    function checkFields(form) {
+        if(!form.clientId.value.trim() ||
+                !form.address.value.trim() ||
+                !form.addressFrom.value.trim() ||
+                !form.addressTo.value.trim()) {
             alert("Please, fill in all fields!");
-            return;
+            return false;
         }
-        var amount = +form.amount.value;
-        if(isNaN(amount) || amount.search('.') || amount.search(',')) {
-            alert("Please, enter cost amount as integer number");
-            return;
+        var address = form.address.value;
+        if(isNaN(+address) || address.search('.') || address.search(',')) {
+            alert("Please, enter cost address as integer number");
+            return false;
         }
-        form.submit();
+        return true;
     }
 
 </script>
