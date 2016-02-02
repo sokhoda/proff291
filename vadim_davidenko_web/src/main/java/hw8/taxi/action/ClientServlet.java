@@ -30,16 +30,19 @@ public class ClientServlet extends HttpServlet {
     final static String CLIENT_LIST_PAGE = "clients.jsp";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         showClientsService(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         registrationClientService(req, resp);
     }
 
-    protected void registrationClientService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void registrationClientService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String name = parameterMap.get("clientName")[0].trim();
@@ -54,15 +57,19 @@ public class ClientServlet extends HttpServlet {
             }
             if (isCreated) {
                 req.setAttribute("clientServlet_msg", CLIENT_CREATED_MSG);
-                req.getRequestDispatcher(CLIENT_REGISTRATION_PAGE).forward(req, resp);
             }
         } catch (ClientException e) {
             req.setAttribute("clientServlet_err_msg", e.getMessage());
-            req.getRequestDispatcher(CLIENT_REGISTRATION_PAGE).forward(req, resp);
+            req.setAttribute("clientName", name);
+            req.setAttribute("clientSurname", surname);
+            req.setAttribute("clientAddress", address);
+            req.setAttribute("clientPhone", phone);
         }
+        req.getRequestDispatcher(CLIENT_REGISTRATION_PAGE).forward(req, resp);
     }
 
-    protected void showClientsService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void showClientsService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String showBy = parameterMap.get("showBy")[0];
@@ -70,30 +77,36 @@ public class ClientServlet extends HttpServlet {
         ClientServiceImpl clientService = new ClientServiceImpl();
         List<Client> clients = null;
         String title = "";
+        int portionSize = 10;
+        int gtSum = 100;
+
         switch (showBy) {
             case "portion":
-                int portionSize = Integer.parseInt(parameterMap.get("portionSize")[0]);
+                portionSize = Integer.parseInt(parameterMap.get("portionSize")[0]);
                 clients = clientService.showClientsByPortion(portionSize);
-                if (portionSize > clients.size()) {
-                    portionSize = clients.size();
-                }
+                int size = (portionSize > clients.size()) ? clients.size() : portionSize;
                 title = "Clients " + String.valueOf(portionStartPos + 1) + " - " +
-                        String.valueOf(portionStartPos + portionSize);
+                        String.valueOf(portionStartPos + size);
+                portionStartPos += size;
                 break;
             case "sum":
                 portionStartPos = 0;
-                int gtSum = Integer.parseInt(parameterMap.get("gtSum")[0]);
+                gtSum = Integer.parseInt(parameterMap.get("gtSum")[0]);
                 clients = clientService.showClientsGtSum(gtSum);
-                req.setAttribute("orderSum", "Sum of orders");
                 title = "Clients ordered on sum greater " + String.valueOf(gtSum);
+                req.setAttribute("orderSum", "Sum of orders");
                 break;
             case "month":
                 portionStartPos = 0;
                 clients = clientService.showClientsLastMonth();
-                req.setAttribute("orderDate", "Last order date");
                 title = "Clients ordered in the last month";
+                req.setAttribute("orderDate", "Last order date");
                 break;
         }
+        req.setAttribute("showBy", showBy);
+        req.setAttribute("portionSize", String.valueOf(portionSize));
+        req.setAttribute("gtSum", String.valueOf(gtSum));
+
         if (clients != null && !clients.isEmpty()) {
             req.setAttribute("clientList", clients);
             req.setAttribute("clientListTitle", title);

@@ -38,12 +38,12 @@
       <tr>
         <td><input type="radio" name="showBy" value="portion" checked="true"></td>
         <td>Show by portion of records:</td>
-        <td align="right"><input type="text" name="portionSize" value="10" size="2" maxlength="2"/></td>
+        <td align="right"><input type="text" name="portionSize" value="10" size="3" maxlength="3"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
         <td>Show by sum of orders, more:</td>
-        <td align="right"><input type="text" name="gtSum" size="4" maxlength="10"/></td>
+        <td align="right"><input type="text" name="gtSum" size="6" maxlength="6"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="month"></td>
@@ -52,13 +52,20 @@
       </tr>
       <tr><td colspan="3" align="center">
         <hr/>
-        <input type="submit" value="Show" style="width: 100px"/>
+        <input type="button" value="Show" onclick="submitForm(document.selectListForm)" style="width: 100px"/>
       </td></tr>
     </table>
   </form>
 
 </div>
 <div style="clear: both"></div>
+
+<%--Form fields values--%>
+<script>
+  document.selectListForm.showBy.value = '${showBy}';
+  document.selectListForm.portionSize.value = '${portionSize}';
+  document.selectListForm.gtSum.value = '${gtSum}';
+</script>
 
 <%--Server error message--%>
 <p style="color: red"><b>${clientServlet_err_msg}</b></p>
@@ -99,5 +106,25 @@
   %>
 </table>
 
+<script>
+    function submitForm(form) {
+        var option = form.showBy.value;
+        if (option == 'portion' && checkField(form.portionSize.value)) {
+          form.submit();
+        } else if (option == 'sum' && checkField(form.gtSum.value)) {
+          form.submit();
+        } else if (option == 'month') {
+          form.submit();
+        }
+    }
+    function checkField(num) {
+        if (!num.trim() || isNaN(+num)) {
+            alert("Please, enter value as integer number");
+            return false;
+        }
+        return true;
+    }
+
+</script>
 </body>
 </html>

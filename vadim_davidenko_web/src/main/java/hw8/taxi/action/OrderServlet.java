@@ -30,66 +30,91 @@ public class OrderServlet extends HttpServlet {
     private int portionStartPos;
 
     final static String ORDER_CREATED_MSG = "New order created successfully";
+    final static String ORDER_UPDATED_MSG = "Order updated successfully";
     final static String NO_ORDERS_FOUND_MSG = "No orders found";
     final static String ORDER_MANAGEMENT_PAGE = "order.jsp";
     final static String ORDER_LIST_PAGE = "orders.jsp";
     private final static int SHOW_PORTION_SIZE = 5;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         showOrdersService(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String[]> parameterMap = req.getParameterMap();
-
-        if (parameterMap.containsKey("selectAction")) {
-            orderActionService(req, resp);
-        } else {
-            registrationOrderService(req, resp);
-        }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        orderActionService(req, resp);
     }
 
-    protected void orderActionService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String[]> parameterMap = req.getParameterMap();
+    protected void orderActionService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
+        Map<String, String[]> parameterMap = req.getParameterMap();
+        if (!parameterMap.containsKey("selectAction")){
+            registrationOrderService(req, resp);
+            return;
+        }
+        String action = parameterMap.get("selectAction")[0];
+        String orderId = "";
+
+        if (action.equals("edit")) {
+            orderId = parameterMap.get("id")[0].trim();
+            Order order = orderService.getOrderMap().get(Long.valueOf(orderId));
+            if (order == null) {
+                req.setAttribute("orderServlet_err_msg", NO_ORDERS_FOUND_MSG);
+                req.getRequestDispatcher(ORDER_MANAGEMENT_PAGE).forward(req, resp);
+                return;
+            }
+            req.setAttribute("clientId", String.valueOf(order.getClientId()));
+            req.setAttribute("amount", order.getAmount());
+            req.setAttribute("addressFrom", order.getAddressFrom());
+            req.setAttribute("addressTo", order.getAddressTo());
+
+        } else if (action.equals("new")){
+            orderId = String.valueOf(sequenceNumber(orderService.getOrderMap().keySet()));
+        }
         Set<Map.Entry<Long, Client>> entries = clientService.getClientMap().entrySet();
         List<Client> clientList = new LinkedList<Client>();
         for (Map.Entry entry : entries) {
             clientList.add((Client) entry.getValue());
         }
         req.setAttribute("clientList", clientList);
+        req.setAttribute("formAction", action);
+        req.setAttribute("orderId", orderId);
 
-        if (parameterMap.get("selectAction")[0].equals("edit")) {
-            String orderId = parameterMap.get("orderId")[0].trim();
-            Order order = orderService.getOrderMap().get(Long.valueOf(orderId));
-
-            req.setAttribute("client", order.getClientId());
-            req.setAttribute("amount", order.getAmount());
-            req.setAttribute("addressFrom", order.getAddressFrom());
-            req.setAttribute("addressTo", order.getAddressTo());
-        }
         req.getRequestDispatcher(ORDER_MANAGEMENT_PAGE).forward(req, resp);
     }
 
-    protected void registrationOrderService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void registrationOrderService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String clientId = parameterMap.get("client")[0].trim();
+
+        String action = parameterMap.get("formAction")[0];
+        Long id = Long.valueOf(parameterMap.get("orderId")[0]);
+        Long clientId = Long.valueOf(parameterMap.get("client")[0]);
         String amount = parameterMap.get("amount")[0].trim();
         String addressFrom = parameterMap.get("addressFrom")[0].trim();
         String addressTo = parameterMap.get("addressTo")[0].trim();
 
-        Long id = (long)(orderService.getOrderMap().size() + 1);
-        Client client = clientService.getClientMap().get(Long.valueOf(clientId));
-        boolean isCreated = false;
+        Client client = clientService.getClientMap().get(clientId);
+        boolean isSuccess = false;
         try {
-            synchronized (ClientServlet.class) {
-                isCreated = orderService.createOrder(id, client, amount, addressFrom, addressTo);
-            }
-            if (isCreated) {
-                req.setAttribute("orderServlet_msg", ORDER_CREATED_MSG);
+            if (action.equals("new")) {
+                synchronized (ClientServlet.class) {
+                    isSuccess = orderService.createOrder(id, client, amount, addressFrom, addressTo);
+                }
+                if (isSuccess) {
+                    req.setAttribute("orderServlet_msg", ORDER_CREATED_MSG);
+                    req.getRequestDispatcher(ORDER_MANAGEMENT_PAGE).forward(req, resp);
+                }
+            } else if (action.equals("edit")) {
+                synchronized (ClientServlet.class) {
+                    orderService.editOrder(id, client, amount, addressFrom, addressTo);
+                }
+                req.setAttribute("orderServlet_msg", ORDER_UPDATED_MSG);
                 req.getRequestDispatcher(ORDER_MANAGEMENT_PAGE).forward(req, resp);
             }
         } catch (OrderException e) {
@@ -98,12 +123,15 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
-    protected void showOrdersService(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void showOrdersService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String showBy = parameterMap.get("showBy")[0];
         List<Order> orders = null;
         String title = "";
+        long fromSum = 0;
+        long toSum = 0;
 
         switch (showBy) {
             case "portion":
@@ -114,19 +142,30 @@ public class OrderServlet extends HttpServlet {
                 break;
             case "sum":
                 portionStartPos = 0;
-                long fromSum = Integer.parseInt(parameterMap.get("fromSum")[0]);
-                long toSum = Integer.parseInt(parameterMap.get("toSum")[0]);
+                fromSum = Integer.parseInt(parameterMap.get("fromSum")[0]);
+                toSum = Integer.parseInt(parameterMap.get("toSum")[0]);
                 orders = orderService.showOrders(fromSum, toSum);
                 title = "Orders on sum from " + String.valueOf(fromSum) + " to " + String.valueOf(toSum);
                 break;
         }
+        req.setAttribute("showBy", showBy);
+        req.setAttribute("fromSum", fromSum);
+        req.setAttribute("toSum", toSum);
+
         if (orders != null && !orders.isEmpty()) {
             req.setAttribute("orderList", orders);
             req.setAttribute("orderListTitle", title);
-            req.getRequestDispatcher(ORDER_LIST_PAGE).forward(req, resp);
         } else {
             req.setAttribute("orderServlet_err_msg", NO_ORDERS_FOUND_MSG);
-            req.getRequestDispatcher(ORDER_LIST_PAGE).forward(req, resp);
         }
+        req.getRequestDispatcher(ORDER_LIST_PAGE).forward(req, resp);
+    }
+
+    public Long sequenceNumber(Set<Long> numbers) {
+        Long max = 0L;
+        for (Long number : numbers) {
+            if (max.compareTo(number) < 0) max = number;
+        }
+        return ++max;
     }
 }
