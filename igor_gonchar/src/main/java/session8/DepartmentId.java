@@ -30,7 +30,7 @@ public class DepartmentId {
                 counter++;
             }
 
-            if (counter == 0){
+            if (counter == 0) {
                 System.out.println("There is no data for your request");
             }
 
