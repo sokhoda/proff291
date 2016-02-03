@@ -44,8 +44,8 @@
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
         <td>Show by sum of orders (from, to):</td>
-        <td><input type="text" name="fromSum" size="4" maxlength="10"/></td>
-        <td><input type="text" name="toSum" size="4" maxlength="10"/></td>
+        <td><input type="text" name="fromSum" size="5" maxlength="5"/></td>
+        <td><input type="text" name="toSum" size="5" maxlength="5"/></td>
       </tr>
       <tr><td colspan="4" align="center">
         <hr/>

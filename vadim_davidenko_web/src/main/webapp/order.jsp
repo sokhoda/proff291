@@ -45,12 +45,12 @@
     </form>
 
 <%--Order registration form--%>
-    <form name="regForm" action="/orderServlet" method="post" hidden>
+    <form name="regForm" action="/orderServlet" method="post">
         <table border="0" cellpadding="6" style="background-color: #d4ecff">
             <tr>
                 <td>Order ID: </td>
                 <td><input type="text" name="formAction" hidden/>
-                    <input type="text" name="orderId" size="10" maxlength="10"/></td>
+                    <input type="text" name="orderId" size="5" maxlength="5" disabled/></td>
             </tr>
             <tr>
                 <td>Client full name:</td>
@@ -94,7 +94,6 @@
 <div style="clear: both"></div>
 
 <script>
-    document.regForm.hidden = false;
     document.regForm.formAction.value = '${formAction}';
     document.regForm.orderId.value = '${orderId}';
     document.regForm.amount.value = '${amount}';
