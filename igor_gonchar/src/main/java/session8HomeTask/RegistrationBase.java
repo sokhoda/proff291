@@ -40,10 +40,13 @@ public class RegistrationBase {
 
     }
 
-    public StringBuilder addUser(String login, String password){
+    public StringBuilder addUser(String login, String password) {
         return null;
 
     }
 
+    public void emptyBase() {
+
+    }
 }
 
