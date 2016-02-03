@@ -8,42 +8,35 @@ import java.util.GregorianCalendar;
 /**
  * Created by v.davidenko on 29.01.2016.
  *
- * клиент:
- *  имя, фамилия, телефон, адрес, сумма, дата последнего заказа
  */
 public class Client implements Serializable {
 
+    private Long id;
     private String name;
     private String surname;
     private String phone;
     private String address;
-    private String amount;
-    private String lastOrderDate;
+
+    private String ordersSum;
+    private String lastOrderedDate;
+
     private static final long serialVersionUID = 1L;
 
-    public Client(String name, String surname, String phone, String address) {
+    public Client(Long id, String name, String surname, String phone, String address) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.address = address;
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        lastOrderDate = df.format(new Date());
-        amount = "0.00";
     }
 
-    public Client() {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        lastOrderDate = df.format(new Date());
-        amount = "0.00";
-    }
+    public Client() {}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Client)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -62,13 +55,20 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "name='" + name + '\'' +
+                "id='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", amount='" + amount + '\'' +
-                ", lastOrderDate=" + lastOrderDate +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -82,14 +82,6 @@ public class Client implements Serializable {
     public String getSurname() {
         return surname;
     }
-
-    public String getAmount() { return amount; }
-
-    public void setAmount(String amount) { this.amount = amount; }
-
-    public String getLastOrderDate() { return lastOrderDate; }
-
-    public void setLastOrderDate(String lastOrderDate) { this.lastOrderDate = lastOrderDate; }
 
     public void setSurname(String surname) {
         this.surname = surname;
@@ -109,5 +101,21 @@ public class Client implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getOrdersSum() {
+        return ordersSum;
+    }
+
+    public void setOrdersSum(String ordersSum) {
+        this.ordersSum = ordersSum;
+    }
+
+    public String getLastOrderedDate() {
+        return lastOrderedDate;
+    }
+
+    public void setLastOrderedDate(String lastOrderedDate) {
+        this.lastOrderedDate = lastOrderedDate;
     }
 }
