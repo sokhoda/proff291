@@ -33,6 +33,7 @@
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
         <module>vladymyr_danilov</module>
+
         <module>pavel_semerenko</module>
         <module>pavel_semerenko_web</module>
         <module>salvador_sakho</module>
@@ -49,6 +50,9 @@
         <module>vadim_davidenko_web</module>
         <module>yura_skulskiy</module>
         <module>yura_skulskiy_web</module>
+
+
+
         <module>olena_babenko_web</module>
         <module>alexandr_cherkassky_web</module>
     </modules>
@@ -104,12 +108,12 @@
 
         2) Set up maven
         // For Windows
-        set PATH=%PATH%;C:\Program Files\maven\bin
+        set PATH=%PATH%;F:\Distr\_Flash_Alex\apache-maven-3.3.9-bin\bin
         // For Linux
         export PATH=$PATH:/home/users/install/apache-maven-3.2.1/bin
 
         3) Set up java
-        set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_45
+        set JAVA_HOME=E:\Program Files (x86)\Java\jdk1.8.0_60
 
         4) Check if maven set up
         mvn -version
@@ -122,6 +126,7 @@
 -->
 
         <!-- ORACLE JDBC driver -->
+
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
