@@ -11,6 +11,7 @@ import java.util.Locale;
 public class EmplListInDepartment {
     public static String enterDepartmentId() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter Department ID:");
         return reader.readLine();
     }
 
@@ -23,12 +24,20 @@ public class EmplListInDepartment {
         try {
             conn = DriverManager.getConnection(url, "hr", "hr");
             Statement stat = conn.createStatement();
-            //int department = enterDepartmentId();
-            ResultSet rs = stat.executeQuery("SELECT FIRST_NAME, DEPARTMENT_ID FROM employees WHERE DEPARTMENT_ID IS NOT NULL AND DEPARTMENT_ID = "+department);
+            //String department = enterDepartmentId();
+            ResultSet rs = stat.executeQuery("SELECT FIRST_NAME, DEPARTMENT_ID FROM employees WHERE DEPARTMENT_ID IS NOT NULL AND DEPARTMENT_ID = " + enterDepartmentId());
 
-            int i=0;
-            while(rs.next()){
-                System.out.println(++i +"\t"+rs.getString("FIRST_NAME")+"\t"+rs.getString("DEPARTMENT_ID"));
+            int i = 0;
+            System.out.println("N" + "\t" + "FIRST_NAME" + "\t" + "DEPARTMENT_ID");
+            String name = "";
+            while (rs.next()) {
+                if (rs.getString("FIRST_NAME").length() < 7) {
+                    name = rs.getString("FIRST_NAME") + "   ";
+                } else {
+                    name = rs.getString("FIRST_NAME");
+                }
+
+                System.out.println(++i + "\t " + name + "\t\t" + rs.getString("DEPARTMENT_ID"));
                 //i++;
             }
 
