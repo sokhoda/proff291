@@ -57,6 +57,13 @@
 </div>
 <div style="clear: both"></div>
 
+<%--Form fields values--%>
+<script>
+  document.selectListForm.showBy.value = '${showBy}';
+  document.selectListForm.fromSum.value = '${fromSum}';
+  document.selectListForm.toSum.value = '${toSum}';
+</script>
+
 <%--Server error message--%>
 <p style="color: red"><b>${orderServlet_err_msg}</b></p>
 

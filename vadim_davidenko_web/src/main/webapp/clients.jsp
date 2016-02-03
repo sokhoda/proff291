@@ -38,7 +38,7 @@
       <tr>
         <td><input type="radio" name="showBy" value="portion" checked="true"></td>
         <td>Show by portion of records:</td>
-        <td align="right"><input type="text" name="portionSize" size="3" maxlength="3"/></td>
+        <td align="right"><input type="text" name="portionSize" value="10" size="3" maxlength="3"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
@@ -59,6 +59,13 @@
 
 </div>
 <div style="clear: both"></div>
+
+<%--Form fields values--%>
+<script>
+  document.selectListForm.showBy.value = '${showBy}';
+  document.selectListForm.portionSize.value = '${portionSize}';
+  document.selectListForm.gtSum.value = '${gtSum}';
+</script>
 
 <%--Server error message--%>
 <p style="color: red"><b>${clientServlet_err_msg}</b></p>
@@ -101,14 +108,17 @@
 
 <script>
     function submitForm(form) {
-        if (form.showBy.value == 'portion') {
-            if (checkField(form.portionSize.value)) form.submit();
-        } else if (form.showBy.value == 'sum') {
-            if (checkField(form.gtSum.value)) form.submit();
-        } else form.submit();
+        var option = form.showBy.value;
+        if (option == 'portion' && checkField(form.portionSize.value)) {
+          form.submit();
+        } else if (option == 'sum' && checkField(form.gtSum.value)) {
+          form.submit();
+        } else if (option == 'month') {
+          form.submit();
+        }
     }
     function checkField(num) {
-        if (!num.trim().length || isNaN(+num) || num.search('.') || num.search(',')) {
+        if (!num.trim() || isNaN(+num)) {
             alert("Please, enter value as integer number");
             return false;
         }

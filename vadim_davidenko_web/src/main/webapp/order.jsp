@@ -37,65 +37,70 @@
         <table border="0" cellpadding="6" style="background-color: #d4ecff">
             <tr>
                 <td><input type="button" value="New order" onclick="submitSelectForm(document.selectForm, 'new')" style="width: 100px"/></td>
-                <td><input type="text" name="selectAction" hidden/>&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="button" value="Edit order" onclick="submitSelectForm('edit')" style="width: 100px"/></td>
+                <td><input type="text" name="selectAction" hidden/>&nbsp;&nbsp;</td>
+                <td><input type="button" value="Edit order" onclick="submitSelectForm(document.selectForm, 'edit')" style="width: 100px"/></td>
                 <td><input type="text" name="id" size="4" maxlength="4"/></td>
             </tr>
         </table>
     </form>
 
 <%--Order registration form--%>
-    <form name="regForm" action="/orderServlet" method="post">
+    <form name="regForm" action="/orderServlet" method="post" hidden>
         <table border="0" cellpadding="6" style="background-color: #d4ecff">
-            <%
-                List<Client> clients = (List<Client>)request.getAttribute("clientList");
-                String clientId = (String)request.getAttribute("clientId");
-                if(clients != null && !clients.isEmpty()){
-            %>
-            <tr><td><input type="text" name="formAction" value="${action}" hidden/>&nbsp;&nbsp;&nbsp;</td></tr>
             <tr>
-                <td>Order ID:</td>
-                <td><input type="text" name="orderId" value="${orderId}" size="4" maxlength="4"/></td>
+                <td>Order ID: </td>
+                <td><input type="text" name="formAction" hidden/>
+                    <input type="text" name="orderId" size="10" maxlength="10"/></td>
             </tr>
             <tr>
                 <td>Client full name:</td>
-                <td><select size="5" name="clientId">
-                    <option disabled>Select client name &nbsp;&nbsp;&nbsp;</option>
+                <td><select size="5" id="client" name="client">
+                    <option disabled>Select ......................</option>
                     <%
-                        for (Client client : clients){
+                        String clientId = (String)request.getAttribute("clientId");
+                        List<Client> clients = (List<Client>)request.getAttribute("clientList");
+                        if(clients != null && !clients.isEmpty()){
+                            for (Client client : clients){
                     %>
-                    <option value="<%= String.valueOf(client.getId()) %>"
-                            <% if (String.valueOf(client.getId()).equals(clientId)) { %><%= "selected"%><% } %> >
-                        <%= client.getName() + " " + client.getSurname() %></option>
+                    <option <%=(String.valueOf(client.getId()).equals(clientId)) ? "selected" : "" %>
+                            value="<%=String.valueOf(client.getId())%>">
+                        <%=client.getName() + " " + client.getSurname()%></option>
                     <%
+                            }
                         }
                     %>
                 </select></td>
             </tr>
             <tr>
-                <td>Order cost address:</td>
-                <td><input type="text" name="address" value="${address}" size="10" maxlength="10"/></td>
+                <td>Order cost amount:</td>
+                <td><input type="text" name="amount" size="5" maxlength="5"/></td>
             </tr>
             <tr>
                 <td>Original address:</td>
-                <td><input type="text" name="addressFrom" value="${addressFrom}" size="20" maxlength="50"/></td>
+                <td><input type="text" name="addressFrom" size="20" maxlength="50"/></td>
             </tr>
             <tr>
                 <td>Destination address:</td>
-                <td><input type="text" name="addressTo" value="${addressTo}" size="20" maxlength="50"/></td>
+                <td><input type="text" name="addressTo" size="20" maxlength="50"/></td>
             </tr>
             <tr><td colspan="2" align="center">
                 <hr/>
                 <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
             </td></tr>
-            <%
-                }
-            %>
         </table>
     </form>
 
 </div>
 <div style="clear: both"></div>
+
+<script>
+    document.regForm.hidden = false;
+    document.regForm.formAction.value = '${formAction}';
+    document.regForm.orderId.value = '${orderId}';
+    document.regForm.amount.value = '${amount}';
+    document.regForm.addressFrom.value = '${addressFrom}';
+    document.regForm.addressTo.value = '${addressTo}';
+</script>
 
 <%--Server messages--%>
 <p style="color: green"><b>${orderServlet_msg}</b></p>
@@ -103,35 +108,27 @@
 
 <%--Checking fields script--%>
 <script>
-    function submitSelectForm(form, selectedValue) {
-        if (selectedValue === 'edit') {
-            var orderId = form.id.value;
-            if (isNaN(+orderId) || orderId.search('.') || orderId.search(',')) {
+    function submitSelectForm(form, action) {
+        if (action == 'edit') {
+            if (!form.id.value.trim() || isNaN(+form.id.value)) {
                 alert("Please, enter order ID as integer number");
                 return;
             }
         }
-        form.selectAction.value = selectedValue;
+        form.selectAction.value = action;
         form.submit();
     }
 
     function submitRegForm(form) {
-        if (checkFields(form)) form.submit();
-    }
-    function checkFields(form) {
-        if(!form.clientId.value.trim() ||
-                !form.address.value.trim() ||
+        if(!form.amount.value.trim() ||
+                isNaN(+form.amount.value) ||
+                !form.client.value ||
                 !form.addressFrom.value.trim() ||
                 !form.addressTo.value.trim()) {
             alert("Please, fill in all fields!");
-            return false;
+            return
         }
-        var address = form.address.value;
-        if(isNaN(+address) || address.search('.') || address.search(',')) {
-            alert("Please, enter cost address as integer number");
-            return false;
-        }
-        return true;
+        form.submit();
     }
 
 </script>

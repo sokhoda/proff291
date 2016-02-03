@@ -21,8 +21,8 @@
     <td width="16%" align="center"><a href="orders.jsp">Orders</a></td>
     <td width="16%" align="center"><a href="order.jsp">New order</a></td>
     <td width="16%" align="center"><a href="clients.jsp">Clients</a></td>
-    <td width="16%" align="center" style="background-color: lightgreen"
-            ><b><a href="registerClient.jsp">New client</a></b></td>
+    <td width="16%" align="center" style="background-color: lightgreen">
+            <b><a href="registerClient.jsp">New client</a></b></td>
     <td width="16%" align="center"><a href="index.jsp">Logout</a></td>
   </tr>
 </table>
@@ -58,6 +58,13 @@
 
 </div>
 <div style="clear: both"></div>
+
+<script>
+    document.regForm.clientName.value = '${clientName}';
+    document.regForm.clientSurname.value = '${clientSurname}';
+    document.regForm.clientAddress.value = '${clientAddress}';
+    document.regForm.clientPhone.value = '${clientPhone}';
+</script>
 
 <%--Server messages--%>
 <p style="color: green"><b>${clientServlet_msg}</b></p>
