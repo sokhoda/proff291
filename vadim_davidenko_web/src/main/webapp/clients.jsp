@@ -38,27 +38,34 @@
       <tr>
         <td><input type="radio" name="showBy" value="portion" checked="true"></td>
         <td>Show by portion of records:</td>
-        <td align="right"><input type="text" name="portionSize" value="10" size="2" maxlength="2"/></td>
+        <td align="right"><input type="text" name="portionSize" value="10" size="3" maxlength="3"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
         <td>Show by sum of orders, more:</td>
-        <td align="right"><input type="text" name="gtSum" value="1000" size="4" maxlength="10"/></td>
+        <td align="right"><input type="text" name="gtSum" size="6" maxlength="6"/></td>
       </tr>
       <tr>
         <td><input type="radio" name="showBy" value="month"></td>
-        <td>Show by last month ordered:</td>
+        <td>Show by last month ordered</td>
         <td></td>
       </tr>
       <tr><td colspan="3" align="center">
         <hr/>
-        <input type="submit" value="Select" style="width: 100px"/>
+        <input type="button" value="Show" onclick="submitForm(document.selectListForm)" style="width: 100px"/>
       </td></tr>
     </table>
   </form>
 
 </div>
 <div style="clear: both"></div>
+
+<%--Form fields values--%>
+<script>
+  document.selectListForm.showBy.value = '${showBy}';
+  document.selectListForm.portionSize.value = '${portionSize}';
+  document.selectListForm.gtSum.value = '${gtSum}';
+</script>
 
 <%--Server error message--%>
 <p style="color: red"><b>${clientServlet_err_msg}</b></p>
@@ -69,27 +76,29 @@
     List<Client> clients = (List<Client>)request.getAttribute("clientList");
     if(clients != null && !clients.isEmpty()){
   %>
+  <h3>${clientListTitle}</h3>
   <tr>
+    <th>ID</th>
     <th>Name</th>
     <th>Surname</th>
     <th>Phone</th>
     <th>Address</th>
-    <th>Sum</th>
-    <th>Last date</th>
+    <th>${orderSum} ${orderDate}</th>
   </tr>
-  <tr>
-    <td colspan="6"><hr/></td>
-  </tr>
+  <tr><td colspan="6"><hr/></td></tr>
   <%
     for (Client client : clients){
   %>
   <tr>
-    <td><%=client.getName()%></td>
-    <td><%=client.getSurname()%></td>
-    <td><%=client.getPhone()%></td>
-    <td><%=client.getAddress()%></td>
-    <td><%=client.getAmount()%></td>
-    <td><%=client.getLastOrderDate()%></td>
+    <td><%= String.valueOf(client.getId()) %></td>
+    <td><%= client.getName() %></td>
+    <td><%= client.getSurname() %></td>
+    <td><%= client.getPhone() %></td>
+    <td><%= client.getAddress() %></td>
+    <% if (client.getOrdersSum() != null) { %>
+    <td><%= client.getOrdersSum() %></td> <% } %>
+    <% if (client.getLastOrderedDate() != null) { %>
+    <td><%= client.getLastOrderedDate() %></td> <% } %>
   </tr>
   <%
       }
@@ -97,5 +106,25 @@
   %>
 </table>
 
+<script>
+    function submitForm(form) {
+        var option = form.showBy.value;
+        if (option == 'portion' && checkField(form.portionSize.value)) {
+          form.submit();
+        } else if (option == 'sum' && checkField(form.gtSum.value)) {
+          form.submit();
+        } else if (option == 'month') {
+          form.submit();
+        }
+    }
+    function checkField(num) {
+        if (!num.trim() || isNaN(+num)) {
+            alert("Please, enter value as integer number");
+            return false;
+        }
+        return true;
+    }
+
+</script>
 </body>
 </html>
