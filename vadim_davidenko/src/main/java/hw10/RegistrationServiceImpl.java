@@ -10,22 +10,24 @@ import java.util.Locale;
  */
 public class RegistrationServiceImpl implements RegistrationService {
 
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private static final String DB_LOGIN = "notebooks";
-    private static String DB_PASSWORD = "notebooks";
-
     public void createUser(User user) throws SQLException {
-        String query = "insert into USERS \n" +
-                "(USER_ID, FIRST_NAME, LAST_NAME, ADDRESS, USER_LOGIN, USER_PASSWORD)\n" +
+        String query =
+                "insert into CLIENTS \n" +
+                "(ID, FIRSTNAME, LASTNAME, DEPARTMENT, SALARY, LOGIN, PSW)\n" +
                 "values\n" +
-                "(SEQ_USERS.nextval, 'Vadim', 'Davidenko', 'Kiev', 'vadim', '12345')";
+                "(SEQ_CLIENTS.nextval" +
+                ",'" + user.getName() +
+                "','" + user.getSurname() +
+                "','" + user.getDepartment() +
+                "'," + String.valueOf(user.getSalary()) +
+                ",'" + user.getLogin() +
+                "','" + user.getPassword() + "')";
 
-        Locale.setDefault(Locale.ENGLISH);
         Connection conn = null;
         try{
-            conn = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+            conn = connectToDB();
             Statement stat = conn.createStatement();
-            ResultSet res = stat.executeQuery(query);
+            stat.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -35,17 +37,19 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
     }
 
-    public boolean authorizationUser(String login, String password) throws SQLException {
-        String query = "select USER_LOGIN, USER_PASSWORD from USERS where USER_LOGIN = login and USER_PASSWORD = password";
+    public boolean authorization(String login, String password) throws SQLException {
+        String query =
+                "select LOGIN, PSW \n" +
+                        "from CLIENTS \n" +
+                        "where LOGIN = '" + login + "' and PSW = '" + password + "'";
 
-        Locale.setDefault(Locale.ENGLISH);
         Connection conn = null;
-        boolean isAuthorized = false;
+        boolean isExist = false;
         try{
-            conn = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+            conn = connectToDB();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery(query);
-            isAuthorized = res.next();
+            isExist = res.next();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -53,26 +57,29 @@ public class RegistrationServiceImpl implements RegistrationService {
                 conn.close();
             }
         }
-        return isAuthorized;
+        return isExist;
     }
+
+
 
     public List<User> getUserList() throws SQLException {
-        List<User> users = new LinkedList<User>();
-        String query = "select * from USERS";
+        String query = "select * from CLIENTS";
 
-        Locale.setDefault(Locale.ENGLISH);
+        List<User> users = new LinkedList<User>();
         Connection conn = null;
-        try{
-            conn = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+        try {
+            conn = connectToDB();
             Statement stat = conn.createStatement();
             ResultSet res = stat.executeQuery(query);
+
             while (res.next()) {
                 User user = new User();
-                user.setName(res.getString("FIRST_NAME"));
-                user.setSurname(res.getString("LAST_NAME"));
-                user.setAddress(res.getString("ADDRESS"));
-                user.setLogin(res.getString("USER_LOGIN"));
-                user.setPassword(res.getString("USER_PASSWORD"));
+                user.setName(res.getString("FIRSTNAME"));
+                user.setSurname(res.getString("LASTNAME"));
+                user.setDepartment(res.getString("DEPARTMENT"));
+                user.setSalary(res.getInt("SALARY"));
+                user.setLogin(res.getString("LOGIN"));
+                user.setPassword(res.getString("PSW"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -85,17 +92,34 @@ public class RegistrationServiceImpl implements RegistrationService {
         return users;
     }
 
-    public static void main(String[] args) throws SQLException {
-        RegistrationServiceImpl reg = new RegistrationServiceImpl();
-        List<User> users = new LinkedList<User>();
-//        User newUser = new User();
-//        reg.createUser(newUser);
+    public Connection connectToDB() throws SQLException {
+        final String DB_URL = "jdbc:oracle:thin:@localhost:1521:XE";
+        final String DB_LOGIN = "notebooks";
+        final String DB_PASSWORD = "notebooks";
 
-        users = reg.getUserList();
+        Locale.setDefault(Locale.ENGLISH);
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, DB_LOGIN, DB_PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    public static void main(String[] args) throws SQLException {
+        RegistrationServiceImpl regService = new RegistrationServiceImpl();
+        User newUser = new User("Vadim", "Davidenko", "IT", 800, "vadim4", "12345");
+        regService.createUser(newUser);
+
+        List<User> users = regService.getUserList();
         if (!users.isEmpty()) {
             for (User user : users) {
-                System.out.println(user.getName() + "\t" + user.getSurname());
+                System.out.println(user.toString()) ;
             }
         }
+        boolean isExist = regService.authorization("vadim", "12345");
+        System.out.println("\n" + isExist);
     }
 }

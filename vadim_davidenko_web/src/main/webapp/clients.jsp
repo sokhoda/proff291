@@ -62,9 +62,9 @@
 
 <%--Form fields values--%>
 <script>
-  document.selectListForm.showBy.value = '${showBy}';
-  document.selectListForm.portionSize.value = '${portionSize}';
-  document.selectListForm.gtSum.value = '${gtSum}';
+  document.selectListForm.showBy.value = ('${showBy}' == '') ? 'portion' : '${showBy}';
+  document.selectListForm.portionSize.value = ('${portionSize}' == '') ? '10' : '${portionSize}';
+  document.selectListForm.gtSum.value = ('${gtSum}' == '') ? '100' : '${gtSum}';
 </script>
 
 <%--Server error message--%>

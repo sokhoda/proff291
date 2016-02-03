@@ -10,7 +10,7 @@ public interface RegistrationService {
 
     public void createUser(User user) throws SQLException;
 
-    public boolean authorizationUser(String login, String password) throws SQLException;
+    public boolean authorization(String login, String password) throws SQLException;
 
     public List getUserList() throws SQLException;
 }

@@ -59,9 +59,9 @@
 
 <%--Form fields values--%>
 <script>
-  document.selectListForm.showBy.value = '${showBy}';
-  document.selectListForm.fromSum.value = '${fromSum}';
-  document.selectListForm.toSum.value = '${toSum}';
+  document.selectListForm.showBy.value = ('${showBy}' == '') ? 'portion' : '${showBy}';
+  document.selectListForm.fromSum.value = ('${fromSum}' == '') ? '0' : '${fromSum}';
+  document.selectListForm.toSum.value = ('${toSum}' == '') ? '0' : '${toSum}';
 </script>
 
 <%--Server error message--%>
