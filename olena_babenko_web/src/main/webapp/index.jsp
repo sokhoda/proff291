@@ -20,9 +20,11 @@
 <html>
 <head>
     <title>Create Table</title>
+    <div id="demo"></div>
     <script src="js/CreateTableFunctions.js" type="text/javascript"></script>
 </head>
 <body>
 <input type="button" id="CreateTableButton" value="Click to Create Table" onClick="createTable(getTableContent())"/>
+<button onclick="getHash()">Click</button>
 </body>
 </html>
