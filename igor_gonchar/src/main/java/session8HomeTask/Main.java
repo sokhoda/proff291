@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Statement;
 
 /**
  * Created by Home on 31.01.2016.
@@ -32,6 +33,10 @@ public class Main extends Application {
     private Button registerButton;
     @FXML
     private TextArea textArea;
+    @FXML
+    private Button emptyBase;
+    @FXML
+    private Button showUsers;
 
 
     public static void main(String[] args) {
@@ -58,7 +63,7 @@ public class Main extends Application {
         if (logVal) {
             boolean authRes = base.userAuthorization(login, password);
             if (authRes) {
-                System.out.println("User was Authorized");
+                label.setText("User was Authorized");
             } else {
                 label.setText("There is no such user");
             }
@@ -86,6 +91,25 @@ public class Main extends Application {
             label.setText("Enter correct data");
         }
 
+    }
+
+    public void emptyBaseClicked(){
+       boolean answer = ConfirmBox.display("Confirm pop-up", "Are you sure to empty DB?");
+        if (answer){
+            OperatorBase base = new OperatorBase();
+            base.emptyBase();
+            label.setText("All data was deleted from DB");
+        }
+    }
+
+    public void showUsersClicked(){
+        OperatorBase base = new OperatorBase();
+        StringBuilder sb = base.showUsers();
+        if (sb == null || sb.toString().equals("")) {
+            label.setText("Base is empty");
+        } else {
+            textArea.setText(sb.toString());
+        }
     }
 
     private boolean passwordCheck(String pasword, String rePasword) {
