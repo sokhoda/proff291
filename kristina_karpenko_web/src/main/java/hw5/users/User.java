@@ -1,13 +1,13 @@
-package session10.hw5.users;
+package hw5.users;
 
 
 import java.sql.Date;
 
 public class User {
-    private int id;
-    private String userName;
-    private String password;
-    private Date dateRegistration;
+    protected int id;
+    protected String userName;
+    protected String password;
+    protected Date dateRegistration;
 
     public User() {
            }

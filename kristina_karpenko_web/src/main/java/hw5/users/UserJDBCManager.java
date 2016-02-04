@@ -1,4 +1,4 @@
-package session10.hw5.users;
+package hw5.users;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class UserJDBCManager {
         try {
             conn = DriverManager.getConnection(url, "NOTEBOOKES", "SYS");
             Statement stnt = conn.createStatement();
+            System.out.println(user.getId());
             PreparedStatement ps = conn.prepareStatement("insert into USERS values(?,?,?,?)");
 
             ps.setInt(1, user.getId());
