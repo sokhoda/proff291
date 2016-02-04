@@ -15,6 +15,7 @@ public class UserJDBCManager {
                         "(ID, USERNAME, PSW, REGDATE)\n" +
                         "values\n" +
                         "(SEQ_USERS.nextval,?,?,?)";
+        int result = 0;
         Connection conn = null;
         try{
             conn = connectToDB();
@@ -23,6 +24,7 @@ public class UserJDBCManager {
             ps.setString(2, user.getPassword());
             ps.setDate(3, new Date(user.getDate().getTime()));
             ps.executeQuery();
+            result = 1;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -30,7 +32,7 @@ public class UserJDBCManager {
                 conn.close();
             }
         }
-        return 1;
+        return result;
     }
 
     public List<User> findAll() throws SQLException {
