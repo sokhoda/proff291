@@ -1,7 +1,7 @@
 package hw5.auth;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,7 +13,7 @@ public class UserJDBCManager {
     public List<User> findAll() throws SQLException {
         String query = "select * from USERS";
 
-        List<User> list = new LinkedList<User>();
+        List<User> list = new ArrayList<User>();
         Connection conn = null;
         try {
             conn = connectToDB();
@@ -25,7 +25,7 @@ public class UserJDBCManager {
                 user.setId(res.getInt("ID"));
                 user.setName(res.getString("USERNAME"));
                 user.setPassword(res.getString("PSW"));
-                user.setDate(res.getDate("BIRTHDATE"));
+                user.setDate(res.getDate("REGDATE"));
                 list.add(user);
             }
         } catch (SQLException e) {
