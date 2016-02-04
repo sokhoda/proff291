@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hw5.users.MainWindow">
+
+   <children>
+      <Label layoutX="36.0" layoutY="33.0" text="User name:" />
+      <Label layoutX="36.0" layoutY="72.0" text="Password:" />
+      <PasswordField fx:id="password" layoutX="109.0" layoutY="68.0" prefHeight="25.0" prefWidth="119.0" />
+      <TextField fx:id="userName" layoutX="109.0" layoutY="29.0" prefHeight="25.0" prefWidth="119.0" />
+      <Label fx:id="message" layoutX="254.0" layoutY="33.0" prefHeight="17.0" prefWidth="166.0" text="" textAlignment="CENTER" />
+      <Button layoutX="254.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickRegistration" prefHeight="25.0" prefWidth="102.0" text="Registration" />
+      <Label layoutX="36.0" layoutY="114.0" prefHeight="17.0" prefWidth="67.0" text="Reg. date:" />
+      <Button layoutX="254.0" layoutY="110.0" mnemonicParsing="false" onAction="#onClickShowList" prefHeight="25.0" prefWidth="102.0" text="Show list" />
+      <TextArea fx:id="tableUsers" editable="false" layoutX="22.0" layoutY="186.0" prefHeight="199.0" prefWidth="395.0" />
+      <TextField editable="false" layoutX="22.0" layoutY="162.0" prefHeight="25.0" prefWidth="41.0" text="ID" />
+          <!--<font><Font name="System Bold" size="12.0" /></font>-->
+      <TextField editable="false" layoutX="62.0" layoutY="162.0" prefHeight="25.0" prefWidth="119.0" text="USER NAME" />
+      <TextField editable="false" layoutX="180.0" layoutY="162.0" prefHeight="25.0" prefWidth="119.0" text="PASSWORD" />
+      <TextField editable="false" layoutX="298.0" layoutY="162.0" prefHeight="25.0" prefWidth="119.0" text="REG.DATE" />
+      <DatePicker fx:id="regDate" layoutX="109.0" layoutY="110.0" prefHeight="25.0" prefWidth="119.0" />
+   </children>
+</Pane>

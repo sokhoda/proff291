@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="482.0"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="hw5.auth.MainWindow">
+
+   <children>
+      <Label layoutX="26.0" layoutY="33.0" text="User name:" />
+      <Label layoutX="26.0" layoutY="72.0" text="Password:" />
+      <PasswordField fx:id="password" layoutX="99.0" layoutY="68.0" prefHeight="25.0" prefWidth="119.0" />
+      <TextField fx:id="userName" layoutX="99.0" layoutY="29.0" prefHeight="25.0" prefWidth="119.0" />
+      <Label fx:id="message" layoutX="257.0" layoutY="31.0" prefHeight="17.0" prefWidth="160.0" text="" textAlignment="CENTER" />
+      <Button fx:id="login" layoutX="256.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickLogin" prefHeight="25.0" prefWidth="102.0" text="Login" />
+      <TableView fx:id="tableUsers" layoutX="18.0" layoutY="118.0" prefHeight="220.0" prefWidth="446.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="63.0" text="ID" />
+          <TableColumn fx:id="colUserName" prefWidth="136.0" text="User name" />
+            <TableColumn fx:id="colPassword" prefWidth="123.0" text="Password" />
+            <TableColumn fx:id="colDate" prefWidth="121.0" text="Burth date" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

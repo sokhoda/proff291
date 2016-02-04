@@ -15,17 +15,16 @@ public class UserJDBCManager {
 
     public int create(User user) throws SQLException {
         String query = "insert into USERS \n" +
-                        "(ID, USERNAME, PSW, REGDATE)\n" +
+                        "(ID, USERNAME, PSW, BIRTHDATE)\n" +
                         "values\n" +
-                        "(?,?,?,?)";
+                        "(SEQ_USERS.nextval,?,?,?)";
         Connection conn = null;
         try{
             conn = connectToDB();
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, user.getId());
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getPassword());
-            ps.setDate(4, new Date(user.getDate().getTime()));
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.setDate(3, new Date(user.getDate().getTime()));
             ps.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +51,7 @@ public class UserJDBCManager {
                 user.setId(res.getInt("ID"));
                 user.setName(res.getString("USERNAME"));
                 user.setPassword(res.getString("PSW"));
-                user.setDate(res.getDate("REGDATE"));
+                user.setDate(res.getDate("BIRTHDATE"));
                 list.add(user);
             }
         } catch (SQLException e) {
