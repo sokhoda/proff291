@@ -12,7 +12,7 @@ public class UserJDBCManager {
 
     public int create(User user) throws SQLException {
         String query = "insert into USERS \n" +
-                        "(ID, USERNAME, PSW, REGHDATE)\n" +
+                        "(ID, USERNAME, PSW, REGDATE)\n" +
                         "values\n" +
                         "(SEQ_USERS.nextval,?,?,?)";
         Connection conn = null;

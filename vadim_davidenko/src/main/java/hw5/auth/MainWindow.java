@@ -1,12 +1,8 @@
 package hw5.auth;
 
-import hw5.auth.*;
-import hw5.auth.User;
-import hw5.users.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,9 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +20,6 @@ import java.util.List;
  * Created by v.davidenko on 03.02.2016.
  */
 public class MainWindow extends Application {
-
-    private ObservableList<User> usersList = FXCollections.observableArrayList();
     @FXML
     public TableView tableUsers;
     @FXML
@@ -47,7 +38,7 @@ public class MainWindow extends Application {
     public Label message;
 
     final static String LOGIN_ERR_MSG = "Wrong name or password!";
-    final static String NO_USERS_FOUND_MSG = "No users found!";
+    final static String EMPTY_FIELDS_MSG = "Please, fill in all fields!";
 
     @FXML
     private void initTableView() {
@@ -70,35 +61,39 @@ public class MainWindow extends Application {
     }
 
     public void onClickLogin() {
-        if (!userName.getText().isEmpty() && !password.getText().isEmpty()) {
-            message.setText("");
-
-            UserJDBCManager userMan = new UserJDBCManager();
-            User loggedUser = null;
-            try {
-                loggedUser = userMan.readByNamePass(userName.getText().trim(), password.getText().trim());
-            } catch (SQLException e) {
-                message.setText(LOGIN_ERR_MSG);
+        if (userName.getText().isEmpty() || password.getText().isEmpty()) {
+            message.setText(EMPTY_FIELDS_MSG);
+            return;
+        }
+        message.setText("");
+        UserJDBCManager userMan = new UserJDBCManager();
+        User loggedUser = null;
+        try {
+            loggedUser = userMan.readByNamePass(userName.getText().trim(), password.getText().trim());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (loggedUser == null || loggedUser.getId() == null) {
+            message.setText(LOGIN_ERR_MSG);
+            return;
+        }
+        List<User> users = new ArrayList<User>();
+        try {
+            users = userMan.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (users != null && !users.isEmpty()) {
+            ObservableList<User> usersList = FXCollections.observableArrayList();
+            for (User user : users) {
+                usersList.add(user);
             }
-            if (loggedUser != null) {
-                try {
-                    usersList = (ObservableList<User>)userMan.findAll();
-                } catch (SQLException e) {
-                    message.setText(NO_USERS_FOUND_MSG);
-                }
-                if (usersList != null && !usersList.isEmpty()) {
-                    initTableView();
-                    tableUsers.setItems(usersList);
-                } else {
-                    message.setText(NO_USERS_FOUND_MSG);
-                }
-            }
+            initTableView();
+            tableUsers.setItems(usersList);
         }
     }
 
     public static void main(String[] args) throws SQLException {
         launch(args);
     }
-
-
 }

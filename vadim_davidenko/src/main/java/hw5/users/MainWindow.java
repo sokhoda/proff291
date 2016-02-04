@@ -1,10 +1,8 @@
 package hw5.users;
 
-import hw5.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,8 +29,6 @@ import java.util.Locale;
  * Created by v.davidenko on 03.02.2016.
  */
 public class MainWindow extends Application {
-
-    private ObservableList<User> usersList = FXCollections.observableArrayList();
     @FXML
     public TableView tableUsers;
     @FXML
@@ -52,8 +48,9 @@ public class MainWindow extends Application {
     @FXML
     public DatePicker regDate;
 
-    final static String REG_SUCCESS_MSG = "New user registered successfully";
-    final static String REG_ERR_MSG = "Such user is already registered!";
+    final static String REG_SUCCESS_MSG = "New user added successfully";
+    final static String EMPTY_FIELDS_MSG = "Please, fill in all fields!";
+    final static String REG_ERR_MSG = "Such user is already exist!";
     final static String NO_USERS_FOUND_MSG = "No users found!";
 
     @FXML
@@ -77,50 +74,44 @@ public class MainWindow extends Application {
     }
 
     public void onClickRegistration() {
-        if (!userName.getText().isEmpty() && !password.getText().isEmpty() &&
-                !regDate.getEditor().getText().isEmpty()) {
-            message.setText("");
-
-            Date date = asDate(regDate.getValue());
-
-//            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-//            try {
-//                date = formatter.parse(regDate.getEditor().getText());
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-            UserJDBCManager userMan = new UserJDBCManager();
-            User newUser = new User(userName.getText().trim(), password.getText().trim(), date);
-            int result = 0;
-            try {
-                result = userMan.create(newUser);
-            } catch (SQLException e) {
-                message.setText(REG_ERR_MSG);
-            }
-            if (result == 1) {
-                message.setText(REG_SUCCESS_MSG);
-            }
+        if (userName.getText().isEmpty() || password.getText().isEmpty() ||
+                regDate.getEditor().getText().isEmpty()) {
+            message.setText(EMPTY_FIELDS_MSG);
+            return;
+        }
+        message.setText("");
+        Date date = asDate(regDate.getValue());
+        UserJDBCManager userMan = new UserJDBCManager();
+        User newUser = new User(userName.getText().trim(), password.getText().trim(), date);
+        int result = 0;
+        try {
+            result = userMan.create(newUser);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (result == 1) {
+            message.setText(REG_SUCCESS_MSG);
+        } else {
+            message.setText(REG_ERR_MSG);
         }
     }
 
     public void onClickShowList() {
         message.setText("");
-
         UserJDBCManager userMan = new UserJDBCManager();
+        List<User> users = new ArrayList<User>();
         try {
-            usersList = (ObservableList<User>)userMan.findAll();
+            users = userMan.findAll();
         } catch (SQLException e) {
-            message.setText(NO_USERS_FOUND_MSG);
+            e.printStackTrace();
         }
-        if (usersList != null && !usersList.isEmpty()) {
+        if (users != null && !users.isEmpty()) {
+            ObservableList<User> usersList = FXCollections.observableArrayList();
+            for (User user : users) {
+                usersList.add(user);
+            }
             initTableView();
             tableUsers.setItems(usersList);
-//            for (User user : list) {
-//                String row = String.format("%-10s%-30s%-30s%-20s",
-//                        String.valueOf(user.getId()), user.getName(),
-//                        user.getPassword(),String.valueOf(user.getDate()));
-//                tableUsers.appendText(row + "\n");
-//            }
         } else {
             message.setText(NO_USERS_FOUND_MSG);
         }

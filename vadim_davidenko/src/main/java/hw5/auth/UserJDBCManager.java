@@ -10,6 +10,29 @@ import java.util.Locale;
  */
 public class UserJDBCManager {
 
+    public int create(User user) throws SQLException {
+        String query = "insert into USERS \n" +
+                "(ID, USERNAME, PSW, REGDATE)\n" +
+                "values\n" +
+                "(SEQ_USERS.nextval,?,?,?)";
+        Connection conn = null;
+        try{
+            conn = connectToDB();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.setDate(3, new Date(user.getDate().getTime()));
+            ps.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null){
+                conn.close();
+            }
+        }
+        return 1;
+    }
+
     public List<User> findAll() throws SQLException {
         String query = "select * from USERS";
 
