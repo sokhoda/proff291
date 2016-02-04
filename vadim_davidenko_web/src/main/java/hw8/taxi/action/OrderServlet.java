@@ -37,18 +37,18 @@ public class OrderServlet extends HttpServlet {
     private final static int SHOW_PORTION_SIZE = 5;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         showOrdersService(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         orderActionService(req, resp);
     }
 
-    protected void orderActionService(HttpServletRequest req, HttpServletResponse resp)
+    public void orderActionService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -87,7 +87,7 @@ public class OrderServlet extends HttpServlet {
         req.getRequestDispatcher(ORDER_MANAGEMENT_PAGE).forward(req, resp);
     }
 
-    protected void registrationOrderService(HttpServletRequest req, HttpServletResponse resp)
+    public void registrationOrderService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -123,7 +123,7 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
-    protected void showOrdersService(HttpServletRequest req, HttpServletResponse resp)
+    public void showOrdersService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();

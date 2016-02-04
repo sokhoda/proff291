@@ -30,18 +30,18 @@ public class ClientServlet extends HttpServlet {
     final static String CLIENT_LIST_PAGE = "clients.jsp";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         showClientsService(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         registrationClientService(req, resp);
     }
 
-    protected void registrationClientService(HttpServletRequest req, HttpServletResponse resp)
+    public void registrationClientService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -68,7 +68,7 @@ public class ClientServlet extends HttpServlet {
         req.getRequestDispatcher(CLIENT_REGISTRATION_PAGE).forward(req, resp);
     }
 
-    protected void showClientsService(HttpServletRequest req, HttpServletResponse resp)
+    public void showClientsService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
