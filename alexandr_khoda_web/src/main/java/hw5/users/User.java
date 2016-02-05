@@ -1,21 +1,22 @@
-package hw2.hash;
+package hw5.users;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 /**
  * Created by s_okhoda on 27.12.2015.
  */
 public class User {
-
+    private int id;
     private String login;
     private String pass;
     private GregorianCalendar regDate;
     private double rate;
     private boolean sex;
 
-    public User(String login, String pass, GregorianCalendar regDate,
+    public User(int id, String login, String pass, GregorianCalendar regDate,
                 double rate, boolean sex) {
+        this.id = id;
         this.login = login;
         this.pass = pass;
         this.regDate = regDate;
@@ -26,12 +27,14 @@ public class User {
     public User() {
     }
 
-    public User(String login, String pass, GregorianCalendar regDate) {
-        this.login = login;
-        this.pass = pass;
-        this.regDate = regDate;
-        this.rate = 0;
-        this.sex = false; //man
+    public User(int id, String login, String pass, GregorianCalendar regDate) {
+       this(id, login, pass, regDate, 0, false);
+//        this.rate = 0;
+//        this.sex = false; //man
+    }
+
+    public User(String login, String pass){
+        this(0, login, pass, new GregorianCalendar());
     }
 
     @Override
@@ -49,7 +52,12 @@ public class User {
         }
         return false;
     }
-
+    @Override
+    public String toString(){
+        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
+        return "\n" + getId() + ", " + getLogin() + ", " + getPass() + ", " +
+                format1.format(getRegDate().getTime());
+    }
     @Override
     public int hashCode() {
         int res = (login != null ? login.hashCode() : 0) +
@@ -75,6 +83,14 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public GregorianCalendar getRegDate() {
