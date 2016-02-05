@@ -13,10 +13,10 @@ public class UserJDBCManager {
         Locale.setDefault(Locale.ENGLISH);
         System.out.println("Application is started...");
         Connection conn = null;
-        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+     //   String url = "jdbc:oracle:thin:@localhost:1521:XE";
 
         try {
-            conn = DriverManager.getConnection(url, "NOTEBOOKES", "SYS");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "NOTEBOOKES", "SYS");
             Statement stnt = conn.createStatement();
             System.out.println(user.getId());
             PreparedStatement ps = conn.prepareStatement("insert into USERS values(?,?,?,?)");
