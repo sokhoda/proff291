@@ -1,4 +1,4 @@
-package hw5.users;
+package hw5.auth;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
