@@ -39,6 +39,7 @@ public class test2 {
     public static void main(String[] args) {
         ServerSocketChannel serverSocketChannel = null;
 
+
         try {
             serverSocketChannel = ServerSocketChannel.open();
             print(1, serverSocketChannel);
@@ -69,7 +70,12 @@ public class test2 {
             e.printStackTrace();
         }
 
-//        serverSocketChannel.socket().close();
+        try {
+            serverSocketChannel.socket().close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

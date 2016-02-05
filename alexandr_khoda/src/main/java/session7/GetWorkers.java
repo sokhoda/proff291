@@ -18,10 +18,14 @@ public class GetWorkers {
         Connection conn = null;
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         try{
-            conn = DriverManager.getConnection(url, "hr", "hr");
+            conn = DriverManager.getConnection(url, "Notebooks", "notebooks");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM employees where " +
                     "DEPARTMENT_ID = " + depID);
+
+            stmt.executeUpdate("INSERT INTO NOTES Value (NOTE_SEQ.NEXTVALUE, 'myNote')");
+
+
             System.out.println("Список сотрудников департамента с ИД=" +
                     depID + ":");
 
@@ -29,6 +33,8 @@ public class GetWorkers {
             System.out.printf("\n%20s %20s %20s %20s", rsmd.getColumnName(2), rsmd
                     .getColumnName(5), rsmd.getColumnName(8), rsmd
                     .getColumnName(11));
+
+
             while(rs.next()){
                 System.out.printf("\n%20s %20s %20s %20s", rs.getString(2), rs
                         .getString(5), rs.getString(8), rs.getString(11) );}

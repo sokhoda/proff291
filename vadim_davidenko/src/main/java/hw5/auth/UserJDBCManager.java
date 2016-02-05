@@ -1,7 +1,7 @@
 package hw5.auth;
 
 import java.sql.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,16 +14,17 @@ public class UserJDBCManager {
         String query = "insert into USERS \n" +
                 "(ID, USERNAME, PSW, REGDATE)\n" +
                 "values\n" +
-                "(?,?,?,?)";
+                "(SEQ_USERS.nextval,?,?,?)";
+        int result = 0;
         Connection conn = null;
         try{
             conn = connectToDB();
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, user.getId());
-            ps.setString(2, user.getName());
-            ps.setString(3, user.getPassword());
-            ps.setDate(4, new Date(user.getDate().getTime()));
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPassword());
+            ps.setDate(3, new Date(user.getDate().getTime()));
             ps.executeQuery();
+            result = 1;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -31,13 +32,13 @@ public class UserJDBCManager {
                 conn.close();
             }
         }
-        return 1;
+        return result;
     }
 
     public List<User> findAll() throws SQLException {
         String query = "select * from USERS";
 
-        List<User> list = new LinkedList<User>();
+        List<User> list = new ArrayList<User>();
         Connection conn = null;
         try {
             conn = connectToDB();
