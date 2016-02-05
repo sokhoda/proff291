@@ -1,10 +1,7 @@
 package hw5.users;
 
-import javax.swing.text.DateFormatter;
-import javax.xml.bind.annotation.XmlElement;
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,9 +12,10 @@ public class UserJDBCManager {
 
     public int create(User user) throws SQLException {
         String query = "insert into USERS \n" +
-                        "(ID, USERNAME, PSW, BIRTHDATE)\n" +
+                        "(ID, USERNAME, PSW, REGDATE)\n" +
                         "values\n" +
                         "(SEQ_USERS.nextval,?,?,?)";
+        int result = 0;
         Connection conn = null;
         try{
             conn = connectToDB();
@@ -26,6 +24,7 @@ public class UserJDBCManager {
             ps.setString(2, user.getPassword());
             ps.setDate(3, new Date(user.getDate().getTime()));
             ps.executeQuery();
+            result = 1;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -33,13 +32,13 @@ public class UserJDBCManager {
                 conn.close();
             }
         }
-        return 1;
+        return result;
     }
 
     public List<User> findAll() throws SQLException {
         String query = "select * from USERS";
 
-        List<User> list = new LinkedList<User>();
+        List<User> list = new ArrayList<User>();
         Connection conn = null;
         try {
             conn = connectToDB();
@@ -51,7 +50,7 @@ public class UserJDBCManager {
                 user.setId(res.getInt("ID"));
                 user.setName(res.getString("USERNAME"));
                 user.setPassword(res.getString("PSW"));
-                user.setDate(res.getDate("BIRTHDATE"));
+                user.setDate(res.getDate("REGDATE"));
                 list.add(user);
             }
         } catch (SQLException e) {

@@ -14,7 +14,9 @@
 
 
 
-    <%request.getRequestDispatcher("pages/debug_phoneTable.jsp").forward(request,response); %>
+    <%request.getRequestDispatcher("hw5.auth/UserAuth.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("hw5.users/UserAddRender.jsp").forward(request,response); %>--%>
+    <%--<%request.getRequestDispatcher("/pages/debug_phoneTable.jsp").forward(request,response); %>--%>
 <html>
 <head>
     <%--<button name="but1" onclick=" getTree();">press</button>--%>
