@@ -24,9 +24,13 @@ public class ConnectEx {
 */
 
         Connection conn = null;
+
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         try {
             conn = DriverManager.getConnection(url, "hr", "hr");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+
         } catch (SQLException e) {
             System.out.println("Connection failed");
             e.printStackTrace();

@@ -44,8 +44,8 @@
       <tr>
         <td><input type="radio" name="showBy" value="sum"></td>
         <td>Show by sum of orders (from, to):</td>
-        <td><input type="text" name="fromSum" size="4" maxlength="10"/></td>
-        <td><input type="text" name="toSum" size="4" maxlength="10"/></td>
+        <td><input type="text" name="fromSum" size="5" maxlength="5"/></td>
+        <td><input type="text" name="toSum" size="5" maxlength="5"/></td>
       </tr>
       <tr><td colspan="4" align="center">
         <hr/>
@@ -59,9 +59,9 @@
 
 <%--Form fields values--%>
 <script>
-  document.selectListForm.showBy.value = '${showBy}';
-  document.selectListForm.fromSum.value = '${fromSum}';
-  document.selectListForm.toSum.value = '${toSum}';
+  document.selectListForm.showBy.value = ('${showBy}' == '') ? 'portion' : '${showBy}';
+  document.selectListForm.fromSum.value = ('${fromSum}' == '') ? '0' : '${fromSum}';
+  document.selectListForm.toSum.value = ('${toSum}' == '') ? '0' : '${toSum}';
 </script>
 
 <%--Server error message--%>
