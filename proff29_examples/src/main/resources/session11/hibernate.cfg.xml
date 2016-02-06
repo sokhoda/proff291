@@ -15,6 +15,6 @@
         <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
-        <!--<mapping class="session11.Region"/>-->
+        <mapping class="session11.Region"/>
     </session-factory>
 </hibernate-configuration>
