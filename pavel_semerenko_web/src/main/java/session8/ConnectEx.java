@@ -24,12 +24,17 @@ public class ConnectEx {
 */
 
         Connection conn = null;
-
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         try {
             conn = DriverManager.getConnection(url, "hr", "hr");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+            int department_id = 60;
+            ResultSet rs = stmt.executeQuery("SELECT * FROM employees WHERE DEPARTMENT_ID = " + department_id);
+            while (rs.next()) {
+                System.out.println("name: " + rs.getString("first_name") +
+                        " phone: " + rs.getString("phone_number") +
+                        " salary: " + rs.getString("salary"));
+            }
 
         } catch (SQLException e) {
             System.out.println("Connection failed");

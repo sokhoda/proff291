@@ -33,42 +33,74 @@ vector[7] = new telephone("0981425626", 78);
 
  }*/
 
+//function title(table) {
+//
+//    for (var i = 0; i < vector.length; i++) {
+//        var tr = document.createElement('tr');
+//        for (var j = 0; j < i; j++) {
+//            var th = document.createElement('th');
+//            if (i === 0) {
+//                th.appendChild(document.createTextNode('Number'));
+//                tr.appendChild(th);
+//            }
+//            if (i === 1) {
+//                th.appendChild(document.createTextNode('Balance'));
+//                tr.appendChild(th);
+//            }
+//            if (i === 2) {
+//                th.appendChild(document.createTextNode('Delete'));
+//                tr.appendChild(th);
+//            }
+//            if (i === 3) {
+//                th.appendChild(document.createTextNode('Edit'));
+//                tr.appendChild(th);
+//            }
+//
+//        }
+//
+//    }
+//    table.appendChild(tr);
+//
+//
+//}
+
 function tableCreate() {
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
     tbl.id = 'Table';
     tbl.setAttribute('border', '1');
     tbl.setAttribute('align', 'center');
+    tbl.setAttribute('style', '25%')
     var tbdy = document.createElement('tbody');
 
 
     for (var i = 0; i < vector.length; i++) {
         var tr = document.createElement('tr');
 
-        tr.id = 'trr';
+
         for (var j = 0; j < 4; j++) {
+            var td = document.createElement('td');
             if (j < 1) {
-                var td = document.createElement('td');
+
                 td.appendChild(document.createTextNode(vector[i].number));
-                tr.appendChild(td)
-                ;
+                tr.appendChild(td);
             }
             if (j === 1) {
-                var td = document.createElement('td');
+
                 td.appendChild(document.createTextNode(vector[i].balance));
                 tr.appendChild(td);
 
 
             }
             if (j === 2) {
-                var td = document.createElement('td');
+
                 td.appendChild(createButtonDel());
                 tr.appendChild(td);
 
 
             }
             if (j === 3) {
-                var td = document.createElement('td');
+
                 td.appendChild(createButtonEdit());
                 tr.appendChild(td);
 
@@ -85,6 +117,7 @@ function createButtonDel() {
     button.type = 'button';
     button.value = 'Delete';
     button.id = 'remove';
+    button.style = '25%';
     button.onclick = function () {
         btnDel(this);
     }
@@ -94,6 +127,7 @@ function createButtonDel() {
 function createButtonEdit() {
     var button = document.createElement('input');
     button.type = 'button';
+    button.style = '25%';
     button.value = 'Edit';
     button.id = 'Input';
     button.onclick = function () {
@@ -106,7 +140,6 @@ function createButtonEdit() {
 
 function btnEdit(value) {
     var row = value.parentNode.parentNode;
-    row.innerHTML='';
 
 
 
@@ -120,6 +153,5 @@ function btnDel(obj) {
 
 
 }
-
 
 
