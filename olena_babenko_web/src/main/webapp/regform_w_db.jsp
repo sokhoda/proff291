@@ -2,13 +2,13 @@
   Created by IntelliJ IDEA.
   User: lenchi
   Date: 05.02.16
-  Time: 21:38
+  Time: 21:41
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>olena_babenko</title>
+    <title>Registration Page</title>
     <%--for Bootstrap BEGIN--%>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,23 +24,18 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="page-header">
-                        <h3>Login Page</h3>
+                        <h3>Registration form</h3>
                     </div>
-                    <form action="/login_page" method="post">
+                    <form action="/registration_page" method="post">
                         <div class="form-group">
-                            <input type="text" name="Login" placeholder="username" autofocus required autocomplete="off"/>
+                            <input type="text" name="UserLogin" placeholder="username" required
+                                   autofocus autocomplete="off"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="Password" placeholder="password" required autocomplete="off"/>
+                            <input type="text" name="UserPass" placeholder="password" required autocomplete="off"/>
                         </div>
                         <hr/>
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn btn-default"/>
-                            <input type="reset" value="Reset" class="btn btn-default"/>
-                        </div>
-                        <div class="form-group">
-                            <p><a href="regform_w_db.jsp">Registration</a></p>
-                        </div>
+                        <input type="submit" name="Register" value="Finish registration" class="btn btn-default"/>
                     </form>
                 </div>
             </div>
@@ -48,5 +43,11 @@
         <div class="col-md-8"></div>
     </div>
 </div>
+
+<%--for Bootstrap BEGIN--%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<%--for Bootstrap END--%>
 </body>
 </html>
+

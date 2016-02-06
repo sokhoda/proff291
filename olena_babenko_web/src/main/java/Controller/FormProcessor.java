@@ -32,7 +32,7 @@ public class FormProcessor extends HttpServlet {
         String login = request.getParameter("Login");
         String password = request.getParameter("Password");
 
-        if (userAuthorization.Authentication(login, password, userMap)) {//if Strings log and pass
+        if (userAuthorization.Authentication(login, password, userMap)) {
             response.getWriter().print("Hello, user " + login + "!");
         } else if (userMap.containsKey(login) && !((String) userMap.get(login)).equals(userAuthorization.setPasswordMD5(password))) {
             response.getWriter().print("User " + login + " exists, but you entered incorrect password!");
