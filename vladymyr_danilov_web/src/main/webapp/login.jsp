@@ -57,13 +57,10 @@
                         <input type="submit" value="Login"/>
                         <a href="registration.jsp">Registration</a>
                     </form>
-
-                    <%--<div style="clear: both"></div>--%>
                     <p>
                         ${message}
                     </p>
                 </td>
-
             </tr>
             </tbody>
         </table>

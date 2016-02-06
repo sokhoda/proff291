@@ -21,8 +21,8 @@
     <td width="16%" align="center"><a href="orders.jsp">Orders</a></td>
     <td width="16%" align="center"><a href="order.jsp">New order</a></td>
     <td width="16%" align="center"><a href="clients.jsp">Clients</a></td>
-    <td width="16%" align="center" style="background-color: lightgreen"
-            ><b><a href="registerClient.jsp">New client</a></b></td>
+    <td width="16%" align="center" style="background-color: lightgreen">
+            <b><a href="registerClient.jsp">New client</a></b></td>
     <td width="16%" align="center"><a href="index.jsp">Logout</a></td>
   </tr>
 </table>
@@ -51,7 +51,7 @@
       </tr>
       <tr><td colspan="2" align="center">
         <hr/>
-        <input type="button" value="Submit" onclick="submitForm(document.regForm)" style="width: 100px"/>
+        <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
       </td></tr>
     </table>
   </form>
@@ -59,31 +59,36 @@
 </div>
 <div style="clear: both"></div>
 
+<script>
+    document.regForm.clientName.value = '${clientName}';
+    document.regForm.clientSurname.value = '${clientSurname}';
+    document.regForm.clientAddress.value = '${clientAddress}';
+    document.regForm.clientPhone.value = '${clientPhone}';
+</script>
+
 <%--Server messages--%>
 <p style="color: green"><b>${clientServlet_msg}</b></p>
 <p style="color: red"><b>${clientServlet_err_msg}</b></p>
 
 <%--Checking fields script--%>
 <script>
-  function submitForm(form) {
-    if(!checkEmptyFields(form)) {
-      alert("Please, fill in all fields!");
-      return;
-    }
-    if(!checkPhoneNumber(form)) {
-      alert("Please, enter correct phone number (12 digits)");
-      return;
-    }
-    form.submit();
+
+  function submitRegForm(form) {
+    if (checkFields(form)) form.submit();
   }
-  function checkEmptyFields(form) {
-    return (form.clientName.value.trim() &&
-            form.clientSurname.value.trim() &&
-            form.clientPhone.value.trim());
-  }
-  function checkPhoneNumber(form) {
-      var phoneNumber = +form.clientPhone.value.replace(' ', '');
-      return (!isNaN(phoneNumber) && phoneNumber.length == 12);
+  function checkFields(form) {
+      if(!form.clientName.value.trim() ||
+              !form.clientSurname.value.trim() ||
+              !form.clientPhone.value.trim()) {
+          alert("Please, fill in all fields!");
+          return false;
+      }
+      var phoneNumber = form.clientPhone.value;
+      if(isNaN(+phoneNumber) || phoneNumber.length != 12) {
+          alert("Please, enter correct phone number (12 digits)");
+          return false;
+      }
+      return true;
   }
 
 </script>

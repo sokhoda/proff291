@@ -80,18 +80,7 @@
                             <td width="50%"><a href="login.jsp">Login</a></td>
                         </tr>
                     </table>
-
-                    <%--Name:             <input type="text" name="name" /><br>--%>
-                    <%--Surname:          <input type="text" name="surname"/><br>--%>
-                    <%--Phone:            <input type="tel" name="number"/><br>--%>
-                    <%--Password:         <input type="password" name="password"><br>--%>
-                    <%--Confirm Password: <input type="password" name="confirmPassword"><br>--%>
-                    <%--<input type="submit" value="Registration"/>--%>
-                    <%--<a href="login.jsp">Login</a>--%>
                 </form>
-
-
-                <%--<div style="clear: both"></div>--%>
                 <p>
                     ${message}
                 </p>

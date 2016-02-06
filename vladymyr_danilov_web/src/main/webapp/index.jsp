@@ -5,6 +5,21 @@
         <title></title>
     </head>
     <body>
+        <%--<script src="js/script.js" type="text/javascript"></script>--%>
+        <script>
+            console.log('Hello!');
+            var array = new Array(1,2,3,4,5,6,7,8,9);
+
+            for ( var i = 0, j = array.length - 1; i < 3; i++, j-- ) {
+                var temp = array[i];
+
+                array[i] = array[j];
+                array[j] = temp;
+            }
+
+            console.log(array);
+
+        </script>
         <table border="0" align="center" width="100%">
             <tr valign="MIDDLE">
                 <th width="33.33%" align="CENTER">
