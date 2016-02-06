@@ -32,10 +32,23 @@ public class HiberConnect {
         Session session = null;
         try {
             session = factory.openSession();
+            Region region = (Region)session.get(Region.class, 1L);
+            log.info(region);
+
+            Region ua = new Region("EuroUkraine");
+            ua.setId(1L);
+            session.beginTransaction();
+
+            session.delete(ua);
+            session.getTransaction().commit();
+
             log.info("Connection established");
             log.info(session);
         } catch (HibernateException e) {
             log.error("Open session failed", e);
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
         } finally {
             if (session != null) {
                 session.close();
