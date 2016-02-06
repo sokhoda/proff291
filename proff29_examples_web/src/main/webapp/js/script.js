@@ -31,6 +31,9 @@ var functionFun = function() {
             this.field = 45;
             return this.field;
         };
+        this.toString = function() {
+            return 2;
+        }
     }
 
     var obj = new Class();
@@ -42,29 +45,12 @@ var functionFun = function() {
     var sub = {};
     sub.__proto__ = obj;
 
-    //alert(sub.hasOwnProperty('field'));
 
-   function Obj() {
-        var _data = "foo";
-        this.getData = function() {
-            return _data;
-        };
-        this.setData = function(data) {
-            _data = data;
-        }
-    }
+    alert(obj + sub);
 
 
-    var incaps = new Obj();
-    alert(incaps.getData());
-    //incaps.setData(12);
-    //alert(incaps.getData());
-    //alert(incaps._data);
-    //obj.du();
-
-    //var doc = document.documentElement;
-    //document.write(doc.nodeType);
-    //document.write(doc.tagName);
-    //document.write(doc.childNodes);
 };
+
+
+
 //alert(functionFun());

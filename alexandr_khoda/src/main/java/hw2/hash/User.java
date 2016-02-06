@@ -7,13 +7,15 @@ import java.util.concurrent.atomic.DoubleAccumulator;
  * Created by s_okhoda on 27.12.2015.
  */
 public class User {
+
     private String login;
     private String pass;
     private GregorianCalendar regDate;
     private double rate;
     private boolean sex;
 
-    public User(String login, String pass, GregorianCalendar regDate, double rate, boolean sex) {
+    public User(String login, String pass, GregorianCalendar regDate,
+                double rate, boolean sex) {
         this.login = login;
         this.pass = pass;
         this.regDate = regDate;
