@@ -29,7 +29,7 @@ public class HiberQueries {
         Session session = null;
         try {
             session = factory.openSession();
-            Query query = session.createQuery("from Region r where r.id > 2");
+            Query query = session.createQuery("from Region r where r.id != 2");
             List<Region> list = query.list();
             log.info(list);
 
