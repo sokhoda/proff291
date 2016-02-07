@@ -1,11 +1,15 @@
 package session12.dentist.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
-import static session12.dentist.utils.HibernateUtil.getSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,21 +27,21 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
 
     @Override
     public PK create(T o) {
-        return (PK) getSession().save(o);
+        return (PK) getSessionFactory().openSession().save(o);
     }
 
     public T get(PK id) {
-        return (T) getSession().get(type, id);
+        return (T) getSessionFactory().openSession().get(type, id);
     }
 
     public List<T> getAll() {
-        Criteria crit = getSession().createCriteria(type);
+        Criteria crit = getSessionFactory().openSession().createCriteria(type);
         return crit.list();
     }
 
     @Override
     public void update(T o) {
-        getSession().update(o);
+        getSessionFactory().openSession().update(o);
     }
 
     @Override
@@ -50,4 +54,13 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
 
     }
 
+    private static SessionFactory getSessionFactory() {
+        Locale.setDefault(Locale.ENGLISH);
+        Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
+        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
+        sb.applySettings(cfg.getProperties());
+        StandardServiceRegistry standardServiceRegistry = sb.build();
+
+        return cfg.buildSessionFactory(standardServiceRegistry);
+    }
 }

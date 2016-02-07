@@ -29,7 +29,7 @@ public class HiberQueries {
         Session session = null;
         try {
             session = factory.openSession();
-            Query query = session.createQuery("from Region r where r.id > 2");
+            Query query = session.createQuery("from Region r where r.id != 2");
             List<Region> list = query.list();
             log.info(list);
 
@@ -52,6 +52,7 @@ public class HiberQueries {
         log.info(session);
 
     }
+
     private static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
         Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
