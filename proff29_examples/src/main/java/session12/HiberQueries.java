@@ -52,6 +52,7 @@ public class HiberQueries {
         log.info(session);
 
     }
+
     private static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
         Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
