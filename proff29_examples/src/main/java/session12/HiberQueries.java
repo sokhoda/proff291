@@ -1,7 +1,8 @@
-package session11;
+package session12;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -9,41 +10,34 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import session11.Region;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
  * User: al1
- * Date: 20.09.14
+ * Date: 01.11.15
  */
-public class HiberConnect {
-    private static Logger log = Logger.getLogger(HiberConnect.class);
+public class HiberQueries {
+    private static Logger log = Logger.getLogger(HiberQueries.class);
 
     public static void main(String[] args) {
-        Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
-        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-        sb.applySettings(cfg.getProperties());
-        StandardServiceRegistry standardServiceRegistry = sb.build();
-
-        SessionFactory factory = cfg.buildSessionFactory(standardServiceRegistry);
+        SessionFactory factory = getSessionFactory();
         log.info("Reference to SessionFactory " + factory);
 
         Session session = null;
         try {
             session = factory.openSession();
-            Region region = (Region)session.get(Region.class, 1L);
-            log.info(region);
+            Query query = session.createQuery("from Region r where r.id > 2");
+            List<Region> list = query.list();
+            log.info(list);
 
-            Region ua = new Region("EuroUkraine");
-            ua.setId(1L);
-            session.beginTransaction();
-
-            session.delete(ua);
-            session.getTransaction().commit();
-
-            log.info("Connection established");
-            log.info(session);
+            query = session.createQuery("select r.id, r.name from Region r where r.id > 2");
+            List<Object[]> list2 = query.list();
+            System.out.println(Arrays.toString(list2.get(0)));
+            System.out.println(Arrays.toString(list2.get(1)));
+            log.info(list);
         } catch (HibernateException e) {
             log.error("Open session failed", e);
             if (session != null) {
@@ -55,8 +49,9 @@ public class HiberConnect {
             }
             factory.close();
         }
-    }
+        log.info(session);
 
+    }
     private static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
         Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
@@ -67,4 +62,3 @@ public class HiberConnect {
         return cfg.buildSessionFactory(standardServiceRegistry);
     }
 }
-
