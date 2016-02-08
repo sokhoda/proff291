@@ -2,11 +2,9 @@ package hw6.notes.dao;
 
 import hw6.notes.domain.Notebook;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +12,8 @@ import java.util.List;
  * Created by Вадим on 07.02.2016.
  */
 public class NotebookDaoImpl implements NotebookDao {
+
+    final static Integer BATCH_SIZE = 20;
 
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
     private SessionFactory factory;
@@ -93,18 +93,29 @@ public class NotebookDaoImpl implements NotebookDao {
 
     @Override
     public List<Notebook> findAll() {
+        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         Query query = null;
         try {
             session.beginTransaction();
-            query = session.createQuery("from Notebook");
+            ScrollableResults noteCursor = session.createQuery("FROM hw6.notes.domain.Notebook").scroll();
+            int count = 0;
+
+            while (noteCursor.next()) {
+                Notebook note = (Notebook) noteCursor.get(0);
+                list.add(note);
+                if (++count % BATCH_SIZE == 0) {
+                    session.flush();
+                    session.clear();
+                }
+            }
         } catch (HibernateException e) {
             log.error("Transaction failed");
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return (List<Notebook>)query.list();
+        return list;
     }
 
     @Override
@@ -113,7 +124,7 @@ public class NotebookDaoImpl implements NotebookDao {
         Query query = null;
         try {
             session.beginTransaction();
-            query = session.createQuery("from hw6.notes.domain.Notebook nb where nb.model = :model");
+            query = session.createQuery("FROM hw6.notes.domain.Notebook nb WHERE nb.model = :model");
             query.setParameter("model", model);
         } catch (HibernateException e) {
             log.error("Transaction failed");
@@ -130,7 +141,7 @@ public class NotebookDaoImpl implements NotebookDao {
         Query query = null;
         try {
             session.beginTransaction();
-            query = session.createQuery("from hw6.notes.domain.Notebook nb where nb.vendor = :vendor");
+            query = session.createQuery("FROM hw6.notes.domain.Notebook nb WHERE nb.vendor = :vendor");
             query.setParameter("vendor", vendor);
         } catch (HibernateException e) {
             log.error("Transaction failed");
@@ -147,8 +158,8 @@ public class NotebookDaoImpl implements NotebookDao {
         Query query = null;
         try {
             session.beginTransaction();
-            query = session.createQuery("from hw6.notes.domain.Notebook nb " +
-                    "where nb.price = :price and nb.date = :date");
+            query = session.createQuery("FROM hw6.notes.domain.Notebook nb " +
+                    "WHER nb.price = :price AND nb.date = :date");
             query.setParameter("price", price);
             query.setParameter("date", date);
         } catch (HibernateException e) {
@@ -166,8 +177,8 @@ public class NotebookDaoImpl implements NotebookDao {
         Query query = null;
         try {
             session.beginTransaction();
-            query = session.createQuery("from hw6.notes.domain.Notebook nb " +
-                    "where nb.price >= :priceFrom and nb.price <= :priceTo and " +
+            query = session.createQuery("FROM hw6.notes.domain.Notebook nb " +
+                    "WHERE nb.price >= :priceFrom AND nb.price <= :priceTo AND " +
                     "nb.date < :date and nb.vendor = :vendor");
             query.setParameter("priceFrom", priceFrom);
             query.setParameter("priceTo", priceTo);
@@ -181,4 +192,48 @@ public class NotebookDaoImpl implements NotebookDao {
         }
         return (List<Notebook>)query.list();
     }
+
+    public int countNotebookRecords(String request) {
+        String hql = "SELECT COUNT (*) " + request;
+        int counter = 0;
+        Session session = factory.openSession();
+        Query query = null;
+        try {
+            session.beginTransaction();
+             counter = session.createQuery(hql).getFirstResult();
+        } catch (HibernateException e) {
+            log.error("Transaction failed");
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return counter;
+
+    }
+
+    //    @Override
+//    public List<Notebook> findAll() {
+//        final String req = "FROM Notebook";
+//        int counter = countNotebookRecords(req);
+//
+//        List<Notebook> list = new ArrayList<Notebook>();
+//        Session session = factory.openSession();
+//        Query query = null;
+//        try {
+//            session.beginTransaction();
+//            query = session.createQuery(req);
+//            for (int i = 0, startPos, endPos; i < counter; i += LIST_PORTION_SIZE) {
+//                startPos = i;
+//                endPos = i + LIST_PORTION_SIZE;
+//                if (endPos > counter) endPos = counter;
+//                list.addAll((List<Notebook>)query.list().subList(startPos, endPos));
+//            }
+//        } catch (HibernateException e) {
+//            log.error("Transaction failed");
+//            session.getTransaction().rollback();
+//        } finally {
+//            session.close();
+//        }
+//        return list;
+//    }
 }

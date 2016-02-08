@@ -18,14 +18,10 @@ public class NotebookServiceImpl implements NotebookService {
         this.notebookDao = notebookDao;
     }
 
+
     @Override
     public Long add(Notebook notebook) {
         return notebookDao.create(notebook);
-    }
-
-    @Override
-    public List<Notebook> findAll() {
-        return notebookDao.findAll();
     }
 
     @Override
@@ -46,6 +42,7 @@ public class NotebookServiceImpl implements NotebookService {
             notebookDao.update(note);
         }
     }
+
 
     @Override
     public boolean delete(Long id){
@@ -68,6 +65,12 @@ public class NotebookServiceImpl implements NotebookService {
             }
         }
         return isDeleted;
+    }
+
+
+    @Override
+    public List<Notebook> findAll() {
+        return notebookDao.findAll();
     }
 
     @Override
