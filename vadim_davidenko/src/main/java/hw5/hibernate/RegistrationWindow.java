@@ -1,4 +1,4 @@
-package hw5.users;
+package hw5.hibernate;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -12,17 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by v.davidenko on 03.02.2016.
  */
-public class MainWindow extends Application {
+public class RegistrationWindow extends Application {
     @FXML
     public TableView tableUsers;
     @FXML
@@ -41,11 +38,15 @@ public class MainWindow extends Application {
     public Label message;
     @FXML
     public DatePicker regDate;
+    @FXML
+    public Button buttonShow;
 
     final static String REG_SUCCESS_MSG = "New user added successfully";
     final static String EMPTY_FIELDS_MSG = "Please, fill in all fields!";
     final static String REG_ERR_MSG = "Such user is already exist!";
     final static String NO_USERS_FOUND_MSG = "No users found!";
+
+    UserHibernateManager userMan = new UserHibernateManager();
 
     @FXML
     private void initTableView() {
@@ -75,15 +76,14 @@ public class MainWindow extends Application {
         }
         message.setText("");
         Date date = asDate(regDate.getValue());
-        UserJDBCManager userMan = new UserJDBCManager();
         User newUser = new User(userName.getText().trim(), password.getText().trim(), date);
-        int result = 0;
+        int useIid = 0;
         try {
-            result = userMan.create(newUser);
+            useIid = userMan.create(newUser);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (result == 1) {
+        if (useIid > 0) {
             message.setText(REG_SUCCESS_MSG);
         } else {
             message.setText(REG_ERR_MSG);
@@ -92,23 +92,28 @@ public class MainWindow extends Application {
 
     public void onClickShowList() {
         message.setText("");
-        UserJDBCManager userMan = new UserJDBCManager();
+        ObservableList<User> usersList = getList();
+        initTableView();
+        tableUsers.setItems(usersList);
+    }
+
+    private ObservableList<User> getList() {
         List<User> users = new ArrayList<User>();
         try {
             users = userMan.findAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ObservableList<User> usersList = null;
         if (users != null && !users.isEmpty()) {
-            ObservableList<User> usersList = FXCollections.observableArrayList();
+            usersList = FXCollections.observableArrayList();
             for (User user : users) {
                 usersList.add(user);
             }
-            initTableView();
-            tableUsers.setItems(usersList);
         } else {
             message.setText(NO_USERS_FOUND_MSG);
         }
+        return usersList;
     }
 
     public static Date asDate(LocalDate localDate) {
@@ -118,6 +123,4 @@ public class MainWindow extends Application {
     public static void main(String[] args) throws SQLException {
         launch(args);
     }
-
-
 }

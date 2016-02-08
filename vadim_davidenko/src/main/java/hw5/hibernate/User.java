@@ -1,42 +1,38 @@
-package hw5.auth;
+package hw5.hibernate;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by v.davidenko on 03.02.2016.
+ *
+ * id, имя, пароль, дата
  */
+@Entity
+@Table(name = "USERS")
 public class User {
+    @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "SEQ_USERS",
+            allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Integer id;
+
+    @Column(name = "USERNAME")
     private String name;
+
+    @Column(name = "PSW")
     private String password;
+
+    @Column(name = "REGDATE")
     private Date date;
 
-    public User(Integer id, String name, String password, Date date) {
-        this.id = id;
+    public User(String name, String password, Date date) {
         this.name = name;
         this.password = password;
         this.date = date;
     }
 
     public User() {}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        if (!id.equals(user.id)) return false;
-        if (!name.equals(user.name)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
-    }
 
     @Override
     public String toString() {

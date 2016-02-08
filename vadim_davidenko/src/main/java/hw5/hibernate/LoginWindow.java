@@ -1,4 +1,4 @@
-package hw5.users;
+package hw5.hibernate;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -12,9 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +19,7 @@ import java.util.List;
 /**
  * Created by v.davidenko on 03.02.2016.
  */
-public class MainWindow extends Application {
+public class LoginWindow extends Application {
     @FXML
     public TableView tableUsers;
     @FXML
@@ -39,13 +36,11 @@ public class MainWindow extends Application {
     public TextField userName;
     @FXML
     public Label message;
-    @FXML
-    public DatePicker regDate;
 
-    final static String REG_SUCCESS_MSG = "New user added successfully";
+    final static String LOGIN_ERR_MSG = "Wrong name or password!";
     final static String EMPTY_FIELDS_MSG = "Please, fill in all fields!";
-    final static String REG_ERR_MSG = "Such user is already exist!";
-    final static String NO_USERS_FOUND_MSG = "No users found!";
+
+    UserHibernateManager userMan = new UserHibernateManager();
 
     @FXML
     private void initTableView() {
@@ -57,42 +52,32 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String fxmlFile = "/hw5/reg_form.fxml";
+        String fxmlFile = "/hw5/login_form.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
-        stage.setTitle("Registration form");
+        stage.setTitle("Authentication form");
         stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void onClickRegistration() {
-        if (userName.getText().isEmpty() || password.getText().isEmpty() ||
-                regDate.getEditor().getText().isEmpty()) {
+    public void onClickLogin() {
+        if (userName.getText().isEmpty() || password.getText().isEmpty()) {
             message.setText(EMPTY_FIELDS_MSG);
             return;
         }
         message.setText("");
-        Date date = asDate(regDate.getValue());
-        UserJDBCManager userMan = new UserJDBCManager();
-        User newUser = new User(userName.getText().trim(), password.getText().trim(), date);
-        int result = 0;
+        User loggedUser = null;
         try {
-            result = userMan.create(newUser);
+            loggedUser = userMan.readByNamePass(userName.getText().trim(), password.getText().trim());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (result == 1) {
-            message.setText(REG_SUCCESS_MSG);
-        } else {
-            message.setText(REG_ERR_MSG);
+        if (loggedUser == null || loggedUser.getId() == null) {
+            message.setText(LOGIN_ERR_MSG);
+            return;
         }
-    }
-
-    public void onClickShowList() {
-        message.setText("");
-        UserJDBCManager userMan = new UserJDBCManager();
         List<User> users = new ArrayList<User>();
         try {
             users = userMan.findAll();
@@ -106,18 +91,10 @@ public class MainWindow extends Application {
             }
             initTableView();
             tableUsers.setItems(usersList);
-        } else {
-            message.setText(NO_USERS_FOUND_MSG);
         }
-    }
-
-    public static Date asDate(LocalDate localDate) {
-        return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public static void main(String[] args) throws SQLException {
         launch(args);
     }
-
-
 }
