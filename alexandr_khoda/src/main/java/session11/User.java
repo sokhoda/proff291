@@ -16,7 +16,7 @@ public class User {
             allocationSize = 5, initialValue = 5)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
-    private int id;
+    private long id;
 
     @Column(name = "NAME")
     private String login;
@@ -92,11 +92,11 @@ public class User {
         this.pass = pass;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

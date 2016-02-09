@@ -50,7 +50,7 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String fxmlFile = "/fxml/login_form.fxml";
+        String fxmlFile = "/hw5/login_form.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
         stage.setTitle("Authentication form");

@@ -15,8 +15,8 @@ public class UserList {
     @XmlElement(name = "user_object")
     List<User> users;
 
-//    public UserList(List users) {
-//        this.users = users;
+//    public UserList(List hw5.users) {
+//        this.hw5.users = hw5.users;
 //    }
 
 

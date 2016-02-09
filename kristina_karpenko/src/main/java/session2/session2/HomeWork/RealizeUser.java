@@ -12,7 +12,7 @@ public class RealizeUser {
         User auth = new User();
        Set<User> users = auth.getUsers();
 
-       //Set<User> users = new HashSet<>();
+       //Set<User> hw5.users = new HashSet<>();
         users.add(new User("Kris2015", "123qwe","31 OCT 2015", 4.4,false));
         users.add(new User("Kris", "Kris","31 DEC 2015", 2.4,false));
         users.add(new User("Vitya", "123","20 JUN 2015", 4.0,true));
@@ -25,7 +25,7 @@ public class RealizeUser {
         users.add(new User("Vitya", "123","20 JUN 2015", 4.0,true));
 
        System.out.println(users.contains(new User("Kris2015", "123qwe","31 OCT 2015", 4.4,false)));//true
-       // System.out.println(users.contains(new User("Kristy", "123qwe","31 OCT 2015", 4.4,false)));//false
+       // System.out.println(hw5.users.contains(new User("Kristy", "123qwe","31 OCT 2015", 4.4,false)));//false
         System.out.println(users.hashCode());
 
     }

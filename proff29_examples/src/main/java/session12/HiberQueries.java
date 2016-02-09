@@ -38,6 +38,19 @@ public class HiberQueries {
             System.out.println(Arrays.toString(list2.get(0)));
             System.out.println(Arrays.toString(list2.get(1)));
             log.info(list);
+
+            String name = "%";
+            query = session.createQuery("from Region r where r.name like :name");
+            query.setParameter("name", name);
+
+            int portionSize = 2;
+            List count;
+            for (int i = 0; (count = query.list()).size() != 0; i += portionSize) {
+                query.setFirstResult(i);
+                query.setMaxResults(portionSize);
+                System.out.println(count);
+            }
+
         } catch (HibernateException e) {
             log.error("Open session failed", e);
             if (session != null) {

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Вадим
-  Date: 16.01.2016
-  Time: 13:40
+  User: v.davidenko
+  Date: 08.02.2016
+  Time: 19:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,9 @@
     <title></title>
 </head>
 <body>
-
-<div style="background-color: #d4ecff" align="center">
-  <h1>Welcome to TAXI service!</h1>
-  <h3><a href="dashboard.jsp">Menu</a></h3>
+    <div style="background-color: #d4ecff" align="center">
+        <h1>Welcome to NOTEBOOKS reference</h1>
+    <h3><a href="menu.jsp">Menu</a></h3>
 </div>
-
 </body>
 </html>
