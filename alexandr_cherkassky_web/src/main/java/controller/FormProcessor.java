@@ -24,7 +24,7 @@ public class FormProcessor extends HttpServlet {
 
     }
 
-    Iterator Map.Entry<String, String>> iter= users.entrySet().iterator();
+    Iterator Map.Entry<String, String>> iter= hw5.users.entrySet().iterator();
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {

@@ -803,7 +803,7 @@
 //        Group userGroup = new Group();
 //
 //        ArrayList<String> findedUsers = new ArrayList<>();
-//        ObservableList users = FXCollections.observableArrayList(findedUsers);
+//        ObservableList hw5.users = FXCollections.observableArrayList(findedUsers);
 //
 //        Task<Void> task = new Task<Void>() {
 //            @Override
@@ -827,7 +827,7 @@
 //        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 //            @Override
 //            public void handle(WorkerStateEvent event) {
-//                users.setAll(findedUsers);
+//                hw5.users.setAll(findedUsers);
 //            }
 //        });
 //
@@ -856,7 +856,7 @@
 //        anonce1.setLayoutY(20);
 //
 //
-//        ComboBox userList = new ComboBox(users);
+//        ComboBox userList = new ComboBox(hw5.users);
 //        userList.setLayoutX(30);
 //        userList.setLayoutY(30);
 //        userList.setMinWidth(260);

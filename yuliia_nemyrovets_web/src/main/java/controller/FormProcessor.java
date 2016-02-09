@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @WebServlet("/form")
 public class FormProcessor extends HttpServlet {
-//    private Map<String,String[]> users=new HashMap<String, String[]>();
+//    private Map<String,String[]> hw5.users=new HashMap<String, String[]>();
 private Map<String, String> users=new HashMap<>();
     @Override
     public void init() throws ServletException {
@@ -23,8 +23,8 @@ private Map<String, String> users=new HashMap<>();
 //        String[] logins= new String[1];
 //        names[0]="Sveta";
 //        logins[0]="1234";
-//        users.put( "name",names);
-//        users.put("login", logins);
+//        hw5.users.put( "name",names);
+//        hw5.users.put("login", logins);
         users.put("Sveta","1234");
     }
     @Override

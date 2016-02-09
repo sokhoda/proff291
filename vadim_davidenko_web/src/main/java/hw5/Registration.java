@@ -146,7 +146,7 @@ public class Registration {
             userList.append(" |\n");
         }
         userList.append("-----------------------------------------------------------\n");
-        userList.append("Number of registered users: ");
+        userList.append("Number of registered hw5.users: ");
         userList.append(getSize());
         userList.append("\n");
 

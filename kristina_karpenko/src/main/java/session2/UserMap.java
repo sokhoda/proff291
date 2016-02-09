@@ -25,12 +25,12 @@ public class UserMap {
         users.put("kris", "23www");
         users.put("32w", "wwewe");
         users.put("wwwwww", "wwwrw");
-        //System.out.println(users.containsKey("kris"));
+        //System.out.println(hw5.users.containsKey("kris"));
         System.out.println("Is present: " + auth.isAuthenticated("32w", "wwewe"));
     }
 
     public boolean isAuthenticated(String login, String password) {
-       // return users.containsKey(login) && users.containsValue(password);
+       // return hw5.users.containsKey(login) && hw5.users.containsValue(password);
         for(Map.Entry<String,String> use:users.entrySet()){
             if(use.getKey().equals(login) && use.getValue().equals(password))
                 return true;
