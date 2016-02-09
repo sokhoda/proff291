@@ -14,99 +14,101 @@
 </head>
 <body>
 
-<h2>Notebooks reference list</h2>
+<table align="center">
+  <tr><td colspan="3"><div style="background-color: #d4ecff">
+     <h2>&nbsp;&nbsp;Notebooks Reference</h2>
+  </div></td></tr>
+  <tr>
 
+  <td width="570px">
 <%--Notebooks menu form--%>
-<div style="float: left">
-
     <form name="menuForm" action="/notebookServlet" method="post">
-        <table border="0" cellpadding="1" style="background-color: #d4ecff">
+        <table border="0" cellpadding="2" style="background-color: #d4ecff">
             <tr>
                 <td><input type="radio" name="menuOption" value="1"></td>
                 <td>Add new notebook</td>
-                <td colspan="8"></td>
+                <td colspan="4"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="2"></td>
-                <td>Change notebook price</td>
+                <td>Change market price</td>
                 <td align="right">Id:</td>
                 <td><input type="text" name="id_2" size="4" maxlength="5"/></td>
                 <td align="right">Price:</td>
                 <td><input type="text" name="price_2" size="6" maxlength="7"/></td>
-                <td colspan="4"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="3"></td>
-                <td>Change notebook serial and vendor</td>
+                <td>Change serial number and vendor</td>
                 <td align="right">Id:</td>
                 <td><input type="text" name="id_3" size="4" maxlength="5"/></td>
                 <td align="right">Serial:</td>
                 <td><input type="text" name="serial_3" size="10" maxlength="20"/></td>
-                <td align="right">Vendor:</td>
-                <td><input type="text" name="vendor_3" size="12" maxlength="20"/></td>
-                <td colspan="4"></td>
             </tr>
-            <tr><td colspan="10"><hr/></td></tr>
+            <tr>
+                <td colspan="4"></td>
+                <td align="right">Vendor:</td>
+                <td><input type="text" name="vendor_3" size="12" maxlength="20"/>&nbsp;</td>
+            </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="4"></td>
                 <td>Remove notebook</td>
                 <td align="right">Id:</td>
                 <td><input type="text" name="id_4" size="4" maxlength="5"/></td>
-                <td colspan="6"></td>
+                <td colspan="2"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="5"></td>
-                <td>Remove notebook by model</td>
+                <td>Remove notebooks by model</td>
                 <td align="right">Model:</td>
-                <td colspan="2"><input type="text" name="model_5" size="12" maxlength="20"/></td>
-                <td colspan="5"></td>
+                <td><input type="text" name="model_5" size="12" maxlength="20"/></td>
+                <td colspan="2"></td>
             </tr>
-            <tr><td colspan="10"><hr/></td></tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="6"></td>
                 <td>Show all notebooks</td>
-                <td colspan="8"></td>
+                <td colspan="4"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="7"></td>
                 <td>Show notebooks by vendor</td>
                 <td align="right">Vendor:</td>
-                <td colspan="2"><input type="text" name="vendor_7" size="12" maxlength="20"/></td>
-                <td colspan="5"></td>
+                <td><input type="text" name="vendor_7" size="12" maxlength="20"/></td>
+                <td colspan="2"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="8"></td>
-                <td>Show notebooks by price and manuf. date (dd.mm.yyyy)</td>
+                <td>Show by price and date</td>
                 <td align="right">Price:</td>
                 <td><input type="text" name="price_8" size="6" maxlength="7"/></td>
                 <td align="right">Date:</td>
                 <td><input type="text" name="date_8" size="10" maxlength="10"/></td>
-                <td colspan="4"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="9"></td>
-                <td>Show by price range, vendor and manuf. date before</td>
+                <td>Show by price range, vendor</td>
                 <td align="right">From:</td>
                 <td><input type="text" name="priceFrom" size="6" maxlength="7"/></td>
                 <td align="right">To:</td>
                 <td><input type="text" name="priceTo" size="6" maxlength="7"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;and date before</td>
                 <td align="right">Vendor:</td>
                 <td><input type="text" name="vendor_9" size="12" maxlength="20"/></td>
                 <td align="right">Date:</td>
-                <td><input type="text" name="date_9" size="10" maxlength="10"/>&nbsp;&nbsp;</td>
+                <td><input type="text" name="date_9" size="10" maxlength="10"/></td>
             </tr>
-            <tr><td colspan="10"><hr/></td></tr>
+            <tr><td colspan="6"><hr/></td></tr>
             <tr>
                 <td></td>
-                <td align="center"><input type="submit" value="Select" style="width: 120px"/></td>
-                <td><a href="index.jsp">Log off</a></td>
-                <td colspan="7"></td>
+                <td align="center"><input type="submit" value="Select" style="width: 110px"/></td>
+                <td align="center" colspan="3"><a href="index.jsp">Log off</a></td>
+                <td colspan="2"></td>
             </tr>
         </table>
     </form>
-
-</div>
-<div style="clear: both"></div>
 
 <%--Form fields default values--%>
 <script>
@@ -127,18 +129,25 @@
     document.menuForm.date_9.value = ('${date_9}' == '') ? '' : '${date_9}';
 </script>
 
+<%--Server messages--%>
+<p style="color: green"><b>${server_msg}</b></p>
+<p style="color: red"><b>${server_err_msg}</b></p>
+
+</td>
+<td width="30"></td>
+<td width="700px" valign="top">
 
 <%--Notebook registration form--%>
 <%
     String option = (String) request.getAttribute("menuOption");
     if (option != null && option.equals("1")) {
 %>
-<h3>Notebook registration</h3>
+<h3>&nbsp;Notebook registration</h3>
 <form name="regForm" action="/notebookServlet" method="post">
-    <table border="0" cellpadding="5" style="background-color: #d4ecff">
+    <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr>
             <td>Model name:</td>
-            <td><input type="text" name="model" size="20" maxlength="20"/></td>
+            <td><input type="text" name="model" size="20" maxlength="20"/>&nbsp;</td>
         </tr>
         <tr>
             <td>Vendor name:</td>
@@ -158,16 +167,11 @@
         </tr>
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
-            <td colspan="2" align="center"><input type="submit" value="Save" style="width: 100px"/></td>
+            <td colspan="2" align="center"><input type="submit" value="Save" style="width: 110px"/></td>
         </tr>
     </table>
 </form>
 <% } %>
-
-
-<%--Server messages--%>
-<p style="color: green"><b>${server_msg}</b></p>
-<p style="color: red"><b>${server_err_msg}</b></p>
 
 
 <%--Notebooks list--%>
@@ -201,6 +205,10 @@
             }
         }
     %>
+</table>
+
+</td>
+</tr>
 </table>
 
 </body>

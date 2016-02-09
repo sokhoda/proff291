@@ -90,7 +90,8 @@ public class Menu extends HttpServlet {
             note.setSerial(parameterMap.get("serial")[0].trim());
             Date date = stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
             note.setManufactureDate(date);
-            note.setPrice(Double.valueOf(parameterMap.get("price")[0]));
+            String price = parameterMap.get("price")[0];
+            note.setPrice((!price.equals("")) ? Double.valueOf(price) : 0.00);
 
             addNtb(note);
 
