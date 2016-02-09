@@ -5,7 +5,6 @@ import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import session11.HiberConnect;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.Locale;
  */
 public class UserHibernateManager {
 
-    private static Logger log = Logger.getLogger(HiberConnect.class);
+    private static Logger log = Logger.getLogger(UserHibernateManager.class);
     private static SessionFactory factory = getSessionFactory();
 
     public int create(User user) throws SQLException {
@@ -48,7 +47,7 @@ public class UserHibernateManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM hw5.User");
+            Query query = session.createQuery("FROM hw5.hibernate.User");
             List results = query.list();
             for(Object res : results) {
                 usersList.add((User)res);
@@ -74,7 +73,7 @@ public class UserHibernateManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            String hql = "FROM hw5.User WHERE hw5.User.name =" + login + "AND hw11.User.password =" + pass;
+            String hql = "FROM hw5.hibernate.User WHERE hw5.hibernate.User.name =" + login + "AND hw5.hibernate.User.password =" + pass;
             Query query = session.createQuery(hql);
             user = (User)query.uniqueResult();
             tx.commit();
