@@ -23,7 +23,7 @@ public class Auth {
     }
 
     public boolean isAuthenticated(String login, String pass) {
-/*        for (User user : users) {
+/*        for (User user : hw5.users) {
             if(user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 return true;
             }

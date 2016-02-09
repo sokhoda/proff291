@@ -44,7 +44,7 @@ public class testUserEqualsNegative {
         System.out.println("Test Case stopped running");
     }*/
 
-    //verify non-equality for users
+    //verify non-equality for hw5.users
     @Test
     public void isNotEqualUsers(){
         Assert.assertFalse(user1.equals(user3));
