@@ -20,9 +20,9 @@ public class AuthTest {
 
     @Test
     public void test_isAuthenticated(){
-        Map<String, String> users = new HashMap<String, String>();
-        users.put("l1", "2");
-        module.setUsers(users);
+        Map<String, String> hw5.users = new HashMap<String, String>();
+        hw5.users.put("l1", "2");
+        module.setUsers(hw5.users);
         boolean expectedRes = true;
         boolean actualRes = module.isAuthenticated("l1");
 

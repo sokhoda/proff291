@@ -34,8 +34,8 @@
     <tr>
         <a href="registeredClient.jsp">
             <form>
-                <p><input type="button" value=" Register yourself" style="width: 300px; height: 50px " class="b1"></p>
-            </form>
+        <p><input type="button" value=" Register yourself" style="width: 300px; height: 50px " class="b1"></p>
+    </form>
         </a></td>
     </tr>
 

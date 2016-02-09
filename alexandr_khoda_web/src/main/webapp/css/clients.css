@@ -40,3 +40,32 @@ button{
     font-family: Arial;
     color: forestgreen;
 }
+
+button.but {
+    min-width: 2em;
+    color: darkred;
+    background-color: bisque ;
+    width: auto;
+    font-weight: bold;
+    font-size: x-large;
+    line-height: 1em;
+    text-align: center;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+button.but:hover{
+    opacity: 0.6;
+}
+
+
+label.regMessage {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 10%;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: x-large;
+    line-height: 200%;
+}

@@ -60,7 +60,7 @@ public class ServletRegistration extends HttpServlet {
                 if (isAdded) {
                     msg = "Your registration is successful. Congratulations!";
                     pageAddress = "hw5/users_base.jsp";
-                    req.setAttribute("users", Registration.getUserMap());
+                    req.setAttribute("hw5.users", Registration.getUserMap());
                 } else {
                     msg = "Sorry, but user with such login is already registered. Please, try another one.";
                 }
