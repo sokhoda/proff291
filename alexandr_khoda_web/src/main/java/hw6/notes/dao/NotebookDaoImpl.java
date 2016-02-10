@@ -1,6 +1,6 @@
-package hw6.notes.domain;
+package hw6.notes.dao;
 
-import hw6.notes.dao.NotebookDao;
+import hw6.notes.domain.Notebook;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -57,45 +57,63 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public boolean update(Notebook ntb) {
         Session session = factory.openSession();
-        int intRes = 0;
         try {
             session.beginTransaction();
-            Query query = session.createQuery("UPDATE Notebook n set SERIAL = :SERIAL, VENDOR = :VENDOR" +
-                    ", MODEL = :MODEL, MANDATE = :MANDATE, PRICE = :PRICE where ID = :ID");
-
-            query.setParameter("ID", ntb.getId());
-            query.setParameter("SERIAL", ntb.getSerial());
-            query.setParameter("VENDOR", ntb.getVendor());
-            query.setParameter("MODEL", ntb.getModel());
-            query.setParameter("MANDATE", ntb.getManDate());
-            query.setParameter("PRICE", ntb.getPrice());
-            intRes = query.executeUpdate();
+//            Query query = session.createQuery("UPDATE Notebook n set SERIAL = :SERIAL, VENDOR = :VENDOR" +
+//                    ", MODEL = :MODEL, MANDATE = :MANDATE, PRICE = :PRICE where ID = :ID");
+//
+//            query.setParameter("ID", ntb.getId());
+//            query.setParameter("SERIAL", ntb.getSerial());
+//            query.setParameter("VENDOR", ntb.getVendor());
+//            query.setParameter("MODEL", ntb.getModel());
+//            query.setParameter("MANDATE", ntb.getManDate());
+//            query.setParameter("PRICE", ntb.getPrice());
+//            intRes = query.executeUpdate();
+            session.update(ntb);
             session.getTransaction().commit();
+            return true;
         }
         catch (HibernateException e) {
             log.error("Transaction failed", e);
             session.getTransaction().rollback();
+            return false;
         } finally {
             session.close();
-        }
-
-        if (intRes > 0){
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
     @Override
     public boolean delete(Notebook ntb) {
-        return false;
+        if (ntb == null){
+            return false;
+        }
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            session.delete(ntb);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException e) {
+            log.error("Transaction failed", e);
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+
     }
 
     @Override
     public List<Notebook> findAll() {
         Session session = factory.openSession();
-        Query query = session.createQuery("from Notebook");
-        return  query.list();
+        try {
+           Query query = session.createQuery("from Notebook");
+           return query.list();
+        } catch (HibernateException e) {
+            log.error("Transaction failed", e);
+            return null;
+        } finally {
+            session.close();
+        }
     }
 }

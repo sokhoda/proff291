@@ -1,4 +1,4 @@
-<%@ page import="hw5.auth.User" %>
+<%@ page import="hw5.users.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.GregorianCalendar" %><%--
@@ -14,7 +14,7 @@
 <head>
     <title>UserList</title>
     <style>
-        <%@include file='/hw5.users/css/userList.css' %>
+        <%@include file='../css/noteList.css' %>
     </style>
 </head>
 
@@ -35,7 +35,7 @@
 %>
 <%--onclick="window.location.href='/hw5.users/UserAddRender.jsp'"--%>
 <div>
-    <a href="../hw5.auth/UserAuth.jsp">
+    <a href="/hw5.users/UserAddRender.jsp">
         <button name="back" class="but">&longleftarrow;</button>
     </a>
     <label class="regMessage"><%=message%></label>

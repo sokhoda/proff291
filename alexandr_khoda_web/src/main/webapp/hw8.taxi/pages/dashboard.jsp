@@ -10,7 +10,7 @@
     <head>
         <title>Main Menu</title>
         <style>
-            <%@include file='/css/dashboard.css' %>
+            <%@include file='/hw8.taxi/css/dashboard.css' %>
         </style>
     </head>
     <body>

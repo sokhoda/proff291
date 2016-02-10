@@ -10,7 +10,7 @@
     <head>
         <title>Welcome to TAXI order management service</title>
         <style>
-            <%@include file='/css/authentification.css' %>
+            <%@include file='/hw8.taxi/css/loginTaxi.css' %>
         </style>
         <script>
             console.log('Hello JS');
@@ -19,7 +19,7 @@
     <body>
 
     <form action="/taxi" method="post">
-        <img src="img/login1.jpg" align="left" style="margin-right: 20px">
+        <img src="../../img/login1.jpg" align="left" style="margin-right: 20px">
         <label for="login1" >LOGIN: </label>
         <input  type="text" placeholder="login" name="login" id="login1"><br>
 
@@ -31,7 +31,7 @@
             <input  type="submit" name="authenticate" value="Sign In">
         </p>
         <%
-//                request.getRequestDispatcher("pages/dashboard.jsp").forward(request,response);
+//                request.getRequestDispatcher("pages/menu.jsp").forward(request,response);
             if (request.getAttribute("FailedAuth") != null){
         %>
             <br>
