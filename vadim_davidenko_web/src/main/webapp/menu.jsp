@@ -202,7 +202,7 @@
         <td align="center"><%= note.getModel() %></td>
         <td align="center"><%= note.getVendor() %></td>
         <td align="center"><%= note.getSerial() %></td>
-        <td align="center"><%= String.valueOf(note.getManufactureDate()) %></td>
+        <td align="center"><%= String.valueOf(note.getManufactureDate()).substring(0, 10) %></td>
         <td align="center"><%= String.valueOf(note.getPrice()) %></td>
     </tr>
     <%

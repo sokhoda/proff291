@@ -149,21 +149,26 @@ public class Menu extends HttpServlet {
                 note.setId(Long.valueOf(parameterMap.get("id_4")[0].trim()));
                 deleteNtb(note);
                 break;
+
             case DELETE_BY_MODEL:
                 deleteByModel(parameterMap.get("model_5")[0].trim());
                 break;
+
             case SHOW_ALL:
                 showAll();
                 break;
+
             case SHOW_VENDOR:
                 showByVendor(parameterMap.get("vendor_7")[0].trim());
                 break;
+
             case SHOW_BY_PRICE_AND_DATE:
                 showByPriceManufDate(
                         Double.valueOf(parameterMap.get("price_8")[0].trim()),
                         stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
                 );
                 break;
+
             case SHOW_BY_PRICE_RANGE_AND_VENDOR_AND_DATE_BEFORE:
                 showBetweenPriceLtDateByVendor(
                         Double.valueOf(parameterMap.get("priceFrom")[0].trim()),
