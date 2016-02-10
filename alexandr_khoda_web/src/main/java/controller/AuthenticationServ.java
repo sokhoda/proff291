@@ -41,7 +41,7 @@ public class AuthenticationServ extends HttpServlet {
         String pass = paramMap.get("pass")[0];
 
         if (users.containsKey(login) && users.get(login).equals(pass)){
-            req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, res);
+            req.getRequestDispatcher("/pages/menu.jsp").forward(req, res);
 //            req.getRequestDispatcher("index.jsp").forward(req, res);
         }
         else{
