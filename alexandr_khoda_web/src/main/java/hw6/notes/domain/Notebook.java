@@ -44,13 +44,23 @@ public class Notebook {
         this.price = price;
     }
 
-    public Notebook(long id, String vendor, int price) {
-        this(id, "<none>", vendor, "<none>", new GregorianCalendar(), price);
+    public Notebook(String serial, String vendor, String model, GregorianCalendar manDate, int price) {
+        this(0, serial, vendor, model, manDate, price);
     }
 
-    public Notebook(long id, String vendor, String model, int price) {
-        this(id, "<none>", vendor, model, new GregorianCalendar(), price);
+//    public Notebook(String serial, String vendor, String model, String
+//            manDate, String price) {
+//        this(0, serial, vendor, model, manDate, price);
+//    }
+
+    public Notebook(String vendor, int price) {
+        this(0, "<none>", vendor, "<none>", new GregorianCalendar(), price);
     }
+
+    public Notebook(String vendor, String model, int price) {
+        this(0, "<none>", vendor, model, new GregorianCalendar(), price);
+    }
+
     @Override
     public String toString(){
         return "id=" + id + ", serial=" + serial + ", " + vendor + ", " +
