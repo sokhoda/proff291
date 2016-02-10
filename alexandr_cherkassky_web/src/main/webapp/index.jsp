@@ -42,13 +42,16 @@
                 row.appendChild(cell1);
                 row.appendChild(cell2);
                 row.appendChild(cell4);
+                row.appendChild(cell3);
+
                 buttonDelArr[i]=new ClassDelButton("DelBut"+i,cell4);
+                new ClassEditButton("EditButton "+i,cell3);
 
 
             }
 
             for( var i=0; i<buttonArr.length; i++){
-                console.log("Button"+i+" "+buttonArr[i].getButton().getAttribute("id")+" cellId "+buttonArr[i].getButton().parentNode.getAttribute("id"))
+                console.log("Button"+i+" "+buttonDellArr[i].getButton().getAttribute("id")+" cellId "+buttonArr[i].getButton().parentNode.getAttribute("id"))
             }
 
 
@@ -72,7 +75,7 @@
                 DelFrom.removeChild(parentRow);
             }
             button.onclick=onClickAction;
-            doc.dleteRow();
+            //doc.dleteRow();
 
 
 
@@ -84,6 +87,45 @@
 //            }
 
         }
+
+        function ClassEditButton(idName, parentCell) {
+            var button = document.createElement('button');
+            button.innerHTML = 'Edit';
+            button.setAttribute("id", 'idName');
+            parentCell.appendChild(button);
+            function onClickEditAction() {
+
+                var inputNumber = document.createElement('input');
+                inputNumber.type = 'text';
+                inputNumber.value = parentCell.parentNode.childNodes[0].innerHTML;
+                parentCell.parentNode.childNodes[0].innerHTML = '';
+                parentCell.parentNode.childNodes[0].appendChild(inputNumber);
+                inputNumber.onkeydown = function (event) {
+                  if (event.keyCode == 13) {
+                        onEnterPressedAction(this);                   }
+                };
+
+                var inputBalance = document.createElement('input');
+                inputBalance.type = 'text';
+                inputBalance.value = parentCell.parentNode.childNodes[1].innerHTML;
+                parentCell.parentNode.childNodes[1].innerHTML = '';
+                parentCell.parentNode.childNodes[1].appendChild(inputBalance);
+                inputBalance.onmouseout = function (event) {
+                    //if (event.keyCode == 13) {
+                        onEnterPressedAction(this);
+                   // }
+                }
+
+
+                function onEnterPressedAction(inputField) {
+                    var parent = inputField.parentNode;
+                    parent.removeChild(inputField);
+                    parent.innerHTML = inputField.value;
+                }
+            }
+            button.onclick = onClickEditAction;
+        }
+
 
 
 
