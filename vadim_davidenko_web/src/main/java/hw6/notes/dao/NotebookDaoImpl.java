@@ -159,7 +159,7 @@ public class NotebookDaoImpl implements NotebookDao {
         try {
             session.beginTransaction();
             query = session.createQuery("FROM hw6.notes.domain.Notebook nb " +
-                    "WHER nb.price = :price AND nb.date = :date");
+                    "WHERE nb.price = :price AND nb.date = :date");
             query.setParameter("price", price);
             query.setParameter("date", date);
         } catch (HibernateException e) {
@@ -210,30 +210,4 @@ public class NotebookDaoImpl implements NotebookDao {
         return counter;
 
     }
-
-    //    @Override
-//    public List<Notebook> findAll() {
-//        final String req = "FROM Notebook";
-//        int counter = countNotebookRecords(req);
-//
-//        List<Notebook> list = new ArrayList<Notebook>();
-//        Session session = factory.openSession();
-//        Query query = null;
-//        try {
-//            session.beginTransaction();
-//            query = session.createQuery(req);
-//            for (int i = 0, startPos, endPos; i < counter; i += LIST_PORTION_SIZE) {
-//                startPos = i;
-//                endPos = i + LIST_PORTION_SIZE;
-//                if (endPos > counter) endPos = counter;
-//                list.addAll((List<Notebook>)query.list().subList(startPos, endPos));
-//            }
-//        } catch (HibernateException e) {
-//            log.error("Transaction failed");
-//            session.getTransaction().rollback();
-//        } finally {
-//            session.close();
-//        }
-//        return list;
-//    }
 }

@@ -15,15 +15,13 @@
 <body>
 
 <table align="center">
-  <tr><td colspan="3"><div style="background-color: #d4ecff">
-     <h2>&nbsp;&nbsp;Notebooks Reference</h2>
-  </div></td></tr>
-  <tr>
+  <tr><td colspan="3"><h2>&nbsp;&nbsp;Notebooks Reference</h2></td></tr>
 
-  <td width="570px">
+  <tr><td width="600px" valign="top">
+
 <%--Notebooks menu form--%>
     <form name="menuForm" action="/notebookServlet" method="post">
-        <table border="0" cellpadding="2" style="background-color: #d4ecff">
+        <table border="0" cellpadding="3" style="background-color: #d4ecff">
             <tr>
                 <td><input type="radio" name="menuOption" value="1"></td>
                 <td>Add new notebook</td>
@@ -33,17 +31,17 @@
                 <td><input type="radio" name="menuOption" value="2"></td>
                 <td>Change market price</td>
                 <td align="right">Id:</td>
-                <td><input type="text" name="id_2" size="4" maxlength="5"/></td>
+                <td><input type="text" name="id_2" size="5" maxlength="5"/></td>
                 <td align="right">Price:</td>
-                <td><input type="text" name="price_2" size="6" maxlength="7"/></td>
+                <td><input type="text" name="price_2" size="10" maxlength="10"/></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="3"></td>
                 <td>Change serial number and vendor</td>
                 <td align="right">Id:</td>
-                <td><input type="text" name="id_3" size="4" maxlength="5"/></td>
+                <td><input type="text" name="id_3" size="5" maxlength="5"/></td>
                 <td align="right">Serial:</td>
-                <td><input type="text" name="serial_3" size="10" maxlength="20"/></td>
+                <td><input type="text" name="serial_3" size="12" maxlength="20"/></td>
             </tr>
             <tr>
                 <td colspan="4"></td>
@@ -54,7 +52,7 @@
                 <td><input type="radio" name="menuOption" value="4"></td>
                 <td>Remove notebook</td>
                 <td align="right">Id:</td>
-                <td><input type="text" name="id_4" size="4" maxlength="5"/></td>
+                <td><input type="text" name="id_4" size="5" maxlength="5"/></td>
                 <td colspan="2"></td>
             </tr>
             <tr>
@@ -80,7 +78,7 @@
                 <td><input type="radio" name="menuOption" value="8"></td>
                 <td>Show by price and date</td>
                 <td align="right">Price:</td>
-                <td><input type="text" name="price_8" size="6" maxlength="7"/></td>
+                <td><input type="text" name="price_8" size="10" maxlength="10"/></td>
                 <td align="right">Date:</td>
                 <td><input type="text" name="date_8" size="10" maxlength="10"/></td>
             </tr>
@@ -88,9 +86,9 @@
                 <td><input type="radio" name="menuOption" value="9"></td>
                 <td>Show by price range, vendor</td>
                 <td align="right">From:</td>
-                <td><input type="text" name="priceFrom" size="6" maxlength="7"/></td>
+                <td><input type="text" name="priceFrom" size="10" maxlength="10"/></td>
                 <td align="right">To:</td>
-                <td><input type="text" name="priceTo" size="6" maxlength="7"/></td>
+                <td><input type="text" name="priceTo" size="10" maxlength="10"/></td>
             </tr>
             <tr>
                 <td></td>
@@ -103,7 +101,7 @@
             <tr><td colspan="6"><hr/></td></tr>
             <tr>
                 <td></td>
-                <td align="center"><input type="submit" value="Select" style="width: 110px"/></td>
+                <td align="center"><input type="button" value="Select" onclick="submitMenuForm(document.menuForm)" style="width: 110px"/></td>
                 <td align="center" colspan="3"><a href="index.jsp">Log off</a></td>
                 <td colspan="2"></td>
             </tr>
@@ -134,20 +132,20 @@
 <p style="color: red"><b>${server_err_msg}</b></p>
 
 </td>
-<td width="30"></td>
-<td width="700px" valign="top">
+<td width="15px"></td>
+<td valign="top" width="285px">
 
 <%--Notebook registration form--%>
 <%
-    String option = (String) request.getAttribute("menuOption");
-    if (option != null && option.equals("1")) {
+   String option = (String) request.getAttribute("menuOption");
+   if (option != null && option.equals("1")) {
 %>
-<h3>&nbsp;Notebook registration</h3>
-<form name="regForm" action="/notebookServlet" method="post">
+<form name="regForm" action="/notebookServlet" method="get">
+    <h3>&nbsp;Notebook registration</h3>
     <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr>
             <td>Model name:</td>
-            <td><input type="text" name="model" size="20" maxlength="20"/>&nbsp;</td>
+            <td><input type="text" name="model" size="20" maxlength="20"/></td>
         </tr>
         <tr>
             <td>Vendor name:</td>
@@ -163,53 +161,117 @@
         </tr>
         <tr>
             <td>Market price:</td>
-            <td><input type="text" name="price" size="6" maxlength="7"/></td>
+            <td><input type="text" name="price" size="10" maxlength="10"/></td>
         </tr>
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
-            <td colspan="2" align="center"><input type="submit" value="Save" style="width: 110px"/></td>
+            <td colspan="2" align="center"><input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 110px"/></td>
         </tr>
     </table>
 </form>
-<% } %>
+<%
+    }
+%>
+</td>
+</tr>
 
+<tr>
+<td colspan="3">
 
 <%--Notebooks list--%>
-<table border="1" cellpadding="3"  style="background-color: #d4ecff">
-    <%
-        List<Notebook> notes = (List<Notebook>)request.getAttribute("notesList");
-        if(notes != null && !notes.isEmpty()){
-    %>
-    <h3>Notebooks list</h3>
-    <tr>
-        <th>Id</th>
-        <th>Model</th>
-        <th>Vendor</th>
-        <th>Serial</th>
-        <th>Manuf. date</th>
-        <th>Price</th>
-    </tr>
-    <tr><td colspan="6"><hr/></td></tr>
-    <%
-        for (Notebook note : notes){
-    %>
-    <tr>
-        <td><%= String.valueOf(note.getId()) %></td>
-        <td><%= note.getModel() %></td>
-        <td><%= note.getVendor() %></td>
-        <td><%= note.getSerial() %></td>
-        <td><%= String.valueOf(note.getManufactureDate()) %></td>
-        <td><%= String.valueOf(note.getPrice()) %></td>
+<%
+   List<Notebook> notes = (List<Notebook>)request.getAttribute("notesList");
+   if(notes != null && !notes.isEmpty()){
+%>
+<h3>&nbsp;Notebooks list</h3>
+
+<table border="1" cellpadding="3">
+    <tr style="background-color: #d4ecff">
+        <th width="60px">Id</th>
+        <th width="170px">Model</th>
+        <th width="170px">Vendor</th>
+        <th width="170px">Serial</th>
+        <th width="170px">Manuf. date</th>
+        <th width="170px">Price</th>
     </tr>
     <%
-            }
+        for (Notebook note : notes) {
+    %>
+    <tr>
+        <td align="center"><%= String.valueOf(note.getId()) %></td>
+        <td align="center"><%= note.getModel() %></td>
+        <td align="center"><%= note.getVendor() %></td>
+        <td align="center"><%= note.getSerial() %></td>
+        <td align="center"><%= String.valueOf(note.getManufactureDate()) %></td>
+        <td align="center"><%= String.valueOf(note.getPrice()) %></td>
+    </tr>
+    <%
         }
     %>
 </table>
+<%
+  }
+%>
 
 </td>
 </tr>
 </table>
+
+
+<%--Checking fields script--%>
+<script>
+    function submitMenuForm(form) {
+        if (checkMenuFields(form)) form.submit();
+    }
+    function checkMenuFields(form) {
+        var isEmpty = false;
+        switch (form.menuOption.value) {
+            case '2':
+                if(!form.id_2.value.trim() || !form.price_2.value.trim()) isEmpty = true;
+                break;
+            case '3':
+                if(!form.id_3.value.trim() || !form.serial_3.value.trim() ||
+                        !form.vendor_3.value.trim()) isEmpty = true;
+                break;
+            case '4':
+                if(!form.id_4.value.trim()) isEmpty = true;
+                break;
+            case '5':
+                if(!form.model_5.value.trim()) isEmpty = true;
+                break;
+            case '7':
+                if(!form.vendor_7.value.trim()) isEmpty = true;
+                break;
+            case '8':
+                if(!form.price_8.value.trim() || !form.date_8.value.trim()) isEmpty = true;
+                break;
+            case '9':
+                if(!form.priceFrom.value.trim() || !form.priceTo.value.trim() ||
+                        !form.vendor_9.value.trim() || !form.date_9.value.trim()) isEmpty = true;
+                break;
+            default:
+        }
+        if (isEmpty) {
+            alert("Please, fill in all fields with valid values!");
+            return false;
+        }
+        return true;
+    }
+
+    function submitRegForm(form) {
+        if (checkRegFields(form)) form.submit();
+    }
+    function checkRegFields(form) {
+        if(!form.model.value.trim() || !form.vendor.value.trim() ||
+                !form.serial.value.trim() || !form.date.value.trim() ||
+                !form.price.value.trim() || isNaN(+form.price.value))
+        {
+            alert("Please, fill in all fields with valid values!");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 </body>
 </html>
