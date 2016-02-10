@@ -1,5 +1,6 @@
 package hw6.notes.view;
 
+import hw6.notes.Main;
 import hw6.notes.dao.NotebookDao;
 import hw6.notes.dao.NotebookDaoImpl;
 import hw6.notes.domain.Notebook;
@@ -41,9 +42,7 @@ import java.util.Set;
 @WebServlet("/notebookServlet")
 public class Menu extends HttpServlet {
 
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    NotebookDao noteDao = new NotebookDaoImpl(sessionFactory);
-    NotebookService noteService = new NotebookServiceImpl(noteDao);
+    NotebookService noteService = Main.getInstance();
     List<Notebook> notesList;
     String serverMsg, serverErrMsg;
 
@@ -54,15 +53,16 @@ public class Menu extends HttpServlet {
     final static String SOME_NOTE_NOT_EXIST_MSG = "Some notebook(s) does not exist";
     final static String NO_RECORDS_FOUND_MSG = "No records found";
     final static String MENU_PAGE = "menu.jsp";
+    final static String ADD_NOTE_PAGE = "add_note.jsp";
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         registrationService(req, resp);
     }
 
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         menuService(req, resp);
     }
@@ -85,9 +85,14 @@ public class Menu extends HttpServlet {
 
         addNtb(note);
 
+        Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+        for(Map.Entry<String, String[]> entry : entries) {
+            req.setAttribute(entry.getKey(), entry.getValue()[0]);
+        }
         req.setAttribute("server_msg", serverMsg);
         req.setAttribute("server_err_msg", serverErrMsg);
-        req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
+
+        req.getRequestDispatcher(ADD_NOTE_PAGE).forward(req, resp);
     }
 
     public void menuService(HttpServletRequest req, HttpServletResponse resp)
@@ -97,6 +102,10 @@ public class Menu extends HttpServlet {
         serverMsg = "";
         serverErrMsg = "";
 
+        if (parameterMap.get("menuOption")[0].equals("1")) {
+            req.getRequestDispatcher(ADD_NOTE_PAGE).forward(req, resp);
+            return;
+        }
         main(parameterMap);
 
         Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
@@ -112,7 +121,6 @@ public class Menu extends HttpServlet {
 
     public void main(Map<String, String[]> parameterMap) {
 
-        final String ADD_NEW = "1";
         final String EDIT_PRICE = "2";
         final String EDIT_SERIAL_VENDOR = "3";
         final String DELETE_BY_ID = "4";
@@ -126,9 +134,6 @@ public class Menu extends HttpServlet {
         Notebook note;
 
         switch (option) {
-            case ADD_NEW:
-                break;
-
             case EDIT_PRICE:
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_2")[0].trim()));
@@ -181,7 +186,6 @@ public class Menu extends HttpServlet {
         }
     }
 
-    // ------------------------------------------------------------- //
     public void addNtb(Notebook note) {
         Long id;
         synchronized (Menu.class) {
@@ -208,7 +212,6 @@ public class Menu extends HttpServlet {
         serverMsg = NOTE_UPDATED_MSG;
     }
 
-    // ------------------------------------------------------------- //
     public void deleteNtb(Notebook note) {
         Boolean isDeleted;
         synchronized (Menu.class) {
@@ -233,7 +236,6 @@ public class Menu extends HttpServlet {
         }
     }
 
-    // ------------------------------------------------------------- //
     public void showAll() {
         notesList = noteService.findAll();
         if (notesList == null || notesList.isEmpty()) serverErrMsg = NO_RECORDS_FOUND_MSG;
@@ -254,7 +256,6 @@ public class Menu extends HttpServlet {
         if (notesList == null || notesList.isEmpty()) serverErrMsg = NO_RECORDS_FOUND_MSG;
     }
 
-    // ------------------------------------------------------------- //
     private static Date stringToDate(String dateInString, String format) {
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         Date date = null;
@@ -267,5 +268,4 @@ public class Menu extends HttpServlet {
         }
         return date;
     }
-
 }

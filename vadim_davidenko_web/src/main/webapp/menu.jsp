@@ -15,17 +15,19 @@
 <body>
 
 <table align="center">
-  <tr><td colspan="3"><h2>&nbsp;&nbsp;Notebooks Reference</h2></td></tr>
+  <tr><td align="center">
+      <h2>Notebooks Reference</h2>
+  </td></tr>
 
-  <tr><td width="600px" valign="top">
+  <tr><td align="center" valign="top">
 
 <%--Notebooks menu form--%>
-    <form name="menuForm" action="/notebookServlet" method="post">
-        <table border="0" cellpadding="3" style="background-color: #d4ecff">
+    <form name="menuForm" action="/notebookServlet" method="get">
+        <table border="0" cellpadding="3" style="background-color: #d4ecff" width="940">
             <tr>
                 <td><input type="radio" name="menuOption" value="1"></td>
                 <td>Add new notebook</td>
-                <td colspan="4"></td>
+                <td colspan="8"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="2"></td>
@@ -34,6 +36,7 @@
                 <td><input type="text" name="id_2" size="5" maxlength="5"/></td>
                 <td align="right">Price:</td>
                 <td><input type="text" name="price_2" size="10" maxlength="10"/></td>
+                <td colspan="4"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="3"></td>
@@ -42,11 +45,9 @@
                 <td><input type="text" name="id_3" size="5" maxlength="5"/></td>
                 <td align="right">Serial:</td>
                 <td><input type="text" name="serial_3" size="12" maxlength="20"/></td>
-            </tr>
-            <tr>
-                <td colspan="4"></td>
                 <td align="right">Vendor:</td>
-                <td><input type="text" name="vendor_3" size="12" maxlength="20"/>&nbsp;</td>
+                <td><input type="text" name="vendor_3" size="12" maxlength="20"/></td>
+                <td colspan="2"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="4"></td>
@@ -60,50 +61,49 @@
                 <td>Remove notebooks by model</td>
                 <td align="right">Model:</td>
                 <td><input type="text" name="model_5" size="12" maxlength="20"/></td>
-                <td colspan="2"></td>
+                <td colspan="6"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="6"></td>
                 <td>Show all notebooks</td>
-                <td colspan="4"></td>
+                <td colspan="8"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="7"></td>
                 <td>Show notebooks by vendor</td>
                 <td align="right">Vendor:</td>
                 <td><input type="text" name="vendor_7" size="12" maxlength="20"/></td>
-                <td colspan="2"></td>
+                <td colspan="6"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="8"></td>
-                <td>Show by price and date</td>
+                <td>Show notebooks by price and date</td>
                 <td align="right">Price:</td>
                 <td><input type="text" name="price_8" size="10" maxlength="10"/></td>
                 <td align="right">Date:</td>
                 <td><input type="text" name="date_8" size="10" maxlength="10"/></td>
+                <td colspan="6"></td>
             </tr>
             <tr>
                 <td><input type="radio" name="menuOption" value="9"></td>
-                <td>Show by price range, vendor</td>
+                <td>Show by price range, vendor and date before</td>
                 <td align="right">From:</td>
                 <td><input type="text" name="priceFrom" size="10" maxlength="10"/></td>
                 <td align="right">To:</td>
                 <td><input type="text" name="priceTo" size="10" maxlength="10"/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;and date before</td>
                 <td align="right">Vendor:</td>
                 <td><input type="text" name="vendor_9" size="12" maxlength="20"/></td>
                 <td align="right">Date:</td>
-                <td><input type="text" name="date_9" size="10" maxlength="10"/></td>
+                <td><input type="text" name="date_9" size="10" maxlength="10"/>&nbsp;</td>
             </tr>
-            <tr><td colspan="6"><hr/></td></tr>
+            <tr><td colspan="10"><hr/></td></tr>
             <tr>
                 <td></td>
-                <td align="center"><input type="button" value="Select" onclick="submitMenuForm(document.menuForm)" style="width: 110px"/></td>
+                <td align="center">
+                    <input type="button" value="Select" onclick="submitMenuForm(document.menuForm)" style="width: 110px"/>
+                </td>
                 <td align="center" colspan="3"><a href="index.jsp">Log off</a></td>
-                <td colspan="2"></td>
+                <td colspan="5"></td>
             </tr>
         </table>
     </form>
@@ -120,81 +120,34 @@
     document.menuForm.model_5.value = ('${model_5}' == '') ? '' : '${model_5}';
     document.menuForm.vendor_7.value = ('${vendor_7}' == '') ? '' : '${vendor_7}';
     document.menuForm.price_8.value = ('${price_8}' == '') ? '0.00' : '${price_8}';
-    document.menuForm.date_8.value = ('${date_8}' == '') ? '' : '${date_8}';
+    document.menuForm.date_8.value = ('${date_8}' == '') ? 'dd.mm.yyyy' : '${date_8}';
     document.menuForm.priceFrom.value = ('${priceFrom}' == '') ? '0.00' : '${priceFrom}';
     document.menuForm.priceTo.value = ('${priceTo}' == '') ? '0.00' : '${priceTo}';
     document.menuForm.vendor_9.value = ('${vendor_9}' == '') ? '' : '${vendor_9}';
-    document.menuForm.date_9.value = ('${date_9}' == '') ? '' : '${date_9}';
+    document.menuForm.date_9.value = ('${date_9}' == '') ? 'dd.mm.yyyy' : '${date_9}';
 </script>
 
 <%--Server messages--%>
 <p style="color: green"><b>${server_msg}</b></p>
 <p style="color: red"><b>${server_err_msg}</b></p>
 
-</td>
-<td width="15px"></td>
-<td valign="top" width="285px">
-
-<%--Notebook registration form--%>
-<%
-   String option = (String) request.getAttribute("menuOption");
-   if (option != null && option.equals("1")) {
-%>
-<form name="regForm" action="/notebookServlet" method="get">
-    <h3>&nbsp;Notebook registration</h3>
-    <table border="0" cellpadding="6" style="background-color: #d4ecff">
-        <tr>
-            <td>Model name:</td>
-            <td><input type="text" name="model" size="20" maxlength="20"/></td>
-        </tr>
-        <tr>
-            <td>Vendor name:</td>
-            <td><input type="text" name="vendor" size="20" maxlength="20"/></td>
-        </tr>
-        <tr>
-            <td>Serial number:</td>
-            <td><input type="text" name="serial" size="20" maxlength="50"/></td>
-        </tr>
-        <tr>
-            <td>Manufacture date:</td>
-            <td><input type="text" name="date" size="10" maxlength="10"/></td>
-        </tr>
-        <tr>
-            <td>Market price:</td>
-            <td><input type="text" name="price" size="10" maxlength="10"/></td>
-        </tr>
-        <tr><td colspan="2"><hr/></td></tr>
-        <tr>
-            <td colspan="2" align="center"><input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 110px"/></td>
-        </tr>
-    </table>
-</form>
-<%
-    }
-%>
-</td>
-</tr>
-
-<tr>
-<td colspan="3">
+</td></tr>
 
 <%--Notebooks list--%>
-<%
-   List<Notebook> notes = (List<Notebook>)request.getAttribute("notesList");
-   if(notes != null && !notes.isEmpty()){
-%>
-<h3>&nbsp;Notebooks list</h3>
-
+<tr><td>
+<br/>
 <table border="1" cellpadding="3">
     <tr style="background-color: #d4ecff">
-        <th width="60px">Id</th>
-        <th width="170px">Model</th>
-        <th width="170px">Vendor</th>
-        <th width="170px">Serial</th>
-        <th width="170px">Manuf. date</th>
-        <th width="170px">Price</th>
+        <th width="55px">Id</th>
+        <th width="165px">Model</th>
+        <th width="165px">Vendor</th>
+        <th width="165px">Serial</th>
+        <th width="165px">Manuf. date</th>
+        <th width="165px">Price</th>
     </tr>
     <%
+        List<Notebook> notes = (List<Notebook>)request.getAttribute("notesList");
+        if(notes != null && !notes.isEmpty()){
         for (Notebook note : notes) {
     %>
     <tr>
@@ -206,17 +159,14 @@
         <td align="center"><%= String.valueOf(note.getPrice()) %></td>
     </tr>
     <%
+            }
         }
     %>
 </table>
-<%
-  }
-%>
 
 </td>
 </tr>
 </table>
-
 
 <%--Checking fields script--%>
 <script>
@@ -258,18 +208,13 @@
         return true;
     }
 
-    function submitRegForm(form) {
-        if (checkRegFields(form)) form.submit();
-    }
-    function checkRegFields(form) {
-        if(!form.model.value.trim() || !form.vendor.value.trim() ||
-                !form.serial.value.trim() || !form.date.value.trim() ||
-                !form.price.value.trim() || isNaN(+form.price.value))
-        {
-            alert("Please, fill in all fields with valid values!");
-            return false;
-        }
-        return true;
+    function readDate(form) {
+        var dd = (form.dd.value.length == 1) ? '0' + form.dd.value : form.dd.value;
+        var mm = (form.mm.value.length == 1) ? '0' + form.mm.value : form.mm.value;
+        if (+yy < 70) yy = '20' + yy;
+        else if (+yy < 10) yy = '200' + yy;
+        else yy = '19' + yy;
+        return dd + '.' + mm + '.' + yy;
     }
 </script>
 
