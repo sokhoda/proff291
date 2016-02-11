@@ -25,21 +25,16 @@ public class test {
         }
     }
 
-    public static GregorianCalendar String2Gregorian(String dateStr){
+    public static GregorianCalendar String2Gregorian(String dateStr) throws ParseException{
         if (dateStr == null || dateStr.length() == 0){
             return  null;
         }
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date date = null;
-        try {
-            date = df.parse(dateStr);
-            Calendar cal = new GregorianCalendar(); //Calendar.getInstance();
-            cal.setTime(date);
-            System.out.println(df.format(cal.getTime()));
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
+        date = df.parse(dateStr);
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        return (GregorianCalendar) cal;
     }
 
     public static void main(String[] args)  {

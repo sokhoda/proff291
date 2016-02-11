@@ -21,7 +21,7 @@ public class NotebookDaoImpl implements NotebookDao {
     }
 
     @Override
-    public Long create(Notebook ntb) {
+    public Long create(Notebook ntb) throws HibernateException{
         Session session = factory.openSession();
         Long id = null;
         try {
@@ -31,6 +31,8 @@ public class NotebookDaoImpl implements NotebookDao {
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
             session.getTransaction().rollback();
+            throw new HibernateException(e.getMessage() + ", " + e.getCause()
+                    .getMessage());
         } finally {
              session.close();
         }

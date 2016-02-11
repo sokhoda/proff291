@@ -2,6 +2,8 @@ package hw6.notes.service;
 
 import hw6.notes.dao.NotebookDao;
 import hw6.notes.domain.Notebook;
+import org.hibernate.HibernateError;
+import org.hibernate.HibernateException;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class NotebookServiceImpl implements NotebookService{
     }
 
     @Override
-    public Long add(Notebook notebook) {
+    public Long add(Notebook notebook) throws HibernateException{
         return noteDao.create(notebook);
     }
 

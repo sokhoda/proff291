@@ -26,15 +26,15 @@ input[type=submit]{
     /*-moz-border-radius: 15px;*/
     /*-webkit-border-radius: 15px;*/
     /*background-color: bisque ;*/
+    min-width: 23em;
 
-    min-width: 2em;
     color: darkred;
     background-color: bisque ;
     width: auto;
     font-weight: bold;
     font-size: x-large;
     line-height: 1em;
-    text-align: center;
+    text-align: left;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
 }
