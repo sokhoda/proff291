@@ -4,7 +4,6 @@ package poker;/**
 
 
 
-import com.sun.tools.internal.xjc.reader.xmlschema.BindGreen;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
