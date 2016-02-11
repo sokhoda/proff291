@@ -1,7 +1,8 @@
 <%@ page import="hw5.users.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.GregorianCalendar" %><%--
+<%@ page import="java.util.GregorianCalendar" %>
+<%@ page import="hw6.notes.domain.Notebook" %><%--
   Created by IntelliJ IDEA.
   User: s_okhoda
   Date: 04.02.2016
@@ -20,7 +21,7 @@
 
 <body>
 <%!
-    List<User> ulist;
+    List<Notebook> nlist;
     String message = "";
 
     private String checkDate(GregorianCalendar gc) {
@@ -35,44 +36,46 @@
 %>
 <%--onclick="window.location.href='/hw5.users/UserAddRender.jsp'"--%>
 <div>
-    <a href="/hw5.users/UserAddRender.jsp">
+    <a href="/hw6.notes/pages/menu.jsp">
         <button name="back" class="but">&longleftarrow;</button>
     </a>
     <label class="regMessage"><%=message%></label>
 </div>
 
 <%
-    ulist = (List<User>) request.getAttribute("ulist");
-    if (ulist.size() == 0 ) {
-        message = "User list is empty.";
+    nlist = (List<Notebook>) request.getAttribute("nlist");
+    if (nlist.size() == 0 ) {
+        message = "Notebook list is empty.";
     }
     else {
 %>
 <table>
     <thead>
     <tr>
-        <th colspan="100%"><h1>User list</h1></th>
+        <th colspan="100%"><h1>Notebook list</h1></th>
     </tr>
     <tr>
-        <th class="shrink"><h3>ID</h3></th>
-        <th><h3>Login</h3></th>
-        <th><h3>Pass</h3></th>
-        <th><h3>Date of Registration</h3></th>
+        <%--<th class="shrink"><h3>ID</h3></th>--%>
+        <th><h3>ID</h3></th>
+        <th><h3>Serial</h3></th>
+        <th><h3>Vendor</h3></th>
+        <th><h3>Model</h3></th>
+        <th><h3>Date of Manufacture</h3></th>
+        <th><h3>Price</h3></th>
     </tr>
     </thead>
     <tbody>
 
     <%
-        for (int i = 0; i < ulist.size(); i++) {
+        for (int i = 0; i < nlist.size(); i++) {
     %>
     <tr>
-        <td class="shrink"><%= ulist.get(i).getId()%></td>
-        <td align="left"><%= ulist.get(i).getLogin()%></td>
-        <td align="left"><input style="margin: 0 5px 0 5px"
-                                type="password"
-                                value="<%=ulist.get(i).getPass()%>" readonly>
-        </td>
-        <td><%=checkDate(ulist.get(i).getRegDate())%></td>
+        <td class="shrink"><%= nlist.get(i).getId()%></td>
+        <td align="left"><%= nlist.get(i).getSerial()%></td>
+        <td align="left"><%= nlist.get(i).getVendor()%></td>
+        <td align="left"><%= nlist.get(i).getModel()%></td>
+        <td><%=checkDate(nlist.get(i).getManDate())%></td>
+        <td align="left"><%= nlist.get(i).getPrice()%></td>
     </tr>
     <%
         }

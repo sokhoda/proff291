@@ -20,10 +20,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by s_okhoda on 09.02.2016.
@@ -84,17 +81,30 @@ public class Menu extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException {
-        try {
             if (req.getParameter("addNote") != null) {
-                req.setAttribute("messageText","");
-                req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp")
-                        .forward(req, res);
+                try {
+                    req.setAttribute("messageText", "");
+                    req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp")
+                            .forward(req, res);
+                    return;
+                }
+                catch (Exception e) {
+                    throw new ServletException(e.getMessage());
+                }
             }
 
-        }
-        catch (Exception e) {
-            throw new ServletException(e.getMessage());
-        }
+            if (req.getParameter("listNote") != null){
+                try {
+                    List<Notebook> nlist = service.findAll();
+                    req.setAttribute("nlist", nlist);
+                    req.getRequestDispatcher("/hw6.notes/pages/noteList.jsp").forward
+                            (req, res);
+                    return;
+                }
+                catch (Exception e){
+                    throw new ServletException(e.getMessage());
+                }
+            }
     }
 
     @Override
@@ -130,6 +140,8 @@ public class Menu extends HttpServlet {
                 }
 
             }
+
+
         }
         catch (NumberFormatException | ParseException  | HibernateException e) {
             req.setAttribute("messageColor","red");

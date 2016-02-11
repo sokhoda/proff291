@@ -57,8 +57,7 @@
     <img src="/hw6.notes/img/addLaptop1.jpg" align="left" style="margin-right: 20px">
     <label for="1">SERIAL:</label>
     <input type="text" value="<%= serial %>" placeholder="SN-0000-0000-0000"
-           name="serial"
-           id="1"><br>
+           name="serial" id="1"><br>
 
     <label for="2">VENDOR:</label>
     <input type="text" value="<%= vendor %>" placeholder="TOSHIBA" name="vendor" id="2"><br>
