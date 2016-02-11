@@ -28,10 +28,8 @@ import java.util.Set;
  * - Добавить новый ноутбук
  * - Изменить цену ноутбука по id
  * - Изменить серийный номер и производителя по id
- *
  * - Удалить ноутбук по id
  * - Удалить ноутбуки по названию модели
- *
  * - Показать список ноутбуков (включая порядковый номер id)
  * - Получить ноутбуки по производителю
  * - Получить ноутбуки по цене и году выпуска
@@ -102,7 +100,7 @@ public class Menu extends HttpServlet {
         serverMsg = "";
         serverErrMsg = "";
 
-        if (parameterMap.get("menuOption")[0].equals("1")) {
+        if (parameterMap.get("menuOption")[0].equals("add_new")) {
             req.getRequestDispatcher(ADD_NOTE_PAGE).forward(req, resp);
             return;
         }
@@ -121,27 +119,18 @@ public class Menu extends HttpServlet {
 
     public void main(Map<String, String[]> parameterMap) {
 
-        final String EDIT_PRICE = "2";
-        final String EDIT_SERIAL_VENDOR = "3";
-        final String DELETE_BY_ID = "4";
-        final String DELETE_BY_MODEL = "5";
-        final String SHOW_ALL = "6";
-        final String SHOW_VENDOR = "7";
-        final String SHOW_BY_PRICE_AND_DATE = "8";
-        final String SHOW_BY_PRICE_RANGE_AND_VENDOR_AND_DATE_BEFORE = "9";
-
         String option = parameterMap.get("menuOption")[0];
         Notebook note;
 
         switch (option) {
-            case EDIT_PRICE:
+            case "edit_price":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_2")[0].trim()));
                 note.setPrice(Double.valueOf(parameterMap.get("price_2")[0].trim()));
                 changePrice(note);
                 break;
 
-            case EDIT_SERIAL_VENDOR:
+            case "edit_serial_vendor":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_3")[0].trim()));
                 note.setSerial(parameterMap.get("serial_3")[0].trim());
@@ -149,32 +138,32 @@ public class Menu extends HttpServlet {
                 changeSerialVendor(note);
                 break;
 
-            case DELETE_BY_ID:
+            case "del_by_id":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_4")[0].trim()));
                 deleteNtb(note);
                 break;
 
-            case DELETE_BY_MODEL:
+            case "del_by_model":
                 deleteByModel(parameterMap.get("model_5")[0].trim());
                 break;
 
-            case SHOW_ALL:
+            case "show_all":
                 showAll();
                 break;
 
-            case SHOW_VENDOR:
+            case "show_by_vendor":
                 showByVendor(parameterMap.get("vendor_7")[0].trim());
                 break;
 
-            case SHOW_BY_PRICE_AND_DATE:
+            case "show_by_price_date":
                 showByPriceManufDate(
                         Double.valueOf(parameterMap.get("price_8")[0].trim()),
                         stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
                 );
                 break;
 
-            case SHOW_BY_PRICE_RANGE_AND_VENDOR_AND_DATE_BEFORE:
+            case "show_by_price_range_vendor_date_before":
                 showBetweenPriceLtDateByVendor(
                         Double.valueOf(parameterMap.get("priceFrom")[0].trim()),
                         Double.valueOf(parameterMap.get("priceTo")[0].trim()),
