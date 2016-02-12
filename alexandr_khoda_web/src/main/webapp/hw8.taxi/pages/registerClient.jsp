@@ -12,14 +12,14 @@
     <head>
         <title>Registration Form</title>
         <style>
-            <%@include file='/css/registerClient.css' %>
+            <%@include file='/hw8.taxi/css/registerClient.css' %>
         </style>
     </head>
 
     <body>
     <form action="/taxi" method="post">
         <img <%--height="100px" width="100px" --%>
-                src="../img/newUser.jpg" align="left"
+                src="../../img/newUser.jpg" align="left"
                 style="margin-right: 20px">
         <label for="name">Имя: </label>
         <input  type="text" placeholder="Надія" name="name" id="name"><br>

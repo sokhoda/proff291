@@ -44,11 +44,9 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         Notebook notebook = null;
         try {
-            session.beginTransaction();
             notebook = (Notebook)session.get(Notebook.class, id);
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -95,10 +93,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List<Notebook> findAll() {
         List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
-        Query query = null;
         try {
-            session.beginTransaction();
-            ScrollableResults noteCursor = session.createQuery("FROM hw6.notes.domain.Notebook").scroll();
+            ScrollableResults noteCursor = session.createQuery("FROM hw6.notes.domain.Notebook nt ORDER BY nt.price DESC").scroll();
             int count = 0;
 
             while (noteCursor.next()) {
@@ -110,8 +106,7 @@ public class NotebookDaoImpl implements NotebookDao {
                 }
             }
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -120,77 +115,95 @@ public class NotebookDaoImpl implements NotebookDao {
 
     @Override
     public List<Notebook> findByModel(String model) {
+        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         Query query = null;
         try {
-            session.beginTransaction();
             query = session.createQuery("FROM hw6.notes.domain.Notebook nb WHERE nb.model = :model");
             query.setParameter("model", model);
+
+            List results = query.list();
+            for(Object res : results) {
+                list.add((Notebook)res);
+            }
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
-        return (List<Notebook>)query.list();
+        return list;
     }
 
     @Override
     public List<Notebook> findByVendor(String vendor) {
+        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         Query query = null;
         try {
-            session.beginTransaction();
             query = session.createQuery("FROM hw6.notes.domain.Notebook nb WHERE nb.vendor = :vendor");
             query.setParameter("vendor", vendor);
+
+            List results = query.list();
+            for(Object res : results) {
+                list.add((Notebook)res);
+            }
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
-        return (List<Notebook>)query.list();
+        return list;
     }
 
     @Override
     public List<Notebook> findByPriceManufDate(Double price, Date date) {
+        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         Query query = null;
         try {
-            session.beginTransaction();
             query = session.createQuery("FROM hw6.notes.domain.Notebook nb " +
-                    "WHER nb.price = :price AND nb.date = :date");
+                    "WHERE nb.price = :price AND nb.manufactureDate = :date");
+
             query.setParameter("price", price);
             query.setParameter("date", date);
+
+            List results = query.list();
+            for(Object res : results) {
+                list.add((Notebook)res);
+            }
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
-        return (List<Notebook>)query.list();
+        return list;
     }
 
     @Override
     public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
+        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         Query query = null;
         try {
-            session.beginTransaction();
             query = session.createQuery("FROM hw6.notes.domain.Notebook nb " +
                     "WHERE nb.price >= :priceFrom AND nb.price <= :priceTo AND " +
-                    "nb.date < :date and nb.vendor = :vendor");
+                    "nb.manufactureDate < :date and nb.vendor = :vendor");
+
             query.setParameter("priceFrom", priceFrom);
             query.setParameter("priceTo", priceTo);
             query.setParameter("date", date);
             query.setParameter("vendor", vendor);
+
+            List results = query.list();
+            for(Object res : results) {
+                list.add((Notebook)res);
+            }
         } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
+            e.printStackTrace();
         } finally {
             session.close();
         }
-        return (List<Notebook>)query.list();
+        return list;
     }
 
     public int countNotebookRecords(String request) {
@@ -210,30 +223,4 @@ public class NotebookDaoImpl implements NotebookDao {
         return counter;
 
     }
-
-    //    @Override
-//    public List<Notebook> findAll() {
-//        final String req = "FROM Notebook";
-//        int counter = countNotebookRecords(req);
-//
-//        List<Notebook> list = new ArrayList<Notebook>();
-//        Session session = factory.openSession();
-//        Query query = null;
-//        try {
-//            session.beginTransaction();
-//            query = session.createQuery(req);
-//            for (int i = 0, startPos, endPos; i < counter; i += LIST_PORTION_SIZE) {
-//                startPos = i;
-//                endPos = i + LIST_PORTION_SIZE;
-//                if (endPos > counter) endPos = counter;
-//                list.addAll((List<Notebook>)query.list().subList(startPos, endPos));
-//            }
-//        } catch (HibernateException e) {
-//            log.error("Transaction failed");
-//            session.getTransaction().rollback();
-//        } finally {
-//            session.close();
-//        }
-//        return list;
-//    }
 }

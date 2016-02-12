@@ -5,7 +5,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
-<%--<%@ include file="index_TAXI.jsp"%>--%>
+<%--<%@ include file="loginTaxi.jsp"%>--%>
 
 
 
@@ -14,7 +14,9 @@
 
 
 
-    <%request.getRequestDispatcher("hw5.auth/UserAuth.jsp").forward(request,response); %>
+    <%request.getRequestDispatcher("hw6.notes/pages/menu.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("hw5.auth/UserAuth.jsp").forward(request,response); %>--%>
+    <%--<%request.getRequestDispatcher("hw8.taxi/pages/loginTaxi.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw5.users/UserAddRender.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("/pages/debug_phoneTable.jsp").forward(request,response); %>--%>
 <html>
@@ -43,7 +45,7 @@
     <%--&lt;%&ndash;<script src="JS/phone.js" type="text/javascript">    </script>&ndash;%&gt;--%>
     <%--&lt;%&ndash;<script src="JS/getDOMTree.js" type="text/javascript">    </script>&ndash;%&gt;--%>
 
-        <%--&lt;%&ndash;<%request.getRequestDispatcher("index_TAXI.jsp").forward(request, response);%>&ndash;%&gt;--%>
+        <%--&lt;%&ndash;<%request.getRequestDispatcher("loginTaxi.jsp").forward(request, response);%>&ndash;%&gt;--%>
 
     <%--<p id="outText1" onclick=" global = 2; functionFun()" >text1</p>--%>
     <%--<p id="outText2"></p>--%>

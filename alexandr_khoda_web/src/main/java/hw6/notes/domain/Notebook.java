@@ -29,13 +29,14 @@ public class Notebook {
     private GregorianCalendar manDate;
 
     @Column(name="PRICE")
-    private int price;
+    private double price;
 
     public Notebook(){
 
     }
 
-    public Notebook(long id, String serial, String vendor, String model, GregorianCalendar manDate, int price) {
+    public Notebook(long id, String serial, String vendor, String model,
+                    GregorianCalendar manDate, double price) {
         this.id = id;
         this.serial = serial;
         this.vendor = vendor;
@@ -44,13 +45,23 @@ public class Notebook {
         this.price = price;
     }
 
-    public Notebook(long id, String vendor, int price) {
-        this(id, "<none>", vendor, "<none>", new GregorianCalendar(), price);
+    public Notebook(String serial, String vendor, String model, GregorianCalendar manDate, double price) {
+        this(0, serial, vendor, model, manDate, price);
     }
 
-    public Notebook(long id, String vendor, String model, int price) {
-        this(id, "<none>", vendor, model, new GregorianCalendar(), price);
+//    public Notebook(String serial, String vendor, String model, String
+//            manDate, String price) {
+//        this(0, serial, vendor, model, manDate, price);
+//    }
+
+    public Notebook(String vendor, double price) {
+        this(0, "<none>", vendor, "<none>", new GregorianCalendar(), price);
     }
+
+    public Notebook(String vendor, String model, double price) {
+        this(0, "<none>", vendor, model, new GregorianCalendar(), price);
+    }
+
     @Override
     public String toString(){
         return "id=" + id + ", serial=" + serial + ", " + vendor + ", " +
@@ -97,11 +108,11 @@ public class Notebook {
         this.manDate = manDate;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

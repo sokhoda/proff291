@@ -46,6 +46,9 @@ public class OperatorHql {
             }
 
             System.out.println("-------------------------------");
+
+            //Works only with objects. Doesn't need transaction (like select in SQL)
+            // for like SQL - insert (save), update - we need transaction
             query = session.createQuery("from Operator r where r.id > " + operatorId);
             List<org.hibernate.cache.spi.Region> list3 = query.list();
 

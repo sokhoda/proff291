@@ -14,7 +14,7 @@
 <head>
     <title>UserList</title>
     <style>
-        <%@include file='/css/userList.css' %>
+        <%@include file='/hw5.users/css/userList.css' %>
     </style>
 </head>
 
