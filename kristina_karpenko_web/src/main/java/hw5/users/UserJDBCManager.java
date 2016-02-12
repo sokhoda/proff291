@@ -8,15 +8,15 @@ import java.util.Locale;
 
 public class UserJDBCManager {
 
-    public int create(User user) {
+    public int create(User user)throws ClassNotFoundException, SQLException {
 
         Locale.setDefault(Locale.ENGLISH);
         System.out.println("Application is started...");
         Connection conn = null;
      //   String url = "jdbc:oracle:thin:@localhost:1521:XE";
-
+        Class.forName("oracle.jdbc.driver.OracleDriver");
         try {
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "NOTEBOOKES", "SYS");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "NOTEBOOKS", "SYS");
             Statement stnt = conn.createStatement();
             System.out.println(user.getId());
             PreparedStatement ps = conn.prepareStatement("insert into USERS values(?,?,?,?)");
@@ -43,13 +43,13 @@ public class UserJDBCManager {
         return user.getId();
     }
 
-    public List findAll() {
+    public List findAll()throws ClassNotFoundException, SQLException {
         List subUsers = new ArrayList<>();
         Locale.setDefault(Locale.ENGLISH);
         System.out.println("Application is started...");
         Connection conn = null;
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
-
+        Class.forName("oracle.jdbc.driver.OracleDriver");
         try {
             conn = DriverManager.getConnection(url, "NOTEBOOKES", "SYS");
             Statement stnt = conn.createStatement();
