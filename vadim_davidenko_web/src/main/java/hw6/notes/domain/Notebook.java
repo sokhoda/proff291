@@ -1,7 +1,11 @@
 package hw6.notes.domain;
 
+import hw6.notes.util.Utils;
+
 import javax.persistence.*;
 import java.util.Date;
+
+import static hw6.notes.util.Utils.DATEFORMAT_COMMON;
 
 /**
  * Created by Вадим on 07.02.2016.
@@ -12,9 +16,9 @@ import java.util.Date;
 @Table(name = "NOTEBOOKS")
 public class Notebook {
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "NOTEBOOKS_SEQ",
+    @SequenceGenerator(name = "NOTEBOOKS_SEQ", sequenceName = "NOTEBOOKS_SEQ",
             allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOKS_SEQ")
 
     @Column(name = "ID")
     private Long id;
@@ -91,6 +95,14 @@ public class Notebook {
         return manufactureDate;
     }
 
+    @Transient
+    public String getManufactureDateStr() {
+        if (manufactureDate != null) {
+            return DATEFORMAT_COMMON.get().format(manufactureDate);
+        }
+        return "";
+    }
+
     public void setManufactureDate(Date manufactureDate) {
         this.manufactureDate = manufactureDate;
     }
@@ -102,4 +114,5 @@ public class Notebook {
     public void setPrice(Double price) {
         this.price = price;
     }
+
 }

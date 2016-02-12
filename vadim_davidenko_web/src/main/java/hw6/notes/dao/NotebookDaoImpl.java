@@ -94,7 +94,7 @@ public class NotebookDaoImpl implements NotebookDao {
         List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         try {
-            ScrollableResults noteCursor = session.createQuery("FROM hw6.notes.domain.Notebook").scroll();
+            ScrollableResults noteCursor = session.createQuery("FROM hw6.notes.domain.Notebook nt ORDER BY nt.price DESC").scroll();
             int count = 0;
 
             while (noteCursor.next()) {

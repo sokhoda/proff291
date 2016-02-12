@@ -66,5 +66,8 @@
 <a href="dashboard.jsp">
     <button>Order page</button>
 </a>
+<a href="notebooksPage.jsp">
+    <button>Notebooks page</button>
+</a>
 </body>
 </html>
