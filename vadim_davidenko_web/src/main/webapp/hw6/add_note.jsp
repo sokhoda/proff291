@@ -50,7 +50,7 @@
           <td align="center">
             <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
           </td>
-          <td align="center"><a href="menu.jsp">Menu</a></td>
+          <td align="center"><a href="hw6/menu.jsp">Menu</a></td>
         </tr>
       </table>
     </form>

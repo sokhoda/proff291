@@ -51,8 +51,8 @@ public class Menu extends HttpServlet {
     final static String NOTE_DELETED_MSG = "Notebooks removed from reference";
     final static String SOME_NOTE_NOT_EXIST_MSG = "Some notebook(s) does not exist";
     final static String NO_RECORDS_FOUND_MSG = "No records found";
-    final static String MENU_PAGE = "menu.jsp";
-    final static String ADD_NOTE_PAGE = "add_note.jsp";
+    final static String MENU_PAGE = "hw6/menu.jsp";
+    final static String ADD_NOTE_PAGE = "hw6/add_note.jsp";
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
