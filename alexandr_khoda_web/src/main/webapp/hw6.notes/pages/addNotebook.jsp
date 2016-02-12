@@ -6,7 +6,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.GregorianCalendar" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page errorPage="/hw5.users/errorPage.jsp" %>
+<%@ page import="static hw6.notes.view.Menu.*" %>
+<%@ page errorPage="/hw6.notes/pages/errorPage.jsp" %>
 <script src="/hw6.notes/JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
@@ -17,28 +18,28 @@
     </style>
 </head>
 <body>
-<%!
-    private String checkDate(GregorianCalendar gc) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-        if (gc == null) {
-            return "null";
-        }
-        else {
-            return format1.format(gc.getTime());
-        }
-    }
-    private String getAttribValue(HttpServletRequest req, String name){
-        if (name == null){
-            return "";
-        }
-        if (req.getAttribute(name) == null){
-            return "";
-        }
-        else {
-            return (String)req.getAttribute(name);
-        }
-    }
-%>
+<%--<%!--%>
+    <%--private String checkDate(GregorianCalendar gc) {--%>
+        <%--SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");--%>
+        <%--if (gc == null) {--%>
+            <%--return "null";--%>
+        <%--}--%>
+        <%--else {--%>
+            <%--return format1.format(gc.getTime());--%>
+        <%--}--%>
+    <%--}--%>
+    <%--private String getAttribValue(HttpServletRequest req, String name){--%>
+        <%--if (name == null){--%>
+            <%--return "";--%>
+        <%--}--%>
+        <%--if (req.getAttribute(name) == null){--%>
+            <%--return "";--%>
+        <%--}--%>
+        <%--else {--%>
+            <%--return (String)req.getAttribute(name);--%>
+        <%--}--%>
+    <%--}--%>
+<%--%>--%>
 <%
     String serial = getAttribValue(request, "serialA");
     String vendor = getAttribValue(request, "vendorA");
@@ -47,8 +48,7 @@
     String price = getAttribValue(request, "priceA");
 
 
-    String messageColor = getAttribValue(request, "messageColor");
-    String messageText = getAttribValue(request, "messageText");
+    String[] message = getAttribArray(request);
 %>
 
 
@@ -83,8 +83,8 @@
     </p>
     <br>
     <br>
-    <label id="message" style="width: 100%; margin-top:10%; color:<%=messageColor%>;
-            text-align: center; font-size:x-large"><%=messageText%>
+    <label id="message" style="width: 100%; margin-top:10%; color:<%=message[0]%>;
+            text-align: center; font-size:x-large"><%=message[1]%>
     </label>
 </form>
 
