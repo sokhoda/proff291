@@ -112,7 +112,7 @@
                 <td align="center">
                     <input type="button" value="Select" onclick="submitMenuForm(document.menuForm)" style="width: 110px"/>
                 </td>
-                <td align="center" colspan="3"><a href="index.jsp">Log off</a></td>
+                <td align="center" colspan="3"><a href="../index.jsp">Log off</a></td>
                 <td colspan="5"></td>
             </tr>
         </table>
