@@ -26,6 +26,7 @@ public class ConnectTest {
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         try {
             conn = DriverManager.getConnection(url, "hr", "hr");
+            System.out.println("Successfull connection");
         } catch (SQLException e) {
             System.out.println("Connection has failed");
             e.printStackTrace();

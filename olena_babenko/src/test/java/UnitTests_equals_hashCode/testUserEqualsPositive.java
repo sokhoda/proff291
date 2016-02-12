@@ -29,7 +29,7 @@ public class testUserEqualsPositive {
 
     }
 
-    //verify equality for users (not null login, pass and reg data; all fields are equal)
+    //verify equality for hw5.users (not null login, pass and reg data; all fields are equal)
     @Test
     public void isEqualUsers(){
         Assert.assertTrue(user1.equals(user2));

@@ -108,13 +108,13 @@
         <!--
         For install Oracle JDBC driver to your local Maven repository, you should exec following commands:
 
-        1) Copy ojdbc6.jar into your users folder /
+        1) Copy ojdbc6.jar into your hw5.users folder /
 
         2) Set up maven
         // For Windows
-        set PATH=%PATH%;F:\Distr\_Flash_Alex\apache-maven-3.3.9-bin\bin
+        set PATH=%PATH%;F:\#Distr\_Flash_Alex\apache-maven-3.3.9-bin\bin
         // For Linux
-        export PATH=$PATH:/home/users/install/apache-maven-3.2.1/bin
+        export PATH=$PATH:/home/hw5.users/install/apache-maven-3.2.1/bin
 
         3) Set up java
         set JAVA_HOME=E:\Program Files (x86)\Java\jdk1.8.0_60

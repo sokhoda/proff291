@@ -29,7 +29,7 @@ public class HiberQueries {
         Session session = null;
         try {
             session = factory.openSession();
-            Query query = session.createQuery("from Region r where r.id > 2");
+            Query query = session.createQuery("from Region r where r.id != 2");
             List<Region> list = query.list();
             log.info(list);
 
@@ -38,6 +38,19 @@ public class HiberQueries {
             System.out.println(Arrays.toString(list2.get(0)));
             System.out.println(Arrays.toString(list2.get(1)));
             log.info(list);
+
+            String name = "%";
+            query = session.createQuery("from Region r where r.name like :name");
+            query.setParameter("name", name);
+
+            int portionSize = 2;
+            List count;
+            for (int i = 0; (count = query.list()).size() != 0; i += portionSize) {
+                query.setFirstResult(i);
+                query.setMaxResults(portionSize);
+                System.out.println(count);
+            }
+
         } catch (HibernateException e) {
             log.error("Open session failed", e);
             if (session != null) {
@@ -52,6 +65,7 @@ public class HiberQueries {
         log.info(session);
 
     }
+
     private static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
         Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
