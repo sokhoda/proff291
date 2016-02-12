@@ -1,8 +1,8 @@
-<%@ page import="hw5.users.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.GregorianCalendar" %>
-<%@ page import="hw6.notes.domain.Notebook" %><%--
+<%@ page import="hw6.notes.domain.Notebook" %>
+<%@ page import="static hw6.notes.view.Menu.*" %>
+<%@ page errorPage="/hw6.notes/pages/generalErrorPage.jsp" %>
+<%--
   Created by IntelliJ IDEA.
   User: s_okhoda
   Date: 04.02.2016
@@ -22,32 +22,24 @@
 <body>
 <%!
     List<Notebook> nlist;
-    String message = "";
-
-    private String checkDate(GregorianCalendar gc) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-        if (gc == null) {
-            return "null";
-        }
-        else {
-            return format1.format(gc.getTime());
-        }
+%>
+<%
+    nlist = (List<Notebook>) request.getAttribute("nlist");
+    String[] message = getAttribArray(request);
+    if (nlist.size() == 0 ) {
+        message[0] = "brown";
+        message[1] = "Notebook list is empty.";
     }
 %>
 <%--onclick="window.location.href='/hw5.users/UserAddRender.jsp'"--%>
 <div>
     <a href="/hw6.notes/pages/menu.jsp">
         <button name="back" class="but">&longleftarrow;</button>
-    </a>
-    <label class="regMessage"><%=message%></label>
+    </a><label class="regMessage"style="color: <%=message[0]%>"><%=message[1]%></label>
 </div>
 
 <%
-    nlist = (List<Notebook>) request.getAttribute("nlist");
-    if (nlist.size() == 0 ) {
-        message = "Notebook list is empty.";
-    }
-    else {
+    if (nlist.size() != 0 ) {
 %>
 <table>
     <thead>
