@@ -7,6 +7,7 @@ import hw6.notes.domain.Notebook;
 import hw6.notes.service.NotebookService;
 import hw6.notes.service.NotebookServiceImpl;
 import hw6.notes.util.HibernateUtil;
+import hw6.notes.util.Utils;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletException;
@@ -76,7 +77,7 @@ public class Menu extends HttpServlet {
         note.setModel(parameterMap.get("model")[0].trim());
         note.setVendor(parameterMap.get("vendor")[0].trim());
         note.setSerial(parameterMap.get("serial")[0].trim());
-        Date date = stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
+        Date date = Utils.stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
         note.setManufactureDate(date);
         String price = parameterMap.get("price")[0];
         note.setPrice(Double.valueOf(price));
@@ -159,7 +160,7 @@ public class Menu extends HttpServlet {
             case "show_by_price_date":
                 showByPriceManufDate(
                         Double.valueOf(parameterMap.get("price_8")[0].trim()),
-                        stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
+                        Utils.stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
                 );
                 break;
 
@@ -167,7 +168,7 @@ public class Menu extends HttpServlet {
                 showBetweenPriceLtDateByVendor(
                         Double.valueOf(parameterMap.get("priceFrom")[0].trim()),
                         Double.valueOf(parameterMap.get("priceTo")[0].trim()),
-                        stringToDate(parameterMap.get("date_9")[0].trim(), "dd.MM.yyyy"),
+                        Utils.stringToDate(parameterMap.get("date_9")[0].trim(), "dd.MM.yyyy"),
                         parameterMap.get("vendor_9")[0].trim()
                 );
                 break;
@@ -243,18 +244,5 @@ public class Menu extends HttpServlet {
     public void showBetweenPriceLtDateByVendor(double priceFrom, double priceTo, Date date, String vendor) {
         notesList = noteService.findBetweenPriceLtDateByVendor(priceFrom, priceTo, date, vendor);
         if (notesList == null || notesList.isEmpty()) serverErrMsg = NO_RECORDS_FOUND_MSG;
-    }
-
-    private static Date stringToDate(String dateInString, String format) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        Date date = null;
-        try {
-            date = formatter.parse(dateInString);
-            System.out.println(date);
-            System.out.println(formatter.format(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 }
