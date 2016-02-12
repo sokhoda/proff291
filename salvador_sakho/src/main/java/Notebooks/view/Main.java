@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
@@ -42,6 +41,7 @@ public class Main extends Application {
 //       String notes= noteService.getAllNotes().toString();
 //        outPutField.setText(notes);
 //    }
+
 
     public static void main(String[] args) {
         launch(args);
