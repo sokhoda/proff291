@@ -7,6 +7,7 @@ import hw6.notes.domain.Notebook;
 import hw6.notes.service.NotebookService;
 import hw6.notes.service.NotebookServiceImpl;
 import hw6.notes.util.HibernateUtil;
+import hw6.notes.util.Utils;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletException;
@@ -28,10 +29,8 @@ import java.util.Set;
  * - Добавить новый ноутбук
  * - Изменить цену ноутбука по id
  * - Изменить серийный номер и производителя по id
- *
  * - Удалить ноутбук по id
  * - Удалить ноутбуки по названию модели
- *
  * - Показать список ноутбуков (включая порядковый номер id)
  * - Получить ноутбуки по производителю
  * - Получить ноутбуки по цене и году выпуска
@@ -78,7 +77,7 @@ public class Menu extends HttpServlet {
         note.setModel(parameterMap.get("model")[0].trim());
         note.setVendor(parameterMap.get("vendor")[0].trim());
         note.setSerial(parameterMap.get("serial")[0].trim());
-        Date date = stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
+        Date date = Utils.stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
         note.setManufactureDate(date);
         String price = parameterMap.get("price")[0];
         note.setPrice(Double.valueOf(price));
@@ -102,7 +101,7 @@ public class Menu extends HttpServlet {
         serverMsg = "";
         serverErrMsg = "";
 
-        if (parameterMap.get("menuOption")[0].equals("1")) {
+        if (parameterMap.get("menuOption")[0].equals("add_new")) {
             req.getRequestDispatcher(ADD_NOTE_PAGE).forward(req, resp);
             return;
         }
@@ -121,27 +120,18 @@ public class Menu extends HttpServlet {
 
     public void main(Map<String, String[]> parameterMap) {
 
-        final String EDIT_PRICE = "2";
-        final String EDIT_SERIAL_VENDOR = "3";
-        final String DELETE_BY_ID = "4";
-        final String DELETE_BY_MODEL = "5";
-        final String SHOW_ALL = "6";
-        final String SHOW_VENDOR = "7";
-        final String SHOW_BY_PRICE_AND_DATE = "8";
-        final String SHOW_BY_PRICE_RANGE_AND_VENDOR_AND_DATE_BEFORE = "9";
-
         String option = parameterMap.get("menuOption")[0];
         Notebook note;
 
         switch (option) {
-            case EDIT_PRICE:
+            case "edit_price":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_2")[0].trim()));
                 note.setPrice(Double.valueOf(parameterMap.get("price_2")[0].trim()));
                 changePrice(note);
                 break;
 
-            case EDIT_SERIAL_VENDOR:
+            case "edit_serial_vendor":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_3")[0].trim()));
                 note.setSerial(parameterMap.get("serial_3")[0].trim());
@@ -149,36 +139,36 @@ public class Menu extends HttpServlet {
                 changeSerialVendor(note);
                 break;
 
-            case DELETE_BY_ID:
+            case "del_by_id":
                 note = new Notebook();
                 note.setId(Long.valueOf(parameterMap.get("id_4")[0].trim()));
                 deleteNtb(note);
                 break;
 
-            case DELETE_BY_MODEL:
+            case "del_by_model":
                 deleteByModel(parameterMap.get("model_5")[0].trim());
                 break;
 
-            case SHOW_ALL:
+            case "show_all":
                 showAll();
                 break;
 
-            case SHOW_VENDOR:
+            case "show_by_vendor":
                 showByVendor(parameterMap.get("vendor_7")[0].trim());
                 break;
 
-            case SHOW_BY_PRICE_AND_DATE:
+            case "show_by_price_date":
                 showByPriceManufDate(
                         Double.valueOf(parameterMap.get("price_8")[0].trim()),
-                        stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
+                        Utils.stringToDate(parameterMap.get("date_8")[0].trim(), "dd.MM.yyyy")
                 );
                 break;
 
-            case SHOW_BY_PRICE_RANGE_AND_VENDOR_AND_DATE_BEFORE:
+            case "show_by_price_range_vendor_date_before":
                 showBetweenPriceLtDateByVendor(
                         Double.valueOf(parameterMap.get("priceFrom")[0].trim()),
                         Double.valueOf(parameterMap.get("priceTo")[0].trim()),
-                        stringToDate(parameterMap.get("date_9")[0].trim(), "dd.MM.yyyy"),
+                        Utils.stringToDate(parameterMap.get("date_9")[0].trim(), "dd.MM.yyyy"),
                         parameterMap.get("vendor_9")[0].trim()
                 );
                 break;
@@ -254,18 +244,5 @@ public class Menu extends HttpServlet {
     public void showBetweenPriceLtDateByVendor(double priceFrom, double priceTo, Date date, String vendor) {
         notesList = noteService.findBetweenPriceLtDateByVendor(priceFrom, priceTo, date, vendor);
         if (notesList == null || notesList.isEmpty()) serverErrMsg = NO_RECORDS_FOUND_MSG;
-    }
-
-    private static Date stringToDate(String dateInString, String format) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        Date date = null;
-        try {
-            date = formatter.parse(dateInString);
-            System.out.println(date);
-            System.out.println(formatter.format(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
     }
 }
