@@ -1,7 +1,7 @@
 <%@ page import="hw5.users.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.GregorianCalendar" %><%--
+<%@ page import="java.util.GregorianCalendar" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: s_okhoda
   Date: 04.02.2016
@@ -14,16 +14,15 @@
 <head>
     <title>UserList</title>
     <style>
-        <%@include file='/css/userList.css' %>
+        <%@include file='/hw5.users/css/userList.css' %>
     </style>
 </head>
 
 <body>
 <%!
     List<User> ulist;
-    String message = "";
 
-    private String checkDate(GregorianCalendar gc) {
+    public static String checkDate(GregorianCalendar gc) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
         if (gc == null) {
             return "null";
@@ -33,20 +32,28 @@
         }
     }
 %>
+<%
+    ulist = (List<User>) request.getAttribute("ulist");
+    String[] message = null; //= getAttribArray(request);
+    message[0] = "brown";
+    if (ulist.size() == 0 ) {
+        message[1] = "User list is empty.";
+    }
+    else{
+        message[1] = "";
+    }
+
+%>
 <%--onclick="window.location.href='/hw5.users/UserAddRender.jsp'"--%>
 <div>
     <a href="/hw5.users/UserAddRender.jsp">
         <button name="back" class="but">&longleftarrow;</button>
-    </a>
-    <label class="regMessage"><%=message%></label>
+    </a><label class="regMessage"
+           style="color:<%=message[0]%>"><%=message[1]%></label>
 </div>
 
 <%
-    ulist = (List<User>) request.getAttribute("ulist");
-    if (ulist.size() == 0 ) {
-        message = "User list is empty.";
-    }
-    else {
+    if (ulist.size() != 0 ) {
 %>
 <table>
     <thead>

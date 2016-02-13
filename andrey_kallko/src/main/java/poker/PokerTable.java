@@ -652,7 +652,7 @@ public class PokerTable extends Application {
 
 //        task.setOnSucceeded(new EventHandler() {
 //            public void handle(WorkerStateEvent event) {
-//                users.setAll(findedUsers);
+//                hw5.users.setAll(findedUsers);
 //            }
 //        });
 

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h2>List of registered users</h2>
+<h2>List of registered hw5.users</h2>
 <h4 style="color: green">${server_msg}</h4>
 
 <p><a href="/hw5/login_form.jsp">Login</a></p>
@@ -21,8 +21,8 @@
 
 <table border="0" cellpadding="6"  style="background-color: #d4ecff">
     <%
-    Map<String, String[]> users = (Map<String, String[]>)request.getAttribute("users");
-    if(users != null && !users.isEmpty())
+    Map<String, String[]> hw5.users = (Map<String, String[]>)request.getAttribute("hw5.users");
+    if(hw5.users != null && !hw5.users.isEmpty())
     {%>
     <tr>
         <th>Login</th>
@@ -35,7 +35,7 @@
          <td colspan="5"><hr/></td>
     </tr>
     <%
-        for (Map.Entry<String, String[]> user : users.entrySet()){
+        for (Map.Entry<String, String[]> user : hw5.users.entrySet()){
     %>
     <tr>
         <td><%=user.getKey()%></td>
