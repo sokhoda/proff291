@@ -1,8 +1,7 @@
-package hw6.notes.view;
+package hw6.notes.service;
 
 import hw6.notes.Main;
 import hw6.notes.domain.Notebook;
-import hw6.notes.service.NotebookService;
 import hw6.notes.util.Utils;
 
 import javax.servlet.ServletException;
