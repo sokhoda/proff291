@@ -1,6 +1,7 @@
 package hw6.notes.service;
 
 import hw6.notes.dao.NotebookDao;
+import hw6.notes.dao.NotebookDaoImpl;
 import hw6.notes.domain.Notebook;
 
 import java.util.Date;
@@ -17,6 +18,9 @@ public class NotebookServiceImpl implements NotebookService {
         this.notebookDao = notebookDao;
     }
 
+    public NotebookServiceImpl() {
+        notebookDao = new NotebookDaoImpl();
+    }
 
     @Override
     public Long add(Notebook notebook) {
