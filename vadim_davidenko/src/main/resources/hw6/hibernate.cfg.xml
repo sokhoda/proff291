@@ -15,6 +15,6 @@
         <property name="hibernate.jdbc.batch_size">20</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="hw6.Notebook"/>
+        <mapping class="hw6.notes.domain.Notebook"/>
     </session-factory>
 </hibernate-configuration>
