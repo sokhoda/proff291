@@ -38,7 +38,7 @@
             <input type="text" name="date" hidden/>
             <input type="text" name="dd" size="2" maxlength="2"/>.
             <input type="text" name="mm" size="2" maxlength="2"/>.
-            <input type="text" name="yy" size="4" maxlength="4"/>
+            <input type="text" name="yyyy" size="4" maxlength="4"/>
           </td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
           <td align="center">
             <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
           </td>
-          <td align="center"><a href="menu.jsp">Menu</a></td>
+          <td align="center"><a href="hw6/menu.jsp">Menu</a></td>
         </tr>
       </table>
     </form>
@@ -67,7 +67,7 @@
   document.regForm.serial.value = '${serial}';
   document.regForm.dd.value = '${date}'.substring(0, 2);
   document.regForm.mm.value = '${date}'.substring(3, 5);
-  document.regForm.yy.value = '${date}'.substring(6);
+  document.regForm.yyyy.value = '${date}'.substring(6);
   document.regForm.price.value = '${price}';
 
   function submitRegForm(form) {
@@ -92,7 +92,7 @@
   function readDate(form) {
     var dd = (form.dd.value.length == 1) ? '0' + form.dd.value : form.dd.value;
     var mm = (form.mm.value.length == 1) ? '0' + form.mm.value : form.mm.value;
-    return dd + '.' + mm + '.' + form.yy.value;
+    return dd + '.' + mm + '.' + form.yyyy.value;
   }
 </script>
 
