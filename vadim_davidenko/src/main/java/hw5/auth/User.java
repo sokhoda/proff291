@@ -11,7 +11,8 @@ public class User {
     private String password;
     private Date date;
 
-    public User(String name, String password, Date date) {
+    public User(Integer id, String name, String password, Date date) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.date = date;

@@ -22,7 +22,6 @@ public class Menu {
     private Scanner scan;
 
     public Menu(ClientService userService) {
-        this();
         this.userService = userService;
     }
 

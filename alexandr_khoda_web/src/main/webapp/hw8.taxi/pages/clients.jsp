@@ -15,14 +15,14 @@
 <head>
     <title>Requested List of Clients</title>
     <style>
-        <%@include file='/css/clients.css' %>
+        <%@include file='/hw8.taxi/css/clients.css' %>
     </style>
 </head>
 <body>
 
 <form action="/taxi" method="post">
     <button type="submit" name="back">Назад в Главное меню</button>
-    <a href="/pages/registerClient.jsp"><button type="submit">Новый клиент</button></a>
+    <a href="/hw8.taxi/pages/registerClient.jsp"><button type="submit">Новый клиент</button></a>
 
     <table border="2">
         <thead>
