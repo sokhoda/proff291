@@ -64,7 +64,6 @@ public class UserProcessingMethods {
         } else {
             return false;
         }
-
     }
 
     public boolean verifyUserCredentials(String login, String password) {
