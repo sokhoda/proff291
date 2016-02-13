@@ -18,6 +18,8 @@ public class NotebookDaoImpl implements NotebookDao {
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
     private SessionFactory factory;
 
+    public NotebookDaoImpl() {}
+
     public NotebookDaoImpl(SessionFactory factory) {
         this.factory = factory;
     }

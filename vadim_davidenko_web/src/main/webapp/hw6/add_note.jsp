@@ -80,7 +80,7 @@
   function checkRegFields(form) {
     if(!form.model.value.trim() || !form.vendor.value.trim() ||
             !form.serial.value.trim() || !form.dd.value.trim() ||
-            !form.mm.value.trim() || !form.yy.value.trim() |
+            !form.mm.value.trim() || !form.yyyy.value.trim() ||
             !form.price.value.trim() || isNaN(+form.price.value))
     {
       alert("Please, fill in all fields with valid values!");
