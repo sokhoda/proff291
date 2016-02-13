@@ -7,17 +7,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-//import session11.Region;
 
 import java.util.Locale;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 20.09.14
+ * Created by Юлия on 06.02.2016.
  */
-public class HiberConnect {
-    private static Logger log = Logger.getLogger(HiberConnect.class);
+public class HibernateConnection {
+    private static Logger log = Logger.getLogger(HibernateConnection.class);
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
@@ -32,16 +29,17 @@ public class HiberConnect {
         Session session = null;
         try {
             session = factory.openSession();
-            Region region = (Region)session.get(Region.class, 1L);
-            log.info(region);
-
-            Region ua = new Region("EuroUkraine");
-            ua.setId(1L);
+            Region region = (Region) session.get(Region.class, 1L);
+            Region uae = new Region("EuroUkraine");
             session.beginTransaction();
+            session.save(uae);
 
-            session.delete(ua);
+            uae.setName("AsiaUkraine");
+            session.update(uae);
+            session.delete(uae);
             session.getTransaction().commit();
 
+//            log.info(region);
             log.info("Connection established");
             log.info(session);
         } catch (HibernateException e) {
@@ -67,4 +65,3 @@ public class HiberConnect {
         return cfg.buildSessionFactory(standardServiceRegistry);
     }
 }
-

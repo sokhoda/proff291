@@ -1,23 +1,22 @@
 package session11;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-//import session11.Region;
 
+import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 20.09.14
+ * Created by Юлия on 06.02.2016.
  */
-public class HiberConnect {
-    private static Logger log = Logger.getLogger(HiberConnect.class);
+public class CreateNewUsers {
+
+    private static Logger log = Logger.getLogger(HibernateConnection.class);
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
@@ -32,16 +31,31 @@ public class HiberConnect {
         Session session = null;
         try {
             session = factory.openSession();
-            Region region = (Region)session.get(Region.class, 1L);
-            log.info(region);
 
-            Region ua = new Region("EuroUkraine");
-            ua.setId(1L);
+            User yul = new User("YULIIA");
+            yul.setLogin("yul123");
+            yul.setPassword("1234");
+            yul.setDate(new Date());
+
+            User den = new User("DENIS");
+            den.setLogin("deniel");
+            den.setPassword("4232");
+            den.setDate(new Date());
+
+            User al = new User("AllA");
+            al.setLogin("al23");
+            al.setPassword("9876");
+            al.setDate(new Date());
+
             session.beginTransaction();
+            session.save(yul);
+            session.save(den);
+            session.save(al);
 
-            session.delete(ua);
             session.getTransaction().commit();
+//
 
+//            log.info(region);
             log.info("Connection established");
             log.info(session);
         } catch (HibernateException e) {
@@ -67,4 +81,3 @@ public class HiberConnect {
         return cfg.buildSessionFactory(standardServiceRegistry);
     }
 }
-
