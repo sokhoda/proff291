@@ -46,7 +46,7 @@ public class LUs extends HttpServlet {
             out.print("Не вірний логін чи пароль" + "<br/>" + "<p></p>");
         }
 
-        out.print("<a href=\"http://localhost:8080/LUr.html\">Перейти на сторінку реєстрації</a>" + "<br/>" + "<p></p>");
+        out.print("<a href=\"http://localhost:8082/LUr.html\">Перейти на сторінку реєстрації</a>" + "<br/>" + "<p></p>");
         out.print("</BODY>");
         out.print("</form>");
         out.print("</html>");
