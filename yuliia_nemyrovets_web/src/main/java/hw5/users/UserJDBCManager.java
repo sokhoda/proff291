@@ -39,10 +39,10 @@ public class UserJDBCManager {
 
     public int create(User user) {
         Connection conn = null;
-        Statement stmt = null;
+
         try {
             conn = connection();
-            stmt = conn.createStatement();
+
             CallableStatement pt = conn.prepareCall("{? = call getUserByName(?)}");
   //         PreparedStatement pt = conn.prepareStatement(" INSERT INTO USER_TABLE USER_NAME,USER_ID,USER_PASSWORD,USER_DATE VALUES (?,?,?,?)");
             pt.setString(1, user.getName());
