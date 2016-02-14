@@ -49,10 +49,10 @@ public class Employee {
     @JoinColumn(name = "MANAGER_ID")
     private Employee manager;
 
-    @Column(name = "DEPARTMENT_ID")
-//        @OneToOne
-//        @JoinColumn(name = "DEPARTMENT_ID")
-    private Long departmentId;
+//    @Column(name = "DEPARTMENT_ID")
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
+    private Department department;
 
     public Employee() {
 
@@ -147,12 +147,8 @@ public class Employee {
         this.jobId = jobId;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
     @Override
