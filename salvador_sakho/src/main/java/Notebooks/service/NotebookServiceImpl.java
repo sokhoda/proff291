@@ -14,14 +14,17 @@ public class NotebookServiceImpl implements NotebookService {
     public NotebookServiceImpl(NotebookDao dao) {
         noteDao = dao;
     }
+
     @Override
-    public List <Notebook> getAllNotes() {
+    public List<Notebook> getAllNotes() {
         return noteDao.findAll();
     }
+
     @Override
     public void addNewNote(Notebook note) {
         System.out.println("Note preparing added to DB, my congratulations Salva");
         noteDao.createNote(note);
         System.out.println("Note added to DB, my congratulations Salva");
     }
+
 }
