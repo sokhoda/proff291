@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -53,19 +54,19 @@ public class FormProcessor extends HttpServlet {
 
     }
 
-    private Employee hiber() {
+    private String hiber() {
 
         log.info("Reference to SessionFactory " + factory);
 
         Session session = null;
         try {
             session = factory.openSession();
-            return (Employee) session.get(Employee.class, 100L);
+            List<Object[]> list = session.createQuery("from Employee e join e.department d where e.salary < 4000 and d.locationId > 20").list();
+            String res = getString(list);
+            return res;
+//            return (Employee) session.get(Employee.class, 100L);
         } catch (HibernateException e) {
             log.error("Open session failed", e);
-            if (session != null) {
-                session.getTransaction().rollback();
-            }
         } finally {
             if (session != null) {
                 session.close();
@@ -74,6 +75,17 @@ public class FormProcessor extends HttpServlet {
 //        log.info(session);
         factory.close();
         return null;
+    }
+
+    private String getString(List<Object[]> list) {
+        String res = "size: " + list.size() + "\n";
+        for (Object[] array : list) {
+            for (Object el : array) {
+                res += el + ", ";
+            }
+            res += "\n-----------\n";
+        }
+        return res;
     }
 
     protected void doGet(HttpServletRequest request,
