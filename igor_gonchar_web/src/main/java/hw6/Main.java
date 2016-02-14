@@ -1,5 +1,9 @@
 package hw6;
 
+import hw6.notes.dao.NotebookDao;
+import hw6.notes.dao.NotebookDaoImpl;
+import hw6.notes.service.NotebookService;
+import hw6.notes.service.NotebookServiceImpl;
 import hw6.notes.util.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -19,17 +23,10 @@ import java.io.IOException;
 
 
 public class Main {
+    HibernateUtil util = new HibernateUtil();
+    SessionFactory sessionFactory = util.getSessionFactory();
+    NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
+    NotebookService notebookService = new NotebookServiceImpl(notebookDao);
 }
 
 
-   /* HibernateUtil util = new HibernateUtil();
-    Logger log = HibernateUtil.getLog();
-    SessionFactory factory = util.getSessionFactory();
-    Session session = null;
-try{
-        session = factory.openSession();
-        log.info(session);
-        log.info("Everything is OK");
-        }finally {
-        util.closeSessionAndFactory(factory, session);
-        }*/

@@ -1,5 +1,6 @@
 package hw6.notes.util;
 
+import hw6.notes.dao.NotebookDaoImpl;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,7 @@ import java.util.Locale;
  */
 public class HibernateUtil {
 
-    private static Logger log = Logger.getLogger(HibernateUtil.class);
+    private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
 
     public SessionFactory getSessionFactory(){
         Locale.setDefault(Locale.ENGLISH);
@@ -23,10 +24,11 @@ public class HibernateUtil {
         sb.applySettings(cfg.getProperties());
         StandardServiceRegistry standardServiceRegistry = sb.build();
 
-        SessionFactory factory = cfg.buildSessionFactory(standardServiceRegistry);
-        log.info("Reference to SessionFactory " + factory);
-        return factory;
+       // SessionFactory factory = cfg.buildSessionFactory(standardServiceRegistry);
+        //the same as:
+        return cfg.buildSessionFactory(standardServiceRegistry);
     }
+
     public void closeSessionAndFactory(SessionFactory factory, Session session){
         if (session != null) {
             session.close();
@@ -34,7 +36,6 @@ public class HibernateUtil {
         factory.close();
         log.info("Closing factory");
     }
-
 
     public static Logger getLog() {
         return log;
