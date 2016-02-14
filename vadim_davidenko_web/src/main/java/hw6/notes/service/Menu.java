@@ -1,8 +1,11 @@
 package hw6.notes.service;
 
-import hw6.notes.Main;
+import hw6.notes.dao.NotebookDao;
+import hw6.notes.dao.NotebookDaoImpl;
 import hw6.notes.domain.Notebook;
+import hw6.notes.util.HibernateUtil;
 import hw6.notes.util.Utils;
+import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +36,7 @@ import java.util.Set;
 @WebServlet("/notebookServlet")
 public class Menu extends HttpServlet {
 
-    NotebookService noteService = Main.getInstance();
+    NotebookService noteService;
     List<Notebook> notesList;
     String serverMsg, serverErrMsg;
 
@@ -45,6 +48,13 @@ public class Menu extends HttpServlet {
     final static String NO_RECORDS_FOUND_MSG = "No records found";
     final static String MENU_PAGE = "hw6/menu.jsp";
     final static String ADD_NOTE_PAGE = "hw6/add_note.jsp";
+
+    @Override
+    public void init() throws ServletException {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        NotebookDao noteDao = new NotebookDaoImpl(sessionFactory);
+        noteService = new NotebookServiceImpl(noteDao);
+    }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
