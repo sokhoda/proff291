@@ -67,7 +67,7 @@ public class AsyncChat extends Application {
     }
 
     public void createStage(Stage stage) throws IOException {
-        String fxmlFile = "/fxml/chat.fxml";
+        String fxmlFile = "/hw3/chat.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
         stage.setTitle(chatTitle);
