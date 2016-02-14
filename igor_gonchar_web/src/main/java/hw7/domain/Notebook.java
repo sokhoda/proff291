@@ -4,6 +4,8 @@ import session14.Company;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Home on 14.02.2016.
@@ -28,13 +30,24 @@ public class Notebook {
     @Column(name ="MANUFACTURE_DATE")
     private Date manufactureDate;
 
-    @Column(name ="CPU")
-    private String Cpu;
+    @ManyToOne
+    private CPU cpu;
 
-    @Column(name ="MEMORY")
-    private int memory;
+    @ManyToOne
+    private Memory memory;
+
+    @ManyToOne
+    private Store store;
 
     public Notebook(){
 
+    }
+
+    public Notebook(Vendor vendor, String model, Date manufactureDate, CPU cpu, Memory memory) {
+        this.vendor = vendor;
+        this.model = model;
+        this.manufactureDate = manufactureDate;
+        this.cpu = cpu;
+        this.memory = memory;
     }
 }

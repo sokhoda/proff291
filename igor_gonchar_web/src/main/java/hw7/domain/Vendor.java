@@ -24,4 +24,15 @@ public class Vendor {
 
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Notebook> notebooks = new HashSet<>();
+
+ /*   @OneToMany(mappedBy = "cpu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CPU> cpus = new HashSet<>();*/
+
+    public Vendor(){
+
+    }
+
+    public Vendor(String name) {
+        this.name = name;
+    }
 }
