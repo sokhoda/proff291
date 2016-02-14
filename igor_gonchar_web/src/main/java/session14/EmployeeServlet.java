@@ -1,12 +1,16 @@
-package web.controller;
+package session14;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import hw6.notes.domain.Notebook;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import session6.controller.FormProcessor;
 import web.domain.Employee;
 
 import javax.servlet.ServletException;
@@ -20,20 +24,17 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 17.01.16
+ * Created by Home on 14.02.2016.
  */
-@WebServlet("/form")
-public class FormProcessor extends HttpServlet {
-    private static Logger log = Logger.getLogger(FormProcessor.class);
+@WebServlet("/employeeForm")
+public class EmployeeServlet extends HttpServlet {
+    private static Logger log = Logger.getLogger(EmployeeServlet.class);
     SessionFactory factory;
 
-    @Override
     public void init() throws ServletException {
         try {
             Locale.setDefault(Locale.ENGLISH);
-            Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+            Configuration cfg = new Configuration().configure("session14/hibernate.cfg.xml");
             StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
             sb.applySettings(cfg.getProperties());
             StandardServiceRegistry standardServiceRegistry = sb.build();
@@ -44,29 +45,39 @@ public class FormProcessor extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException {
-//        String login = request.getParameter("login");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
         String login = parameterMap.get("login")[0];
-        response.getWriter().print(hiber());
-        response.getWriter().print("Your name is " + login);
+        String password = parameterMap.get("password")[0];
+        boolean validation = hiber(login, password);
+       if(validation){
+           response.getWriter().print("Success");
+       } else {
+           response.getWriter().print("No such employee");
+       }
 
     }
 
-    private String hiber() {
-
+    private boolean hiber(String login, String password) {
+        boolean result = false;
         log.info("Reference to SessionFactory " + factory);
 
         Session session = null;
         try {
             session = factory.openSession();
-            List<Object[]> list = session.createQuery("from Employee e join e.department d where e.salary < 4000 and d.locationId > 20").list();
-            String res = getString(list);
-            return res;
-//            return (Employee) session.get(Employee.class, 100L);
+            Query query = session.createQuery("from Employee n where n.firstName= '" + login + "' AND n.lastName = '" + password + "'");
+            List<Employee> list = query.list();
+            if (list.size() == 1) {
+                result = true;
+            }
+
+
         } catch (HibernateException e) {
             log.error("Open session failed", e);
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
         } finally {
             if (session != null) {
                 session.close();
@@ -74,25 +85,15 @@ public class FormProcessor extends HttpServlet {
         }
 //        log.info(session);
         factory.close();
-        return null;
+        return result;
     }
 
-    private String getString(List<Object[]> list) {
-        String res = "size: " + list.size() + "\n";
-        for (Object[] array : list) {
-            for (Object el : array) {
-                res += el + ", ";
-            }
-            res += "\n-----------\n";
-        }
-        return res;
-    }
-
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("name", "al1");
         request.getRequestDispatcher("index.jsp").forward(request, response);
 
         response.getWriter().print("Hello servlet");
     }
 }
+

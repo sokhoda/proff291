@@ -105,3 +105,9 @@ function validateRow5 () {
         form.submit();
     }
 }
+
+function validateRow7 () {
+    var doc = document;
+    var form = doc.getElementById("form7");
+    form.submit();
+}
