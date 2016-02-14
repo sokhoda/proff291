@@ -23,6 +23,7 @@ public class NotebookDaoImpl implements NotebookDao {
     public Long create(Notebook ntb) {
         Session session = factory.openSession();
         Long id = null;
+
         try {
             session.beginTransaction();
             id = (Long) session.save(ntb);
@@ -57,7 +58,8 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            Query query = session.createQuery("from hw6.notes.domain.Notebook n where n.id = :ntb.id ");
+            Query query = session.createQuery("from hw6.notes.domain.Notebook n where n.id = '4' ");
+            //:ntb.id
             return true;
         } catch (HibernateException e) {
             log.error("Transaction failed");

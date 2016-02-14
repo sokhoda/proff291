@@ -7,10 +7,10 @@ import java.util.Date;
 @Table(name = "NOTEBOOKS")
 public class Notebook {
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "REGIONS_SEQ",
-            allocationSize = 5, initialValue = 5)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    @Column(name = "REGION_ID")
+    @SequenceGenerator(name = "BOOKS_SEQ", sequenceName = "BOOKS_SEQ",
+            allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKS_SEQ")
+    @Column(name = "ID")
     public Long id;
     @Column(name = "SERIAL")
     private String serial;
@@ -18,13 +18,22 @@ public class Notebook {
     private String vendor;
     @Column(name = "MODEL")
     private String model;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "MANUFACTURE_DATE")
     private Date manufactureDate;
     @Column(name = "PRICE")
     private double price;
 
     public Notebook(String serial, String vendor, String model, Date manufactureDate, double price) {
+        this.serial = serial;
+        this.vendor = vendor;
+        this.model = model;
+        this.manufactureDate = manufactureDate;
+        this.price = price;
+    }
+
+    public Notebook(Long id, String serial, String vendor, String model, Date manufactureDate, double price) {
+        this.id = id;
         this.serial = serial;
         this.vendor = vendor;
         this.model = model;
