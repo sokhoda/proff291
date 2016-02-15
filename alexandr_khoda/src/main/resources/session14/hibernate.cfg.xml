@@ -14,12 +14,8 @@
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
-        <mapping class="hw7.domain.Notebook"/>
-        <mapping class="hw7.domain.CPU"/>
-        <mapping class="hw7.domain.Memory"/>
-        <mapping class="hw7.domain.Sales"/>
-        <mapping class="hw7.domain.Store"/>
-        <mapping class="hw7.domain.Vendor"/>
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="session13.domain.Employee"/>
+        <mapping class="session13.domain.Company"/>
     </session-factory>
 </hibernate-configuration>
