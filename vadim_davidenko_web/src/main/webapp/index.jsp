@@ -12,8 +12,8 @@
 </head>
 <body>
     <div style="background-color: #d4ecff" align="center">
-        <h1>Welcome to NOTEBOOKS reference</h1>
-    <h3><a href="hw6/menu.jsp">Menu</a></h3>
+        <h1>Welcome to NOTEBOOKS Store</h1>
+    <h3><a href="hw7/menu.jsp">Menu</a></h3>
 </div>
 </body>
 </html>

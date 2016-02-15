@@ -50,7 +50,7 @@
           <td align="center">
             <input type="button" value="Save" onclick="submitRegForm(document.regForm)" style="width: 100px"/>
           </td>
-          <td align="center"><a href="menu.jsp">Menu</a></td>
+          <td align="center"><a href="hw6/menu.jsp">Menu</a></td>
         </tr>
       </table>
     </form>
@@ -80,7 +80,7 @@
   function checkRegFields(form) {
     if(!form.model.value.trim() || !form.vendor.value.trim() ||
             !form.serial.value.trim() || !form.dd.value.trim() ||
-            !form.mm.value.trim() || !form.yy.value.trim() |
+            !form.mm.value.trim() || !form.yyyy.value.trim() ||
             !form.price.value.trim() || isNaN(+form.price.value))
     {
       alert("Please, fill in all fields with valid values!");

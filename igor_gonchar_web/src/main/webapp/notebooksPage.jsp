@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%! public int counter = 1; %>
 <html>
 <head>
     <title>Notebooks</title>
@@ -13,7 +14,7 @@
 <body>
 <script src="js/notebooks.js" type="text/javascript"></script>
 <h2>Notebooks List</h2>
-<table border="1">
+<table style="width:100%" border="1">
     <tr>
 
             <input type="hidden" name="pageName" value="row1Label"/>
@@ -49,62 +50,79 @@
     <tr>
     <input type="hidden" name="pageName" value="row1Labe3"/>
     <td>Put ID:</td>
-    <td>Put Serial:</td>
-    <td>Put Vendor:</td>
+    <td>New Price:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
+        <form id="form3" action="/notebooksForm" method="post">
             <input type="hidden" name="pageName" value="row3"/>
-            <td><input type="text" name="id"/></td>
-            <td><input type="text" name="serial"/></td>
-            <td><input type="text" name="vendor"/></td>
-            <td><input type="submit" value="Show"/></td>
+            <td><input id="r3c1" type="text" name="id"/></td>
+            <td><input id="r3c2" type="text" name="price"/></td>
+            <td><input type="button" onclick="validateRow3()" value="Edit"/></td>
         </form>
     </tr>
     <tr>
-    <input type="hidden" name="pageName" value="row1Labe4"/>
-    <td>Put Model:</td>
+        <input type="hidden" name="pageName" value="row1Labe4"/>
+        <td>Put ID:</td>
+        <td>New Price:</td>
+        <td>New Serial:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
+        <form id="form4" action="/notebooksForm" method="post">
             <input type="hidden" name="pageName" value="row4"/>
-            <td><input type="text" name="model"/></td>
-            <td><input type="submit" value="Delete"/></td>
+            <td><input id="r4c1" type="text" name="id"/></td>
+            <td><input id="r4c2" type="text" name="price"/></td>
+            <td><input id="r4c3" type="text" name="serial"/></td>
+            <td><input type="button" onclick="validateRow4()" value="Edit"/></td>
         </form>
     </tr>
     <tr>
         <input type="hidden" name="pageName" value="row1Labe5"/>
+        <td>Put Model:</td>
+    </tr>
+    <tr>
+        <form id="form5" action="/notebooksForm" method="post">
+            <input type="hidden" name="pageName" value="row5"/>
+            <td><input  id="r5c1" type="text" name="model"/></td>
+            <td><input type="button" onclick="validateRow5()" value="Delete"/></td>
+        </form>
+    </tr>
+    <tr>
+        <input type="hidden" name="pageName" value="row1Labe6"/>
         <td>Put Vendor:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
-            <input type="hidden" name="pageName" value="row5"/>
+        <form id="form6" action="/notebooksForm" method="post">
+            <input type="hidden" name="pageName" value="row6"/>
             <td><input type="text" name="vendor"/></td>
             <td><input type="submit" value="Show"/></td>
         </form>
     </tr>
     <tr>
-        <input type="hidden" name="pageName" value="row1Labe6"/>
+        <input type="hidden" name="pageName" value="row1Labe7"/>
         <td>Put Price:</td>
         <td>Put Year:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
-            <input type="hidden" name="pageName" value="row6"/>
+        <form id="form7" action="/notebooksForm" method="post">
+            <input type="hidden" name="pageName" value="row7"/>
             <td><input type="text" name="price"/></td>
             <td><input type="text" name="year"/></td>
-            <td><input type="submit" value="Show"/></td>
+            <td><input type="submit" <%--onclick="validateRow7()"--%> value="Show"/></td>
         </form>
     </tr>
-    <tr>
         <td>
-            <input type="hidden" name="pageName" value="row7"/>
-            <button onclick="connectionSuccess()">Show All</button>
+            <form action="/notebooksForm" method="post">
+            <input type="hidden" name="pageName" value="row8"/>
+            <td><input type="submit" value="Show All"/></td>
+        </form>
         </td>
     </tr>
 </table>
+<a href="index.jsp">
+    <button style="width:100%">Back Home</button>
+</a>
 <p>
-    ${reg_result}
+    ${reg_result} <%--: <%=  counter++  %>--%>
 </p>
 <div id="tableDiv">
 

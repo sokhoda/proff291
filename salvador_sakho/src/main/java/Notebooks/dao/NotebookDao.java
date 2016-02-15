@@ -13,6 +13,8 @@ public interface NotebookDao {
 
     Notebook read(Long id);
 
+    boolean delete(Long id);
+
     void update(Notebook notebook);
 
     void delete(Notebook notebook);

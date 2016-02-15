@@ -14,10 +14,13 @@ public class NotebookServiceImpl implements NotebookService {
 
     private NotebookDao notebookDao;
 
+    public NotebookServiceImpl() {
+        notebookDao = new NotebookDaoImpl();
+    }
+
     public NotebookServiceImpl(NotebookDao notebookDao) {
         this.notebookDao = notebookDao;
     }
-
 
     @Override
     public Long add(Notebook notebook) {
