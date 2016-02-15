@@ -1,6 +1,7 @@
 package hw3.chat;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 /**
@@ -39,4 +40,5 @@ public class AsyncChatTest extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
