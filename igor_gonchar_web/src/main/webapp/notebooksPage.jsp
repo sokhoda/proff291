@@ -91,7 +91,7 @@
         <td>Put Vendor:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
+        <form id="form6" action="/notebooksForm" method="post">
             <input type="hidden" name="pageName" value="row6"/>
             <td><input type="text" name="vendor"/></td>
             <td><input type="submit" value="Show"/></td>
@@ -103,11 +103,11 @@
         <td>Put Year:</td>
     </tr>
     <tr>
-        <form action="/notebooksForm" method="post">
+        <form id="form7" action="/notebooksForm" method="post">
             <input type="hidden" name="pageName" value="row7"/>
             <td><input type="text" name="price"/></td>
             <td><input type="text" name="year"/></td>
-            <td><input type="submit" value="Show"/></td>
+            <td><input type="submit" <%--onclick="validateRow7()"--%> value="Show"/></td>
         </form>
     </tr>
         <td>

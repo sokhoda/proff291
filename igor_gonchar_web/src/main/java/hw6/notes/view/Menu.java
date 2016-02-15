@@ -3,6 +3,7 @@ package hw6.notes.view;
 import hw6.notes.domain.Notebook;
 import hw6.notes.util.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.h2.mvstore.type.StringDataType;
 import org.hibernate.*;
 import session6HomeTask.RegisterBase;
 
@@ -12,11 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by i.gonchar on 2/10/2016.
@@ -52,14 +51,21 @@ public class Menu extends HttpServlet
                     String manufDate = parameterMap.get("manufactureDate")[0];
                     String priceS = parameterMap.get("price")[0];
                     int price = Integer.parseInt(priceS);
+                    String dateS = parameterMap.get("manufactureDate")[0];
 
-                    session.beginTransaction();
-                    //  Notebook note = new Notebook(11111L, "Sony", "AAA", 110);
-                    Notebook note = new Notebook(serial, vendor, model, price);
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                        Date date = sdf.parse(dateS);
+                        session.beginTransaction();
+                        Notebook note = new Notebook(serial, vendor, model, date, price);
 
-                    // long id = (long)
-                    session.save(note);
-                    session.getTransaction().commit();
+                        // long id = (long)
+                        session.save(note);
+                        session.getTransaction().commit();
+                    } catch (Exception e){
+                        System.out.println("This fucking date problem!");
+                    }
+
 
                 } catch (HibernateException e) {
                     log.error("Open session failed", e);
@@ -194,10 +200,44 @@ public class Menu extends HttpServlet
                 }
                 break;
             case "row6":
-                response.getWriter().println("ROW 6");
-                break;
+              break;
             case "row7":
-                response.getWriter().println("ROW 7");
+                /*try {
+                    session = factory.openSession();
+
+                    String priceS = parameterMap.get("price")[0];
+                    int price = Integer.parseInt(priceS);
+                    String dateS = parameterMap.get("year")[0];
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                    Date date = sdf.parse(dateS);
+
+
+                    Query query = session.createQuery("SELECT n.id, n.serial, n.vendor, n.price FROM Notebook n WHERE n.price =:price AND n.manufactureDate ='" + date +"'");
+                    query.setParameter("price", price);
+                    // query.setParameter("date", MANUFACTURE_DATE);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("ID:, Serial, Vendor, Price");
+                    sb.append("<br/>");
+                    List<Object[]> list2 = query.list();
+                    for (int i = 0; i < list2.size(); i++) {
+                        sb.append(Arrays.toString(list2.get(i)));
+                        sb.append("<br/>");
+                    }
+                    message = sb.toString();
+
+
+                } catch (HibernateException e) {
+                    log.error("Open session failed", e);
+                    //Rollback DB
+                    if (session != null) {
+                        session.getTransaction().rollback();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } finally {
+                    util.closeSessionAndFactory(factory, session);
+                }
+*/
                 break;
             case "row8":
                 List<Notebook> list = new ArrayList<Notebook>();
