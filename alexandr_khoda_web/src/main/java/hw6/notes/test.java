@@ -39,6 +39,20 @@ public class test {
 
     public static void main(String[] args)  {
         Notebook n = new Notebook();
+
+
+       char c1 = 064770;
+//        char c2 = 'face';
+         char c3 = 0xbeef;
+//        int myList [] = {4, 3, 7};
+//        int myList [] [] = {4,9,7,0};
+        int [] myList = (5,8,2);
+
+//        char c4 = \u0022;
+//         char c5 = '\iface';
+         char c6 = '\uface';
+
+
         Long i;
         Double d,d2;
         Integer f;
@@ -50,7 +64,7 @@ public class test {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         Date date = null;
         try {
-            date = df.parse("25 12.1991");
+            date = df.parse("25.12.1991");
             Calendar cal = new GregorianCalendar(); //Calendar.getInstance();
             cal.setTime(date);
             System.out.println(df.format(cal.getTime()));
