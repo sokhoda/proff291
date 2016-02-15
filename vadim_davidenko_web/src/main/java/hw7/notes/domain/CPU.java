@@ -28,7 +28,7 @@ public class CPU {
     private String model;
 
     @Column(name = "FREQUENCY", length = 20)
-    private Integer frequency;
+    private String frequency;
 
     @OneToMany(mappedBy = "cpu")
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -69,11 +69,11 @@ public class CPU {
         this.model = model;
     }
 
-    public Integer getFrequency() {
+    public String getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(Integer frequency) {
+    public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 

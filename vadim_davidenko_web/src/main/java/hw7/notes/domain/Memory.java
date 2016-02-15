@@ -25,7 +25,7 @@ public class Memory {
     private String vendor;
 
     @Column(name = "SIZE", length = 20)
-    private Integer size;
+    private String size;
 
     @OneToMany(mappedBy = "memory")
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -49,11 +49,11 @@ public class Memory {
         this.id = id;
     }
 
-    public Integer getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

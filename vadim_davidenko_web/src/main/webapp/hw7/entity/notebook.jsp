@@ -18,7 +18,7 @@
 
 <table align="center">
   <tr><td>
-    <form name="notebookForm" action="/notebookServlet" method="post">
+    <form name="notebookForm" action="/noteServlet" method="post">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>Notebook registration</h3></td></tr>
         <tr>
