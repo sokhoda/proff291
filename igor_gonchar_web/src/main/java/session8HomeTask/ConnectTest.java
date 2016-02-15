@@ -1,6 +1,8 @@
 package session8HomeTask;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Locale;
 
 /**
@@ -24,16 +26,7 @@ public class ConnectTest {
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
         try {
             conn = DriverManager.getConnection(url, "hr", "hr");
-            System.out.println("Connection success");
-
-            Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT REGION_NAME FROM REGIONS");
-
-            while (result.next()) {
-                String temp = String.format("%-20s", result.getString("REGION_NAME"));
-                System.out.println(temp);
-            }
-
+            System.out.println("Successfull connection");
         } catch (SQLException e) {
             System.out.println("Connection has failed");
             e.printStackTrace();
@@ -41,7 +34,6 @@ public class ConnectTest {
             if (conn != null) {
                 try {
                     conn.close();
-                    System.out.printf("Closing connection");
                 } catch (SQLException e) {
                 }
             }
