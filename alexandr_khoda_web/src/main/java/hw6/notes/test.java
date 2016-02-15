@@ -46,7 +46,7 @@ public class test {
          char c3 = 0xbeef;
 //        int myList [] = {4, 3, 7};
 //        int myList [] [] = {4,9,7,0};
-        int [] myList = (5,8,2);
+//        int [] myList = (5,8,2);
 
 //        char c4 = \u0022;
 //         char c5 = '\iface';
