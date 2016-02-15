@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "CPU")
 @SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
-        allocationSize = 1, initialValue = 2000)
+        allocationSize = 1, initialValue = 2001)
 
 public class CPU {
     @Id
@@ -28,7 +28,7 @@ public class CPU {
     private String model;
 
     @Column(name = "FREQUENCY", length = 20)
-    private Long frequency;
+    private Integer frequency;
 
     @OneToMany(mappedBy = "cpu")
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -69,11 +69,11 @@ public class CPU {
         this.model = model;
     }
 
-    public Long getFrequency() {
+    public Integer getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(Long frequency) {
+    public void setFrequency(Integer frequency) {
         this.frequency = frequency;
     }
 

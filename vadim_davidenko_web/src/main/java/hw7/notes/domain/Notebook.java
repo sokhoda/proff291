@@ -3,6 +3,8 @@ package hw7.notes.domain;
 import javax.persistence.*;
 import java.util.Date;
 
+import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
+
 /**
  * Created by Вадим on 14.02.2016.
  *
@@ -12,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "NOTEBOOKS")
 @SequenceGenerator(name = "NOTEBOOKS_SEQ", sequenceName = "NOTEBOOKS_SEQ",
-        allocationSize = 1, initialValue = 1000)
+        allocationSize = 1, initialValue = 1001)
 
 public class Notebook {
     @Id
@@ -71,6 +73,14 @@ public class Notebook {
 
     public Date getManufactureDate() {
         return manufactureDate;
+    }
+
+    @Transient
+    public String getManufactureDateStr() {
+        if (manufactureDate != null) {
+            return DATEFORMAT_COMMON.get().format(manufactureDate);
+        }
+        return "";
     }
 
     public void setManufactureDate(Date manufactureDate) {

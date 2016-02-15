@@ -1,7 +1,13 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Memory;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,28 +15,100 @@ import java.util.List;
  */
 public class MemoryDaoImpl implements MemoryDao {
 
+    private SessionFactory factory;
+
+    public MemoryDaoImpl() {}
+
+    public MemoryDaoImpl(SessionFactory factory) {
+        this.factory = factory;
+    }
+
+    @Override
     public Long create(Memory memory) {
-
-        return 0L;
+        Session session = factory.openSession();
+        Long id = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            id = (Long)session.save(memory);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return id;
     }
 
+    @Override
     public Memory read(Long id) {
-
-        return null;
+        Session session = factory.openSession();
+        Memory memory = null;
+        try {
+            memory = (Memory)session.get(Memory.class, id);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return memory;
     }
 
+    @Override
     public boolean update(Memory memory) {
-
-        return false;
+        Session session = factory.openSession();
+        boolean isUpdated = false;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(memory);
+            tx.commit();
+            isUpdated = true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return isUpdated;
     }
 
+    @Override
     public boolean delete(Memory memory) {
-
-        return false;
+        Session session = factory.openSession();
+        boolean isDeleted = false;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.delete(memory);
+            tx.commit();
+            isDeleted = true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return isDeleted;
     }
 
+    @Override
     public List<Memory> findAll() {
-
-        return null;
+        List<Memory> list = new ArrayList<Memory>();
+        Session session = factory.openSession();
+        try {
+            List result = session.createQuery("FROM hw7.notes.domain.Memory").list();
+            if (result != null) {
+                for (Object obj : result) {
+                    list.add((Memory) obj);
+                }
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
     }
 }

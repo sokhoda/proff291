@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "MEMORY")
 @SequenceGenerator(name = "MEMORY_SEQ", sequenceName = "MEMORY_SEQ",
-        allocationSize = 1, initialValue = 3000)
+        allocationSize = 1, initialValue = 3001)
 
 public class Memory {
     @Id

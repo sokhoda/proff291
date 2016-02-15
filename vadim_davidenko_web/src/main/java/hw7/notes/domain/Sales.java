@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
+
 /**
  * Created by Вадим on 14.02.2016.
  *
@@ -14,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "SALES")
 @SequenceGenerator(name = "SALES_SEQ", sequenceName = "SALES_SEQ",
-        allocationSize = 1, initialValue = 6000)
+        allocationSize = 1, initialValue = 6001)
 
 public class Sales {
     @Id
@@ -52,6 +54,14 @@ public class Sales {
 
     public Date getDate() {
         return date;
+    }
+
+    @Transient
+    public String getDateStr() {
+        if (date != null) {
+            return DATEFORMAT_COMMON.get().format(date);
+        }
+        return "";
     }
 
     public void setDate(Date date) {

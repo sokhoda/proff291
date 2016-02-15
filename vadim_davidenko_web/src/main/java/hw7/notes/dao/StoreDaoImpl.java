@@ -1,7 +1,12 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Store;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,29 +14,101 @@ import java.util.List;
  */
 public class StoreDaoImpl implements StoreDao {
 
+    private SessionFactory factory;
+
+    public StoreDaoImpl() {}
+
+    public StoreDaoImpl(SessionFactory factory) {
+        this.factory = factory;
+    }
+
+    @Override
     public Long create(Store store) {
-
-        return 0L;
+        Session session = factory.openSession();
+        Long id = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            id = (Long)session.save(store);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return id;
     }
 
+    @Override
     public Store read(Long id) {
-
-        return null;
+        Session session = factory.openSession();
+        Store store = null;
+        try {
+            store = (Store)session.get(Store.class, id);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return store;
     }
 
+    @Override
     public boolean update(Store store) {
-
-        return false;
+        Session session = factory.openSession();
+        boolean isUpdated = false;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(store);
+            tx.commit();
+            isUpdated = true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return isUpdated;
     }
 
+    @Override
     public boolean delete(Store store) {
-
-        return false;
+        Session session = factory.openSession();
+        boolean isDeleted = false;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.delete(store);
+            tx.commit();
+            isDeleted = true;
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return isDeleted;
     }
 
+    @Override
     public List<Store> findAll() {
-
-        return null;
+        List<Store> list = new ArrayList<Store>();
+        Session session = factory.openSession();
+        try {
+            List result = session.createQuery("FROM hw7.notes.domain.Store").list();
+            if (result != null) {
+                for (Object obj : result) {
+                    list.add((Store) obj);
+                }
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
     }
 
 }

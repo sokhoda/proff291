@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "STORE")
 @SequenceGenerator(name = "STORE_SEQ", sequenceName = "STORE_SEQ",
-        allocationSize = 1, initialValue = 5000)
+        allocationSize = 1, initialValue = 5001)
 
 public class Store {
     @Id
