@@ -25,11 +25,14 @@ import java.util.Map;
 public class Menu extends HttpServlet {
 
     final static String MENU_PAGE = "hw7/menu.jsp";
-    final static String ENTITIES_PAGES_PATH = "hw7/entity/";
-    final static String REPORTS_PAGE_PATH = "hw7/reports/";
-    final static String STORE_PAGE_PATH = "hw7/store/";
+    final static String NOTEBOOK_PAGE = "hw7/entity/notebook.jsp";
+    final static String VENDOR_PAGE = "hw7/entity/vendor.jsp";
+    final static String CPU_PAGE = "hw7/entity/cpu.jsp";
+    final static String MEMORY_PAGE = "hw7/entity/memory.jsp";
+    final static String REPORTS_PAGE = "hw7/reports/report.jsp";
+    final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
 
-    NotebookService noteService;
+    public static NotebookService noteService;
 
     @Override
     public void init() throws ServletException {
@@ -110,19 +113,19 @@ public class Menu extends HttpServlet {
                 req.setAttribute("memoryId", "");
                 req.setAttribute("memoryList", memoryList);
 
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "notebook.jsp").forward(req, resp);
+                req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
 
             case "vendor":
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "vendor.jsp").forward(req, resp);
+                req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
                 break;
 
             case "cpu":
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "cpu.jsp").forward(req, resp);
+                req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
 
             case "memory":
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "memory.jsp").forward(req, resp);
+                req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }
     }
@@ -144,7 +147,7 @@ public class Menu extends HttpServlet {
             case "notebook":
                 Notebook notebook = noteService.getNotebookById(id);
                 if (notebook == null) {
-                    req.setAttribute("entity_msg", "Notebook with such Id does not exist in database!");
+                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
                     req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
                     break;
                 }
@@ -152,6 +155,7 @@ public class Menu extends HttpServlet {
                 List<CPU> cpuList = noteService.getAllCPUs();
                 List<Memory> memoryList = noteService.getAllMemories();
 
+                req.setAttribute("entityId", String.valueOf(id));
                 req.setAttribute("model", notebook.getModel());
                 req.setAttribute("date", notebook.getManufactureDateStr());
                 req.setAttribute("vendorId", String.valueOf(notebook.getVendor().getId()));
@@ -161,43 +165,46 @@ public class Menu extends HttpServlet {
                 req.setAttribute("memoryId", String.valueOf(notebook.getMemory().getId()));
                 req.setAttribute("memoryList", memoryList);
 
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "notebook.jsp").forward(req, resp);
+                req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
 
             case "vendor":
                 Vendor vendor = noteService.getVendorById(id);
                 if (vendor == null) {
-                    req.setAttribute("entity_msg", "Vendor with such Id does not exist in database!");
+                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
                     req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
                     break;
                 }
+                req.setAttribute("entityId", String.valueOf(id));
                 req.setAttribute("vendor", vendor.getName());
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "vendor.jsp").forward(req, resp);
+                req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
                 break;
 
             case "cpu":
                 CPU cpu = noteService.getCPUById(id);
                 if (cpu == null) {
-                    req.setAttribute("entity_msg", "CPU with such Id does not exist in database!");
+                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
                     req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
                     break;
                 }
+                req.setAttribute("entityId", String.valueOf(id));
                 req.setAttribute("model", cpu.getModel());
                 req.setAttribute("vendor", cpu.getVendor());
                 req.setAttribute("frequency", cpu.getFrequency());
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "cpu.jsp").forward(req, resp);
+                req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
 
             case "memory":
                 Memory memory = noteService.getMemoryById(id);
                 if (memory == null) {
-                    req.setAttribute("entity_msg", "Memory with such Id does not exist in database!");
+                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
                     req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
                     break;
                 }
+                req.setAttribute("entityId", String.valueOf(id));
                 req.setAttribute("vendor", memory.getVendor());
                 req.setAttribute("size", memory.getSize());
-                req.getRequestDispatcher(ENTITIES_PAGES_PATH + "memory.jsp").forward(req, resp);
+                req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }
     }
@@ -288,6 +295,6 @@ public class Menu extends HttpServlet {
 
                 break;
         }
-        req.getRequestDispatcher(REPORTS_PAGE_PATH + "report.jsp").forward(req, resp);
+        req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
     }
 }

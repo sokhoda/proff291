@@ -41,7 +41,7 @@
             <td colspan="2" align="left">
                 <input type="button" value="New" onclick="submitNewEntity()" style="width: 80px"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Edit" onclick="submitEditEntity()" style="width: 80px"/>
-                &nbsp;id:<input type="text" name="entityId" size="5" maxlength="5"/>
+                &nbsp;id:&nbsp;<input type="text" name="entityId" size="5" maxlength="5"/>
             </td>
         </tr>
         <tr><td colspan="2" align="center"><i>${entity_msg}</i></td></tr>
@@ -107,8 +107,7 @@
             <td colspan="2">Show notebook sales per day</td>
         </tr>
         <tr>
-            <td></td>
-            <td colspan="2"><input type="button" value="Select" onclick="submitReport()" style="width: 80px"/></td>
+            <td colspan="2" colspan="2"><input type="button" value="Select" onclick="submitReport()" style="width: 80px"/></td>
         </tr>
     </table>
     </td></tr></table>

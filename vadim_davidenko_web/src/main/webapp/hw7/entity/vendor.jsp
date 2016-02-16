@@ -15,6 +15,7 @@
 <table align="center">
   <tr><td>
     <form name="vendorForm" action="/vendorServlet" method="post">
+      <input type="hidden" name="entityId">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>Vendor registration</h3></td></tr>
         <tr>
@@ -38,6 +39,7 @@
 </table>
 
 <script>
+  document.vendorForm.entityId.value = '${entityId}';
   document.vendorForm.vendor.value = '${vendor}';
 
   function submitForm() {

@@ -15,6 +15,7 @@
 <table align="center">
   <tr><td>
     <form name="memoryForm" action="/memoryServlet" method="post">
+        <input type="hidden" name="entityId">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>Memory registration</h3></td></tr>
         <tr>
@@ -42,6 +43,7 @@
 </table>
 
 <script>
+  document.memoryForm.entityId.value = '${entityId}';
   document.memoryForm.vendor.value = '${vendor}';
   document.memoryForm.size.value = '${size}';
 
