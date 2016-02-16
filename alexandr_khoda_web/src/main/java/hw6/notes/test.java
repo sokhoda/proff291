@@ -48,7 +48,7 @@ public class test {
 //        int myList [] [] = {4,9,7,0};
 //        int [] myList = (5,8,2);
 
-        char c4 = \u0022;
+        char c4 = '\u0022';
 //         char c5 = '\iface';
          char c6 = '\uface';
 

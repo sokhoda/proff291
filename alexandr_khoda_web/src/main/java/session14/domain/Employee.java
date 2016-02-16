@@ -40,11 +40,12 @@ public class Employee {
 
     @Override
     public String toString(){
-        return "\nid=" + getId();
+        return "\nid=" + getId() + ", " + getFirstName() + ", " + getLastName();
     }
 
     public String toString1(){
-        return "\nid=" + getId() + ", company=[" + getComp().toString1()+"]";
+        return "\nid=" + getId() + ", " + getFirstName() + ", " + getLastName
+                () + ", company=[" + getComp().toString1()+"]";
     }
 
     public Long getId() {

@@ -1,10 +1,6 @@
-package hw6.notes.view;
+package hw7.notes.view;
 
-import hw6.notes.dao.NotebookDao;
-import hw6.notes.dao.NotebookDaoImpl;
-import hw6.notes.domain.Notebook;
-import hw6.notes.service.NotebookService;
-import hw6.notes.service.NotebookServiceImpl;
+import hw7.notes.service.NotebookService;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -25,19 +21,19 @@ import java.util.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/MenuNote")
-public class Menu extends HttpServlet {
+@WebServlet("/List")
+public class NList extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private NotebookService service;
 
-    @Override
-    public void init() {
-        SessionFactory sessionFactory = getSessionFactory();
-        NotebookDao noteDao = new NotebookDaoImpl(sessionFactory);
-        service = new NotebookServiceImpl(noteDao);
-
-    }
+//    @Override
+//    public void init() {
+//        SessionFactory sessionFactory = getSessionFactory();
+//        NotebookDao noteDao = new NotebookDaoImpl(sessionFactory);
+//        service = new NotebookServiceImpl(noteDao);
+//
+//    }
 
 
     @Override

@@ -11,10 +11,7 @@ import org.hibernate.cfg.Configuration;
 import session14.domain.Company;
 import session14.domain.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by s_okhoda on 14.02.2016.
@@ -77,20 +74,40 @@ public class Task3 {
             System.out.println("New balance:" + comp1.getBalance());
 
             session.beginTransaction();
-            comp1.getEmployee().clear();
-            employees.clear();
 
-            String [] firstNames ={"Alex", "Yulia", "Pavel"};
-            String [] lastNames ={"Korolenko", "Buz", "Korop"};
+            for (Iterator<Employee> it = comp1.getEmployee().iterator(); it.hasNext();){
+                Employee e = it.next();
+                session.delete(e);
+                it.remove();
+            }
+
+            employees.clear();
+            session.save(comp1);
+            session.getTransaction().commit();
+
+                session.beginTransaction();
+//            String [] firstNames ={"Alex", "Yulia", "Pavel"};
+//            String [] lastNames ={"Korolenko", "Buz", "Korop"};
+            String [] firstNames ={"Petro", "Vitaliy", "Mykola"};
+            String [] lastNames ={"Ivaniuk", "Palut", "Tira"};
             for (int i = 0; i < 3; i++) {
-                employees.add(new Employee(comp1, firstNames[i], lastNames[i]));
-                comp1.getEmployee().add(employees.get(i));
-                session.save(employees.get(i));
+                Employee e1 = new Employee(comp1, firstNames[i], lastNames[i]);
+                    employees.add(e1);
+                    comp1.getEmployee().add(e1);
+                    session.save(employees.get(i));
+            }
+
+                session.save(comp1);
+                session.getTransaction().commit();
+
+            session.beginTransaction();
+            for (Iterator<Employee> it = comp1.getEmployee().iterator(); it.hasNext();){
+                Employee e = it.next();
+                e.setFirstName(e.getFirstName() + "_1");
             }
 
             session.save(comp1);
             session.getTransaction().commit();
-
 
             System.out.println("Company Employees:\n" + comp1.getEmployee());
 //                System.out.println(employees.get(i).toString1());
