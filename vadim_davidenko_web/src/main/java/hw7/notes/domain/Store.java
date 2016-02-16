@@ -13,16 +13,16 @@ import java.util.Set;
 @Entity
 @Table(name = "STORE")
 @SequenceGenerator(name = "STORE_SEQ", sequenceName = "STORE_SEQ",
-        allocationSize = 1, initialValue = 5000)
+        allocationSize = 1, initialValue = 5001)
 
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STORE_SEQ")
-    @Column(name = "ID")
+    @Column(name = "STORE_ID")
     private Long id;
 
-    @Column(name = "QUANTITY", length = 20)
-    private Integer quantity;
+    @Column(name = "AMOUNT", length = 20)
+    private Integer amount;
 
     @Column(name = "PRICE", length = 20)
     private Double price;
@@ -31,7 +31,7 @@ public class Store {
     private Set<Notebook> notebooks = new HashSet<Notebook>();
 
     @ManyToOne
-    @Column(name = "SALES", length = 20)
+    @JoinColumn(name = "SALES_ID")
     private Sales sales;
 
     public Store() {}
@@ -40,7 +40,7 @@ public class Store {
     public String toString() {
         return "Store{" +
                 "id=" + id +
-                ", quantity=" + quantity +
+                ", amount=" + amount +
                 ", price=" + price +
                 '}';
     }
@@ -53,12 +53,12 @@ public class Store {
         this.id = id;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Double getPrice() {

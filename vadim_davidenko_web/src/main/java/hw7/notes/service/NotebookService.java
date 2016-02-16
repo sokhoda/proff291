@@ -26,9 +26,6 @@ import java.util.Map;
  *
  */
 public interface NotebookService {
-    Long receive(Long noteId, int amount, double price);
-
-    Long sale(Long storeId, int amount);
 
     boolean updateCPU(CPU cpu);
 
@@ -38,7 +35,14 @@ public interface NotebookService {
 
     boolean updateNotebook(Notebook notebook);
 
+
+    Long receive(Long noteId, int amount, double price);
+
     boolean removeFromStore(Store store, int amount);
+
+
+    Long sale(Long storeId, int amount);
+
 
     List getNotebooksByPortion(int size);
 
@@ -51,4 +55,22 @@ public interface NotebookService {
     List getNotebooksStorePresent();
 
     Map getSalesByDays();
+
+
+    Notebook getNotebookById(Long id);
+
+    Vendor getVendorById(Long id);
+
+    CPU getCPUById(Long id);
+
+    Memory getMemoryById(Long id);
+
+
+    List getAllNotebooks();
+
+    List getAllVendors();
+
+    List getAllCPUs();
+
+    List getAllMemories();
 }

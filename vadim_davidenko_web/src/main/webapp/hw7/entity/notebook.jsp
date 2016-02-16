@@ -18,7 +18,7 @@
 
 <table align="center">
   <tr><td>
-    <form name="notebookForm" action="/notebookServlet" method="post">
+    <form name="notebookForm" action="/noteServlet" method="post">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>Notebook registration</h3></td></tr>
         <tr>
@@ -95,7 +95,7 @@
           <td colspan="2" align="center">
             <input type="button" value="Save" onclick="submitForm()" style="width: 80px"/>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="../menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+            <a href="/hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
           </td>
         </tr>
       </table>

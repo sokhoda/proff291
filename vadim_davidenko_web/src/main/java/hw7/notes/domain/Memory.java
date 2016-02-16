@@ -13,19 +13,19 @@ import java.util.Set;
 @Entity
 @Table(name = "MEMORY")
 @SequenceGenerator(name = "MEMORY_SEQ", sequenceName = "MEMORY_SEQ",
-        allocationSize = 1, initialValue = 3000)
+        allocationSize = 1, initialValue = 3001)
 
 public class Memory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMORY_SEQ")
-    @Column(name = "ID")
+    @Column(name = "MEMORY_ID")
     private Long id;
 
     @Column(name = "VENDOR", length = 50)
     private String vendor;
 
-    @Column(name = "SIZE", length = 20)
-    private Integer size;
+    @Column(name = "MEMORY_SIZE", length = 20)
+    private String size;
 
     @OneToMany(mappedBy = "memory")
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -49,11 +49,11 @@ public class Memory {
         this.id = id;
     }
 
-    public Integer getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
