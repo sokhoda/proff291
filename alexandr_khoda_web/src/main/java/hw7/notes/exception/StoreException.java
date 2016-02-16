@@ -1,10 +1,10 @@
-package hw8.taxi.exception;
+package hw7.notes.exception;
 
 /**
  * Created by s_okhoda on 20.01.2016.
  */
-public class ClientException extends  Exception{
-    public ClientException(String message) {
+public class StoreException extends  Exception{
+    public StoreException(String message) {
         super(message);
     }
 
