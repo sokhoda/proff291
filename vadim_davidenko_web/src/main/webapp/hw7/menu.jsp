@@ -39,11 +39,12 @@
         </tr>
         <tr>
             <td colspan="2" align="left">
-                <input type="button" value="New" onclick="submitEntity()" style="width: 80px"/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Edit" onclick="submitEntity()" style="width: 80px"/>
-                &nbsp;Id:<input type="text" name="id" size="5" maxlength="5"/>
+                <input type="button" value="New" onclick="submitNewEntity()" style="width: 80px"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Edit" onclick="submitEditEntity()" style="width: 80px"/>
+                &nbsp;id:<input type="text" name="entityId" size="5" maxlength="5"/>
             </td>
         </tr>
+        <tr><td colspan="2" align="center"><i>${entity_msg}</i></td></tr>
     </table>
 
     <table cellpadding="3">
@@ -51,18 +52,18 @@
         <tr>
             <td><input type="button" value="Receive" onclick="submitReceive()" style="width: 80px"/></td>
             <td align="right">Note id:</td>
-            <td><input type="text" name="noteId"  size="5" maxlength="5"/>
+            <td><input type="text" name="noteIdReceive"  size="5" maxlength="5"/>
             <td align="right">Amount:</td>
-            <td><input type="text" name="receiveAmount" size="5" maxlength="5"/></td>
+            <td><input type="text" name="amountReceive" size="5" maxlength="5"/></td>
             <td align="right">Price:</td>
-            <td><input type="text" name="receivePrice"  size="7" maxlength="7"/>
+            <td><input type="text" name="priceReceive"  size="7" maxlength="7"/>
         </tr>
         <tr>
             <td><input type="button" value="Remove" onclick="submitRemove()" style="width: 80px"/></td>
             <td align="right">Store id:</td>
             <td><input type="text" name="storeIdRemove"  size="5" maxlength="5"/>
             <td align="right">Amount:</td>
-            <td><input type="text" name="removeAmount" size="5" maxlength="5"/></td>
+            <td><input type="text" name="amountRemove" size="5" maxlength="5"/></td>
             <td colspan="2"></td>
         </tr>
         <tr>
@@ -70,9 +71,10 @@
             <td align="right">Store id:</td>
             <td><input type="text" name="storeIdSale"  size="5" maxlength="5"/>
             <td align="right">Amount:</td>
-            <td><input type="text" name="saleAmount" size="5" maxlength="5"/></td>
+            <td><input type="text" name="amountSale" size="5" maxlength="5"/></td>
             <td colspan="2"></td>
         </tr>
+        <tr><td colspan="7" align="center"><i>${store_msg}</i></td></tr>
     </table>
 
     <table cellpadding="3">
@@ -113,8 +115,17 @@
 </form>
 
 <script>
-    function submitEntity() {
-        document.menuForm.menuOption.value = 'entity';
+    function submitNewEntity() {
+        document.menuForm.menuOption.value = 'entity_new';
+        document.menuForm.submit();
+    }
+
+    function submitEditEntity() {
+        if(!document.menuForm.entityId.value.trim() || isNaN(+document.menuForm.entityId.value)) {
+            alert("Please, fill in id field!");
+            return;
+        }
+        document.menuForm.menuOption.value = 'entity_edit';
         document.menuForm.submit();
     }
 
@@ -138,14 +149,6 @@
         document.menuForm.submit();
     }
 </script>
-
-<%--<h4>Entity</h4>--%>
-<%--<ul>--%>
-  <%--<li><a href="../hw7_old/notebook_list.jsp">Notebook type</a></li>--%>
-  <%--<li><a href="../hw7_old/vendor_list.jsp">Vendor</a></li>--%>
-  <%--<li><a href="../hw7_old/cpu_list.jsp">CPU</a></li>--%>
-  <%--<li><a href="../hw7_old/memory_list.jsp">Memory</a></li>--%>
-<%--</ul>--%>
 
 
 </body>

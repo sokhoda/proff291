@@ -14,7 +14,7 @@
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <property name="hibernate.jdbc.batch_size">20</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="hw7.notes.domain.Notebook"/>
         <mapping class="hw7.notes.domain.Vendor"/>
         <mapping class="hw7.notes.domain.CPU"/>

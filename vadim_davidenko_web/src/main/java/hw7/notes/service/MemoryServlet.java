@@ -1,4 +1,4 @@
-package hw7.notes.action;
+package hw7.notes.service;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
  * Created by v.davidenko on 15.02.2016.
  */
 
-@WebServlet("/noteServlet")
-public class NoteServlet extends HttpServlet {
+@WebServlet("/memoryServlet")
+public class MemoryServlet extends HttpServlet {
 
 }

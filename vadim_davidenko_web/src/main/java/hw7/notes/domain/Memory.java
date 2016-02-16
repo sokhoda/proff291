@@ -18,13 +18,13 @@ import java.util.Set;
 public class Memory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMORY_SEQ")
-    @Column(name = "ID")
+    @Column(name = "MEMORY_ID")
     private Long id;
 
     @Column(name = "VENDOR", length = 50)
     private String vendor;
 
-    @Column(name = "SIZE", length = 20)
+    @Column(name = "MEMORY_SIZE", length = 20)
     private String size;
 
     @OneToMany(mappedBy = "memory")

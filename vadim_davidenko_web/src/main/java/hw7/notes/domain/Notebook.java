@@ -12,14 +12,14 @@ import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
  */
 
 @Entity
-@Table(name = "NOTEBOOKS")
-@SequenceGenerator(name = "NOTEBOOKS_SEQ", sequenceName = "NOTEBOOKS_SEQ",
+@Table(name = "NOTEBOOK")
+@SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
         allocationSize = 1, initialValue = 1001)
 
 public class Notebook {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOKS_SEQ")
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOK_SEQ")
+    @Column(name = "NOTE_ID")
     private Long id;
 
     @Column(name = "MODEL", length = 50)
@@ -29,19 +29,19 @@ public class Notebook {
     private Date manufactureDate;
 
     @ManyToOne
-    @Column(name = "VENDOR", length = 20)
+    @JoinColumn(name = "VENDOR_ID")
     private Vendor vendor;
 
     @ManyToOne
-    @Column(name = "CPU", length = 20)
+    @JoinColumn(name = "CPU_ID")
     private CPU cpu;
 
     @ManyToOne
-    @Column(name = "MEMORY", length = 20)
+    @JoinColumn(name = "MEMORY_ID")
     private Memory memory;
 
     @ManyToOne
-    @Column(name = "STORE", length = 20)
+    @JoinColumn(name = "STORE_ID")
     private Store store;
 
     public Notebook() {}

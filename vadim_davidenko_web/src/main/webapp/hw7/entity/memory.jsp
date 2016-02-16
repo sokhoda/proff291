@@ -30,7 +30,7 @@
           <td colspan="2" align="center">
             <input type="button" value="Save" onclick="submitForm()" style="width: 80px"/>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="../menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+            <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
           </td>
         </tr>
       </table>

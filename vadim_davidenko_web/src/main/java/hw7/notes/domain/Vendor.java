@@ -18,7 +18,7 @@ import java.util.Set;
 public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VENDOR_SEQ")
-    @Column(name = "ID")
+    @Column(name = "VENDOR_ID")
     private Long id;
 
     @Column(name = "NAME", length = 50)

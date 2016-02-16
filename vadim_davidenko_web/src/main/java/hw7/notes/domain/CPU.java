@@ -18,7 +18,7 @@ import java.util.Set;
 public class CPU {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CPU_SEQ")
-    @Column(name = "ID")
+    @Column(name = "CPU_ID")
     private Long id;
 
     @Column(name = "VENDOR", length = 50)
