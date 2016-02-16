@@ -22,9 +22,10 @@
 <body>
 <%!
     List<Notebook> nlist;
-    int cnt = 0;
+    int cnt;
 %>
 <%
+    cnt = request.getAttribute("cnt");
     nlist = (List<Notebook>) request.getAttribute("nlist");
     String[] message = getAttribArray(request);
     if (nlist.size() == 0 ) {
@@ -33,13 +34,11 @@
     }
 %>
 <%--onclick="window.location.href='/hw5.users/UserAddRender.jsp'"--%>
+<form action="/List" method="post">
 <div>
-    <a href="/hw7.notes/pages/menu.jsp">
+
         <button name="back" class="but">&longleftarrow;</button>
-    </a>
-    <a href="/hw7.notes/pages/menu.jsp">
-        <button name="back" class="but">&longrightarrow;</button>
-    </a>
+        <button name="forward" class="but">&longrightarrow;</button>
     <label class="regMessage"style="color: <%=message[0]%>"><%=message[1]%></label>
 </div>
 
@@ -82,5 +81,7 @@
 <%
     }
 %>
+
+</form>
 </body>
 </html>
