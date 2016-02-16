@@ -1,5 +1,11 @@
 package hw7.view;
 
+import hw7.dao.*;
+import hw7.service.NotebookService;
+import hw7.service.NotebookServiceImpl;
+import hw7.util.HiberSessionFactory;
+import org.hibernate.SessionFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +17,24 @@ import java.io.IOException;
  * Created by i.gonchar on 2/15/2016.
  */
 @WebServlet("/notebooksAdvancedForm")
-public class Menu extends HttpServlet{
+public class Menu extends HttpServlet {
+
+    HiberSessionFactory sessionFactor = new HiberSessionFactory();
+
+    @Override
+    public void init() throws ServletException {
+        SessionFactory sessionFactory = sessionFactor.getSessionFactory();
+        NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
+        CPUDao cpuDao = new CPUDaoImpl(sessionFactory);
+        VendorDao vendorDao = new VendorDaoImpl(sessionFactory);
+        MemoryDao memoryDao = new MemoryDaoImpl(sessionFactory);
+        SalesDao salesDao = new SalesDaoImpl(sessionFactory);
+        StoreDao storeDao = new StoreDaoImpl(sessionFactory);
+
+        NotebookService notebookService = new NotebookServiceImpl(notebookDao, cpuDao, memoryDao, vendorDao, salesDao, storeDao);
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -22,7 +45,7 @@ public class Menu extends HttpServlet{
         String message = "Operation was done successfully";
         String pageAddress = "/notesAdvanced.jsp";
 
-        switch (option){
+        switch (option) {
             case "cpu":
 
                 pageAddress = "/hw7/addCPU.jsp";
