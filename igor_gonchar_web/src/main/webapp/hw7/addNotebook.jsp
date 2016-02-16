@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Вадим
-  Date: 14.02.2016
-  Time: 21:28
+  User: i.gonchar
+  Date: 2/15/2016
+  Time: 3:57 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Title</title>
 </head>
 <body>
-
+${reg_result}
 </body>
 </html>

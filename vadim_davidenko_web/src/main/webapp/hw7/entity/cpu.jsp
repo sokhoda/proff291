@@ -15,6 +15,7 @@
 <table align="center">
   <tr><td>
     <form name="cpuForm" action="/cpuServlet" method="post">
+        <input type="hidden" name="entityId">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>CPU registration</h3></td></tr>
         <tr>
@@ -34,7 +35,7 @@
           <td colspan="2" align="center">
             <input type="button" value="Save" onclick="submitForm()" style="width: 80px"/>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="../menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+            <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
           </td>
         </tr>
       </table>
@@ -46,6 +47,7 @@
 </table>
 
 <script>
+  document.cpuForm.entityId.value = '${entityId}';
   document.cpuForm.model.value = '${model}';
   document.cpuForm.vendor.value = '${vendor}';
   document.cpuForm.frequency.value = '${frequency}';

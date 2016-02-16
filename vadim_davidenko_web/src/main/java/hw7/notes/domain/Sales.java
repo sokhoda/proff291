@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
+
 /**
  * Created by Вадим on 14.02.2016.
  *
@@ -14,19 +16,19 @@ import java.util.Set;
 @Entity
 @Table(name = "SALES")
 @SequenceGenerator(name = "SALES_SEQ", sequenceName = "SALES_SEQ",
-        allocationSize = 1, initialValue = 6000)
+        allocationSize = 1, initialValue = 6001)
 
 public class Sales {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SALES_SEQ")
-    @Column(name = "ID")
+    @Column(name = "SALES_ID")
     private Long id;
 
-    @Column(name = "DATE")
+    @Column(name = "SALE_DATE")
     private Date date;
 
-    @Column(name = "QUANTITY", length = 20)
-    private Integer quantity;
+    @Column(name = "AMOUNT", length = 20)
+    private Integer amount;
 
     @OneToMany(mappedBy = "sales")
     private Set<Store> stores = new HashSet<Store>();
@@ -38,7 +40,7 @@ public class Sales {
         return "Sales{" +
                 "id=" + id +
                 ", date=" + date +
-                ", quantity=" + quantity +
+                ", amount=" + amount +
                 '}';
     }
 
@@ -54,16 +56,24 @@ public class Sales {
         return date;
     }
 
+    @Transient
+    public String getDateStr() {
+        if (date != null) {
+            return DATEFORMAT_COMMON.get().format(date);
+        }
+        return "";
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Set<Store> getStores() {

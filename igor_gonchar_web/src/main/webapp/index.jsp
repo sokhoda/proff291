@@ -69,6 +69,9 @@
 <a href="notebooksPage.jsp">
     <button>Notebooks page</button>
 </a>
+<a href="hw7/notesAdvanced.jsp">
+    <button>Notebooks Advanced</button>
+</a>
 <a href="employeePage.jsp">
     <button>Employee page</button>
 </a>

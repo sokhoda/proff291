@@ -34,4 +34,16 @@ public class CPU {
         this.frequency = frequency;
         this.model = model;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public String getModel() {
+        return model;
+    }
 }

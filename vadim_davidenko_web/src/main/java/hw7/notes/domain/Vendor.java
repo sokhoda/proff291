@@ -13,12 +13,12 @@ import java.util.Set;
 @Entity
 @Table(name = "VENDOR")
 @SequenceGenerator(name = "VENDOR_SEQ", sequenceName = "VENDOR_SEQ",
-        allocationSize = 1, initialValue = 4000)
+        allocationSize = 1, initialValue = 4001)
 
 public class Vendor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VENDOR_SEQ")
-    @Column(name = "ID")
+    @Column(name = "VENDOR_ID")
     private Long id;
 
     @Column(name = "NAME", length = 50)

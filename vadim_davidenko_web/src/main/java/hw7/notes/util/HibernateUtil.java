@@ -14,7 +14,7 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("hw6/hibernate.cfg.xml");
+        Configuration cfg = new Configuration().configure("hw7/hibernate.cfg.xml");
         StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
         sb.applySettings(cfg.getProperties());
         StandardServiceRegistry standardServiceRegistry = sb.build();

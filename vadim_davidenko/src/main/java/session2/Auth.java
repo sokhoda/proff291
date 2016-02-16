@@ -9,7 +9,7 @@ import java.util.Set;
  * Date: 20.12.15
  */
 public class Auth {
-    private Set<User> users = new HashSet<>();
+    private Set<User> users = new HashSet<User>();
 
     public static void main(String[] args) {
         Auth auth = new Auth();

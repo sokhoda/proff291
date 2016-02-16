@@ -17,9 +17,6 @@ public class Store {
     @Column(name = "ID")
     private long id;
 
-    @ManyToOne
-    private Notebook notebook;
-
     @Column(name="QUANTITY")
     private int amount;
 
@@ -31,7 +28,6 @@ public class Store {
     }
 
     public Store(Notebook notebook, int amount, double price) {
-        this.notebook = notebook;
         this.amount = amount;
         this.price = price;
     }
@@ -41,4 +37,16 @@ public class Store {
 
     @ManyToOne
     private Sales sales;
+
+    public long getId() {
+        return id;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }

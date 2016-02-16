@@ -35,4 +35,12 @@ public class Vendor {
     public Vendor(String name) {
         this.name = name;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
