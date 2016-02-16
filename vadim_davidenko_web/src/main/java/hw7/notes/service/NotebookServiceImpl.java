@@ -183,4 +183,9 @@ public class NotebookServiceImpl implements NotebookService {
         return memoryDao.findAll();
     }
 
+    @Override
+    public List<Store> getAllStores() {
+        return storeDao.findAll();
+    }
+
 }

@@ -14,6 +14,7 @@
 
 <form name="menuForm" action="/menuServlet" method="post">
     <input type="hidden" name="menuOption">
+
     <table cellpadding="4" align="center" style="background-color: #d4ecff">
         <tr><td align="center"><b>NOTEBOOKS MARKET</b></td></tr>
         <tr><td><hr/></td></tr>
@@ -39,12 +40,9 @@
         </tr>
         <tr>
             <td colspan="2" align="left">
-                <input type="button" value="New" onclick="submitNewEntity()" style="width: 80px"/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Edit" onclick="submitEditEntity()" style="width: 80px"/>
-                &nbsp;id:&nbsp;<input type="text" name="entityId" size="5" maxlength="5"/>
+                <input type="button" value="Select" onclick="submitEntity()" style="width: 80px"/>
             </td>
         </tr>
-        <tr><td colspan="2" align="center"><i>${entity_msg}</i></td></tr>
     </table>
 
     <table cellpadding="3">
@@ -114,17 +112,8 @@
 </form>
 
 <script>
-    function submitNewEntity() {
-        document.menuForm.menuOption.value = 'entity_new';
-        document.menuForm.submit();
-    }
-
-    function submitEditEntity() {
-        if(!document.menuForm.entityId.value.trim() || isNaN(+document.menuForm.entityId.value)) {
-            alert("Please, fill in id field!");
-            return;
-        }
-        document.menuForm.menuOption.value = 'entity_edit';
+    function submitEntity() {
+        document.menuForm.menuOption.value = 'entity';
         document.menuForm.submit();
     }
 

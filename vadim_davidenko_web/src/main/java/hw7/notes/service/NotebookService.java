@@ -73,4 +73,6 @@ public interface NotebookService {
     List getAllCPUs();
 
     List getAllMemories();
+
+    List getAllStores();
 }
