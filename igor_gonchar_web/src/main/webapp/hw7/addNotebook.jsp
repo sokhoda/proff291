@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<h3>Add Notebook:</h3>
 ${reg_result}
 </body>
 </html>

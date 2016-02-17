@@ -11,6 +11,15 @@
     <title>Title</title>
 </head>
 <body>
+<script src="js/advancedNotebooks.js" type="text/javascript"></script>
+<h3>Add Memory:</h3>
+Enter vendor: <br/>
+<form id ="addVendor" action="/addMemory" method="post">
+    <input id="1row" type="text" name="vendorName"> <br/>
+    Enter size: <br/>
+    <input id="2row" type="text" name="size"> <br/>
+    <input type="button" onclick="validateRow2()" value="Add Vendor"/>
+</form>
 <p>
     ${reg_result}
 </p>

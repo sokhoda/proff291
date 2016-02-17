@@ -100,4 +100,6 @@ public class CPUDaoImpl implements CPUDao {
         Query query = session.createQuery("FROM hw7.domain.CPU c");
         return query.list();
     }
+
+
 }

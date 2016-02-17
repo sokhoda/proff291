@@ -12,9 +12,10 @@
 </head>
 <body>
 <script src="js/advancedNotebooks.js" type="text/javascript"></script>
+<h3>Add Vendor:</h3>
 Enter name: <br/>
 <form id ="addVendor" action="/addVendor" method="post">
-    <input id="1row" type="text" name="vendorName"> <br/>
+    <input id="row1" type="text" name="vendorName"> <br/>
     <input type="button" onclick="validateRow1()" value="Add Vendor"/>
 </form>
 <p>
