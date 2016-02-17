@@ -24,7 +24,7 @@
     <input type="password" value="" name="pass" id="pass2">
 
     <label for="compID">CompanyId: </label>
-    <input type="password" value="" name="pass" id="CompID">
+    <input type="text" value="" name="CompID" id="CompID">
 
     <br><br>
     <br><br>

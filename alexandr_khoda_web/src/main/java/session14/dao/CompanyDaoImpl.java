@@ -27,16 +27,15 @@ public class CompanyDaoImpl implements CompanyDao {
     public List getEmployees(Long id) {
         Session session = factory.openSession();
         try{
-            Query query = session.createQuery("from Company c join Employee e where c.id = : compID ");
+            Query query = session.createQuery("from Employee e join e.comp c  where c.id = :compID ");
             query.setParameter("compID", id);
             return query.list();
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
 //            session.getTransaction().rollback();
-return null;
+        return null;
         } finally {
             session.close();
-            factory.close();
         }
     }
 }

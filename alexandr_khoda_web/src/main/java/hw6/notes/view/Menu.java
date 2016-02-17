@@ -69,10 +69,12 @@ public class Menu extends HttpServlet {
                 try {
                     Long id = String2Long(req.getParameter("idDelNote"));
                     if (service.delete(id)){
-                        setMessageAttr(req,"green", "Notebook successfully deleted.");
+                        setMessageAttr(req, "green", "Notebook successfully " +
+                                "deleted.");
                     }
                     else {
-                        setMessageAttr(req,"red", "Failed to delete notebook.");
+                        setMessageAttr(req, "red", "Failed to delete notebook" +
+                                ".");
                     }
                     req.getRequestDispatcher("/hw6.notes/pages/menu.jsp").forward
                             (req, res);

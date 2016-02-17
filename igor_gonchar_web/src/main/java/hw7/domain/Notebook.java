@@ -50,4 +50,32 @@ public class Notebook {
         this.cpu = cpu;
         this.memory = memory;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Date getManufactureDate() {
+        return manufactureDate;
+    }
+
+    public CPU getCpu() {
+        return cpu;
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public Store getStore() {
+        return store;
+    }
 }

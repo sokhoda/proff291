@@ -35,4 +35,16 @@ public class Sales {
         this.date = date;
         this.amount = amount;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public long getId() {
+        return id;
+    }
 }

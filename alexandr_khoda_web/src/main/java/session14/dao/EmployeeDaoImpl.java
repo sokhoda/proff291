@@ -25,20 +25,19 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public boolean loginCheck(String firstName, String lastName) {
         Session session = factory.openSession();
-    try{
-        Query query = session.createQuery("from Employee where FIRSTNAME = :FIRSTNAME and LASTNAME = :LASTNAME");
-        query.setParameter("FIRSTNAME", firstName);
-        query.setParameter("LASTNAME", lastName);
-        return (query.uniqueResult() != null ? true : false);
-    } catch (HibernateException e) {
-        log.error("Transaction failed", e);
+        try{
+            Query query = session.createQuery("from Employee where FIRSTNAME = :FIRSTNAME and LASTNAME = :LASTNAME");
+            query.setParameter("FIRSTNAME", firstName);
+            query.setParameter("LASTNAME", lastName);
+            return (query.uniqueResult() != null ? true : false);
+        } catch (HibernateException e) {
+            log.error("Transaction failed", e);
 //        session.getTransaction().rollback();
-        return false;
+            return false;
 
-    } finally {
-        session.close();
-        factory.close();
-    }
+        } finally {
+            session.close();
+        }
 
     }
 

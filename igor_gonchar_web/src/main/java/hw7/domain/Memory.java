@@ -29,4 +29,12 @@ public class Memory {
     public Memory(int size) {
         this.size = size;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getSize() {
+        return size;
+    }
 }

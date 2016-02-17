@@ -24,7 +24,8 @@ public class Company {
     private Double balance;
 
     @OneToMany (mappedBy = "comp", cascade = {CascadeType.MERGE, CascadeType
-            .PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+            .PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
 //    @JoinColumn (name = "COMPANY_ID")
     private Set<Employee> employee = new HashSet<>();
 

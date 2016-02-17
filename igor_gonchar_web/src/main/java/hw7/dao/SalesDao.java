@@ -10,7 +10,7 @@ import java.util.List;
 public interface SalesDao {
     public Long create(Sales sales);
 
-    public Sales read(Long ig);
+    public Sales read(Long id);
 
     public boolean update(Sales sales);
 
