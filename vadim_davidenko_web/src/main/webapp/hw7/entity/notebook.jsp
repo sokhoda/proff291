@@ -23,7 +23,8 @@
     <form name="notebookForm" action="/noteServlet" method="post">
       <input type="hidden" name="action">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
-        <tr><td colspan="2" align="center"><h3>Notebook registration</h3></td></tr>
+        <tr><td colspan="2" align="center"><b>NOTEBOOK</b></td></tr>
+        <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">Id:</td>
           <td><input type="text" name="id" size="5" disabled></td>
@@ -45,7 +46,7 @@
         <tr>
           <td align="right">Vendor name:</td>
           <td>
-            <select size="2" id="vendor" name="vendor">
+            <select size="2" name="vendorId">
             <option disabled>No selected ...................</option>
             <%
               String vendorId = (String)request.getAttribute("vendorId");
@@ -63,7 +64,7 @@
         <tr>
           <td align="right">CPU name:</td>
           <td>
-            <select size="2" id="cpu" name="cpu">
+            <select size="2" name="cpuId">
               <option disabled>No selected ...................</option>
               <%
                 String cpuId = (String)request.getAttribute("cpuId");
@@ -81,7 +82,7 @@
         <tr>
           <td align="right">Memory type:</td>
           <td>
-            <select size="2" id="memory" name="memory">
+            <select size="2" name="memoryId">
               <option disabled>No selected ...................</option>
               <%
                 String memoryId = (String)request.getAttribute("memoryId");
@@ -100,7 +101,7 @@
         <tr>
           <td align="right">Store id:</td>
           <td>
-            <select size="2" id="store" name="store">
+            <select size="2" name="storeId">
               <option disabled>No selected ...................</option>
               <%
                 String storeId = (String)request.getAttribute("storeId");
@@ -165,7 +166,6 @@
     document.notebookForm.id.value = '';
     document.notebookForm.selectedId.value = '';
     document.notebookForm.model.value = '';
-    document.notebookForm.model.value = '';
     document.notebookForm.dd.value = '';
     document.notebookForm.mm.value = '';
     document.notebookForm.yyyy.value = '';
@@ -182,9 +182,9 @@
   }
 
   function checkFields(form) {
-    if(!form.model.value.trim() || !form.vendor.value.trim() ||
-            !form.cpu.value.trim() || !form.memory.value.trim() ||
-            !form.store.value.trim() || !form.dd.value.trim() ||
+    if(!form.model.value.trim() || !form.vendorId.value.trim() ||
+            !form.cpuId.value.trim() || !form.memoryId.value.trim() ||
+            !form.storeId.value.trim() || !form.dd.value.trim() ||
             !form.mm.value.trim() || !form.yyyy.value.trim()) {
       alert("Please, fill in all fields with valid values!");
       return false;

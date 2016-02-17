@@ -24,7 +24,9 @@ public class VendorServlet extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("actionId")[0];
 

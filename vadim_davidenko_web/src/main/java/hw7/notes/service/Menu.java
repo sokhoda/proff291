@@ -47,11 +47,6 @@ public class Menu extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         main(req, resp);
     }
@@ -66,7 +61,7 @@ public class Menu extends HttpServlet {
         String menuOption = parameterMap.get("menuOption")[0];
         switch (menuOption) {
             case "entity":
-                entityNewService(req, resp);
+                entityService(req, resp);
                 break;
             case "receive":
                 receiveService(req, resp);
@@ -77,8 +72,8 @@ public class Menu extends HttpServlet {
             case "sale":
                 salesService(req, resp);
                 break;
-            case "report":
-                reportService(req, resp);
+            case "reports":
+                req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
                 break;
         }
     }
@@ -89,7 +84,7 @@ public class Menu extends HttpServlet {
      * Добавить/Изменить имя производителя
      * Добавить/Изменить тип ноутбука
      */
-    public void entityNewService(HttpServletRequest req, HttpServletResponse resp)
+    public void entityService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -98,13 +93,17 @@ public class Menu extends HttpServlet {
         switch (option) {
             case "notebook":
                 List<Vendor> vendorList = noteService.getAllVendors();
+                req.setAttribute("vendorList", vendorList);
+
                 List<CPU> cpuList = noteService.getAllCPUs();
+                req.setAttribute("cpuList", cpuList);
+
                 List<Memory> memoryList = noteService.getAllMemories();
+                req.setAttribute("memoryList", memoryList);
+
                 List<Store> storeList = noteService.getAllStores();
-                req.setAttribute("vendorList", vendorList);
-                req.setAttribute("cpuList", cpuList);
-                req.setAttribute("memoryList", memoryList);
                 req.setAttribute("storeList", storeList);
+
                 req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
             case "vendor":
@@ -114,85 +113,6 @@ public class Menu extends HttpServlet {
                 req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
             case "memory":
-                req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
-                break;
-        }
-    }
-
-    /*
-     * Изменить процессор
-     * Изменить память
-     * Изменить имя производителя
-     * Изменить тип ноутбука
-     */
-    public void entityEditService(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        String option = parameterMap.get("entityMenu")[0];
-        Long id = Long.valueOf(parameterMap.get("entityId")[0]);
-
-        switch (option) {
-            case "notebook":
-                Notebook notebook = noteService.getNotebookById(id);
-                if (notebook == null) {
-                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
-                    req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
-                    break;
-                }
-                List<Vendor> vendorList = noteService.getAllVendors();
-                List<CPU> cpuList = noteService.getAllCPUs();
-                List<Memory> memoryList = noteService.getAllMemories();
-
-                req.setAttribute("entityId", String.valueOf(id));
-                req.setAttribute("model", notebook.getModel());
-                req.setAttribute("date", notebook.getManufactureDateStr());
-                req.setAttribute("vendorId", String.valueOf(notebook.getVendor().getId()));
-                req.setAttribute("vendorList", vendorList);
-                req.setAttribute("cpuId", String.valueOf(notebook.getCpu().getId()));
-                req.setAttribute("cpuList", cpuList);
-                req.setAttribute("memoryId", String.valueOf(notebook.getMemory().getId()));
-                req.setAttribute("memoryList", memoryList);
-
-                req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
-                break;
-
-            case "vendor":
-                Vendor vendor = noteService.getVendorById(id);
-                if (vendor == null) {
-                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
-                    req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
-                    break;
-                }
-                req.setAttribute("entityId", String.valueOf(id));
-                req.setAttribute("vendor", vendor.getName());
-                req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
-                break;
-
-            case "cpu":
-                CPU cpu = noteService.getCPUById(id);
-                if (cpu == null) {
-                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
-                    req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
-                    break;
-                }
-                req.setAttribute("entityId", String.valueOf(id));
-                req.setAttribute("model", cpu.getModel());
-                req.setAttribute("vendor", cpu.getVendor());
-                req.setAttribute("frequency", cpu.getFrequency());
-                req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
-                break;
-
-            case "memory":
-                Memory memory = noteService.getMemoryById(id);
-                if (memory == null) {
-                    req.setAttribute("entity_msg", NO_SUCH_ENTITY_MSG);
-                    req.getRequestDispatcher(MENU_PAGE).forward(req, resp);
-                    break;
-                }
-                req.setAttribute("entityId", String.valueOf(id));
-                req.setAttribute("vendor", memory.getVendor());
-                req.setAttribute("size", memory.getSize());
                 req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }
@@ -220,7 +140,7 @@ public class Menu extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        Long storeId = Long.valueOf(parameterMap.get("storeIdRemove")[0]);
+        Long noteId = Long.valueOf(parameterMap.get("noteIdRemove")[0]);
         Integer amountRemove = Integer.valueOf(parameterMap.get("amountRemove")[0]);
 
 
@@ -238,52 +158,5 @@ public class Menu extends HttpServlet {
 
 
 
-    }
-
-    /*
-     * Показать все ноутбуки на складе (пользователь указывает размер порции)
-     * Показать все ноутбуки которых больше указанного количества
-     * Показать все ноутбуки по указанному имени производителя процессора
-     * Показать все ноутбуки на складе
-     * Показать типы ноутбуков, оставшиеся на складе по каждому производителю
-     * Получить объем продаж ноутбуков в среднем за день (в штуках)
-     */
-    public void reportService(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        String option = parameterMap.get("reportMenu")[0];
-
-        switch (option) {
-            case "byPortion":
-                Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-
-
-                break;
-
-            case "gtAmount":
-                Integer gtAmount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
-
-
-                break;
-
-            case "byCPU":
-                String cpuVendor = parameterMap.get("cpuVendor")[0];
-
-                break;
-
-            case "storeAll":
-
-                break;
-
-            case "storePresent":
-
-                break;
-
-            case "salesByDays":
-
-                break;
-        }
-        req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
     }
 }

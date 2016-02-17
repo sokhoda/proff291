@@ -18,7 +18,8 @@
     <form name="memoryForm" action="/memoryServlet" method="post">
       <input type="hidden" name="action">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
-        <tr><td colspan="2" align="center"><h3>Memory registration</h3></td></tr>
+        <tr><td colspan="2" align="center"><b>MEMORY</b></td></tr>
+        <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">Id:</td>
           <td><input type="text" name="id" size="5" disabled></td>

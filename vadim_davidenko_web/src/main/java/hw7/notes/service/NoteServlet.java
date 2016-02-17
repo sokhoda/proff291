@@ -1,6 +1,7 @@
 package hw7.notes.service;
 
-import hw7.notes.domain.Notebook;
+import hw7.notes.domain.*;
+import hw7.notes.util.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by v.davidenko on 15.02.2016.
@@ -17,33 +21,84 @@ import java.util.Map;
 @WebServlet("/noteServlet")
 public class NoteServlet extends HttpServlet {
 
-    final static String NOTEBOOK_PAGE = "hw7/entity/notebook.jsp";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String id = parameterMap.get("entityId")[0];
-        String model = parameterMap.get("model")[0].trim();
+        String action = parameterMap.get("actionId")[0];
 
+        if (action.equals("find")) {
+            Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
+            Notebook note = Menu.noteService.getNotebookById(id);
+            if (note == null) {
+                req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
+                req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
+            } else {
+                req.setAttribute("id", String.valueOf(id));
+                req.setAttribute("model", note.getModel());
+                req.setAttribute("date", note.getManufactureDateStr());
 
-        Notebook notebook = new Notebook();
-        notebook.setId(Long.valueOf(id));
-        notebook.setModel(model);
+                req.setAttribute("vendorId", String.valueOf(note.getVendor().getId()));
+                List<Vendor> vendorList = Menu.noteService.getAllVendors();
+                req.setAttribute("vendorList", vendorList);
 
+                req.setAttribute("cpuId", String.valueOf(note.getCpu().getId()));
+                List<CPU> cpuList = Menu.noteService.getAllCPUs();
+                req.setAttribute("cpuList", cpuList);
 
-        if (Menu.noteService.updateNotebook(notebook)) {
-            req.setAttribute("server_msg", UPDATE_SUCCESS_MSG);
+                req.setAttribute("memoryId", String.valueOf(note.getMemory().getId()));
+                List<Memory> memoryList = Menu.noteService.getAllMemories();
+                req.setAttribute("memoryList", memoryList);
+
+                req.setAttribute("storeId", String.valueOf(note.getStore().getId()));
+                List<Store> storeList = Menu.noteService.getAllStores();
+                req.setAttribute("storeList", storeList);
+            }
+            req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
+            return;
         }
-        req.setAttribute("entityId", id);
-        req.setAttribute("model", model);
 
-        req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
+        if (action.equals("save")) {
+            String id = parameterMap.get("id")[0];
+            String model = parameterMap.get("model")[0].trim();
+            Date date = Utils.stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
+
+            Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
+            Vendor vendor = Menu.noteService.getVendorById(vendorId);
+
+            Long cpuId = Long.valueOf(parameterMap.get("cpuId")[0]);
+            CPU cpu = Menu.noteService.getCPUById(cpuId);
+
+            Long memoryId = Long.valueOf(parameterMap.get("memoryId")[0]);
+            Memory memory = Menu.noteService.getMemoryById(memoryId);
+
+            Long storeId = Long.valueOf(parameterMap.get("storeId")[0]);
+            Store store = Menu.noteService.getStoreById(storeId);
+
+            Notebook note = new Notebook();
+            note.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
+            note.setModel(model);
+            note.setManufactureDate(date);
+            note.setVendor(vendor);
+            note.setCpu(cpu);
+            note.getMemory();
+            note.getStore();
+
+            if (Menu.noteService.updateNotebook(note)) {
+                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+            }
+            Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+            for(Map.Entry<String, String[]> entry : entries) {
+                req.setAttribute(entry.getKey(), entry.getValue()[0]);
+            }
+            req.getRequestDispatcher(Menu.NOTEBOOK_PAGE).forward(req, resp);
+        }
     }
 
 }

@@ -46,6 +46,7 @@
     </table>
 
     <table cellpadding="3">
+        <tr><td colspan="7"><hr/></td></tr>
         <tr><td colspan="7"><b>Store operations</b></td></tr>
         <tr>
             <td><input type="button" value="Receive" onclick="submitReceive()" style="width: 80px"/></td>
@@ -58,8 +59,8 @@
         </tr>
         <tr>
             <td><input type="button" value="Remove" onclick="submitRemove()" style="width: 80px"/></td>
-            <td align="right">Store id:</td>
-            <td><input type="text" name="storeIdRemove"  size="5" maxlength="5"/>
+            <td align="right">Note id:</td>
+            <td><input type="text" name="noteIdRemove"  size="5" maxlength="5"/>
             <td align="right">Amount:</td>
             <td><input type="text" name="amountRemove" size="5" maxlength="5"/></td>
             <td colspan="2"></td>
@@ -72,43 +73,17 @@
             <td><input type="text" name="amountSale" size="5" maxlength="5"/></td>
             <td colspan="2"></td>
         </tr>
-        <tr><td colspan="7" align="center"><i>${store_msg}</i></td></tr>
+        <tr><td colspan="7" align="center"><i>${server_msg}</i></td></tr>
+        <tr><td colspan="7"><hr/></td></tr>
+        <tr><td colspan="7"><b>Reports</b></td></tr>
+        <tr>
+            <td colspan="2"><input type="button" value="Menu" onclick="submitReport()" style="width: 80px"/></td>
+            <td colspan="5" align="right"><a href="../index.jsp">Log off</a></td>
+        </tr>
     </table>
 
-    <table cellpadding="3">
-        <tr><td colspan="3"><b>Reports</b></td></tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="byPortion" checked></td>
-            <td>Show notebooks by portion:</td>
-            <td><input type="text" name="portion" size="2" maxlength="2"/></td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="gtAmount"></td>
-            <td>Show notebooks greater then amount:</td>
-            <td><input type="text" name="gtAmount" size="5" maxlength="5"/></td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="byCPU"></td>
-            <td>Show notebooks by CPU vendor:</td>
-            <td><input type="text" name="cpuVendor" size="20" maxlength="20"/></td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="storeAll" checked></td>
-            <td colspan="2">Show notebooks from store</td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="storePresent"></td>
-            <td colspan="2">Show notebooks present on market</td>
-        </tr>
-        <tr>
-            <td><input type="radio" name="reportMenu" value="salesByDays"></td>
-            <td colspan="2">Show notebook sales per day</td>
-        </tr>
-        <tr>
-            <td colspan="2" colspan="2"><input type="button" value="Select" onclick="submitReport()" style="width: 80px"/></td>
-        </tr>
+    </td></tr>
     </table>
-    </td></tr></table>
 </form>
 
 <script>
@@ -133,7 +108,7 @@
     }
 
     function submitReport() {
-        document.menuForm.menuOption.value = 'report';
+        document.menuForm.menuOption.value = 'reports';
         document.menuForm.submit();
     }
 </script>

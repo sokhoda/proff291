@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by v.davidenko on 16.02.2016.
@@ -20,7 +21,57 @@ public class ReportsServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        service(req, resp);
     }
+
+    /*
+     * Показать все ноутбуки на складе (пользователь указывает размер порции)
+     * Показать все ноутбуки которых больше указанного количества
+     * Показать все ноутбуки по указанному имени производителя процессора
+     * Показать все ноутбуки на складе
+     * Показать типы ноутбуков, оставшиеся на складе по каждому производителю
+     * Получить объем продаж ноутбуков в среднем за день (в штуках)
+     */
+    @Override
+    public void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        Map<String, String[]> parameterMap = req.getParameterMap();
+        String option = parameterMap.get("reportMenu")[0];
+
+        switch (option) {
+            case "byPortion":
+                Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
+
+
+                break;
+
+            case "gtAmount":
+                Integer gtAmount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
+
+
+                break;
+
+            case "byCPU":
+                String cpuVendor = parameterMap.get("cpuVendor")[0];
+
+                break;
+
+            case "storeAll":
+
+                break;
+
+            case "storePresent":
+
+                break;
+
+            case "salesByDays":
+
+                break;
+        }
+        req.getRequestDispatcher(Menu.REPORTS_PAGE).forward(req, resp);
+    }
+
 }
