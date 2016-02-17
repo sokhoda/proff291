@@ -12,19 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/add2Store")
-public class AddNote2Store extends HttpServlet {
+@WebServlet("/x")
+public class Servlet extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private NotebookService service;
@@ -62,11 +58,6 @@ public class AddNote2Store extends HttpServlet {
         arr[0] = getAttribValue(req,"messageColor");
         arr[1] = getAttribValue(req, "messageText");
         return  arr;
-    }
-
-    public static String checkDate(GregorianCalendar gc) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-        return (gc == null ? "null": format1.format(gc.getTime()));
     }
 
     public static String getAttribValue(HttpServletRequest req, String name){

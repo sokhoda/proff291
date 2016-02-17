@@ -80,7 +80,7 @@ button.but:hover{
     opacity: 0.6;
 }
 label.cntMark {
-    margin: 0 0 0 20px;
+    margin: 0 20px 0 20px;
     text-align: center;
     color: darkred;
     font-weight: bold;

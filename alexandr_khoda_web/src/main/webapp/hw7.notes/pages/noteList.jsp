@@ -41,12 +41,12 @@
 
     <input type="submit" name="back" id="back" class="but"
            value="&longleftarrow;">
+    <label class="cntMark"><%=cnt%> of <%=totPortion%></label>
     <input type="submit" name="forward" id="forward" class="but"
            value="&longrightarrow;">
 
     <input type="hidden" name="cntMark" value="<%=cnt%> of <%=totPortion%>">
 
-    <label class="cntMark"><%=cnt%> of <%=totPortion%></label>
     <label class="regMessage"style="color: <%=message[0]%>"><%=message[1]%></label>
 </div>
 
@@ -89,12 +89,12 @@
         for (int i = 0; i < nlist.size(); i++) {
     %>
     <tr>
-        <td class="shrink"><%= nlist.get(i).getId()%></td>
-        <td align="left"><%= nlist.get(i).getSerial()%></td>
-        <td align="left"><%= nlist.get(i).getVendor()%></td>
-        <td align="left"><%= nlist.get(i).getModel()%></td>
-        <td><%=checkDate(nlist.get(i).getManDate())%></td>
-        <td align="left"><%= nlist.get(i).getPrice()%></td>
+        <%--<td class="shrink"><%= nlist.get(i).getId()%></td>--%>
+        <%--<td align="left"><%= nlist.get(i).getSerial()%></td>--%>
+        <%--<td align="left"><%= nlist.get(i).getVendor()%></td>--%>
+        <%--<td align="left"><%= nlist.get(i).getModel()%></td>--%>
+        <%--<td><%=checkDate(nlist.get(i).getManDate())%></td>--%>
+        <%--<td align="left"><%= nlist.get(i).getPrice()%></td>--%>
     </tr>
     <%
         }

@@ -5,12 +5,12 @@
 function clearElemContent(id){
     var myNode = document.getElementById(id);
     if (myNode == null) return;
-    myNode.value='';
+    myNode.value = '';
     myNode.innerHTML = '';
 }
 
 function clearAllAddNotebook(){
-    clearElemContent('1');
+    clearElemContent('vendors');
     clearElemContent('2');
     clearElemContent('3');
     clearElemContent('4');
