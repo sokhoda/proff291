@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by v.davidenko on 15.02.2016.
@@ -16,9 +17,6 @@ import java.util.Map;
 
 @WebServlet("/vendorServlet")
 public class VendorServlet extends HttpServlet {
-
-    final static String VENDOR_PAGE = "hw7/entity/vendor.jsp";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,18 +26,37 @@ public class VendorServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String id = parameterMap.get("entityId")[0];
-        String vendorName = parameterMap.get("vendor")[0].trim();
+        String action = parameterMap.get("actionId")[0];
 
-        Vendor vendor = new Vendor();
-        vendor.setId(Long.valueOf(id));
-        vendor.setName(vendorName);
-
-        if (Menu.noteService.updateVendor(vendor)) {
-            req.setAttribute("server_msg", UPDATE_SUCCESS_MSG);
+        if (action.equals("find")) {
+            Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
+            Vendor vendor = Menu.noteService.getVendorById(id);
+            if (vendor == null) {
+                req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
+                req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
+            } else {
+                req.setAttribute("id", String.valueOf(vendor.getId()));
+                req.setAttribute("vendorName", vendor.getName());
+            }
+            req.getRequestDispatcher(Menu.VENDOR_PAGE).forward(req, resp);
+            return;
         }
-        req.setAttribute("entityId", id);
-        req.setAttribute("vendor", vendorName);
-        req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
+
+        if (action.equals("save")) {
+            String vendorName = parameterMap.get("vendorName")[0].trim();
+            String id = parameterMap.get("id")[0];
+            Vendor vendor = new Vendor();
+            vendor.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
+            vendor.setName(vendorName);
+
+            if (Menu.noteService.updateVendor(vendor)) {
+                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+            }
+            Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+            for(Map.Entry<String, String[]> entry : entries) {
+                req.setAttribute(entry.getKey(), entry.getValue()[0]);
+            }
+            req.getRequestDispatcher(Menu.VENDOR_PAGE).forward(req, resp);
+        }
     }
 }

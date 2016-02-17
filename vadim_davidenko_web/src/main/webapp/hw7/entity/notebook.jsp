@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.domain.CPU" %>
 <%@ page import="hw7.notes.domain.Memory" %>
+<%@ page import="hw7.notes.domain.Store" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим
@@ -18,10 +19,15 @@
 
 <table align="center">
   <tr><td>
+
     <form name="notebookForm" action="/noteServlet" method="post">
-        <input type="hidden" name="entityId">
+      <input type="hidden" name="action">
       <table border="0" cellpadding="6" style="background-color: #d4ecff">
         <tr><td colspan="2" align="center"><h3>Notebook registration</h3></td></tr>
+        <tr>
+          <td align="right">Id:</td>
+          <td><input type="text" name="id" size="5" disabled></td>
+        </tr>
         <tr>
           <td align="right">Model name:</td>
           <td><input type="text" name="model" size="25" maxlength="25"/></td>
@@ -39,7 +45,7 @@
         <tr>
           <td align="right">Vendor name:</td>
           <td>
-            <select size="3" id="vendor" name="vendor">
+            <select size="2" id="vendor" name="vendor">
             <option disabled>No selected ...................</option>
             <%
               String vendorId = (String)request.getAttribute("vendorId");
@@ -57,7 +63,7 @@
         <tr>
           <td align="right">CPU name:</td>
           <td>
-            <select size="3" id="cpu" name="cpu">
+            <select size="2" id="cpu" name="cpu">
               <option disabled>No selected ...................</option>
               <%
                 String cpuId = (String)request.getAttribute("cpuId");
@@ -75,7 +81,7 @@
         <tr>
           <td align="right">Memory type:</td>
           <td>
-            <select size="3" id="memory" name="memory">
+            <select size="2" id="memory" name="memory">
               <option disabled>No selected ...................</option>
               <%
                 String memoryId = (String)request.getAttribute("memoryId");
@@ -91,16 +97,45 @@
           </td>
         </tr>
 
+        <tr>
+          <td align="right">Store id:</td>
+          <td>
+            <select size="2" id="store" name="store">
+              <option disabled>No selected ...................</option>
+              <%
+                String storeId = (String)request.getAttribute("storeId");
+                List<Store> storeList = (List<Store>)request.getAttribute("storeList");
+                if(storeList != null && !storeList.isEmpty()){
+                  for (Store store : storeList){
+              %>
+              <option <%=(String.valueOf(store.getId()).equals(storeId)) ? "selected" : ""%>
+                      value="<%=String.valueOf(store.getId())%>"><%=String.valueOf(store.getId())%></option>
+              <% } } %>
+            </select>
+          </td>
+        </tr>
+
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
-          <td colspan="2" align="center">
-            <input type="button" value="Save" onclick="submitForm()" style="width: 80px"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+          <td align="center">
+            <input type="button" value="New" onclick="newEntity()" style="width: 70px"/>
+          </td>
+          <td>
+            <input type="button" value="Edit" onclick="editEntity()" style="width: 70px"/>
+            &nbsp;id:&nbsp;<input type="text" name="selectedId" size="5" maxlength="5"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="center">
+            <input type="button" value="Save" onclick="submitForm()" style="width: 70px"/>
+          </td>
+          <td>
+            <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 70px"/></a>
           </td>
         </tr>
       </table>
     </form>
+
   </td></tr>
   <tr><td colspan="2" align="center">
     <b>${server_msg}</b>
@@ -108,7 +143,8 @@
 </table>
 
 <script>
-  document.notebookForm.entityId.value = '${entityId}';
+  document.notebookForm.id.value = '${id}';
+  document.notebookForm.selectedId.value = '${selectedId}';
   document.notebookForm.model.value = '${model}';
   if ('${date}'.length == 10) {
     document.notebookForm.dd.value = '${date}'.substring(0, 2);
@@ -118,15 +154,42 @@
 
   function submitForm() {
     var form = document.notebookForm;
-    if(!form.model.value.trim() || !form.vendor.value.trim() ||
-            !form.cpu.value.trim() || !form.memory.value.trim() ||
-            !form.dd.value.trim() || !form.mm.value.trim() ||
-            !form.yyyy.value.trim()) {
-      alert("Please, fill in all fields with valid values!");
-    } else {
+    if(checkFields(form)) {
       form.date.value = readDate(form.dd, form.mm, form.yyyy);
+      document.notebookForm.action.value = 'save';
       form.submit();
     }
+  }
+
+  function newEntity() {
+    document.notebookForm.id.value = '';
+    document.notebookForm.selectedId.value = '';
+    document.notebookForm.model.value = '';
+    document.notebookForm.model.value = '';
+    document.notebookForm.dd.value = '';
+    document.notebookForm.mm.value = '';
+    document.notebookForm.yyyy.value = '';
+  }
+
+  function editEntity() {
+    var id = document.notebookForm.selectedId.value.trim();
+    if(!id || isNaN(+id)) {
+      alert("Please, fill in Id with numeric value!");
+    } else {
+      document.notebookForm.action.value = 'find';
+      document.notebookForm.submit();
+    }
+  }
+
+  function checkFields(form) {
+    if(!form.model.value.trim() || !form.vendor.value.trim() ||
+            !form.cpu.value.trim() || !form.memory.value.trim() ||
+            !form.store.value.trim() || !form.dd.value.trim() ||
+            !form.mm.value.trim() || !form.yyyy.value.trim()) {
+      alert("Please, fill in all fields with valid values!");
+      return false;
+    }
+    return true;
   }
 
   function readDate(dd, mm, yyyy) {

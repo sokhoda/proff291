@@ -1,10 +1,7 @@
 package hw7.notes.service;
 
 import hw7.notes.dao.*;
-import hw7.notes.domain.CPU;
-import hw7.notes.domain.Memory;
-import hw7.notes.domain.Notebook;
-import hw7.notes.domain.Vendor;
+import hw7.notes.domain.*;
 import hw7.notes.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -31,6 +28,7 @@ public class Menu extends HttpServlet {
     final static String MEMORY_PAGE = "hw7/entity/memory.jsp";
     final static String REPORTS_PAGE = "hw7/reports/report.jsp";
     final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
+    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
 
     public static NotebookService noteService;
 
@@ -67,11 +65,8 @@ public class Menu extends HttpServlet {
 
         String menuOption = parameterMap.get("menuOption")[0];
         switch (menuOption) {
-            case "entity_new":
+            case "entity":
                 entityNewService(req, resp);
-                break;
-            case "entity_edit":
-                entityEditService(req, resp);
                 break;
             case "receive":
                 receiveService(req, resp);
@@ -89,10 +84,10 @@ public class Menu extends HttpServlet {
     }
 
     /*
-     * Добавить процессор
-     * Добавить память
-     * Добавить имя производителя
-     * Добавить тип ноутбука
+     * Добавить/Изменить процессор
+     * Добавить/Изменить память
+     * Добавить/Изменить имя производителя
+     * Добавить/Изменить тип ноутбука
      */
     public void entityNewService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -105,25 +100,19 @@ public class Menu extends HttpServlet {
                 List<Vendor> vendorList = noteService.getAllVendors();
                 List<CPU> cpuList = noteService.getAllCPUs();
                 List<Memory> memoryList = noteService.getAllMemories();
-
-                req.setAttribute("vendorId", "");
+                List<Store> storeList = noteService.getAllStores();
                 req.setAttribute("vendorList", vendorList);
-                req.setAttribute("cpuId", "");
                 req.setAttribute("cpuList", cpuList);
-                req.setAttribute("memoryId", "");
                 req.setAttribute("memoryList", memoryList);
-
+                req.setAttribute("storeList", storeList);
                 req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
-
             case "vendor":
                 req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
                 break;
-
             case "cpu":
                 req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
-
             case "memory":
                 req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
