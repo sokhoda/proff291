@@ -51,7 +51,7 @@
                <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
            </td>
        </tr>
-       <tr><td colspan="3" align="center"><i>${server_msg}</i></td></tr>
+       <tr><td colspan="3" align="center"><b>${server_msg}</b></td></tr>
    </table>
 </form>
 

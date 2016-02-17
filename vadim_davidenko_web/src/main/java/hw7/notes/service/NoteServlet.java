@@ -55,10 +55,6 @@ public class NoteServlet extends HttpServlet {
                 req.setAttribute("memoryId", String.valueOf(note.getMemory().getId()));
                 List<Memory> memoryList = Menu.noteService.getAllMemories();
                 req.setAttribute("memoryList", memoryList);
-
-                req.setAttribute("storeId", String.valueOf(note.getStore().getId()));
-                List<Store> storeList = Menu.noteService.getAllStores();
-                req.setAttribute("storeList", storeList);
             }
             req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
             return;
@@ -78,17 +74,13 @@ public class NoteServlet extends HttpServlet {
             Long memoryId = Long.valueOf(parameterMap.get("memoryId")[0]);
             Memory memory = Menu.noteService.getMemoryById(memoryId);
 
-            Long storeId = Long.valueOf(parameterMap.get("storeId")[0]);
-            Store store = Menu.noteService.getStoreById(storeId);
-
             Notebook note = new Notebook();
             note.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             note.setModel(model);
             note.setManufactureDate(date);
             note.setVendor(vendor);
             note.setCpu(cpu);
-            note.getMemory();
-            note.getStore();
+            note.setMemory(memory);
 
             if (Menu.noteService.updateNotebook(note)) {
                 req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);

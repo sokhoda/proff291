@@ -21,14 +21,17 @@ import java.util.Map;
 @WebServlet("/menuServlet")
 public class Menu extends HttpServlet {
 
-    final static String MENU_PAGE = "hw7/menu.jsp";
-    final static String NOTEBOOK_PAGE = "hw7/entity/notebook.jsp";
-    final static String VENDOR_PAGE = "hw7/entity/vendor.jsp";
-    final static String CPU_PAGE = "hw7/entity/cpu.jsp";
-    final static String MEMORY_PAGE = "hw7/entity/memory.jsp";
-    final static String REPORTS_PAGE = "hw7/reports/report.jsp";
+    final static String NOTEBOOK_PAGE = "hw7/notebook.jsp";
+    final static String VENDOR_PAGE = "hw7/vendor.jsp";
+    final static String CPU_PAGE = "hw7/cpu.jsp";
+    final static String MEMORY_PAGE = "hw7/memory.jsp";
+    final static String REPORTS_PAGE = "hw7/reports.jsp";
+    final static String STORE_PAGE = "hw7/store.jsp";
     final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
     final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
+    final static String STORE_RECEIVE_MSG = "Notebooks received on Store successfully";
+    final static String STORE_REMOVE_MSG = "Notebooks removed from Store successfully";
+    final static String STORE_SALE_MSG = "Notebooks store sold successfully";
 
     public static NotebookService noteService;
 
@@ -52,7 +55,7 @@ public class Menu extends HttpServlet {
     }
 
     /*
-     * Главное меню
+     * Main menu
      */
     public void main(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -63,26 +66,39 @@ public class Menu extends HttpServlet {
             case "entity":
                 entityService(req, resp);
                 break;
-            case "receive":
-                receiveService(req, resp);
-                break;
-            case "remove":
-                removeService(req, resp);
-                break;
-            case "sale":
-                salesService(req, resp);
+            case "store":
+                storeService(req, resp);
                 break;
             case "reports":
-                req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
-                break;
+                reportsService(req, resp);
         }
     }
 
     /*
-     * Добавить/Изменить процессор
-     * Добавить/Изменить память
-     * Добавить/Изменить имя производителя
-     * Добавить/Изменить тип ноутбука
+     * Go to Store menu page
+     */
+    public void storeService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        List<Notebook> notebookList = noteService.getAllNotebooks();
+        req.setAttribute("notebookList", notebookList);
+
+        List<Store> storeList = noteService.getAllStores();
+        req.setAttribute("storeList", storeList);
+
+        req.getRequestDispatcher(STORE_PAGE).forward(req, resp);
+    }
+
+    /*
+     * Go to Reports menu page
+     */
+    public void reportsService(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
+    }
+
+    /*
+     * Add/Modify entity menu (Notebook type, Vendor, CPU, Memory)
      */
     public void entityService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -116,47 +132,5 @@ public class Menu extends HttpServlet {
                 req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }
-    }
-
-    /*
-     * Принять на склад партию ноутбуков (id ноутбука, количество, цена)
-     */
-    public void receiveService(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        Long noteId = Long.valueOf(parameterMap.get("noteIdReceive")[0]);
-        Integer amountReceive = Integer.valueOf(parameterMap.get("amountReceive")[0]);
-        Double priceReceive = Double.valueOf(parameterMap.get("priceReceive")[0]);
-
-
-
-    }
-
-    /*
-     * Списать со склада ноутбуки (ключ, количество)
-     */
-    public void removeService(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        Long noteId = Long.valueOf(parameterMap.get("noteIdRemove")[0]);
-        Integer amountRemove = Integer.valueOf(parameterMap.get("amountRemove")[0]);
-
-
-    }
-
-    /*
-     * Продать указанное количество ноутбуков со склада(id склада, количество)
-     */
-    public void salesService(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        Long storeId = Long.valueOf(parameterMap.get("storeIdSale")[0]);
-        Integer amountSale = Integer.valueOf(parameterMap.get("amountSale")[0]);
-
-
-
     }
 }

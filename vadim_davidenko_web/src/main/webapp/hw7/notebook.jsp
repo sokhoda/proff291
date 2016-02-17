@@ -98,24 +98,6 @@
           </td>
         </tr>
 
-        <tr>
-          <td align="right">Store id:</td>
-          <td>
-            <select size="2" name="storeId">
-              <option disabled>No selected ...................</option>
-              <%
-                String storeId = (String)request.getAttribute("storeId");
-                List<Store> storeList = (List<Store>)request.getAttribute("storeList");
-                if(storeList != null && !storeList.isEmpty()){
-                  for (Store store : storeList){
-              %>
-              <option <%=(String.valueOf(store.getId()).equals(storeId)) ? "selected" : ""%>
-                      value="<%=String.valueOf(store.getId())%>"><%=String.valueOf(store.getId())%></option>
-              <% } } %>
-            </select>
-          </td>
-        </tr>
-
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="center">
