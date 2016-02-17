@@ -13,8 +13,12 @@
 <%--<script src="JS/alexEx.js" type="text/javascript">    </script>--%>
 
 
-
-    <%request.getRequestDispatcher("session14/pages/EmployeeLogin.jsp").forward(request,response); %>
+    <%
+        request.setAttribute("cnt", 1);
+        request.setAttribute("totPortion", 5);
+    %>
+    <%request.getRequestDispatcher("hw7.notes/pages/noteList.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("session14/pages/EmployeeLogin.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw6.notes/pages/menu.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw5.auth/UserAuth.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw8.taxi/pages/loginTaxi.jsp").forward(request,response); %>--%>

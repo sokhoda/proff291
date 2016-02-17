@@ -20,7 +20,7 @@ public interface NotebookService {
     boolean updateMemory(Memory memory);
     boolean updateVendor(Vendor vendor);
     boolean updateNotebook(Notebook notebook);
-    boolean removeFromStore(Store store, int amount);
+    boolean removeFromStore(Store store, int amount)  throws StoreException;
 
     List getNotebooksByPortion(int size, int cnt)throws PortionException;
     List getNotebooksGtAmount(int amount);

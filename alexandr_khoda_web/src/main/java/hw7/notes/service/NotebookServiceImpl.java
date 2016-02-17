@@ -103,8 +103,7 @@ public class NotebookServiceImpl implements NotebookService {
     public List getNotebooksByPortion(int size, int cnt) throws
             PortionException, HibernateException{
         if (size <= 0) {
-            throw new PortionException("Negative portion size.")
-            return null;
+            throw new PortionException("Negative portion size.");
         }
         Session session = factory.openSession();
         try {

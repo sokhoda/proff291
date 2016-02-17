@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="hw6.notes.domain.Notebook" %>
+<%@ page import="hw7.notes.domain.Notebook" %>
 <%@ page import="static hw6.notes.view.Menu.*" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <%--
@@ -23,12 +23,14 @@
 <%!
     List<Notebook> nlist;
     int cnt;
+    int totPortion;
 %>
 <%
-    cnt = request.getAttribute("cnt");
+    cnt = (Integer)request.getAttribute("cnt");
+    totPortion = (Integer)request.getAttribute("totPortion");
     nlist = (List<Notebook>) request.getAttribute("nlist");
     String[] message = getAttribArray(request);
-    if (nlist.size() == 0 ) {
+    if (nlist == null || nlist.size() == 0 ) {
         message[0] = "brown";
         message[1] = "Notebook list is empty.";
     }
@@ -37,13 +39,34 @@
 <form action="/List" method="post">
 <div>
 
-        <button name="back" class="but">&longleftarrow;</button>
-        <button name="forward" class="but">&longrightarrow;</button>
+    <input type="submit" name="back" id="back" class="but"
+           value="&longleftarrow;">
+    <input type="submit" name="forward" id="forward" class="but"
+           value="&longrightarrow;">
+
+    <input type="hidden" name="cntMark" value="<%=cnt%> of <%=totPortion%>">
+
+    <label class="cntMark"><%=cnt%> of <%=totPortion%></label>
     <label class="regMessage"style="color: <%=message[0]%>"><%=message[1]%></label>
 </div>
 
 <%
-    if (nlist.size() != 0 ) {
+    if (cnt == totPortion){
+%>
+        <script type="text/javascript">
+            document.getElementById("forward").disabled = true;
+        </script>
+<%
+    }
+    if (cnt == 1){
+%>
+        <script type="text/javascript">
+            document.getElementById("back").disabled = true;
+        </script>
+<%
+    }
+
+    if (nlist != null && nlist.size() != 0 ) {
 %>
 <table>
     <thead>

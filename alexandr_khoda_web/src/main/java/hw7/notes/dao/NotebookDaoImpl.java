@@ -115,115 +115,115 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
-    @Override
-    public boolean changePrice(Long id, double price) {
-        Session session = factory.openSession();
-        Notebook ntb;
-        if((ntb = read(id)) != null) {
-            ntb.setPrice(price);
-            return update(ntb);
-        }
-        else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean changeSerialVendor(Long id, String serial, String vendor) {
-        Session session = factory.openSession();
-        int intRes;
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("UPDATE Notebook n set SERIAL = :SERIAL, VENDOR = :VENDOR" +
-                    " where ID = :ID");
-            query.setParameter("ID", id);
-            query.setParameter("SERIAL", serial);
-            query.setParameter("VENDOR", vendor);
-            intRes = query.executeUpdate();
-            session.getTransaction().commit();
-            return (intRes > 0 ? true : false) ;
-        }
-        catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean deleteByModel(String model) {
-        Session session = factory.openSession();
-        int intRes;
-        try {
-            session.beginTransaction();
-            Query query = session.createQuery("DELETE Notebook n where MODEL = :MODEL");
-            query.setParameter("MODEL", model);
-            intRes = query.executeUpdate();
-            session.getTransaction().commit();
-            return (intRes > 0 ? true : false);
-        }
-        catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public List findByVendor(String vendor) {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Notebook where VENDOR = :VENDOR");
-            query.setParameter("VENDOR", vendor);
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public List findByPriceManufDate(Double price, Date date) {
-        Session session = factory.openSession();
-            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            Query query = session.createQuery("from Notebook where PRICE = " +
-                    ":PRICE and DATE = :DATE");
-            query.setParameter("PRICE", price);
-            query.setParameter("DATE", date);
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Notebook where PRICE >= " +
-                    ":PRICEFROM and PRICE < : PRICETO and DATE = :DATE and VENDOR = :VENDOR");
-            query.setParameter("PRICEFROM", priceFrom);
-            query.setParameter("PRICETO", priceTo);
-            query.setParameter("DATE", date);
-            query.setParameter("VENDOR", vendor);
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
+//    @Override
+//    public boolean changePrice(Long id, double price) {
+//        Session session = factory.openSession();
+//        Notebook ntb;
+//        if((ntb = read(id)) != null) {
+//            ntb.setPrice(price);
+//            return update(ntb);
+//        }
+//        else {
+//            return false;
+//        }
+//    }
+//
+//    @Override
+//    public boolean changeSerialVendor(Long id, String serial, String vendor) {
+//        Session session = factory.openSession();
+//        int intRes;
+//        try {
+//            session.beginTransaction();
+//            Query query = session.createQuery("UPDATE Notebook n set SERIAL = :SERIAL, VENDOR = :VENDOR" +
+//                    " where ID = :ID");
+//            query.setParameter("ID", id);
+//            query.setParameter("SERIAL", serial);
+//            query.setParameter("VENDOR", vendor);
+//            intRes = query.executeUpdate();
+//            session.getTransaction().commit();
+//            return (intRes > 0 ? true : false) ;
+//        }
+//        catch (HibernateException e) {
+//            log.error("Transaction failed", e);
+//            session.getTransaction().rollback();
+//            return false;
+//        } finally {
+//            session.close();
+//        }
+//    }
+//
+//    @Override
+//    public boolean deleteByModel(String model) {
+//        Session session = factory.openSession();
+//        int intRes;
+//        try {
+//            session.beginTransaction();
+//            Query query = session.createQuery("DELETE Notebook n where MODEL = :MODEL");
+//            query.setParameter("MODEL", model);
+//            intRes = query.executeUpdate();
+//            session.getTransaction().commit();
+//            return (intRes > 0 ? true : false);
+//        }
+//        catch (HibernateException e) {
+//            log.error("Transaction failed", e);
+//            session.getTransaction().rollback();
+//            return false;
+//        } finally {
+//            session.close();
+//        }
+//    }
+//
+//    @Override
+//    public List findByVendor(String vendor) {
+//        Session session = factory.openSession();
+//        try {
+//            Query query = session.createQuery("from Notebook where VENDOR = :VENDOR");
+//            query.setParameter("VENDOR", vendor);
+//            return query.list();
+//        } catch (HibernateException e) {
+//            log.error("Transaction failed", e);
+//            return null;
+//        } finally {
+//            session.close();
+//        }
+//    }
+//
+//    @Override
+//    public List findByPriceManufDate(Double price, Date date) {
+//        Session session = factory.openSession();
+//            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+//        try {
+//            Query query = session.createQuery("from Notebook where PRICE = " +
+//                    ":PRICE and DATE = :DATE");
+//            query.setParameter("PRICE", price);
+//            query.setParameter("DATE", date);
+//            return query.list();
+//        } catch (HibernateException e) {
+//            log.error("Transaction failed", e);
+//            return null;
+//        } finally {
+//            session.close();
+//        }
+//    }
+//
+//    @Override
+//    public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
+//        Session session = factory.openSession();
+//        try {
+//            Query query = session.createQuery("from Notebook where PRICE >= " +
+//                    ":PRICEFROM and PRICE < : PRICETO and DATE = :DATE and VENDOR = :VENDOR");
+//            query.setParameter("PRICEFROM", priceFrom);
+//            query.setParameter("PRICETO", priceTo);
+//            query.setParameter("DATE", date);
+//            query.setParameter("VENDOR", vendor);
+//            return query.list();
+//        } catch (HibernateException e) {
+//            log.error("Transaction failed", e);
+//            return null;
+//        } finally {
+//            session.close();
+//        }
+//    }
 
 
 }
