@@ -17,6 +17,9 @@ public class CPU {
     @Column(name = "ID")
     private long id;
 
+    @Column(name="Vendor")
+    private String vendor;
+
     @Column(name = "FREQUENCY")
     private String frequency;
 
@@ -30,7 +33,8 @@ public class CPU {
 
     }
 
-    public CPU(String frequency, String model) {
+    public CPU(String vendor, String frequency, String model) {
+        this.vendor = vendor;
         this.frequency = frequency;
         this.model = model;
     }
