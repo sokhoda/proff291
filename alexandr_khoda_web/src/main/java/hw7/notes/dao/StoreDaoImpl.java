@@ -99,6 +99,7 @@ public class StoreDaoImpl implements StoreDao {
 
     }
 
+
     @Override
     public List findAll() {
         Session session = factory.openSession();

@@ -100,6 +100,25 @@ public class CPUDaoImpl implements CPUDao {
     }
 
     @Override
+    public boolean checkExist(CPU cpu) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from CPU cp where vendorId = :vendorId and freq = :freq and model = :model")
+                    .setParameter("vendorId", cpu.getVendorId())
+                    .setParameter("freq", cpu.getFreq())
+                    .setParameter("model", cpu.getModel());
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List findAll() {
         Session session = factory.openSession();
         try {

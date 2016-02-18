@@ -2,6 +2,8 @@ package hw7.notes.dao;
 
 import hw7.notes.domain.Memory;
 import hw7.notes.domain.Store;
+import hw7.notes.domain.Vendor;
+import org.hibernate.HibernateException;
 
 import java.util.List;
 

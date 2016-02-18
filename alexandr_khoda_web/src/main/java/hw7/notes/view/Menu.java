@@ -43,17 +43,17 @@ public class Menu extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException {
-//            if (req.getParameter("addNote") != null) {
-//                try {
-//                    req.setAttribute("messageText", "");
-//                    req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp")
-//                            .forward(req, res);
-//                    return;
-//                }
-//                catch (Exception e) {
-//                    throw new ServletException(e.getMessage());
-//                }
-//            }
+            if (req.getParameter("crVen") != null) {
+                try {
+                    req.setAttribute("messageText", "");
+                    req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                            .forward(req, res);
+                    return;
+                }
+                catch (Exception e) {
+                    throw new ServletException(e.getMessage());
+                }
+            }
     }
 
     @Override

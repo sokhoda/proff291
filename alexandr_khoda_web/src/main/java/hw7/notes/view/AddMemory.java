@@ -51,7 +51,7 @@ public class AddMemory extends HttpServlet {
             try {
                 String vendor = req.getParameter("vendor");
                 String size = req.getParameter("size");
-                if (!checkStringPar(req, vendor) && !checkStringPar(req, size)){
+                if (!checkStringPar(req, "vendor") && !checkStringPar(req, "size")){
                     if (memoryDao.create(new Memory()) != null) {
                         setMessageAttr(req, "green", "Memory successfully added.");
                     }
