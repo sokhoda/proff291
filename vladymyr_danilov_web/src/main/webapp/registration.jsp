@@ -51,22 +51,19 @@
                 <br>
                 <form action="/registration" method="post">
                     <table border="0" width="30%" align="center">
-                        <tr>
-                            <td width="50%">Login:</td>
-                            <td width="50%"><input type="text" name="login" /></td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td width="50%">Login:</td>--%>
+                            <%--<td width="50%"><input type="text" name="login" /></td>--%>
+                        <%--</tr>--%>
                         <tr>
                             <td width="50%">Name:</td>
                             <td width="50%"><input type="text" name="name" /></td>
                         </tr>
-                        <tr>
-                            <td width="50%">Surname:</td>
-                            <td width="50%"><input type="text" name="surname" /></td>
-                        </tr>
-                        <tr>
-                            <td width="50%">Phone:</td>
-                            <td width="50%"><input type="tel" name="phone" /></td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td width="50%">Surname:</td>--%>
+                            <%--<td width="50%"><input type="text" name="surname" /></td>--%>
+                        <%--</tr>--%>
+                        <%--              --%>
                         <tr>
                             <td width="50%">Password:</td>
                             <td width="50%"><input type="password" name="password" /></td>

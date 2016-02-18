@@ -17,6 +17,8 @@ public class ConnectEx {
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
+            Class.forName("org.postgresql.Driver");
+
         } catch (ClassNotFoundException e) {
             System.out.println("Driver not found");
             e.printStackTrace();
@@ -27,9 +29,9 @@ public class ConnectEx {
 
         Connection conn = null;
 //        String url = "jdbc:oracle:thin:@192.168.1.121:1521:XE";
-        String url = "jdbc:oracle:thin:@172.16.138.128:1521:XE";
+        String url = "jdbc:postgresql://178.62.245.113:5432/junior_database";
         try {
-            conn = DriverManager.getConnection(url, "notebooks", "notebooks");
+            conn = DriverManager.getConnection(url, "root", "113113");
             System.out.println("Connection start");
         } catch (SQLException e) {
             System.out.println("Connection failed");
