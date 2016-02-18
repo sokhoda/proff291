@@ -1,6 +1,7 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Store;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -111,6 +112,28 @@ public class NotebookDaoImpl implements NotebookDao {
             log.error("Transaction failed", e);
             return null;
         } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean checkExist(Notebook ntb) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Notebook nt where vendorId = :vendorId and" +
+                    " model = :model and  manDate = :manDate and cpuId = :cpuId and memoryId = :memoryId" )
+                    .setParameter("vendorId", ntb.getVendorId())
+                    .setParameter("model", ntb.getModel())
+                    .setParameter("manDate", ntb.getManDate())
+                    .setParameter("cpuId", ntb.getCpuId())
+                    .setParameter("memoryId", ntb.getMemoryId());
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
             session.close();
         }
     }

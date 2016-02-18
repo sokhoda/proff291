@@ -43,4 +43,12 @@ public class Vendor {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Vendor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

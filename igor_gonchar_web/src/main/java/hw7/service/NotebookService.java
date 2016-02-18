@@ -26,6 +26,12 @@ public interface NotebookService {
 
     Map getSalesByDays();
 
+    List getAllCPUs();
+
+    List getAllMemories();
+
+    List getAllVendors();
+
     boolean updateCPU(CPU cpu);
 
     boolean createCPU(CPU cpu);

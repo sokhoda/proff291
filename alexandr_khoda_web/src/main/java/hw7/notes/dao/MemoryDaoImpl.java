@@ -101,6 +101,25 @@ public class MemoryDaoImpl implements MemoryDao {
     }
 
     @Override
+    public boolean checkExist(Memory memory) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Memory m where vendorId = :vendorId and " +
+                    " m.size = :size" )
+                    .setParameter("vendorId", memory.getVendorId())
+                    .setParameter("size", memory.getSize());
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List findAll() {
         Session session = factory.openSession();
         try {

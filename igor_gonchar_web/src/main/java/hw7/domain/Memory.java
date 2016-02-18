@@ -17,7 +17,7 @@ public class Memory {
     @Column(name = "ID")
     private long id;
 
-    @Column(name="SIZE")
+    @Column(name="MEM_SIZE")
     private int size;
 
     @Column(name="Vendor")
@@ -40,5 +40,14 @@ public class Memory {
 
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "id=" + id +
+                ", vendor='" + vendor + '\'' +
+                ", size='" + size + '\'' +
+                '}';
     }
 }

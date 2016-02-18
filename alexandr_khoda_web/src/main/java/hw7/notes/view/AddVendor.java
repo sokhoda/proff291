@@ -56,16 +56,23 @@ public class AddVendor extends HttpServlet {
         if (req.getParameter("add") != null) {
             try {
                 String name = req.getParameter("name");
-                 if (!checkStringPar(req, name)){
-                    if (vendorDao.create(new Vendor(name)) != null) {
-                        setMessageAttr(req, "green", "Vendor successfully added.");
-                    }
-                    else {
-                        setMessageAttr(req, "red", "Failed to add Vendor '" +
-                                name + "'.");
-                    }
-                    setVendorAttributes(req);
+                 if (!checkStringPar(req,"name")){
+                     if(vendorDao.checkExist(new Vendor(name))){
+                         setMessageAttr(req, "red", "Vendor '" +
+                                 name + "' already exists in DB.");
+                     }
+                     else {
+                         if (vendorDao.create(new Vendor(name)) != null) {
+                             setMessageAttr(req, "green", "Vendor successfully added.");
+                         }
+                         else {
+                             setMessageAttr(req, "red", "Failed to add Vendor '" +
+                                     name + "'.");
+                         }
+                     }
+                     setVendorAttributes(req);
                 }
+                req.setAttribute("mode","0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
                 return;
@@ -76,6 +83,7 @@ public class AddVendor extends HttpServlet {
         }
 
     }
+
     private void setVendorAttributes(HttpServletRequest req){
         req.setAttribute("nameA", req.getParameter("name"));
     }

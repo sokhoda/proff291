@@ -8,17 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add Memory</title>
 </head>
 <body>
 <script src="js/advancedNotebooks.js" type="text/javascript"></script>
 <h3>Add Memory:</h3>
 Enter vendor: <br/>
-<form id ="addVendor" action="/addMemory" method="post">
-    <input id="1row" type="text" name="vendorName"> <br/>
+<form id ="addMemory" action="/addMemory" method="post">
+    <input id="row2c1" type="text" name="vendorName"> <br/>
     Enter size: <br/>
-    <input id="2row" type="text" name="size"> <br/>
-    <input type="button" onclick="validateRow2()" value="Add Vendor"/>
+    <input id="row2c2" type="text" name="size"> <br/>
+    <input type="button" onclick="validateRow2()" value="Add Memory"/>
 </form>
 <p>
     ${reg_result}
