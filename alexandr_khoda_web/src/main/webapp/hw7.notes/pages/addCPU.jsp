@@ -11,11 +11,11 @@
 
 <html>
 <head>
-    <title>Add Vendor</title>
+    <title>Add CPU</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>Add New Vendor Type</h1></center>
+    <center><h1>Add New CPU Type</h1></center>
 </head>
 <body>
 <%

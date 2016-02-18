@@ -1,7 +1,6 @@
 package hw7.notes.domain;
 
 import javax.persistence.*;
-import javax.swing.border.StrokeBorder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,18 +13,18 @@ import java.util.Date;
 public class Sales {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "SALE_SEQ",
-            allocationSize = 5, initialValue = 5)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
-    private Store store;
+    private Long storeId;
     private Date saleDate;
     private int quantity;
 
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
-    public Sales(Store store, Date saleDate, int quantity) {
-        this.store = store;
+    public Sales(Long storeId, Date saleDate, int quantity) {
+        this.storeId = storeId;
         this.saleDate = saleDate;
         this.quantity = quantity;
     }
@@ -35,8 +34,8 @@ public class Sales {
 
     @Override
     public String toString(){
-        return "id=" + id + ", saleDate=" + df.format(saleDate) + ", " +
-                "quantity=" + quantity;
+        return "id=" + id + ", storeId=" + storeId + ", saleDate=" + df.format
+                (saleDate) +", quantity=" + quantity;
     }
 
 
@@ -48,12 +47,12 @@ public class Sales {
         this.id = id;
     }
 
-    public Store getStore() {
-        return store;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStoreId(Long storeId) {
+        this.storeId = storeId;
     }
 
     public Date getSaleDate() {

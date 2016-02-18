@@ -1,6 +1,14 @@
-<%@ page import="static hw6.notes.view.Menu.*" %>
-<%@ page import="hw6.notes.view.Menu" %>
-<%@ page errorPage="/hw6.notes/pages/generalErrorPage.jsp" %>
+<%@ page import="hw7.notes.view.Menu" %>
+<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="java.util.List" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="hw7.notes.service.NotebookService" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="static hw7.notes.view.Servlet.getAttribArray" %>
+<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
+<script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
+<script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
+
 <%--
   Created by IntelliJ IDEA.
   User: s_okhoda
@@ -13,22 +21,32 @@
     <head>
         <title>Main Menu</title>
         <style>
-            <%@include file='/hw6.notes/css/menu.css' %>
+            <%@include file='/hw7.notes/css/menu.css' %>
         </style>
     </head>
     <body>
+    <%!
+        VendorDao vendorDao;
+        NotebookService service;
+
+        List<Vendor> vendor = null;
+    %>
     <%
+        service = new NotebookServiceImpl();
+        vendorDao = ((NotebookServiceImpl)service).getVendorDao();
+
+        vendor = (List<Vendor>)vendorDao.findAll();
         String[] message = getAttribArray(request);
 
     %>
     <form action="/MenuNote" method="post">
 
-        <center><img id="MenuImg" src="/hw6.notes/img/laptop1.gif">
+        <center><img id="MenuImg" src="/hw7.notes/img/laptop1.gif">
         </center>
-        <h1 align="center">Главное меню</h1>
+        <h1 align="center">Welcome to the Computer Store</h1>
         <div>
             <label align="left" style="font-size: larger; font-weight: bold;
-              color: firebrick">Выберите действие:
+              color: firebrick">Please, make your choice:
             </label>
             <label id="message" style="width: 100%; margin-top:10%;
                 color:<%=message[0]%>; text-align: center; font-size:x-large"><%=message[1]%>
@@ -42,19 +60,20 @@
           <tbody>
               <tr>
                   <td class="col0">
-                      <input type="submit" name="addNote" value="1. Add notebook">
+                      <input type="submit" name="addNote"
+                             value="1. Create CPU type">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNote"
-                             value="2. List all notebooks">
+                             value="2. Create Memory type">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="delNote"
-                             value="3. Delete notebook by id">
+                             value="3. Create Vendor">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -66,7 +85,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="updtPrice"
-                             value="4. Update notebook price by id">
+                             value="4. Create Notebook type">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -84,7 +103,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="updtSnVendor"
-                             value="5. Update notebook serial & vendor by id">
+                             value="5. Accept batch of Notes">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -108,7 +127,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="delNoteByModel"
-                             value="6. Delete notebook by model">
+                             value="6. Sell Notebooks from the store">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -121,7 +140,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNoteByVendor"
-                             value="7. Get notebooks by vendor">
+                             value="7. Update CPU">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -134,7 +153,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNoteByPriceManDate"
-                             value="8. Get notebooks by price and date of manuf.">
+                             value="8. Update Memory">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -155,40 +174,98 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNoteByPriceManDateVendor"
-                             value="9. Get notebooks by price range, date of manuf. and vendor">
+                             value="9. Update Vendor">
 
                   </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">price from:</label>
-                          <input type="text"
-                                 name="priceFromListNoteByPriceManDateVendor"
-                                 value="">
-                      </div>
+              </tr>
+
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNoteByPriceManDateVendor"
+                             value="10. Update Notebook">
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNoteByPriceManDateVendor"
+                             value="11. Write off Notebooks">
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="ByPortion"
+                             value="12. List all Notebooks by Portion">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
-                          <label class="smallSign">price to:</label>
-                          <input type="text"
-                                 name="priceToListNoteByPriceManDateVendor"
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="ByPortionPortion"
                                  value="">
                       </div>
                   </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">date of manuf.:</label>
-                          <input type="text"
-                                 name="manDateListNoteByPriceManDateVendor"
-                                 value="">
-                      </div>
+              </tr>
+
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="ByGreaterQuantity"
+                             value="13. List all Notebooks, quant. >=">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
-                          <label class="smallSign">vendor:</label>
-                          <input type="text"
-                                 name="vendorListNoteByPriceManDateVendor"
+                          <label class="smallSign">Quantity:</label>
+                          <input type="text" name="ByGreaterQuantityQuantity"
                                  value="">
                       </div>
+                  </td>
+
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="ByCPUVendor"
+                             value="14. List all Notebooks by CPU Vendor">
+                  </td>
+                  <td class="colA">
+                      <div class="cellIn">
+                          <% if(vendor != null){
+                          %>
+                          <label for="vendors">CPU Vendor:</label>
+                          <select size="<%vendor.size();%>" name="ByCPUVendorCPUVendor" id="vendors">
+                              <option disabled>select item</option>
+                              <%
+                                  for (Vendor v : vendor) {
+                              %>
+                              <option value="<%=v.getId()%>">
+                                  <%=v.getName()%></option>
+                              <%
+                                  }
+                              %>
+                          </select>
+                          <script type="text/javascript">
+                              setSelectIndex('vendors', 1);
+                          </script>
+                          <%
+                              }
+                          %>
+
+                      </div>
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNoteByPriceManDateVendor"
+                             value="15. List all Notebooks in the Store">
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNoteByPriceManDateVendor"
+                             value="16. List all Notebooks in the Store by Vendor">
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNoteByPriceManDateVendor"
+                             value="17. Get AVE Daily Sell Rate">
                   </td>
               </tr>
 
@@ -197,7 +274,7 @@
                   <td  class="col0">
                       <%--<input type="submit" name="exit" class="but"--%>
                              <%--value=">10. Exit">--%>
-                      <button name="exit" onclick="self.close()" class="but">10.
+                      <button name="exit" onclick="self.close()" class="but">18.
                           Exit</button>
                   </td>
               </tr>

@@ -1,8 +1,6 @@
 package hw7.notes.domain;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by s_okhoda on 16.02.2016.
@@ -12,29 +10,29 @@ import java.text.SimpleDateFormat;
 public class Store {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "STORE_SEQ",
-            allocationSize = 5, initialValue = 5)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private Notebook ntb;
+    private Long ntbId;
     private int quantity;
     private Double price;
 
-    public Store(Long id, Notebook ntb, int quantity, Double price) {
+    public Store(Long id, Long ntbId, int quantity, Double price) {
         this.id = id;
-        this.ntb = ntb;
+        this.ntbId = ntbId;
         this.quantity = quantity;
         this.price = price;
     }
 
     public Store(Notebook ntb, int quantity, Double price) {
-        this.ntb = ntb;
+        this.ntbId = ntbId;
         this.quantity = quantity;
         this.price = price;
     }
 
     @Override
     public String toString(){
-        return "id=" + id + ", ntb=" + ntb + ", quantity=" + quantity + ", " +
+        return "id=" + id + ", ntbId=" + ntbId + ", quantity=" + quantity + ", " +
                 "price=" + String.format("%.2f", price);
     }
 
@@ -46,12 +44,12 @@ public class Store {
         this.id = id;
     }
 
-    public Notebook getNtb() {
-        return ntb;
+    public Long getNtbId() {
+        return ntbId;
     }
 
-    public void setNtb(Notebook ntb) {
-        this.ntb = ntb;
+    public void setNtbId(Long ntbId) {
+        this.ntbId = ntbId;
     }
 
     public int getQuantity() {

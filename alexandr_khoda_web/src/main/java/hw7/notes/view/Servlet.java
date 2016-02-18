@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -46,7 +49,7 @@ public class Servlet extends HttpServlet {
         return cfg.buildSessionFactory(standardServiceRegistry);
     }
 
-    private void setMessageAttr(HttpServletRequest req, String color, String
+    public static void setMessageAttr(HttpServletRequest req, String color, String
             message){
         req.setAttribute("messageColor", color);
         req.setAttribute("messageText", message );
@@ -66,4 +69,63 @@ public class Servlet extends HttpServlet {
         }
         return (req.getAttribute(name) == null ? "" : (String)req.getAttribute(name));
     }
+
+    public static Date String2Date(String dateStr)
+            throws
+            ParseException {
+        if (dateStr == null || dateStr.length() == 0){
+            return  null;
+        }
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = null;
+        date = df.parse(dateStr);
+        return date;
+    }
+public static boolean checkStringPar(HttpServletRequest req, String par){
+    if (par.trim().length() == 0){
+        setMessageAttr(req, "red", par + " can not have ZERO length.");
+        return true;
+    }
+    return false;
+}
+    public static Integer String2Integer(String str) throws NumberFormatException{
+        if (str == null) {
+            return null;
+        }
+        if (str.length() == 0){
+            return 0;
+        }
+        return Integer.parseInt(str);
+    }
+
+    public static Long String2Long(String str) throws NumberFormatException{
+        if (str == null) {
+            return null;
+        }
+        if (str.length() == 0){
+            return 0L;
+        }
+        return Long.parseLong(str);
+    }
+
+    public static Double String2Double(String str) throws NumberFormatException{
+        if (str == null) {
+            return null;
+        }
+        if (str.length() == 0){
+            return 0.0;
+        }
+        return Double.parseDouble(str);
+    }
+
+    public static String checkDate(GregorianCalendar gc) {
+        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
+        if (gc == null) {
+            return "null";
+        }
+        else {
+            return format1.format(gc.getTime());
+        }
+    }
+
 }

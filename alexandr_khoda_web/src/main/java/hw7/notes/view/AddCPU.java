@@ -1,16 +1,9 @@
 package hw7.notes.view;
 
 import hw7.notes.dao.VendorDao;
-import hw7.notes.dao.VendorDaoImpl;
 import hw7.notes.domain.Vendor;
-import hw7.notes.exception.InvalidParamValueException;
 import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import session14.service.GeneralServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static hw7.notes.view.Servlet.checkStringPar;
 import static hw7.notes.view.Servlet.setMessageAttr;
 
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddVen")
-public class AddVendor extends HttpServlet {
+@WebServlet("/AddCpu")
+public class AddCPU extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private NotebookService service;
@@ -56,7 +48,10 @@ public class AddVendor extends HttpServlet {
         if (req.getParameter("add") != null) {
             try {
                 String name = req.getParameter("name");
-                 if (!checkStringPar(req, name)){
+                if (name.trim().length() == 0){
+                    setMessageAttr(req, "red", "Name can not have ZERO length.");
+                }
+                else {
                     if (vendorDao.create(new Vendor(name)) != null) {
                         setMessageAttr(req, "green", "Vendor successfully added.");
                     }

@@ -1,6 +1,5 @@
 package hw7.notes.dao;
 
-import hw6.notes.domain.Notebook;
 import hw7.notes.domain.Vendor;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -19,6 +18,9 @@ public class VendorDaoImpl implements VendorDao {
 
     public VendorDaoImpl(SessionFactory factory) {
         this.factory = factory;
+    }
+
+    public VendorDaoImpl() {
     }
 
     @Override
@@ -103,7 +105,7 @@ public class VendorDaoImpl implements VendorDao {
     public List findAll() {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("from Vendor");
+            Query query = session.createQuery("from Vendor v");
             return query.list();
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
