@@ -140,5 +140,18 @@ public class NotebookServiceImpl implements NotebookService {
         return false;
     }
 
+    @Override
+    public List getAllCPUs() {
+      return  cpuDao.findAll();
+    }
 
+    @Override
+    public List getAllMemories() {
+        return memoryDao.findAll();
+    }
+
+    @Override
+    public List getAllVendors() {
+        return vendorDao.findAll();
+    }
 }

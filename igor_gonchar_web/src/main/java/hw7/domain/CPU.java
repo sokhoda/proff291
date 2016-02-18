@@ -50,4 +50,14 @@ public class CPU {
     public String getModel() {
         return model;
     }
+
+    @Override
+    public String toString() {
+        return "CPU{" +
+                "id=" + id +
+                ", vendor='" + vendor + '\'' +
+                ", frequency='" + frequency + '\'' +
+                ", model='" + model + '\'' +
+                '}';
+    }
 }
