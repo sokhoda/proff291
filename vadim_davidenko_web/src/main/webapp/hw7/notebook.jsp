@@ -27,7 +27,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">Id:</td>
-          <td><input type="text" name="id" size="5" disabled></td>
+          <td><input type="text" name="id" size="4" readonly></td>
         </tr>
         <tr>
           <td align="right">Model name:</td>
@@ -46,7 +46,7 @@
         <tr>
           <td align="right">Vendor name:</td>
           <td>
-            <select size="2" name="vendorId">
+            <select size="3" name="vendorId">
             <option disabled>No selected ...................</option>
             <%
               String vendorId = (String)request.getAttribute("vendorId");
@@ -64,7 +64,7 @@
         <tr>
           <td align="right">CPU name:</td>
           <td>
-            <select size="2" name="cpuId">
+            <select size="3" name="cpuId">
               <option disabled>No selected ...................</option>
               <%
                 String cpuId = (String)request.getAttribute("cpuId");
@@ -82,7 +82,7 @@
         <tr>
           <td align="right">Memory type:</td>
           <td>
-            <select size="2" name="memoryId">
+            <select size="3" name="memoryId">
               <option disabled>No selected ...................</option>
               <%
                 String memoryId = (String)request.getAttribute("memoryId");
@@ -166,8 +166,8 @@
   function checkFields(form) {
     if(!form.model.value.trim() || !form.vendorId.value.trim() ||
             !form.cpuId.value.trim() || !form.memoryId.value.trim() ||
-            !form.storeId.value.trim() || !form.dd.value.trim() ||
-            !form.mm.value.trim() || !form.yyyy.value.trim()) {
+            !form.dd.value.trim() || !form.mm.value.trim() ||
+            !form.yyyy.value.trim()) {
       alert("Please, fill in all fields with valid values!");
       return false;
     }

@@ -28,10 +28,13 @@ public class Menu extends HttpServlet {
     final static String REPORTS_PAGE = "hw7/reports.jsp";
     final static String STORE_PAGE = "hw7/store.jsp";
     final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
-    final static String STORE_RECEIVE_MSG = "Notebooks received on Store successfully";
-    final static String STORE_REMOVE_MSG = "Notebooks removed from Store successfully";
-    final static String STORE_SALE_MSG = "Notebooks store sold successfully";
+    final static String ADD_SUCCESS_MSG = "New entity added successfully";
+    final static String UPDATE_SUCCESS_MSG = "Entity data updated successfully";
+    final static String STORE_RECEIVE_MSG = "Notebooks received on Store ";
+    final static String STORE_REMOVE_MSG = "Notebooks removed from Store ";
+    final static String STORE_REMOVE_ERR_MSG = "Notebooks number to remove is greater then existent on Store ";
+    final static String SALE_STORE_MSG = "Notebooks sold from Store ";
+    final static String SALE_STORE_ERR_MSG = "Notebooks number to sale is greater then existent on Store ";
 
     public static NotebookService noteService;
 
@@ -47,6 +50,11 @@ public class Menu extends HttpServlet {
         SalesDao salesDao = new SalesDaoImpl(sessionFactory);
 
         noteService = new NotebookServiceImpl(notebookDao, vendorDao, cpuDao, memoryDao, storeDao, salesDao);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
     }
 
     @Override
@@ -116,9 +124,6 @@ public class Menu extends HttpServlet {
 
                 List<Memory> memoryList = noteService.getAllMemories();
                 req.setAttribute("memoryList", memoryList);
-
-                List<Store> storeList = noteService.getAllStores();
-                req.setAttribute("storeList", storeList);
 
                 req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;

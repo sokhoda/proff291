@@ -21,7 +21,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">Id:</td>
-          <td><input type="text" name="id" size="5" disabled></td>
+          <td><input type="text" name="id" size="4" readonly></td>
         </tr>
         <tr>
           <td align="right">Vendor name:</td>

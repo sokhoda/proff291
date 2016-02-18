@@ -12,11 +12,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CPU")
-@SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
-        allocationSize = 1, initialValue = 2001)
-
 public class CPU {
     @Id
+    @SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
+            allocationSize = 1, initialValue = 2001)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CPU_SEQ")
     @Column(name = "CPU_ID")
     private Long id;
@@ -30,7 +29,7 @@ public class CPU {
     @Column(name = "FREQUENCY", length = 20)
     private String frequency;
 
-    @OneToMany(mappedBy = "cpu")
+    @OneToMany(mappedBy = "cpu", cascade = CascadeType.REFRESH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
 
     public CPU() {}

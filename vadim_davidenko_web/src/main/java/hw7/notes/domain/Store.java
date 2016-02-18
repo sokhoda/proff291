@@ -12,11 +12,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "STORE")
-@SequenceGenerator(name = "STORE_SEQ", sequenceName = "STORE_SEQ",
-        allocationSize = 1, initialValue = 5001)
-
 public class Store {
     @Id
+    @SequenceGenerator(name = "STORE_SEQ", sequenceName = "STORE_SEQ",
+            allocationSize = 1, initialValue = 5001)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STORE_SEQ")
     @Column(name = "STORE_ID")
     private Long id;
@@ -27,10 +26,10 @@ public class Store {
     @Column(name = "PRICE", length = 20)
     private Double price;
 
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", cascade = CascadeType.DETACH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "SALES_ID")
     private Sales sales;
 

@@ -28,7 +28,7 @@ public class MemoryServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String action = parameterMap.get("actionId")[0];
+        String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
@@ -56,7 +56,11 @@ public class MemoryServlet extends HttpServlet {
             memory.setSize(size);
 
             if (Menu.noteService.updateMemory(memory)) {
-                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                if (id.isEmpty()) {
+                    req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
+                } else {
+                    req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                }
             }
             Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
             for(Map.Entry<String, String[]> entry : entries) {

@@ -3,9 +3,7 @@ package hw7.notes.service;
 import hw7.notes.dao.*;
 import hw7.notes.domain.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Вадим on 14.02.2016.
@@ -79,23 +77,51 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public Long receive(Long noteId, int amount, double price) {
+        Store store = new Store();
+        store.setAmount(amount);
+        store.setPrice(price);
+        Set<Notebook> notes = new HashSet<Notebook>();
+        Notebook note = getNotebookById(noteId);
+        notes.add(note);
+        store.setNotebooks(notes);
 
-        return 0L;
+        return storeDao.create(store);
     }
 
     @Override
     public boolean removeFromStore(Store store, int amount) {
+        Integer currentAmount = store.getAmount();
 
+        if (currentAmount.compareTo(amount) > 0) {
+            store.setAmount(currentAmount - amount);
+            return storeDao.update(store);
+        } else if (currentAmount.compareTo(amount) == 0) {
+            return storeDao.delete(store);
+        }
         return false;
     }
 
-    /////////////////////////////////////////////////////////////
-    // Sales
-
     @Override
     public Long sale(Long storeId, int amount) {
+        Store store = getStoreById(storeId);
+        if (store == null) return 0L;
 
-        return 0L;
+        Integer currentAmount = store.getAmount();
+        if (currentAmount.compareTo(amount) > 0) {
+            currentAmount -= amount;
+            store.setAmount(currentAmount);
+            storeDao.update(store);
+        } else if (currentAmount.compareTo(amount) == 0) {
+            storeDao.delete(store);
+        } else {
+            return 0L;
+        }
+        Sales sale = new Sales();
+        sale.setAmount(amount);
+        sale.setStore(store);
+        sale.setDate(new Date());
+
+        return salesDao.create(sale);
     }
 
     /////////////////////////////////////////////////////////////

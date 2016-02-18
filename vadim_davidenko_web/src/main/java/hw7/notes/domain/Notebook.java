@@ -13,11 +13,10 @@ import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 
 @Entity
 @Table(name = "NOTEBOOK")
-@SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
-        allocationSize = 1, initialValue = 1001)
-
 public class Notebook {
     @Id
+    @SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
+            allocationSize = 1, initialValue = 1001)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOK_SEQ")
     @Column(name = "NOTE_ID")
     private Long id;

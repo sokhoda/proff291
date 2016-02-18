@@ -11,9 +11,14 @@
     <title></title>
 </head>
 <body>
+
+<form name="indexForm" action="/menuServlet" method="get">
     <div style="background-color: #d4ecff" align="center">
         <h1>Welcome to NOTEBOOKS market!</h1>
-    <h3><a href="hw7/menu.jsp">Menu</a></h3>
-</div>
+    <h3><a href="hw7/menu.jsp" onclick="submit()">Menu</a></h3>
+    </div>
+</form>
+<script>function submit() { document.indexForm.submit(); }</script>
+
 </body>
 </html>
