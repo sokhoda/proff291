@@ -7,6 +7,12 @@ function clearElemContent(id){
     if (myNode == null) return;
     myNode.value = '';
     myNode.innerHTML = '';
+    return;
+}
+
+function clearAllContent(id){
+   var f = clearElemContent('message');
+    var g= clearElemContent(id);
 }
 
 function clearAllAddNotebook(){

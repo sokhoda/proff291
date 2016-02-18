@@ -212,78 +212,6 @@ public class NList extends HttpServlet {
 //        req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp").forward(req, res);
     }
 
-    public SessionFactory getSessionFactory() {
-        Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg =
-                new Configuration().configure("hw6.notes/hibernate.cfg.xml");
-        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-        sb.applySettings(cfg.getProperties());
-        StandardServiceRegistry standardServiceRegistry = sb.build();
-
-        return cfg.buildSessionFactory(standardServiceRegistry);
-    }
-
-    private void setMessageAttr(HttpServletRequest req, String color, String
-            message){
-        req.setAttribute("messageColor", color);
-        req.setAttribute("messageText", message );
-    }
-
-    public static GregorianCalendar String2Gregorian(String dateStr) throws
-            ParseException {
-        if (dateStr == null || dateStr.length() == 0){
-            return  null;
-        }
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
-        date = df.parse(dateStr);
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(date);
-        return (GregorianCalendar) cal;
-    }
-
-    public static Date String2Date(String dateStr)
-            throws
-            ParseException {
-        if (dateStr == null || dateStr.length() == 0){
-            return  null;
-        }
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
-        date = df.parse(dateStr);
-        return date;
-    }
-
-    public static Integer String2Integer(String str) throws NumberFormatException{
-        if (str == null) {
-            return null;
-        }
-        if (str.length() == 0){
-            return 0;
-        }
-        return Integer.parseInt(str);
-    }
-
-    public static Long String2Long(String str) throws NumberFormatException{
-        if (str == null) {
-            return null;
-        }
-        if (str.length() == 0){
-            return 0L;
-        }
-        return Long.parseLong(str);
-    }
-
-    public static Double String2Double(String str) throws NumberFormatException{
-        if (str == null) {
-            return null;
-        }
-        if (str.length() == 0){
-            return 0.0;
-        }
-        return Double.parseDouble(str);
-    }
-
     private void setNoteAttributes(HttpServletRequest req){
         req.setAttribute("serialA", req.getParameter("serial"));
         req.setAttribute("vendorA", req.getParameter("vendor"));
@@ -293,31 +221,4 @@ public class NList extends HttpServlet {
     }
 
 
-    public static String[] getAttribArray(HttpServletRequest req){
-        String[] arr = new String[2];
-        arr[0] = getAttribValue(req,"messageColor");
-        arr[1] = getAttribValue(req, "messageText");
-        return  arr;
-    }
-
-    public static String checkDate(GregorianCalendar gc) {
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-        if (gc == null) {
-            return "null";
-        }
-        else {
-            return format1.format(gc.getTime());
-        }
-    }
-    public static String getAttribValue(HttpServletRequest req, String name){
-        if (name == null){
-            return "";
-        }
-        if (req.getAttribute(name) == null){
-            return "";
-        }
-        else {
-            return (String)req.getAttribute(name);
-        }
-    }
 }

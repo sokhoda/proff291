@@ -10,16 +10,16 @@ import javax.persistence.*;
 public class CPU {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "CPU_SEQ",
-            allocationSize = 5, initialValue = 5)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private Vendor vendor;
+    private Long vendorId;
     private Double freq;
     private String model;
 
 
-    public CPU(Vendor vendor, Double freq, String model) {
-        this.vendor = vendor;
+    public CPU(Long vendorId, Double freq, String model) {
+        this.vendorId = vendorId;
         this.freq = freq;
         this.model = model;
     }
@@ -29,8 +29,8 @@ public class CPU {
 
     @Override
     public String toString(){
-        return "id=" + id + ", vendor=" + vendor + ", " + String.format("%" +
-                ".2f", freq)  + ", model=" + model;
+        return "id=" + id + ", vendorId=" + vendorId + ", " + String.format
+                ("%.2f", freq)  + ", model=" + model;
     }
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class CPU {
         this.id = id;
     }
 
-    public Vendor getVendor() {
-        return vendor;
+    public Long getVendorId() {
+        return vendorId;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
     }
 
     public Double getFreq() {

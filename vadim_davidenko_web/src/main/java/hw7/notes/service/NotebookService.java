@@ -65,6 +65,8 @@ public interface NotebookService {
 
     Memory getMemoryById(Long id);
 
+    Store getStoreById(Long id);
+
 
     List getAllNotebooks();
 

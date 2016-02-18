@@ -1,6 +1,8 @@
 package hw7.notes.service;
 
 
+import hw7.notes.dao.MemoryDao;
+import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.*;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;

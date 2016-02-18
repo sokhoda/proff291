@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by v.davidenko on 15.02.2016.
@@ -17,32 +18,51 @@ import java.util.Map;
 @WebServlet("/memoryServlet")
 public class MemoryServlet extends HttpServlet {
 
-    final static String MEMORY_PAGE = "hw7/entity/memory.jsp";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) 
+            throws ServletException, IOException {
+
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String id = parameterMap.get("entityId")[0];
-        String vendorName = parameterMap.get("vendor")[0].trim();
-        String size = parameterMap.get("size")[0].trim();
+        String action = parameterMap.get("actionId")[0];
 
-        Memory memory = new Memory();
-        memory.setId(Long.valueOf(id));
-        memory.setVendor(vendorName);
-        memory.setSize(size);
-
-        if (Menu.noteService.updateMemory(memory)) {
-            req.setAttribute("server_msg", UPDATE_SUCCESS_MSG);
+        if (action.equals("find")) {
+            Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
+            Memory memory = Menu.noteService.getMemoryById(id);
+            if (memory == null) {
+                req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
+                req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
+            } else {
+                req.setAttribute("id", String.valueOf(memory.getId()));
+                req.setAttribute("vendor", memory.getVendor());
+                req.setAttribute("size", memory.getSize());
+            }
+            req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
+            return;
         }
-        req.setAttribute("entityId", id);
-        req.setAttribute("vendor", vendorName);
-        req.setAttribute("size", size);
-        req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
+
+        if (action.equals("save")) {
+            String id = parameterMap.get("id")[0];
+            String vendor = parameterMap.get("vendor")[0].trim();
+            String size = parameterMap.get("size")[0].trim();
+
+            Memory memory = new Memory();
+            memory.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
+            memory.setVendor(vendor);
+            memory.setSize(size);
+
+            if (Menu.noteService.updateMemory(memory)) {
+                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+            }
+            Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+            for(Map.Entry<String, String[]> entry : entries) {
+                req.setAttribute(entry.getKey(), entry.getValue()[0]);
+            }
+            req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
+        }
     }
 }

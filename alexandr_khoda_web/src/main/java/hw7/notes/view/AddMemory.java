@@ -1,16 +1,10 @@
 package hw7.notes.view;
 
-import hw7.notes.dao.VendorDao;
-import hw7.notes.dao.VendorDaoImpl;
+import hw7.notes.dao.MemoryDao;
+import hw7.notes.domain.Memory;
 import hw7.notes.domain.Vendor;
-import hw7.notes.exception.InvalidParamValueException;
 import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import session14.service.GeneralServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,17 +19,17 @@ import static hw7.notes.view.Servlet.setMessageAttr;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddVen")
-public class AddVendor extends HttpServlet {
+@WebServlet("/AddMem")
+public class AddMemory extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private NotebookService service;
-    private VendorDao vendorDao;
+    private MemoryDao memoryDao;
 
     @Override
     public void init() {
         service = new NotebookServiceImpl();
-        vendorDao = (((NotebookServiceImpl)service).getVendorDao());
+        memoryDao = (((NotebookServiceImpl)service).getMemoryDao());
     }
 
     @Override
@@ -55,18 +49,19 @@ public class AddVendor extends HttpServlet {
 
         if (req.getParameter("add") != null) {
             try {
-                String name = req.getParameter("name");
-                 if (!checkStringPar(req, name)){
-                    if (vendorDao.create(new Vendor(name)) != null) {
-                        setMessageAttr(req, "green", "Vendor successfully added.");
+                String vendor = req.getParameter("vendor");
+                String size = req.getParameter("size");
+                if (!checkStringPar(req, vendor) && !checkStringPar(req, size)){
+                    if (memoryDao.create(new Memory()) != null) {
+                        setMessageAttr(req, "green", "Memory successfully added.");
                     }
                     else {
-                        setMessageAttr(req, "red", "Failed to add Vendor '" +
-                                name + "'.");
+                        setMessageAttr(req, "red", "Failed to add Memory '" +
+                                vendor + "'.");
                     }
                     setVendorAttributes(req);
                 }
-                req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                req.getRequestDispatcher("/hw7.notes/pages/addMemory.jsp")
                         .forward(req, res);
                 return;
             }

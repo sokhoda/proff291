@@ -19,22 +19,6 @@ import java.io.IOException;
 @WebServlet("/notebooksAdvancedForm")
 public class Menu extends HttpServlet {
 
-    HiberSessionFactory sessionFactor = new HiberSessionFactory();
-
-    @Override
-    public void init() throws ServletException {
-        SessionFactory sessionFactory = sessionFactor.getSessionFactory();
-        NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
-        CPUDao cpuDao = new CPUDaoImpl(sessionFactory);
-        VendorDao vendorDao = new VendorDaoImpl(sessionFactory);
-        MemoryDao memoryDao = new MemoryDaoImpl(sessionFactory);
-        SalesDao salesDao = new SalesDaoImpl(sessionFactory);
-        StoreDao storeDao = new StoreDaoImpl(sessionFactory);
-
-        NotebookService notebookService = new NotebookServiceImpl(notebookDao, cpuDao, memoryDao, vendorDao, salesDao, storeDao);
-
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }

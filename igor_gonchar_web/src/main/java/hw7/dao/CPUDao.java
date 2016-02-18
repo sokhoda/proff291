@@ -17,4 +17,6 @@ public interface CPUDao {
     public boolean delete(CPU cpu);
 
     public List findAll();
+
+
 }

@@ -10,14 +10,16 @@ import javax.persistence.*;
 public class Memory {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "MEM_SEQ",
-            allocationSize = 5, initialValue = 5)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private Vendor vendor;
-    private int size;
+    @Column(name = "VenID")
+    private Long vendorId;
+    @Column(name = "sizze")
+    private String size;
 
-    public Memory(Vendor vendor, int size) {
-        this.vendor = vendor;
+    public Memory(Long vendorId, String size) {
+        this.vendorId = vendorId;
         this.size = size;
     }
 
@@ -26,7 +28,7 @@ public class Memory {
 
     @Override
     public String toString(){
-        return "id=" + id + ", vendor=" + vendor + ", size=" + size;
+        return "id=" + id + ", vendorId=" + vendorId + ", size=" + size;
     }
 
     public Long getId() {
@@ -37,19 +39,19 @@ public class Memory {
         this.id = id;
     }
 
-    public Vendor getVendor() {
-        return vendor;
+    public Long getVendorId() {
+        return vendorId;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 }

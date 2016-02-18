@@ -5,6 +5,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.notes.dao.MemoryDao" %>
+<%@ page import="hw7.notes.service.NotebookService" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="java.util.Arrays" %>
 <%--<%@ include file="loginTaxi.jsp"%>--%>
 
 
@@ -12,12 +17,23 @@
 <script src="JS/phone.js" type="text/javascript">    </script>
 <%--<script src="JS/alexEx.js" type="text/javascript">    </script>--%>
 
-
+<%!
+    VendorDao vendorDao;
+    NotebookService service;
+%>
     <%
         request.setAttribute("cnt", 1);
         request.setAttribute("totPortion", 5);
+
+//        service = new NotebookServiceImpl();
+//        vendorDao = ((NotebookServiceImpl)service).getVendorDao();
+//        request.setAttribute("vendorA", vendorDao.findAll());
+//                Arrays.asList("ven1","ven2","ven5","ven4"));
     %>
-    <%request.getRequestDispatcher("hw7.notes/pages/noteList.jsp").forward(request,response); %>
+    <%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("hw7.notes/pages/addMemory.jsp").forward(request,response); %>--%>
+    <%--<%request.getRequestDispatcher("hw7.notes/pages/addVendor.jsp").forward(request,response); %>--%>
+    <%--<%request.getRequestDispatcher("hw7.notes/pages/noteList.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("session14/pages/EmployeeLogin.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw6.notes/pages/menu.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw5.auth/UserAuth.jsp").forward(request,response); %>--%>

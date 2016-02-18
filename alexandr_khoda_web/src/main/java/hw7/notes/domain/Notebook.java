@@ -19,40 +19,40 @@ public class Notebook {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name="VENDOR")
-    private Vendor vendor;
+    private Long vendorId;
 
     @Column(name="MODEL")
     private String model;
 
     @Column(name="MANDATE")
     private Date manDate;
-    private CPU cpu;
-    private Memory memory;
+    private Long cpuId;
+    private Long memoryId;
 
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
     public Notebook(){
     }
 
-    public Notebook(Vendor vendor, String model, Date manDate, CPU cpu, Memory memory) {
-        this.vendor = vendor;
+    public Notebook(Long vendorId, String model, Date manDate, Long cpuId,
+                    Long memoryId) {
+        this.vendorId = vendorId;
         this.model = model;
         this.manDate = manDate;
-        this.cpu = cpu;
-        this.memory = memory;
+        this.cpuId = cpuId;
+        this.memoryId = memoryId;
     }
 
-    public Notebook(Vendor vendor, String model, Date manDate) {
-        this(vendor, model, manDate, null, null);
+    public Notebook(Long vendorId, String model, Date manDate) {
+        this(vendorId, model, manDate, null, null);
 
     }
 
     @Override
     public String toString(){
-        return "id=" + id + ", vendor=" + vendor.getName() + ", model=" +
-                model + ", manDate=" + df.format(manDate) + ", cpu=" + cpu.toString() +
-                ", memory=" + memory.toString();
+        return "id=" + id + ", vendorId=" + vendorId + ", model=" +
+                model + ", manDate=" + df.format(manDate) + ", cpuId=" + cpuId +
+                ", memoryId=" + memoryId;
     }
 
     public long getId() {
@@ -63,12 +63,28 @@ public class Notebook {
         this.id = id;
     }
 
-    public Vendor getVendor() {
-        return vendor;
+    public Long getVendorId() {
+        return vendorId;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public Long getCpuId() {
+        return cpuId;
+    }
+
+    public void setCpuId(Long cpuId) {
+        this.cpuId = cpuId;
+    }
+
+    public Long getMemoryId() {
+        return memoryId;
+    }
+
+    public void setMemoryId(Long memoryId) {
+        this.memoryId = memoryId;
     }
 
     public String getModel() {
@@ -91,19 +107,4 @@ public class Notebook {
         this.id = id;
     }
 
-    public CPU getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(CPU cpu) {
-        this.cpu = cpu;
-    }
-
-    public Memory getMemory() {
-        return memory;
-    }
-
-    public void setMemory(Memory memory) {
-        this.memory = memory;
-    }
 }

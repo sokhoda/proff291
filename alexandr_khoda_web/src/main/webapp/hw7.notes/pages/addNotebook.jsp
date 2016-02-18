@@ -5,8 +5,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.GregorianCalendar" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="static hw6.notes.view.Menu.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="sun.plugin2.gluegen.runtime.CPU" %>
@@ -16,10 +14,11 @@
 
 <html>
 <head>
-    <title>User management</title>
+    <title>Add Notebook</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
+    <center><h1>Add New Notebook Type</h1></center>
 </head>
 <body>
 <%!
@@ -51,12 +50,12 @@
         <%
             for (Vendor v : vendors) {
         %>
-        <option value="<%v.getName()%>"><%v.getName()%></option>
+        <option value="<%v.getId()%>"><%v.getName()%></option>
         <%
             }
         %>
     </select>
-    <script> setSelectIndex("vendors",0); </script>
+    <script> setSelectIndex('vendors',0); </script>
     <br>
 
     <label for="3">MODEL:</label>

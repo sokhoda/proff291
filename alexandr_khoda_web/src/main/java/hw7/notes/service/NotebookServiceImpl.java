@@ -25,14 +25,14 @@ public class NotebookServiceImpl implements NotebookService {
     private SessionFactory factory;
 
     private static Logger log = Logger.getLogger(NotebookServiceImpl.class);
-    NotebookDao noteDao;
-    StoreDao storeDao;
-    SalesDao salesDao;
-    VendorDao vendorDao;
-    CPUDao cpuDao;
-    MemoryDao memoryDao;
+    private NotebookDao noteDao;
+    private StoreDao storeDao;
+    private SalesDao salesDao;
+    private VendorDao vendorDao;
+    private CPUDao cpuDao;
+    private MemoryDao memoryDao;
 
-    public NotebookServiceImpl(NotebookDao noteDao) {
+    public NotebookServiceImpl() {
         factory = getSessionFactory();
         this.noteDao = new NotebookDaoImpl(factory);
         this.storeDao = new StoreDaoImpl(factory);
@@ -142,6 +142,62 @@ public class NotebookServiceImpl implements NotebookService {
     @Override
     public Map getSalesByDays() {
         return null;
+    }
+
+    public NotebookDao getNoteDao() {
+        return noteDao;
+    }
+
+    public void setNoteDao(NotebookDao noteDao) {
+        this.noteDao = noteDao;
+    }
+
+    public StoreDao getStoreDao() {
+        return storeDao;
+    }
+
+    public void setStoreDao(StoreDao storeDao) {
+        this.storeDao = storeDao;
+    }
+
+    public SalesDao getSalesDao() {
+        return salesDao;
+    }
+
+    public void setSalesDao(SalesDao salesDao) {
+        this.salesDao = salesDao;
+    }
+
+    public VendorDao getVendorDao() {
+        return vendorDao;
+    }
+
+    public void setVendorDao(VendorDao vendorDao) {
+        this.vendorDao = vendorDao;
+    }
+
+    public CPUDao getCpuDao() {
+        return cpuDao;
+    }
+
+    public void setCpuDao(CPUDao cpuDao) {
+        this.cpuDao = cpuDao;
+    }
+
+    public MemoryDao getMemoryDao() {
+        return memoryDao;
+    }
+
+    public void setMemoryDao(MemoryDao memoryDao) {
+        this.memoryDao = memoryDao;
+    }
+
+    public SessionFactory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(SessionFactory factory) {
+        this.factory = factory;
     }
 
     //    @Override
