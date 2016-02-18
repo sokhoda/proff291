@@ -1,5 +1,13 @@
 package hw7.view;
 
+import hw7.dao.*;
+import hw7.domain.Vendor;
+import hw7.service.NotebookService;
+import hw7.service.NotebookServiceImpl;
+import hw7.util.HiberSessionFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +27,8 @@ public class AddVendor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         String vendorName = request.getParameter("vendorName");
-        System.out.println(vendorName);
+        Vendor vendor = new Vendor(vendorName);
+        Main.notebookService.createVendor(vendor);
 
     }
 }

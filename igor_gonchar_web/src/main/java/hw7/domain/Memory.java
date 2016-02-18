@@ -20,13 +20,17 @@ public class Memory {
     @Column(name="SIZE")
     private int size;
 
+    @Column(name="Vendor")
+    private String vendor;
+
     @OneToMany(mappedBy = "memory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Notebook> notebooks = new HashSet<>();
 
     public Memory(){
     }
 
-    public Memory(int size) {
+    public Memory(String vendor, int size) {
+        this.vendor = vendor;
         this.size = size;
     }
 

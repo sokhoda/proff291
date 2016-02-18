@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by v.davidenko on 15.02.2016.
@@ -17,35 +18,54 @@ import java.util.Map;
 @WebServlet("/cpuServlet")
 public class CPUServlet extends HttpServlet {
 
-    final static String CPU_PAGE = "hw7/entity/cpu.jsp";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        String id = parameterMap.get("entityId")[0];
-        String model = parameterMap.get("model")[0].trim();
-        String vendor = parameterMap.get("vendor")[0].trim();
-        String freq = parameterMap.get("frequency")[0].trim();
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        CPU cpu = new CPU();
-        cpu.setId(Long.valueOf(id));
-        cpu.setModel(model);
-        cpu.setVendor(vendor);
-        cpu.setFrequency(freq);
+            Map<String, String[]> parameterMap = req.getParameterMap();
+        String action = parameterMap.get("actionId")[0];
 
-        if (Menu.noteService.updateCPU(cpu)) {
-            req.setAttribute("server_msg", UPDATE_SUCCESS_MSG);
+        if (action.equals("find")) {
+            Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
+            CPU cpu = Menu.noteService.getCPUById(id);
+            if (cpu == null) {
+                req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
+                req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
+            } else {
+                req.setAttribute("id", String.valueOf(cpu.getId()));
+                req.setAttribute("model", cpu.getModel());
+                req.setAttribute("vendor", cpu.getVendor());
+                req.setAttribute("frequency", cpu.getFrequency());
+            }
+            req.getRequestDispatcher(Menu.CPU_PAGE).forward(req, resp);
+            return;
         }
-        req.setAttribute("entityId", id);
-        req.setAttribute("model", model);
-        req.setAttribute("vendor", vendor);
-        req.setAttribute("frequency", freq);
-        req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
+
+        if (action.equals("save")) {
+            String id = parameterMap.get("id")[0];
+            String model = parameterMap.get("model")[0].trim();
+            String vendor = parameterMap.get("vendor")[0].trim();
+            String freq = parameterMap.get("frequency")[0].trim();
+
+            CPU cpu = new CPU();
+            cpu.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
+            cpu.setModel(model);
+            cpu.setVendor(vendor);
+            cpu.setFrequency(freq);
+
+            if (Menu.noteService.updateCPU(cpu)) {
+                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+            }
+            Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+            for(Map.Entry<String, String[]> entry : entries) {
+                req.setAttribute(entry.getKey(), entry.getValue()[0]);
+            }
+            req.getRequestDispatcher(Menu.CPU_PAGE).forward(req, resp);
+        }
     }
 }

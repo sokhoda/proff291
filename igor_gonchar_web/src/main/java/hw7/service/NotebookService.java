@@ -28,9 +28,15 @@ public interface NotebookService {
 
     boolean updateCPU(CPU cpu);
 
+    boolean createCPU(CPU cpu);
+
     boolean updateMemory(Memory memory);
 
+    boolean createMemory(Memory memory);
+
     boolean updateVendor(Vendor vendor);
+
+    boolean createVendor(Vendor vendor);
 
     boolean updateNotebook(Notebook notebook);
 

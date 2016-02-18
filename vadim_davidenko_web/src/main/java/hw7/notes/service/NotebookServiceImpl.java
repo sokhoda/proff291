@@ -160,6 +160,11 @@ public class NotebookServiceImpl implements NotebookService {
         return memoryDao.read(id);
     }
 
+    @Override
+    public Store getStoreById(Long id) {
+        return storeDao.read(id);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Get all (list)
 
