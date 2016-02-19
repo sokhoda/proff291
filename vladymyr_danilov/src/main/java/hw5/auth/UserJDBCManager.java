@@ -37,17 +37,26 @@ public class UserJDBCManager {
         String values = String.join(", ", genPlaceholders(keyArray.length, "?"));
         String insert = String.format(INSERT_QUERY, "USERS", keys, values);
 
-        initDatabase();
+        try {
+            initDatabase();
 
-        PreparedStatement statement = connection.prepareStatement(insert);
-        int counter = 1;
+            PreparedStatement statement = connection.prepareStatement(insert);
+            int counter = 1;
 
-        statement.setInt(counter++, user.getId());
-        statement.setString(counter++, user.getName());
-        statement.setString(counter++, user.getPassword());
-        statement.setDate(counter, new Date(user.getDate().getTime()));
-        statement.executeUpdate();
-        statement.close();
+            statement.setInt(counter++, user.getId());
+            statement.setString(counter++, user.getName());
+            statement.setString(counter++, user.getPassword());
+            statement.setDate(counter, new Date(user.getDate().getTime()));
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
 
         return 1;
     }
@@ -56,20 +65,28 @@ public class UserJDBCManager {
         List<hw5.users.User> list = new ArrayList<>();
         String select = String.format(LIST_QUERY, "USERS");
 
-        initDatabase();
+        try {
+            initDatabase();
 
-        Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery(select);
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(select);
 
-        while ( result.next() ) {
-            User user = new User();
-            user.setId(result.getInt("ID"));
-            user.setName(result.getString("NAME"));
-            user.setPassword(result.getString("PASSWORD"));
-            user.setDate(result.getDate("RDATE"));
-            list.add(user);
+            while ( result.next() ) {
+                User user = new User();
+                user.setId(result.getInt("ID"));
+                user.setName(result.getString("NAME"));
+                user.setPassword(result.getString("PASSWORD"));
+                user.setDate(result.getDate("RDATE"));
+                list.add(user);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
         }
-        statement.close();
 
         return list;
 
@@ -77,22 +94,31 @@ public class UserJDBCManager {
 
     public User readByNamePass(String login, String password) throws SQLException, ClassNotFoundException {
         String select = String.format(SELECT_QUERY, "USERS", "NAME", "PASSWORD");
+        User user = null;
 
-        initDatabase();
+        try {
+            initDatabase();
 
-        PreparedStatement statement = connection.prepareStatement(select);
-        statement.setString(1, login);
-        statement.setString(2, password);
+            PreparedStatement statement = connection.prepareStatement(select);
+            statement.setString(1, login);
+            statement.setString(2, password);
 
-        ResultSet result = statement.executeQuery();
-        User user = new User();
-        while ( result.next() ) {
-            user.setId(result.getInt("ID"));
-            user.setName(result.getString("NAME"));
-            user.setPassword(result.getString("PASSWORD"));
-            user.setDate(result.getDate("RDATE"));
+            ResultSet result = statement.executeQuery();
+            user = new User();
+            while ( result.next() ) {
+                user.setId(result.getInt("ID"));
+                user.setName(result.getString("NAME"));
+                user.setPassword(result.getString("PASSWORD"));
+                user.setDate(result.getDate("RDATE"));
+            }
+            statement.close();
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
         }
-        statement.close();
 
         return user;
 
