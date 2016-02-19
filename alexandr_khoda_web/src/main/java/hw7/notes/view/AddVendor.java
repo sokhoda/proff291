@@ -29,13 +29,11 @@ import static hw7.notes.view.Servlet.setMessageAttr;
 public class AddVendor extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
-    private NotebookService service;
     private VendorDao vendorDao;
 
     @Override
     public void init() {
-        service = new NotebookServiceImpl();
-        vendorDao = (((NotebookServiceImpl)service).getVendorDao());
+        vendorDao = (((NotebookServiceImpl)Menu.service).getVendorDao());
     }
 
     @Override
@@ -82,9 +80,67 @@ public class AddVendor extends HttpServlet {
             }
         }
 
+        if (req.getParameter("update") != null) {
+            try {
+                String name = req.getParameter("name");
+                Long venId = Long.parseLong(req.getParameter("venSel"));
+                if (!checkStringPar(req,"name")){
+                    if(vendorDao.checkExist(new Vendor(name))){
+                        setMessageAttr(req, "red", "Vendor '" +
+                                name + "' already exists in DB.");
+                    }
+                    else {
+                        Vendor ven = vendorDao.read(venId);
+                        ven.setName(name);
+                        if (vendorDao.update(ven)) {
+                            setMessageAttr(req, "green", "Vendor successfully" +
+                                    " updated.");
+                        }
+                        else {
+                            setMessageAttr(req, "red", "Failed to update " +
+                                    "Vendor '" +
+                                    name + "'.");
+                        }
+                    }
+                    setVendorAttributes(req);
+                }
+                req.setAttribute("mode","1");
+                req.setAttribute("venSelVal", venId.toString());
+                req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+        if (req.getParameter("venSel") != null) {
+            try {
+                Long venId = Long.parseLong(req.getParameter("venSel"));
+                Vendor ven = vendorDao.read(venId);
+                setVendorAttributes2(req, ven);
+                req.setAttribute("mode","1");
+                req.setAttribute("venSelVal", venId.toString());
+                req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
     }
 
     private void setVendorAttributes(HttpServletRequest req){
         req.setAttribute("nameA", req.getParameter("name"));
+    }
+
+    private void setVendorAttributes2(HttpServletRequest req, Vendor ven){
+        if (ven == null){
+            return;
+        }
+        req.setAttribute("nameA", ven.getName());
     }
 }

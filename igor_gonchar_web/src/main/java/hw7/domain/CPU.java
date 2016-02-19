@@ -51,6 +51,10 @@ public class CPU {
         return model;
     }
 
+    public String getVendor() {
+        return vendor;
+    }
+
     @Override
     public String toString() {
         return "CPU{" +
