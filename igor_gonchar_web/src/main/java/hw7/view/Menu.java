@@ -1,9 +1,7 @@
 package hw7.view;
 
 import hw7.dao.*;
-import hw7.domain.CPU;
-import hw7.domain.Memory;
-import hw7.domain.Vendor;
+import hw7.domain.*;
 import hw7.service.NotebookService;
 import hw7.service.NotebookServiceImpl;
 import hw7.util.HiberSessionFactory;
@@ -55,6 +53,24 @@ public class Menu extends HttpServlet {
                 case "notebook":
                     pageAddress = "/hw7/addNotebook.jsp";
                     message = "Add notebook";
+
+                    List<Vendor> vendorList = Main.notebookService.getAllVendors();
+                    request.setAttribute("vendorList", vendorList);
+
+                    List<CPU> cpuList = Main.notebookService.getAllCPUs();
+                    request.setAttribute("cpuList", cpuList);
+
+                    List<Memory> memoryList = Main.notebookService.getAllMemories();
+                    request.setAttribute("memoryList", memoryList);
+
+                    request.getRequestDispatcher("/hw7/addNotebook.jsp").forward(request, response);
+                    break;
+                case "store":
+                    List<Notebook> notebookList = Main.notebookService.getAllNotebooks();
+                    request.setAttribute("notebookList", notebookList);
+
+                    request.getRequestDispatcher("/hw7/addStore.jsp").forward(request, response);
+
                     break;
                 default:
                     break;
@@ -89,7 +105,22 @@ public class Menu extends HttpServlet {
                     message = sb3.toString();
                     break;
                 case "notebook":
-                    message = "Notebook List";
+                    List<Notebook> list4 =  Main.notebookService.getAllNotebooks();
+                    StringBuilder sb4 = new StringBuilder();
+                    for (int i = 0; i <list4.size() ; i++) {
+                        sb4.append(list4.get(i).toString());
+                        sb4.append("<br/>");
+                    }
+                    message = sb4.toString();
+                    break;
+                case "store":
+                    List<Store> list5 =  Main.notebookService.getAllNotebooks();
+                    StringBuilder sb5 = new StringBuilder();
+                    for (int i = 0; i <list5.size() ; i++) {
+                        sb5.append(list5.get(i).toString());
+                        sb5.append("<br/>");
+                    }
+                    message = sb5.toString();
                     break;
                 default:
                     break;

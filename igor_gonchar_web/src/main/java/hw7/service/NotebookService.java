@@ -26,23 +26,37 @@ public interface NotebookService {
 
     Map getSalesByDays();
 
+    Vendor getVendorById(Long id);
+
+    CPU getCPUById (Long id);
+
+    Memory getMemoryById(Long id);
+
+    Notebook getNotebookById(Long id);
+
     List getAllCPUs();
 
     List getAllMemories();
 
     List getAllVendors();
 
+    List getAllNotebooks();
+
     boolean updateCPU(CPU cpu);
 
     boolean createCPU(CPU cpu);
 
-    boolean updateMemory(Memory memory);
+    boolean createVendor(Vendor vendor);
 
     boolean createMemory(Memory memory);
 
-    boolean updateVendor(Vendor vendor);
+    boolean createNotebok(Notebook notebook);
 
-    boolean createVendor(Vendor vendor);
+    boolean createStore(Store store);
+
+    boolean updateMemory(Memory memory);
+
+    boolean updateVendor(Vendor vendor);
 
     boolean updateNotebook(Notebook notebook);
 
