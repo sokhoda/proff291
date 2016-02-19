@@ -27,8 +27,8 @@ public class CPUServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-            Map<String, String[]> parameterMap = req.getParameterMap();
-        String action = parameterMap.get("actionId")[0];
+        Map<String, String[]> parameterMap = req.getParameterMap();
+        String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
@@ -59,12 +59,17 @@ public class CPUServlet extends HttpServlet {
             cpu.setFrequency(freq);
 
             if (Menu.noteService.updateCPU(cpu)) {
-                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                if (id.isEmpty()) {
+                    req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
+                } else {
+                    req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                }
             }
             Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
             for(Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);
             }
+
             req.getRequestDispatcher(Menu.CPU_PAGE).forward(req, resp);
         }
     }

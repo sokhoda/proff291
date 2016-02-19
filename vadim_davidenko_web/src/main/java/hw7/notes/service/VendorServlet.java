@@ -28,7 +28,7 @@ public class VendorServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String action = parameterMap.get("actionId")[0];
+        String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
@@ -45,14 +45,18 @@ public class VendorServlet extends HttpServlet {
         }
 
         if (action.equals("save")) {
-            String vendorName = parameterMap.get("vendorName")[0].trim();
             String id = parameterMap.get("id")[0];
+            String vendorName = parameterMap.get("vendorName")[0].trim();
             Vendor vendor = new Vendor();
             vendor.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             vendor.setName(vendorName);
 
             if (Menu.noteService.updateVendor(vendor)) {
-                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                if (id.isEmpty()) {
+                    req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
+                } else {
+                    req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                }
             }
             Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
             for(Map.Entry<String, String[]> entry : entries) {

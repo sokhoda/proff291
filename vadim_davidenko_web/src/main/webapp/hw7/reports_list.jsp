@@ -14,31 +14,31 @@
 </head>
 <body>
 
-<form name="regForm" action="/notebookListServlet" method="post">
+<form name="listForm" action="/reportsServlet" method="get">
 
-    <table align="center" cellpadding="3" style="background-color: #d4ecff">
+    <table align="center" cellpadding="3">
 
-        <tr><td align="center" colspan="3"><h3>Notebook list</h3></td></tr>
+        <tr><td align="center" colspan="3"><b>NOTEBOOK LIST</b></td></tr>
 
         <tr><td colspan="3">
             <table border="1" cellpadding="3">
                 <tr style="background-color: #d4ecff">
-                    <th></th>
-                    <th align="center" width="70px">Id</th>
-                    <th align="center" width="170px">Model</th>
-                    <th align="center" width="170px">Manufacture date</th>
-                    <th align="center" width="170px">Vendor</th>
-                    <th align="center" width="170px">CPU</th>
-                    <th align="center" width="170px">Memory</th>
-                    <th align="center" width="170px">Store</th>
+                    <th align="center" width="40px">Id</th>
+                    <th align="center" width="150px">Model</th>
+                    <th align="center" width="100px">Manuf. date</th>
+                    <th align="center" width="150px">Vendor</th>
+                    <th align="center" width="150px">CPU</th>
+                    <th align="center" width="150px">Memory</th>
+                    <th align="center" width="50px">Store</th>
+                    <th align="center" width="100px">Amount</th>
+                    <th align="center" width="100px">Price</th>
                 </tr>
                 <%
-                    List<Notebook> notebookList = (List<Notebook>)request.getAttribute("notebookList");
+                    List<Notebook> notebookList = (List<Notebook>)request.getAttribute("reportList");
                     if(notebookList != null && !notebookList.isEmpty()){
                         for (Notebook notebook : notebookList) {
                 %>
                 <tr>
-                    <td><input type="radio" name="item" value="<%=String.valueOf(notebook.getId())%>"></td>
                     <td align="center"><%= String.valueOf(notebook.getId()) %></td>
                     <td align="center"><%= notebook.getModel() %></td>
                     <td align="center"><%= notebook.getManufactureDateStr() %></td>
@@ -46,20 +46,21 @@
                     <td align="center"><%= notebook.getCpu().getModel() %></td>
                     <td align="center"><%= String.valueOf(notebook.getMemory().getSize()) %></td>
                     <td align="center"><%= String.valueOf(notebook.getStore().getId()) %></td>
+                    <td align="center"><%= String.valueOf(notebook.getStore().getAmount()) %></td>
+                    <td align="center"><%= String.valueOf(notebook.getStore().getPrice()) %></td>
                 </tr>
                 <% } } %>
             </table>
         </td></tr>
 
-        <tr>
-            <td align="center">
-                <input type="submit" value="New" style="width: 80px"/>
+        <tr style="background-color: #d4ecff">
+            <td colspan="2">
+                <input type="submit" value="Prev" style="width: 80px"/>
+                &nbsp;&nbsp;&nbsp;
+                <input type="submit" value="Next" style="width: 80px"/>
             </td>
-            <td align="center">
-                <input type="submit" value="Edit" style="width: 80px"/>
-            </td>
-            <td align="center">
-                <a href="../hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+            <td align="right">
+                <a href="hw7/reports.jsp"><input type="button" value="Back" style="width: 80px"/></a>
             </td>
         </tr>
 

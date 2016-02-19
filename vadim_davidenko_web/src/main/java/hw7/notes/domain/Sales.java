@@ -15,11 +15,10 @@ import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 
 @Entity
 @Table(name = "SALES")
-@SequenceGenerator(name = "SALES_SEQ", sequenceName = "SALES_SEQ",
-        allocationSize = 1, initialValue = 6001)
-
 public class Sales {
     @Id
+    @SequenceGenerator(name = "SALES_SEQ", sequenceName = "SALES_SEQ",
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SALES_SEQ")
     @Column(name = "SALES_ID")
     private Long id;
@@ -30,8 +29,9 @@ public class Sales {
     @Column(name = "AMOUNT", length = 20)
     private Integer amount;
 
-    @OneToMany(mappedBy = "sales")
-    private Set<Store> stores = new HashSet<Store>();
+    @OneToOne
+    @JoinColumn(name = "STORE_ID")
+    private Store store;
 
     public Sales() {}
 
@@ -76,11 +76,11 @@ public class Sales {
         this.amount = amount;
     }
 
-    public Set<Store> getStores() {
-        return stores;
+    public Store getStore() {
+        return store;
     }
 
-    public void setStores(Set<Store> stores) {
-        this.stores = stores;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

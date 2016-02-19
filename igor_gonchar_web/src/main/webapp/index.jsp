@@ -34,7 +34,7 @@
 
     <form action="/authorizationForm" method="post">
         <tr>
-            <td rowspan="5"><img
+            <td rowspan="6"><img
                     src="http://medias.lescontamines.com/images/prestataires/multitailles/800x600_22262-Logo_taxi.jpg"
                     height="200"/>
             </td>
@@ -57,24 +57,29 @@
         </a></td>
 
     </tr>
+    <tr> <td>
+        <a href="dashboard.jsp">
+            <button style="width:100%">Order page</button>
+        </a> </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="notebooksPage.jsp">
+                <button>Notebooks page</button>
+            </a>
+        </td>
+        <td>
+            <form id="generalForm" action="/notebooksAdvancedMain" method="post">
+                <input id="notesAdvancedButton" type="submit" value="Notebooks Advanced"/>
+            </form>
+        </td>
+    </tr>
     </tbody>
 </table>
 <p>
     ${auth_result}
 </p>
 <%--<button onclick="createTree(document.documentElement, '')">Create tree</button>--%>
-<a href="dashboard.jsp">
-    <button>Order page</button>
-</a>
-<a href="notebooksPage.jsp">
-    <button>Notebooks page</button>
-</a>
-
-<%--<a href="hw7/notesAdvanced.jsp">--%>
-<br/>
-<form id="generalForm" action="/notebooksAdvancedMain" method="post">
-    <input id="notesAdvancedButton" type="submit" value="Notebooks Advanced"/>
-</form>
 
 <a href="employeePage.jsp">
     <button>Employee page</button>

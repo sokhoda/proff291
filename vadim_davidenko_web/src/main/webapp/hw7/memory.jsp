@@ -22,7 +22,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">Id:</td>
-          <td><input type="text" name="id" size="5" disabled></td>
+          <td><input type="text" name="id" size="3" readonly style="background-color: lightgrey"></td>
         </tr>
         <tr>
           <td align="right">Vendor name:</td>
@@ -39,7 +39,7 @@
           </td>
           <td align="center">
             <input type="button" value="Edit" onclick="editEntity()" style="width: 70px"/>
-            &nbsp;id:&nbsp;<input type="text" name="selectedId" size="5" maxlength="5"/>
+            &nbsp;id:&nbsp;<input type="text" name="selectedId" size="3" maxlength="3"/>
           </td>
         </tr>
         <tr>
@@ -91,7 +91,7 @@
   }
 
   function checkFields(form) {
-    if(!form.vendor.value.trim() || !form.size.value.trim() || isNaN(+form.size.value)) {
+    if(!form.vendor.value.trim() || !form.size.value.trim()) {
       alert("Please, fill in all fields with valid values!");
       return false;
     }

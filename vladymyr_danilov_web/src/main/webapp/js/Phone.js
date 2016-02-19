@@ -5,7 +5,7 @@ function Phone(number, balance) {
     this.tarif = 0.5;
 
     this.getNumber = function() {
-        return _number;
+        return _num;
     };
 
     this.getBalance = function() {
@@ -13,11 +13,11 @@ function Phone(number, balance) {
     };
 
     this.setNumber = function(number) {
-        _num = number;
+        this._num = number;
     };
 
     this.setBalance = function(balance) {
-        _balance = balance;
+        this._balance = balance;
     };
 
     this.call = function(duration) {

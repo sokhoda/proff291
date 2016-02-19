@@ -29,7 +29,7 @@
        <tr>
            <td><input type="radio" name="reportMenu" value="byCPU"></td>
            <td>Show notebooks by CPU vendor:</td>
-           <td><input type="text" name="cpuVendor" size="20" maxlength="20"/>&nbsp;</td>
+           <td><input type="text" name="cpuVendor" size="15" maxlength="15"/>&nbsp;</td>
        </tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="storeAll" checked></td>
@@ -48,7 +48,7 @@
            <td colspan="3" align="center">
                <input type="button" value="Select" onclick="submitForm()" style="width: 80px"/>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+               <a href="../hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
            </td>
        </tr>
        <tr><td colspan="3" align="center"><b>${server_msg}</b></td></tr>
