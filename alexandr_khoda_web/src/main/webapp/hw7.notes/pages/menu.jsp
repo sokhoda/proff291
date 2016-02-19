@@ -26,14 +26,12 @@
     </head>
     <body>
     <%!
-        VendorDao vendorDao;
         NotebookService service;
-
+        VendorDao vendorDao;
         List<Vendor> vendor = null;
     %>
     <%
-        service = new NotebookServiceImpl();
-        vendorDao = ((NotebookServiceImpl)service).getVendorDao();
+        vendorDao = ((NotebookServiceImpl)Menu.service).getVendorDao();
 
         vendor = (List<Vendor>)vendorDao.findAll();
         String[] message = getAttribArray(request);
@@ -167,15 +165,14 @@
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
+                      <input type="submit" name="updVen"
                              value="9. Update Vendor">
-
                   </td>
               </tr>
 
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
+                      <input type="submit" name="updNtb"
                              value="10. Update Notebook">
                   </td>
               </tr>

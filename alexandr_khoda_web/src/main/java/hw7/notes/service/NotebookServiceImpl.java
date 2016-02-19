@@ -32,6 +32,7 @@ public class NotebookServiceImpl implements NotebookService {
     private CPUDao cpuDao;
     private MemoryDao memoryDao;
 
+
     public NotebookServiceImpl() {
         factory = getSessionFactory();
         this.noteDao = new NotebookDaoImpl(factory);
@@ -255,6 +256,14 @@ public class NotebookServiceImpl implements NotebookService {
         StandardServiceRegistry standardServiceRegistry = sb.build();
 
         return cfg.buildSessionFactory(standardServiceRegistry);
+    }
+
+    public static Logger getLog() {
+        return log;
+    }
+
+    public static void setLog(Logger log) {
+        NotebookServiceImpl.log = log;
     }
 
 }

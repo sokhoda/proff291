@@ -10,6 +10,7 @@
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="java.util.List" %>
+<%@ page import="hw7.notes.view.Menu" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
 <script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
@@ -18,12 +19,11 @@
 
 <%!
     VendorDao vendorDao;
-    NotebookService service;
     Integer mode;
     List<Vendor> vendor = null;
     String headPart;
-
-
+    String venSelInx;
+    String venSelVal;
 %>
 <%
     mode = String2Integer(getAttribValue(request, "mode"));
@@ -41,10 +41,13 @@
 
 
 <%
-    service = new NotebookServiceImpl();
-    vendorDao = ((NotebookServiceImpl)service).getVendorDao();
+    vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
 
-    vendor = (List<Vendor>)vendorDao.findAll();
+    if (mode == 1) {
+        vendor = (List<Vendor>)vendorDao.findAll();
+        venSelInx = (String) request.getAttribute("venSelInx");
+        venSelVal = (String) request.getAttribute("venSelVal");
+    }
     String vendorInputText = getAttribValue(request, "nameA");
 
     String[] message = getAttribArray(request);
@@ -60,27 +63,48 @@
         <label for="venSel">SELECT VENDOR:</label>
         <% if(vendor != null){
         %>
-        <select size="<%vendor.size();%>" name="venSel" id="venSel">
+        <select size="<%vendor.size();%>" name="venSel" id="venSel"
+                onchange="this.form.submit();">
+
             <option disabled>select item</option>
             <%
+                int cnt = 1;
                 for (Vendor v : vendor) {
+                    if(venSelInx != null){
+                        if (cnt == Integer.parseInt(venSelInx)){
             %>
-            <option value="<%=v.getId()%>">
-                <%=v.getName()%></option>
+                            <option value="<%=v.getId()%>" selected>
+                    <%
+                        }
+                        else{
+                    %>
+                            <option value="<%=v.getId()%>">
+                    <%
+                        }
+                    }
+                    else {
+                        if (venSelVal != null && v.getId() ==
+                        Integer.parseInt(venSelVal)){
+                    %>
+                            <option value="<%=v.getId()%>" selected>
+                    <%
+                        }
+                        else{
+                    %>
+                            <option value="<%=v.getId()%>">
+                    <%
+                        }
+                    }
+                    %>
+
+                            <%=v.getName()%></option>
             <%
+                        cnt++;
+                    }
                 }
             %>
         </select><br>
-        <script type="text/javascript">
-            setSelectIndex('divVenSel', 1);
-        </script>
-        <%
-        }
-        %>
     </div>
-
-
-
 
     <label for="vendors">NAME:</label>
     <input  type="text" value="<%=vendorInputText%>" placeholder="TOSHIBA"
