@@ -7,7 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Вадим on 14.02.2016.
@@ -94,20 +96,17 @@ public class SalesDaoImpl implements SalesDao {
 
     @Override
     public List<Sales> findAll() {
-        List<Sales> list = new ArrayList<Sales>();
         Session session = factory.openSession();
         try {
-            List result = session.createQuery("FROM hw7.notes.domain.Sales").list();
-            if (result != null) {
-                for (Object obj : result) {
-                    list.add((Sales) obj);
-                }
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            return (List<Sales>)session.createQuery("FROM Sales").list();
         } finally {
             session.close();
         }
-        return list;
+    }
+
+    public Map<Date, Integer> findAllByDays() {
+
+
+        return null;
     }
 }

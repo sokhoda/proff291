@@ -92,7 +92,7 @@
               %>
               <option <%=(String.valueOf(memory.getId()).equals(memoryId)) ? "selected" : ""%>
                       value="<%=String.valueOf(memory.getId())%>">
-                <%=memory.getVendor() + " " + memory.getSize()%></option>
+                <%=memory.getVendor().getName() + " " + memory.getSize()%></option>
               <% } } %>
             </select>
           </td>
@@ -121,7 +121,7 @@
 
   </td></tr>
   <tr><td colspan="2" align="center">
-    <b>${server_msg}</b>
+      <span id="msg"><i>${server_msg}</i></span>
   </td></tr>
 </table>
 
@@ -140,6 +140,7 @@
     if(checkFields(form)) {
       form.date.value = readDate(form.dd, form.mm, form.yyyy);
       document.notebookForm.action.value = 'save';
+      document.getElementById("msg").innerHTML = '';
       form.submit();
     }
   }
@@ -151,6 +152,7 @@
     document.notebookForm.dd.value = '';
     document.notebookForm.mm.value = '';
     document.notebookForm.yyyy.value = '';
+    document.getElementById("msg").innerHTML = '';
   }
 
   function editEntity() {
@@ -159,6 +161,7 @@
       alert("Please, fill in Id with numeric value!");
     } else {
       document.notebookForm.action.value = 'find';
+      document.getElementById("msg").innerHTML = '';
       document.notebookForm.submit();
     }
   }

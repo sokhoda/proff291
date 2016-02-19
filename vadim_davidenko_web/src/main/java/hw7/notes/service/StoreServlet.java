@@ -62,7 +62,7 @@ public class StoreServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        Long noteId = Long.valueOf(parameterMap.get("noteId")[0]);
+        Long noteId = Long.valueOf(parameterMap.get("notebookId")[0]);
         Integer amountReceive = Integer.valueOf(parameterMap.get("amountReceive")[0]);
         Double priceReceive = Double.valueOf(parameterMap.get("priceReceive")[0]);
 

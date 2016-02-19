@@ -1,6 +1,7 @@
 package hw7.notes.service;
 
 import hw7.notes.domain.Memory;
+import hw7.notes.domain.Vendor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class MemoryServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
 
+        List<Vendor> vendorList = Menu.noteService.getAllVendors();
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("action")[0];
 
@@ -38,7 +41,8 @@ public class MemoryServlet extends HttpServlet {
                 req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
             } else {
                 req.setAttribute("id", String.valueOf(memory.getId()));
-                req.setAttribute("vendor", memory.getVendor());
+                req.setAttribute("vendorId", String.valueOf(memory.getVendor().getId()));
+                req.setAttribute("vendorList", vendorList);
                 req.setAttribute("size", memory.getSize());
             }
             req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
@@ -47,7 +51,8 @@ public class MemoryServlet extends HttpServlet {
 
         if (action.equals("save")) {
             String id = parameterMap.get("id")[0];
-            String vendor = parameterMap.get("vendor")[0].trim();
+            Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
+            Vendor vendor = Menu.noteService.getVendorById(vendorId);
             String size = parameterMap.get("size")[0].trim();
 
             Memory memory = new Memory();
@@ -66,6 +71,7 @@ public class MemoryServlet extends HttpServlet {
             for(Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);
             }
+            req.setAttribute("vendorList", vendorList);
             req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
         }
     }

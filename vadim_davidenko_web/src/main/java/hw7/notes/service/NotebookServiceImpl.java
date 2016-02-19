@@ -17,6 +17,8 @@ public class NotebookServiceImpl implements NotebookService {
     private StoreDao storeDao;
     private SalesDao salesDao;
 
+    private static Integer page = 1;
+
     private NotebookServiceImpl() {}
 
     public NotebookServiceImpl(NotebookDao notebookDao, VendorDao vendorDao, CPUDao cpuDao,
@@ -132,32 +134,37 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public List<Notebook> getNotebooksByPortion(int size) {
-
-        return null;
+        List<Notebook> list = notebookDao.findByPortion(page, size);
+        if (list != null) return list;
+        else return new ArrayList<Notebook>();
     }
 
     @Override
     public List<Notebook> getNotebooksGtAmount(int amount) {
-
-        return null;
+        List<Notebook> list = notebookDao.findGtAmount(amount);
+        if (list != null) return list;
+        else return new ArrayList<Notebook>();
     }
 
     @Override
     public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
-
-        return null;
+        List<Notebook> list = notebookDao.findByCpuVendor(cpuVendor);
+        if (list != null) return list;
+        else return new ArrayList<Notebook>();
     }
 
     @Override
     public List<Notebook> getNotebooksFromStore() {
-
-        return null;
+        List<Notebook> list = notebookDao.findAllOnStore();
+        if (list != null) return list;
+        else return new ArrayList<Notebook>();
     }
 
     @Override
     public List<Notebook> getNotebooksStorePresent() {
-
-        return null;
+        List<Notebook> list = notebookDao.findOnStorePresent();
+        if (list != null) return list;
+        else return new ArrayList<Notebook>();
     }
 
     @Override

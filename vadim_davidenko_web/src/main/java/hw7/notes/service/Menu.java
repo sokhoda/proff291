@@ -99,6 +99,9 @@ public class Menu extends HttpServlet {
      */
     public void reportsService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+        List<Vendor> vendorList = noteService.getAllVendors();
+        req.setAttribute("vendorList", vendorList);
         req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
     }
 
@@ -111,26 +114,26 @@ public class Menu extends HttpServlet {
         Map<String, String[]> parameterMap = req.getParameterMap();
         String option = parameterMap.get("entityMenu")[0];
 
+        List<Vendor> vendorList = noteService.getAllVendors();
+        List<CPU> cpuList = noteService.getAllCPUs();
+        List<Memory> memoryList = noteService.getAllMemories();
+
         switch (option) {
             case "notebook":
-                List<Vendor> vendorList = noteService.getAllVendors();
                 req.setAttribute("vendorList", vendorList);
-
-                List<CPU> cpuList = noteService.getAllCPUs();
                 req.setAttribute("cpuList", cpuList);
-
-                List<Memory> memoryList = noteService.getAllMemories();
                 req.setAttribute("memoryList", memoryList);
-
                 req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
             case "vendor":
                 req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
                 break;
             case "cpu":
+                req.setAttribute("vendorList", vendorList);
                 req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
             case "memory":
+                req.setAttribute("vendorList", vendorList);
                 req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }

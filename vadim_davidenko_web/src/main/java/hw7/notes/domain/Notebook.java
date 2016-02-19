@@ -18,7 +18,7 @@ public class Notebook {
     @SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
             allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOK_SEQ")
-    @Column(name = "NOTE_ID")
+    @Column(name = "NOTEBOOK_ID")
     private Long id;
 
     @Column(name = "MODEL", length = 50)

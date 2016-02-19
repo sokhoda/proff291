@@ -20,14 +20,15 @@ public class CPU {
     @Column(name = "CPU_ID")
     private Long id;
 
-    @Column(name = "VENDOR", length = 50)
-    private String vendor;
-
     @Column(name = "MODEL", length = 50)
     private String model;
 
     @Column(name = "FREQUENCY", length = 20)
     private String frequency;
+
+    @ManyToOne
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendor;
 
     @OneToMany(mappedBy = "cpu", cascade = CascadeType.REFRESH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -52,11 +53,11 @@ public class CPU {
         this.id = id;
     }
 
-    public String getVendor() {
+    public Vendor getVendor() {
         return vendor;
     }
 
-    public void setVendor(String vendor) {
+    public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 

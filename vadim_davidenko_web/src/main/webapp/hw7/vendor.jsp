@@ -51,7 +51,7 @@
     </form>
   </td></tr>
   <tr><td colspan="2" align="center">
-    <b>${server_msg}</b>
+      <span id="msg"><i>${server_msg}</i></span>
   </td></tr>
 </table>
 
@@ -64,6 +64,7 @@
     var form = document.vendorForm;
     if(checkFields(form)) {
       document.vendorForm.action.value = 'save';
+      document.getElementById("msg").innerHTML = '';
       form.submit();
     }
   }
@@ -72,6 +73,7 @@
     document.vendorForm.id.value = '';
     document.vendorForm.vendorName.value = '';
     document.vendorForm.selectedId.value = '';
+    document.getElementById("msg").innerHTML = '';
   }
 
   function editEntity() {
@@ -80,6 +82,7 @@
       alert("Please, fill in Id with numeric value!");
     } else {
       document.vendorForm.action.value = 'find';
+      document.getElementById("msg").innerHTML = '';
       document.vendorForm.submit();
     }
   }

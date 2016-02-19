@@ -1,3 +1,5 @@
+<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим
@@ -26,7 +28,20 @@
         </tr>
         <tr>
           <td align="right">Vendor name:</td>
-          <td><input type="text" name="vendor" size="20" maxlength="20"/></td>
+          <td>
+              <select size="3" name="vendorId">
+                <option disabled>Select ..................</option>
+                <%
+                    String vendorId = (String)request.getAttribute("vendorId");
+                    List<Vendor> vendorList = (List<Vendor>)request.getAttribute("vendorList");
+                    if(vendorList != null && !vendorList.isEmpty()){
+                        for (Vendor vendor : vendorList){
+                %>
+                <option <%=(String.valueOf(vendor.getId()).equals(vendorId)) ? "selected" : ""%>
+                        value="<%=String.valueOf(vendor.getId())%>"><%=vendor.getName()%></option>
+                <% } } %>
+            </select>
+          </td>
         </tr>
         <tr>
           <td align="right">Memory size:</td>
@@ -55,20 +70,20 @@
 
   </td></tr>
   <tr><td colspan="2" align="center">
-    <b>${server_msg}</b>
+    <span id="msg"><i>${server_msg}</i></span>
   </td></tr>
 </table>
 
 <script>
   document.memoryForm.id.value = '${id}';
   document.memoryForm.selectedId.value = '${selectedId}';
-  document.memoryForm.vendor.value = '${vendor}';
   document.memoryForm.size.value = '${size}';
 
   function submitForm() {
     var form = document.memoryForm;
     if(checkFields(form)) {
       document.memoryForm.action.value = 'save';
+      document.getElementById("msg").innerHTML = '';
       form.submit();
     }
   }
@@ -76,8 +91,8 @@
   function newEntity() {
     document.memoryForm.id.value = '';
     document.memoryForm.selectedId.value = '';
-    document.memoryForm.vendor.value = '';
     document.memoryForm.size.value = '';
+    document.getElementById("msg").innerHTML = '';
   }
 
   function editEntity() {
@@ -86,12 +101,13 @@
       alert("Please, fill in Id with numeric value!");
     } else {
       document.memoryForm.action.value = 'find';
+      document.getElementById("msg").innerHTML = '';
       document.memoryForm.submit();
     }
   }
 
   function checkFields(form) {
-    if(!form.vendor.value.trim() || !form.size.value.trim()) {
+    if(!form.vendorId.value.trim() || !form.size.value.trim()) {
       alert("Please, fill in all fields with valid values!");
       return false;
     }

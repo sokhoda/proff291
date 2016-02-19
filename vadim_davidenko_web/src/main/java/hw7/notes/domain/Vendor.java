@@ -24,6 +24,12 @@ public class Vendor {
     private String name;
 
     @OneToMany(mappedBy = "vendor", cascade = CascadeType.REFRESH)
+    private Set<CPU> cpus = new HashSet<CPU>();
+
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.REFRESH)
+    private Set<Memory> memories = new HashSet<Memory>();
+
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.REFRESH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
 
     public Vendor() {}
@@ -58,5 +64,21 @@ public class Vendor {
 
     public void setNotebooks(Set<Notebook> notebooks) {
         this.notebooks = notebooks;
+    }
+
+    public Set<CPU> getCpus() {
+        return cpus;
+    }
+
+    public void setCpus(Set<CPU> cpus) {
+        this.cpus = cpus;
+    }
+
+    public Set<Memory> getMemories() {
+        return memories;
+    }
+
+    public void setMemories(Set<Memory> memories) {
+        this.memories = memories;
     }
 }

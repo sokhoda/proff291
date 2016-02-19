@@ -20,11 +20,12 @@ public class Memory {
     @Column(name = "MEMORY_ID")
     private Long id;
 
-    @Column(name = "VENDOR", length = 50)
-    private String vendor;
-
     @Column(name = "MEMORY_SIZE", length = 20)
     private String size;
+
+    @ManyToOne
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendor;
 
     @OneToMany(mappedBy = "memory", cascade = CascadeType.REFRESH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
@@ -56,11 +57,11 @@ public class Memory {
         this.size = size;
     }
 
-    public String getVendor() {
+    public Vendor getVendor() {
         return vendor;
     }
 
-    public void setVendor(String vendor) {
+    public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 

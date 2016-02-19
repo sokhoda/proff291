@@ -93,7 +93,7 @@
         <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
       </td>
     </tr>
-    <tr><td colspan="8" align="center"><b>${server_msg}</b></td></tr>
+    <tr><td colspan="8" align="center"><span id="msg"><i>${server_msg}</i></span></td></tr>
   </table>
 </form>
 
@@ -107,6 +107,7 @@
   function submitForm() {
     var form = document.storeForm;
     if(checkFields(form)) {
+      document.getElementById("msg").innerHTML = '';
       form.submit();
     }
   }

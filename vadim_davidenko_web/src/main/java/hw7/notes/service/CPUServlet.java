@@ -1,6 +1,7 @@
 package hw7.notes.service;
 
 import hw7.notes.domain.CPU;
+import hw7.notes.domain.Vendor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class CPUServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        List<Vendor> vendorList = Menu.noteService.getAllVendors();
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("action")[0];
 
@@ -39,6 +42,8 @@ public class CPUServlet extends HttpServlet {
             } else {
                 req.setAttribute("id", String.valueOf(cpu.getId()));
                 req.setAttribute("model", cpu.getModel());
+                req.setAttribute("vendorId", String.valueOf(cpu.getVendor().getId()));
+                req.setAttribute("vendorList", vendorList);
                 req.setAttribute("vendor", cpu.getVendor());
                 req.setAttribute("frequency", cpu.getFrequency());
             }
@@ -49,7 +54,8 @@ public class CPUServlet extends HttpServlet {
         if (action.equals("save")) {
             String id = parameterMap.get("id")[0];
             String model = parameterMap.get("model")[0].trim();
-            String vendor = parameterMap.get("vendor")[0].trim();
+            Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
+            Vendor vendor = Menu.noteService.getVendorById(vendorId);
             String freq = parameterMap.get("frequency")[0].trim();
 
             CPU cpu = new CPU();
@@ -69,7 +75,7 @@ public class CPUServlet extends HttpServlet {
             for(Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);
             }
-
+            req.setAttribute("vendorList", vendorList);
             req.getRequestDispatcher(Menu.CPU_PAGE).forward(req, resp);
         }
     }
