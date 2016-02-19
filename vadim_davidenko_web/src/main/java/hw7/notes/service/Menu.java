@@ -25,8 +25,10 @@ public class Menu extends HttpServlet {
     final static String VENDOR_PAGE = "hw7/vendor.jsp";
     final static String CPU_PAGE = "hw7/cpu.jsp";
     final static String MEMORY_PAGE = "hw7/memory.jsp";
-    final static String REPORTS_PAGE = "hw7/reports.jsp";
     final static String STORE_PAGE = "hw7/store.jsp";
+    final static String REPORTS_PAGE = "hw7/reports.jsp";
+    final static String REPORTS_LIST_PAGE = "hw7/reports_list.jsp";
+
     final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
     final static String ADD_SUCCESS_MSG = "New entity added successfully";
     final static String UPDATE_SUCCESS_MSG = "Entity data updated successfully";
@@ -50,11 +52,6 @@ public class Menu extends HttpServlet {
         SalesDao salesDao = new SalesDaoImpl(sessionFactory);
 
         noteService = new NotebookServiceImpl(notebookDao, vendorDao, cpuDao, memoryDao, storeDao, salesDao);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
     }
 
     @Override

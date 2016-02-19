@@ -1,8 +1,10 @@
 package hw7.notes.service;
 
+import hw7.notes.domain.Notebook;
 import hw7.notes.domain.Store;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,8 @@ import java.util.Set;
 /**
  * Created by Вадим on 17.02.2016.
  */
+
+@WebServlet("/storeServlet")
 public class StoreServlet extends HttpServlet {
 
     @Override
@@ -43,6 +47,11 @@ public class StoreServlet extends HttpServlet {
         for(Map.Entry<String, String[]> entry : entries) {
             req.setAttribute(entry.getKey(), entry.getValue()[0]);
         }
+        List<Notebook> notebookList = Menu.noteService.getAllNotebooks();
+        req.setAttribute("notebookList", notebookList);
+        List<Store> storeList = Menu.noteService.getAllStores();
+        req.setAttribute("storeList", storeList);
+
         req.getRequestDispatcher(Menu.STORE_PAGE).forward(req, resp);
     }
 

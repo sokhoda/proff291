@@ -15,7 +15,7 @@ import java.util.Set;
 public class Store {
     @Id
     @SequenceGenerator(name = "STORE_SEQ", sequenceName = "STORE_SEQ",
-            allocationSize = 1, initialValue = 5001)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STORE_SEQ")
     @Column(name = "STORE_ID")
     private Long id;
@@ -26,11 +26,11 @@ public class Store {
     @Column(name = "PRICE", length = 20)
     private Double price;
 
-    @OneToMany(mappedBy = "store", cascade = CascadeType.DETACH)
-    private Set<Notebook> notebooks = new HashSet<Notebook>();
-
     @OneToOne
-    @JoinColumn(name = "SALES_ID")
+    @JoinColumn(name = "NOTEBOOK_ID")
+    private Notebook notebook;
+
+    @OneToOne(mappedBy = "store", cascade = CascadeType.DETACH)
     private Sales sales;
 
     public Store() {}
@@ -68,12 +68,12 @@ public class Store {
         this.price = price;
     }
 
-    public Set<Notebook> getNotebooks() {
-        return notebooks;
+    public Notebook getNotebook() {
+        return notebook;
     }
 
-    public void setNotebooks(Set<Notebook> notebooks) {
-        this.notebooks = notebooks;
+    public void setNotebook(Notebook notebook) {
+        this.notebook = notebook;
     }
 
     public Sales getSales() {

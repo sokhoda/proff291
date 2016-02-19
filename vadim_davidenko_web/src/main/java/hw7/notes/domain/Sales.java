@@ -18,7 +18,7 @@ import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 public class Sales {
     @Id
     @SequenceGenerator(name = "SALES_SEQ", sequenceName = "SALES_SEQ",
-            allocationSize = 1, initialValue = 6001)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SALES_SEQ")
     @Column(name = "SALES_ID")
     private Long id;
@@ -29,7 +29,8 @@ public class Sales {
     @Column(name = "AMOUNT", length = 20)
     private Integer amount;
 
-    @OneToOne(mappedBy = "sales", cascade = CascadeType.DETACH)
+    @OneToOne
+    @JoinColumn(name = "STORE_ID")
     private Store store;
 
     public Sales() {}

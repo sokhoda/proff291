@@ -80,10 +80,8 @@ public class NotebookServiceImpl implements NotebookService {
         Store store = new Store();
         store.setAmount(amount);
         store.setPrice(price);
-        Set<Notebook> notes = new HashSet<Notebook>();
         Notebook note = getNotebookById(noteId);
-        notes.add(note);
-        store.setNotebooks(notes);
+        store.setNotebook(note);
 
         return storeDao.create(store);
     }
@@ -93,7 +91,10 @@ public class NotebookServiceImpl implements NotebookService {
         Integer currentAmount = store.getAmount();
 
         if (currentAmount.compareTo(amount) > 0) {
-            store.setAmount(currentAmount - amount);
+            Integer newAmount = currentAmount - amount;
+            Double newPrice = store.getPrice() / currentAmount * newAmount;
+            store.setAmount(newAmount);
+            store.setPrice(newPrice);
             return storeDao.update(store);
         } else if (currentAmount.compareTo(amount) == 0) {
             return storeDao.delete(store);
@@ -108,8 +109,10 @@ public class NotebookServiceImpl implements NotebookService {
 
         Integer currentAmount = store.getAmount();
         if (currentAmount.compareTo(amount) > 0) {
-            currentAmount -= amount;
-            store.setAmount(currentAmount);
+            Integer newAmount = currentAmount - amount;
+            Double newPrice = store.getPrice() / currentAmount * newAmount;
+            store.setAmount(newAmount);
+            store.setPrice(newPrice);
             storeDao.update(store);
         } else if (currentAmount.compareTo(amount) == 0) {
             storeDao.delete(store);

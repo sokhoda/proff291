@@ -15,7 +15,7 @@ import java.util.Set;
 public class Memory {
     @Id
     @SequenceGenerator(name = "MEMORY_SEQ", sequenceName = "MEMORY_SEQ",
-            allocationSize = 1, initialValue = 3001)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMORY_SEQ")
     @Column(name = "MEMORY_ID")
     private Long id;

@@ -15,7 +15,7 @@ import java.util.Set;
 public class CPU {
     @Id
     @SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
-            allocationSize = 1, initialValue = 2001)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CPU_SEQ")
     @Column(name = "CPU_ID")
     private Long id;

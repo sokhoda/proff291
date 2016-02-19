@@ -21,14 +21,14 @@
     <tr><td colspan="8"><hr/></td></tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="receive" checked></td>
-      <td>Receive notebooks to store:</td>
+      <td>Receive notebooks to store</td>
       <td align="right">Note id:</td>
       <td>
-        <select size="2" name="noteId">
-          <option disabled>Select...</option>
+        <select size="2" name="notebookId">
+          <option disabled>Select</option>
           <%
-            List<Notebook> noteList = (List<Notebook>)request.getAttribute("noteList");
-            String noteId = (String)request.getAttribute("noteId");
+            List<Notebook> noteList = (List<Notebook>)request.getAttribute("notebookList");
+            String noteId = (String)request.getAttribute("notebookId");
             if(noteList != null && !noteList.isEmpty()){
               for (Notebook note : noteList){
           %>
@@ -44,11 +44,11 @@
     </tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="remove"></td>
-      <td>Remove notebooks from store:</td>
+      <td>Remove notebooks from store</td>
       <td align="right">Store id:</td>
       <td>
           <select size="2" name="storeIdRemove">
-              <option disabled>Select...</option>
+              <option disabled>Select</option>
               <%
                   String storeId = (String)request.getAttribute("storeIdRemove");
                   List<Store> storeList = (List<Store>)request.getAttribute("storeList");
@@ -66,11 +66,11 @@
     </tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="sale"></td>
-      <td>Sale store of notebooks:</td>
+      <td>Sale store of notebooks</td>
       <td align="right">Store id:</td>
       <td>
         <select size="2" name="storeIdSale">
-          <option disabled>Select...</option>
+          <option disabled>Select</option>
           <%
             storeId = (String)request.getAttribute("storeIdSale");
             if(storeList != null && !storeList.isEmpty()){

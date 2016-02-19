@@ -15,7 +15,7 @@ import java.util.Set;
 public class Vendor {
     @Id
     @SequenceGenerator(name = "VENDOR_SEQ", sequenceName = "VENDOR_SEQ",
-            allocationSize = 1, initialValue = 4001)
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VENDOR_SEQ")
     @Column(name = "VENDOR_ID")
     private Long id;
