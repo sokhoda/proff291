@@ -17,4 +17,8 @@ public interface StoreDao {
     boolean delete(Store store);
 
     List findAll();
+
+    List findOnStorePresent();
+
+    List findGtAmount(int amount);
 }

@@ -29,7 +29,7 @@ public class Sales {
     @Column(name = "AMOUNT", length = 20)
     private Integer amount;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "STORE_ID")
     private Store store;
 

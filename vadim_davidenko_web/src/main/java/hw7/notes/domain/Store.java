@@ -26,12 +26,12 @@ public class Store {
     @Column(name = "PRICE", length = 20)
     private Double price;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "NOTEBOOK_ID")
     private Notebook notebook;
 
-    @OneToOne(mappedBy = "store", cascade = CascadeType.DETACH)
-    private Sales sales;
+    @OneToMany(mappedBy = "store", cascade = CascadeType.DETACH)
+    private Set<Sales> sales = new HashSet<Sales>();
 
     public Store() {}
 
@@ -76,11 +76,11 @@ public class Store {
         this.notebook = notebook;
     }
 
-    public Sales getSales() {
+    public Set<Sales> getSales() {
         return sales;
     }
 
-    public void setSales(Sales sales) {
+    public void setSales(Set<Sales> sales) {
         this.sales = sales;
     }
 }

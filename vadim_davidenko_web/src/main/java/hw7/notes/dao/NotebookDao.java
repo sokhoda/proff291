@@ -23,12 +23,8 @@ public interface NotebookDao {
 
     List findByPortion(int position, int size);
 
-    List findGtAmount(int amount);
-
     List findByCpuVendor(Vendor cpuVendor);
 
     List findAllOnStore();
-
-    List findOnStorePresent();
 
 }

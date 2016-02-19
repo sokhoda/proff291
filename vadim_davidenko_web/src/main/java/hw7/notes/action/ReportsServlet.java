@@ -1,7 +1,9 @@
-package hw7.notes.service;
+package hw7.notes.action;
 
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Store;
 import hw7.notes.domain.Vendor;
+import hw7.notes.service.Menu;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,42 +44,42 @@ public class ReportsServlet  extends HttpServlet {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String option = parameterMap.get("reportMenu")[0];
-        List<Notebook> reportList = null;
+        List<Notebook> noteList = null;
+        List<Store> storeList = null;
 
         switch (option) {
             case "byPortion":
                 Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-
-
-
-
+                noteList = Menu.noteService.getNotebooksByPortion(portion);
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "gtAmount":
-                Integer gtAmount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
-                reportList = Menu.noteService.getNotebooksGtAmount(gtAmount);
-                req.setAttribute("reportList", reportList);
+                Integer amount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
+                storeList = Menu.noteService.getNotebooksGtAmount(amount);
+                req.setAttribute("storeList", storeList);
                 break;
 
             case "byCPU":
                 Long vendorId = Long.valueOf(parameterMap.get("cpuVendor")[0]);
                 Vendor vendor = Menu.noteService.getVendorById(vendorId);
-                reportList = Menu.noteService.getNotebooksByCpuVendor(vendor);
-                req.setAttribute("reportList", reportList);
+                noteList = Menu.noteService.getNotebooksByCpuVendor(vendor);
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "storeAll":
-                reportList = Menu.noteService.getNotebooksFromStore();
-                req.setAttribute("reportList", reportList);
+                noteList = Menu.noteService.getNotebooksFromStore();
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "storePresent":
-                reportList = Menu.noteService.getNotebooksStorePresent();
-                req.setAttribute("reportList", reportList);
+                storeList = Menu.noteService.getNotebooksStorePresent();
+                req.setAttribute("storeList", storeList);
                 break;
 
             case "salesByDays":
-
+                Map<Date, Integer> salesMap = Menu.noteService.getSalesByDays();
+                req.setAttribute("salesMap", salesMap);
                 break;
         }
         Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
