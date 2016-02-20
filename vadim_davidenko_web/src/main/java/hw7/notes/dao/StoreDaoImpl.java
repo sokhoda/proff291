@@ -1,10 +1,7 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Store;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +94,36 @@ public class StoreDaoImpl implements StoreDao {
         Session session = factory.openSession();
         try {
             return (List<Store>)session.createQuery("FROM Store").list();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Store> findOnStorePresent() {
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select * from NOTEBOOK n, STORE s " +
+                            "where n.NOTEBOOK_ID = s.NOTEBOOK_ID"
+            );
+            query.addEntity(Store.class);
+            return query.list();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Store> findGtAmount(int amount) {
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select * from NOTEBOOK n"
+            );
+            query.addEntity(Store.class);
+            query.setParameter("amount", amount);
+            return query.list();
         } finally {
             session.close();
         }
