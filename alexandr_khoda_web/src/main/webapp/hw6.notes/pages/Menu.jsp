@@ -201,34 +201,6 @@
                           Exit</button>
                   </td>
               </tr>
-              <%--<tr>--%>
-                  <%--<td>--%>
-                      <%--<input type="radio" name="selAct" value="showOrdersSum">--%>
-                      <%--Вывести список заказов на сумму в диапазоне от--%>
-                      <%--<input type="text" name="minOrderSum" value="<%=--%>
-                          <%--clientServiceImpl.getOrderService().getMinOrderSum()--%>
-                          <%--%>" > грн. до--%>
-                      <%--<input type="text" name="maxOrderSum" value="<%=--%>
-                          <%--clientServiceImpl.getOrderService().getMaxOrderSum()--%>
-                          <%--%>" > грн.--%>
-                  <%--</td>--%>
-              <%--</tr>--%>
-              <%--<tr>--%>
-                  <%--<td>--%>
-                      <%--<input type="radio" name="selAct" value="showOrdersByPortion">--%>
-                      <%--Вывести список всех заказов порциями по--%>
-                      <%--<input type="text" name="orderQuantity"--%>
-                             <%--placeholder="10" value="<%=--%>
-                          <%--clientServiceImpl.getOrderService().getOrderQuantity()--%>
-                          <%--%>" > заказов--%>
-                  <%--</td>--%>
-              <%--</tr>--%>
-              <%--<tr>--%>
-                  <%--<td>--%>
-                      <%--<br>--%>
-                      <%--<input type="submit" value="Перейти">--%>
-                  <%--</td>--%>
-              <%--</tr>--%>
           </tbody>
 
       </table>

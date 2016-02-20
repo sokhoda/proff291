@@ -1,9 +1,5 @@
 package session1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: al1
@@ -12,7 +8,7 @@ import java.util.List;
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello Idea");
-        List<Integer> list = new ArrayList(Arrays.asList(1,2,3,4,5));
+//        List<Integer> list = new ArrayList(Arrays.asList(1,2,3,4,5));
 
     }
 }

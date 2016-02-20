@@ -44,6 +44,13 @@ public class Notebook {
         this.price = price;
     }
 
+    public Notebook(long serial, String vendor, String model, Date manufactureDate, int price) {
+        this.serial = serial;
+        this.vendor = vendor;
+        this.model = model;
+        this.manufactureDate = manufactureDate;
+        this.price = price;
+    }
 
     @Override
     public boolean equals(Object o) {

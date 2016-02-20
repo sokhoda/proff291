@@ -44,6 +44,8 @@ public class HiberConnect {
 
             log.info("Connection established");
             log.info(session);
+
+
         } catch (HibernateException e) {
             log.error("Open session failed", e);
             if (session != null) {

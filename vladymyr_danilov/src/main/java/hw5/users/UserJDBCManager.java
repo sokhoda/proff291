@@ -18,9 +18,13 @@ public class UserJDBCManager {
 
     private void initDatabase() throws ClassNotFoundException, SQLException {
         Locale.setDefault(Locale.ENGLISH);
-        String url = "jdbc:oracle:thin:@172.16.138.128:1521:XE";
+//        String url = "jdbc:oracle:thin:@172.16.138.128:1521:XE";
+        String url = "jdbc:postgresql://178.62.245.113:5432/notebooks";
 
-        Class.forName("oracle.jdbc.driver.OracleDriver");
+
+//        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Class.forName("org.postgresql.Driver");
+
 
         try {
             connection = DriverManager.getConnection(url, "notebooks", "notebooks");
@@ -35,6 +39,7 @@ public class UserJDBCManager {
         String keys = String.join(", ", keyArray);
         String values = String.join(", ", genPlaceholders(keyArray.length, "?"));
         String insert = String.format(INSERT_QUERY, "USERS", keys, values);
+//        System.out.println(insert);
 
         initDatabase();
 

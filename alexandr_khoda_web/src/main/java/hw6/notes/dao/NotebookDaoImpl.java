@@ -216,7 +216,7 @@ public class NotebookDaoImpl implements NotebookDao {
             Query query = session.createQuery("from Notebook where PRICE = " +
                     ":PRICE and DATE = :DATE");
             query.setParameter("PRICE", price);
-            query.setParameter("DATE", date));
+            query.setParameter("DATE", date);
             return query.list();
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
