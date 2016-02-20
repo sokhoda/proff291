@@ -29,11 +29,23 @@
     }
 </style>
 <body>
-<script src="js/homework_table1.js" type="text/javascript"></script>
+<form action="/list" method="post"></form>
+<table border="1" width="300">
+    <tr>
+        <td> Login :</td>
+        <td><input type="text" name="login"/></td>
+    </tr>
+    <tr>
+        <td> Password :</td>
+        <td><input type="text" name="password"/></td>
+    </tr>
+    <tr>
+        <td>
+            <input type="submit" value="POST"/>
+        </td>
+    </tr>
 
-<center>
-    <button onclick="tableCreate()" class="b1">Create Table</button>
-</center>
 
+</table>
 </body>
 </html>
