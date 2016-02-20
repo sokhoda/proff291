@@ -9,7 +9,7 @@ public class ClientException extends  Exception{
     }
 
     public String getMessage(){
-        return "ClientException: " + super.getMessage();
+        return "StoreException: " + super.getMessage();
     }
 
 }

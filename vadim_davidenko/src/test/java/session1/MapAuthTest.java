@@ -1,6 +1,6 @@
 package session1;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import session2.MapAuth;

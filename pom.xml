@@ -124,6 +124,7 @@
         5) Install driver into repo
         any other steps are not required, only step 5
         mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.5.0 -Dpackaging=jar -Dfile=ojdbc6.jar -DgeneratePom=true
+        mvn install:install-file -DgroupId=postgresql -DartifactId=postgresql -Dpackaging=jar -Dversion=9.4-1201 -Dfile=postgresql-9.4-1201.jdbc4.jar -DgeneratePom=true
 
         6) Run maven build
 -->
@@ -133,6 +134,13 @@
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.5.0</version>
+        </dependency>
+
+        <!-- PostgreSQL driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1201-jdbc4</version>
         </dependency>
 
         <!-- H2 JDBC driver -->
