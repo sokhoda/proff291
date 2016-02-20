@@ -1,15 +1,13 @@
-package web.domain;
+package session15;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: al1
- * Date: 3/16/15
+ * Created by Pavel on 20.02.2016.
  */
 @Entity
-@Table(name = "EMPLOYEES")
+@Table(name = "Employees")
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
@@ -33,8 +31,6 @@ public class Employee {
     @Column(name = "HIRE_DATE")
     private Date hireDate;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "JOB_ID")
     @Column(name = "JOB_ID")
     private String jobId;
 
@@ -49,22 +45,7 @@ public class Employee {
     private Employee manager;
 
     @Column(name = "DEPARTMENT_ID")
-//        @OneToOne
-//        @JoinColumn(name = "DEPARTMENT_ID")
     private Long departmentId;
-
-    public Employee() {
-
-    }
-
-    public Employee(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     public Integer getId() {
         return id;
@@ -114,6 +95,14 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
     public Integer getSalary() {
         return salary;
     }
@@ -138,14 +127,6 @@ public class Employee {
         this.manager = manager;
     }
 
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
-
     public Long getDepartmentId() {
         return departmentId;
     }
@@ -160,7 +141,7 @@ public class Employee {
                 + ", lastName=" + lastName + ", email=" + email
                 + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate
                 + ", salary=" + salary + ", comissionPct="
-                + comissionPct + ", manager=\n" + manager + ",\n " +
+                + comissionPct + ", " +
                 "]";
     }
 }
