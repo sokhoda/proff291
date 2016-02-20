@@ -1,15 +1,10 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Sales;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+import org.hibernate.engine.query.spi.sql.NativeSQLQueryReturn;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Вадим on 14.02.2016.
@@ -98,15 +93,33 @@ public class SalesDaoImpl implements SalesDao {
     public List<Sales> findAll() {
         Session session = factory.openSession();
         try {
-            return (List<Sales>)session.createQuery("FROM Sales").list();
+            return (List<Sales>)session.createQuery("from Sales").list();
         } finally {
             session.close();
         }
     }
 
     public Map<Date, Integer> findAllByDays() {
+        Map<Date, Integer> salesMap = new HashMap<Date, Integer>();
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select trunc(SALE_DATE), sum (AMOUNT) " +
+                            "from SALES " +
+                            "group by trunc(SALE_DATE)"
+            );
+            List<NativeSQLQueryReturn> res = query.getQueryReturns();
 
+            int i = 0;
 
-        return null;
+//            while(!res.isEmpty()) {
+//                salesMap.put(res.get(0), res.get(1));
+//                i++;
+//            }
+//
+        } finally {
+            session.close();
+        }
+        return salesMap;
     }
 }
