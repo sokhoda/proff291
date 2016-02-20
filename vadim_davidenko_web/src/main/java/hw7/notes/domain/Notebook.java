@@ -2,6 +2,8 @@ package hw7.notes.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 
@@ -39,8 +41,8 @@ public class Notebook {
     @JoinColumn(name = "MEMORY_ID")
     private Memory memory;
 
-    @OneToOne(mappedBy = "notebook", cascade = CascadeType.DETACH)
-    private Store store;
+    @OneToMany(mappedBy = "notebook", cascade = CascadeType.REFRESH)
+    private Set<Store> stores = new HashSet<Store>();
 
     public Notebook() {}
 
@@ -109,11 +111,11 @@ public class Notebook {
         this.memory = memory;
     }
 
-    public Store getStore() {
-        return store;
+    public Set<Store> getStores() {
+        return stores;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStores(Set<Store> stores) {
+        this.stores = stores;
     }
 }

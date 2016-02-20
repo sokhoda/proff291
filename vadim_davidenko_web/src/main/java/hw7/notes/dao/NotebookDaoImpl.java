@@ -104,6 +104,7 @@ public class NotebookDaoImpl implements NotebookDao {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    @Override
     public List<Notebook> findByPortion(int page, int size) {
         Session session = factory.openSession();
         try {
@@ -116,20 +117,7 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
-    public List<Notebook> findGtAmount(int amount) {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n"
-            );
-            query.addEntity(Notebook.class);
-            query.setParameter("amount", amount);
-            return query.list();
-        } finally {
-            session.close();
-        }
-    }
-
+    @Override
     public List<Notebook> findByCpuVendor(Vendor cpuVendor) {
         Session session = factory.openSession();
         try {
@@ -147,21 +135,9 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
+    @Override
     public List<Notebook> findAllOnStore() {
         return findAll();
     }
 
-    public List<Notebook> findOnStorePresent() {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n, STORE s " +
-                            "where n.NOTEBOOK_ID = s.NOTEBOOK_ID"
-            );
-            query.addEntity(Notebook.class);
-            return query.list();
-        } finally {
-            session.close();
-        }
-    }
 }

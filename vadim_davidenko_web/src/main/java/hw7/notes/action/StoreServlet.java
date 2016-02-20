@@ -1,7 +1,8 @@
-package hw7.notes.service;
+package hw7.notes.action;
 
 import hw7.notes.domain.Notebook;
 import hw7.notes.domain.Store;
+import hw7.notes.service.Menu;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

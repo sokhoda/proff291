@@ -129,50 +129,6 @@ public class NotebookServiceImpl implements NotebookService {
         return salesDao.create(sale);
     }
 
-    /////////////////////////////////////////////////////////////
-    // Reports
-
-    @Override
-    public List<Notebook> getNotebooksByPortion(int size) {
-        List<Notebook> list = notebookDao.findByPortion(page, size);
-        if (list != null) return list;
-        else return new ArrayList<Notebook>();
-    }
-
-    @Override
-    public List<Notebook> getNotebooksGtAmount(int amount) {
-        List<Notebook> list = notebookDao.findGtAmount(amount);
-        if (list != null) return list;
-        else return new ArrayList<Notebook>();
-    }
-
-    @Override
-    public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
-        List<Notebook> list = notebookDao.findByCpuVendor(cpuVendor);
-        if (list != null) return list;
-        else return new ArrayList<Notebook>();
-    }
-
-    @Override
-    public List<Notebook> getNotebooksFromStore() {
-        List<Notebook> list = notebookDao.findAllOnStore();
-        if (list != null) return list;
-        else return new ArrayList<Notebook>();
-    }
-
-    @Override
-    public List<Notebook> getNotebooksStorePresent() {
-        List<Notebook> list = notebookDao.findOnStorePresent();
-        if (list != null) return list;
-        else return new ArrayList<Notebook>();
-    }
-
-    @Override
-    public Map<Date, Integer> getSalesByDays() {
-
-        return null;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // Getters by Id
 
@@ -228,5 +184,39 @@ public class NotebookServiceImpl implements NotebookService {
     public List<Store> getAllStores() {
         return storeDao.findAll();
     }
+
+    /////////////////////////////////////////////////////////////
+    // Reports
+
+    @Override
+    public List<Notebook> getNotebooksByPortion(int size) {
+        return (List<Notebook>) notebookDao.findByPortion(page, size);
+    }
+
+    @Override
+    public List<Notebook> getNotebooksGtAmount(int amount) {
+        return (List<Notebook>) storeDao.findGtAmount(amount);
+    }
+
+    @Override
+    public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
+        return (List<Notebook>) notebookDao.findByCpuVendor(cpuVendor);
+    }
+
+    @Override
+    public List<Notebook> getNotebooksFromStore() {
+        return (List<Notebook>) notebookDao.findAllOnStore();
+    }
+
+    @Override
+    public List<Store> getNotebooksStorePresent() {
+        return (List<Store>) storeDao.findOnStorePresent();
+    }
+
+    @Override
+    public Map<Date, Integer> getSalesByDays() {
+        return (Map<Date, Integer>) salesDao.findAllByDays();
+    }
+
 
 }
