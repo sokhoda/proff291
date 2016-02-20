@@ -195,7 +195,7 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public List<Notebook> getNotebooksGtAmount(int amount) {
-        return (List<Notebook>) storeDao.findGtAmount(amount);
+        return (List<Notebook>) notebookDao.findGtAmount(amount);
     }
 
     @Override

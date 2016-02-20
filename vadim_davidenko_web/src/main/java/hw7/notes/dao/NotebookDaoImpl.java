@@ -112,6 +112,27 @@ public class NotebookDaoImpl implements NotebookDao {
             query.setFirstResult(page);
             query.setMaxResults(size);
             return (List<Notebook>)query.list();
+
+//            int portionSize = 2;
+//            List count;
+//            for (int i = 0; (count = query.list()).size() != 0 ; i++) {
+//                query.setFirstResult(i);
+//                query.setMaxResults(portionSize);
+//                System.out.println(count);
+//            }
+
+//            String name = "%";
+//            query = session.createQuery("from Region r where r.name like :name");
+//            query.setParameter("name", name);
+//
+//            int portionSize = 2;
+//            List list1;
+//            for (int i = 0; (list1 = query.list()).size() != 0; i += portionSize) {
+//                query.setFirstResult(i);
+//                query.setMaxResults(portionSize);
+//                System.out.println(list1);
+//            }
+
         } finally {
             session.close();
         }
@@ -138,6 +159,25 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public List<Notebook> findAllOnStore() {
         return findAll();
+    }
+
+    @Override
+    public List<Notebook> findGtAmount(int amount) {
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select * from NOTEBOOK n\n" +
+                            "where :amount < (\n" +
+                            "select sum(s.AMOUNT) from STORE s " +
+                            "where s.NOTEBOOK_ID = n.NOTEBOOK_ID\n" +
+                            ")"
+            );
+            query.addEntity(Notebook.class);
+            query.setParameter("amount", amount);
+            return query.list();
+        } finally {
+            session.close();
+        }
     }
 
 }

@@ -44,20 +44,12 @@ public class ReportsServlet  extends HttpServlet {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String option = parameterMap.get("reportMenu")[0];
-        List<Notebook> noteList = null;
-        List<Store> storeList = null;
 
         switch (option) {
             case "byPortion":
                 Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-                noteList = Menu.noteService.getNotebooksByPortion(portion);
+                List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(portion);
                 req.setAttribute("noteList", noteList);
-                break;
-
-            case "gtAmount":
-                Integer amount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
-                storeList = Menu.noteService.getNotebooksGtAmount(amount);
-                req.setAttribute("storeList", storeList);
                 break;
 
             case "byCPU":
@@ -72,8 +64,14 @@ public class ReportsServlet  extends HttpServlet {
                 req.setAttribute("noteList", noteList);
                 break;
 
+            case "gtAmount":
+                Integer amount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
+                noteList = Menu.noteService.getNotebooksGtAmount(amount);
+                req.setAttribute("noteList", noteList);
+                break;
+
             case "storePresent":
-                storeList = Menu.noteService.getNotebooksStorePresent();
+                List<Store> storeList = Menu.noteService.getNotebooksStorePresent();
                 req.setAttribute("storeList", storeList);
                 break;
 

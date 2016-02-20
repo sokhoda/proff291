@@ -4,6 +4,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="static hw7.notes.util.Utils.DATEFORMAT_COMMON" %>
 <%--
   Created by IntelliJ IDEA.
   User: v.davidenko
@@ -29,7 +30,7 @@
             <% String option = (String)request.getAttribute("reportMenu"); %>
             <table border="1" cellpadding="3">
 
-            <% if (option.equals("storePresent") || option.equals("gtAmount")) { %>
+            <% if (option.equals("storePresent")) { %>
                 <tr style="background-color: #d4ecff">
                     <th align="center" width="40px">Id</th>
                     <th align="center" width="200px">Model</th>
@@ -60,7 +61,8 @@
                 </tr>
             <% } } } %>
 
-            <% if (option.equals("byCPU") || option.equals("storeAll") || option.equals("byPortion")) { %>
+            <% if (option.equals("byCPU") || option.equals("storeAll") ||
+                    option.equals("byPortion") || option.equals("gtAmount")) { %>
                 <tr style="background-color: #d4ecff">
                     <th align="center" width="40px">Id</th>
                     <th align="center" width="200px">Model</th>
@@ -87,7 +89,7 @@
             <% if (option.equals("salesByDays")) { %>
                 <tr style="background-color: #d4ecff">
                     <th align="center" width="100px">Sale date</th>
-                    <th align="center" width="50px">Sales amount</th>
+                    <th align="center" width="100px">Notebooks</th>
                 </tr>
                 <%
                     Map<Date, Integer> salesMap = (Map<Date, Integer>)request.getAttribute("salesMap");
@@ -96,7 +98,7 @@
                         for(Map.Entry<Date, Integer> entry : entries) {
                 %>
                 <tr>
-                    <td align="center"><%= String.valueOf(entry.getKey()) %></td>
+                    <td align="center"><%= DATEFORMAT_COMMON.get().format(entry.getKey()) %></td>
                     <td align="center"><%= String.valueOf(entry.getValue()) %></td>
                 </tr>
             <% } } } %>

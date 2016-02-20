@@ -114,19 +114,4 @@ public class StoreDaoImpl implements StoreDao {
         }
     }
 
-    @Override
-    public List<Store> findGtAmount(int amount) {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n"
-            );
-            query.addEntity(Store.class);
-            query.setParameter("amount", amount);
-            return query.list();
-        } finally {
-            session.close();
-        }
-    }
-
 }
