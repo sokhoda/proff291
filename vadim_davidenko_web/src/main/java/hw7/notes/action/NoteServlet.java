@@ -1,6 +1,7 @@
-package hw7.notes.service;
+package hw7.notes.action;
 
 import hw7.notes.domain.*;
+import hw7.notes.service.Menu;
 import hw7.notes.util.Utils;
 
 import javax.servlet.ServletException;
@@ -30,33 +31,32 @@ public class NoteServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        List<Vendor> vendorList = Menu.noteService.getAllVendors();
+        List<CPU> cpuList = Menu.noteService.getAllCPUs();
+        List<Memory> memoryList = Menu.noteService.getAllMemories();
+
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String action = parameterMap.get("actionId")[0];
+        String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
             Notebook note = Menu.noteService.getNotebookById(id);
+
             if (note == null) {
                 req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
                 req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
             } else {
-                req.setAttribute("id", String.valueOf(id));
+                req.setAttribute("id", String.valueOf(note.getId()));
                 req.setAttribute("model", note.getModel());
                 req.setAttribute("date", note.getManufactureDateStr());
-
                 req.setAttribute("vendorId", String.valueOf(note.getVendor().getId()));
-                List<Vendor> vendorList = Menu.noteService.getAllVendors();
-                req.setAttribute("vendorList", vendorList);
-
                 req.setAttribute("cpuId", String.valueOf(note.getCpu().getId()));
-                List<CPU> cpuList = Menu.noteService.getAllCPUs();
-                req.setAttribute("cpuList", cpuList);
-
                 req.setAttribute("memoryId", String.valueOf(note.getMemory().getId()));
-                List<Memory> memoryList = Menu.noteService.getAllMemories();
+                req.setAttribute("vendorList", vendorList);
+                req.setAttribute("cpuList", cpuList);
                 req.setAttribute("memoryList", memoryList);
             }
-            req.getRequestDispatcher(Menu.MEMORY_PAGE).forward(req, resp);
+            req.getRequestDispatcher(Menu.NOTEBOOK_PAGE).forward(req, resp);
             return;
         }
 
@@ -67,10 +67,8 @@ public class NoteServlet extends HttpServlet {
 
             Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
             Vendor vendor = Menu.noteService.getVendorById(vendorId);
-
             Long cpuId = Long.valueOf(parameterMap.get("cpuId")[0]);
             CPU cpu = Menu.noteService.getCPUById(cpuId);
-
             Long memoryId = Long.valueOf(parameterMap.get("memoryId")[0]);
             Memory memory = Menu.noteService.getMemoryById(memoryId);
 
@@ -83,12 +81,20 @@ public class NoteServlet extends HttpServlet {
             note.setMemory(memory);
 
             if (Menu.noteService.updateNotebook(note)) {
-                req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                if (id.isEmpty()) {
+                    req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
+                } else {
+                    req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
+                }
             }
             Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
             for(Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);
             }
+            req.setAttribute("vendorList", vendorList);
+            req.setAttribute("cpuList", cpuList);
+            req.setAttribute("memoryList", memoryList);
+
             req.getRequestDispatcher(Menu.NOTEBOOK_PAGE).forward(req, resp);
         }
     }

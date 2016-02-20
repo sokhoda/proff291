@@ -102,6 +102,23 @@ public class VendorDaoImpl implements VendorDao {
     }
 
     @Override
+    public boolean checkExist(Vendor vendor) throws HibernateException{
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Vendor v where name = :NAME")
+                    .setParameter("NAME", vendor.getName());
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List findAll() {
         Session session = factory.openSession();
         try {

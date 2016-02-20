@@ -24,11 +24,14 @@
     <%
         request.setAttribute("cnt", 1);
         request.setAttribute("totPortion", 5);
+        request.setAttribute("mode", "1");
 
 //        service = new NotebookServiceImpl();
+//        request.setAttribute("NotebookService", service);
 //        vendorDao = ((NotebookServiceImpl)service).getVendorDao();
 //        request.setAttribute("vendorA", vendorDao.findAll());
 //                Arrays.asList("ven1","ven2","ven5","ven4"));
+
     %>
     <%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addMemory.jsp").forward(request,response); %>--%>

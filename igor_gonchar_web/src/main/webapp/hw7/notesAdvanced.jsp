@@ -18,7 +18,9 @@
     <input type="radio" value="memory" name="addOption"> Memory  <br/>
     <input type="radio" value="vendor" name="addOption"> Vendor  <br/>
     <input type="radio" value="notebook" name="addOption"> Notebook  <br/>
-    <input id="addButton" type="submit" value="Add"/>
+    <input type="radio" value="store" name="addOption"> Store  <br/>
+    <input name="addButton" type="submit" value="Add"/>
+    <input name="showButton" type="submit" value="Show All"/>
  <%--   <input id="editButton" type="submit" value="Edit"/>--%>
 </form>
 </div>

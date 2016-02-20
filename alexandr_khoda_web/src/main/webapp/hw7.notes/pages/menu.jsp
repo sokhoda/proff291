@@ -26,20 +26,18 @@
     </head>
     <body>
     <%!
-        VendorDao vendorDao;
         NotebookService service;
-
+        VendorDao vendorDao;
         List<Vendor> vendor = null;
     %>
     <%
-        service = new NotebookServiceImpl();
-        vendorDao = ((NotebookServiceImpl)service).getVendorDao();
+        vendorDao = ((NotebookServiceImpl)Menu.service).getVendorDao();
 
         vendor = (List<Vendor>)vendorDao.findAll();
         String[] message = getAttribArray(request);
 
     %>
-    <form action="/MenuNote" method="post">
+    <form action="/MainNote" method="post">
 
         <center><img id="MenuImg" src="/hw7.notes/img/laptop1.gif">
         </center>
@@ -72,14 +70,8 @@
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="delNote"
+                      <input type="submit" name="crVen"
                              value="3. Create Vendor">
-                  </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">id:</label>
-                          <input type="text" name="idDelNote" value="" >
-                      </div>
                   </td>
               </tr>
               <tr>
@@ -173,15 +165,14 @@
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
+                      <input type="submit" name="updVen"
                              value="9. Update Vendor">
-
                   </td>
               </tr>
 
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
+                      <input type="submit" name="updNtb"
                              value="10. Update Notebook">
                   </td>
               </tr>
@@ -226,9 +217,9 @@
                   </td>
                   <td class="colA">
                       <div class="cellIn">
+                          <label for="vendors">CPU Vendor:</label>
                           <% if(vendor != null){
                           %>
-                          <label for="vendors">CPU Vendor:</label>
                           <select size="<%vendor.size();%>" name="ByCPUVendorCPUVendor" id="vendors">
                               <option disabled>select item</option>
                               <%

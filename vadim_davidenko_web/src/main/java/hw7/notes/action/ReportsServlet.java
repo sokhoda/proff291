@@ -1,4 +1,9 @@
-package hw7.notes.service;
+package hw7.notes.action;
+
+import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Store;
+import hw7.notes.domain.Vendor;
+import hw7.notes.service.Menu;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by v.davidenko on 16.02.2016.
@@ -14,11 +22,6 @@ import java.util.Map;
 
 @WebServlet("/reportsServlet")
 public class ReportsServlet  extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -32,6 +35,7 @@ public class ReportsServlet  extends HttpServlet {
      * Показать все ноутбуки по указанному имени производителя процессора
      * Показать все ноутбуки на складе
      * Показать типы ноутбуков, оставшиеся на складе по каждому производителю
+     *
      * Получить объем продаж ноутбуков в среднем за день (в штуках)
      */
     @Override
@@ -40,38 +44,51 @@ public class ReportsServlet  extends HttpServlet {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String option = parameterMap.get("reportMenu")[0];
+        List<Notebook> noteList = null;
+        List<Store> storeList = null;
 
         switch (option) {
             case "byPortion":
                 Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-
-
+                noteList = Menu.noteService.getNotebooksByPortion(portion);
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "gtAmount":
-                Integer gtAmount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
-
-
+                Integer amount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
+                storeList = Menu.noteService.getNotebooksGtAmount(amount);
+                req.setAttribute("storeList", storeList);
                 break;
 
             case "byCPU":
-                String cpuVendor = parameterMap.get("cpuVendor")[0];
-
+                Long vendorId = Long.valueOf(parameterMap.get("cpuVendor")[0]);
+                Vendor vendor = Menu.noteService.getVendorById(vendorId);
+                noteList = Menu.noteService.getNotebooksByCpuVendor(vendor);
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "storeAll":
-
+                noteList = Menu.noteService.getNotebooksFromStore();
+                req.setAttribute("noteList", noteList);
                 break;
 
             case "storePresent":
-
+                storeList = Menu.noteService.getNotebooksStorePresent();
+                req.setAttribute("storeList", storeList);
                 break;
 
             case "salesByDays":
-
+                Map<Date, Integer> salesMap = Menu.noteService.getSalesByDays();
+                req.setAttribute("salesMap", salesMap);
                 break;
         }
-        req.getRequestDispatcher(Menu.REPORTS_PAGE).forward(req, resp);
+        Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+        for(Map.Entry<String, String[]> entry : entries) {
+            req.setAttribute(entry.getKey(), entry.getValue()[0]);
+        }
+        List<Vendor> vendorList = Menu.noteService.getAllVendors();
+        req.setAttribute("vendorList", vendorList);
+        req.getRequestDispatcher(Menu.REPORTS_LIST_PAGE).forward(req, resp);
     }
 
 }

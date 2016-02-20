@@ -81,9 +81,10 @@ public class Servlet extends HttpServlet {
         date = df.parse(dateStr);
         return date;
     }
-public static boolean checkStringPar(HttpServletRequest req, String par){
+public static boolean checkStringPar(HttpServletRequest req, String parName){
+    String par = req.getParameter(parName);
     if (par.trim().length() == 0){
-        setMessageAttr(req, "red", par + " can not have ZERO length.");
+        setMessageAttr(req, "red", "'" + parName + "' can not have ZERO length.");
         return true;
     }
     return false;

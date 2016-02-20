@@ -21,17 +21,22 @@ import java.util.Map;
 @WebServlet("/menuServlet")
 public class Menu extends HttpServlet {
 
-    final static String NOTEBOOK_PAGE = "hw7/notebook.jsp";
-    final static String VENDOR_PAGE = "hw7/vendor.jsp";
-    final static String CPU_PAGE = "hw7/cpu.jsp";
-    final static String MEMORY_PAGE = "hw7/memory.jsp";
-    final static String REPORTS_PAGE = "hw7/reports.jsp";
-    final static String STORE_PAGE = "hw7/store.jsp";
-    final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
-    final static String UPDATE_SUCCESS_MSG = "Data updated successfully";
-    final static String STORE_RECEIVE_MSG = "Notebooks received on Store successfully";
-    final static String STORE_REMOVE_MSG = "Notebooks removed from Store successfully";
-    final static String STORE_SALE_MSG = "Notebooks store sold successfully";
+    public final static String NOTEBOOK_PAGE = "hw7/notebook.jsp";
+    public final static String VENDOR_PAGE = "hw7/vendor.jsp";
+    public final static String CPU_PAGE = "hw7/cpu.jsp";
+    public final static String MEMORY_PAGE = "hw7/memory.jsp";
+    public final static String STORE_PAGE = "hw7/store.jsp";
+    public final static String REPORTS_PAGE = "hw7/reports.jsp";
+    public final static String REPORTS_LIST_PAGE = "hw7/reports_list.jsp";
+
+    public final static String NO_SUCH_ENTITY_MSG = "Entity with such Id does not exist in database!";
+    public final static String ADD_SUCCESS_MSG = "New entity added successfully";
+    public final static String UPDATE_SUCCESS_MSG = "Entity data updated successfully";
+    public final static String STORE_RECEIVE_MSG = "Notebooks received on Store ";
+    public final static String STORE_REMOVE_MSG = "Notebooks removed from Store ";
+    public final static String STORE_REMOVE_ERR_MSG = "Notebooks number to remove is greater then existent on Store ";
+    public final static String SALE_STORE_MSG = "Notebooks sold from Store ";
+    public final static String SALE_STORE_ERR_MSG = "Notebooks number to sale is greater then existent on Store ";
 
     public static NotebookService noteService;
 
@@ -94,6 +99,9 @@ public class Menu extends HttpServlet {
      */
     public void reportsService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+        List<Vendor> vendorList = noteService.getAllVendors();
+        req.setAttribute("vendorList", vendorList);
         req.getRequestDispatcher(REPORTS_PAGE).forward(req, resp);
     }
 
@@ -106,29 +114,26 @@ public class Menu extends HttpServlet {
         Map<String, String[]> parameterMap = req.getParameterMap();
         String option = parameterMap.get("entityMenu")[0];
 
+        List<Vendor> vendorList = noteService.getAllVendors();
+        List<CPU> cpuList = noteService.getAllCPUs();
+        List<Memory> memoryList = noteService.getAllMemories();
+
         switch (option) {
             case "notebook":
-                List<Vendor> vendorList = noteService.getAllVendors();
                 req.setAttribute("vendorList", vendorList);
-
-                List<CPU> cpuList = noteService.getAllCPUs();
                 req.setAttribute("cpuList", cpuList);
-
-                List<Memory> memoryList = noteService.getAllMemories();
                 req.setAttribute("memoryList", memoryList);
-
-                List<Store> storeList = noteService.getAllStores();
-                req.setAttribute("storeList", storeList);
-
                 req.getRequestDispatcher(NOTEBOOK_PAGE).forward(req, resp);
                 break;
             case "vendor":
                 req.getRequestDispatcher(VENDOR_PAGE).forward(req, resp);
                 break;
             case "cpu":
+                req.setAttribute("vendorList", vendorList);
                 req.getRequestDispatcher(CPU_PAGE).forward(req, resp);
                 break;
             case "memory":
+                req.setAttribute("vendorList", vendorList);
                 req.getRequestDispatcher(MEMORY_PAGE).forward(req, resp);
                 break;
         }

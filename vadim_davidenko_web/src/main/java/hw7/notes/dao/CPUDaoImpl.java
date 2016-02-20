@@ -93,20 +93,11 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public List<CPU> findAll() {
-        List<CPU> list = new ArrayList<CPU>();
         Session session = factory.openSession();
         try {
-            List result = session.createQuery("FROM hw7.notes.domain.CPU").list();
-            if (result != null) {
-                for (Object obj : result) {
-                    list.add((CPU) obj);
-                }
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            return (List<CPU>)session.createQuery("FROM CPU").list();
         } finally {
             session.close();
         }
-        return list;
     }
 }

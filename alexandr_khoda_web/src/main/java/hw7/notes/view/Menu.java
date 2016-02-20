@@ -26,34 +26,52 @@ import java.util.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/MainNote")
+@WebServlet(name = "HW7Menu", value = "/MainNote")
 public class Menu extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
 
-    private NotebookService service;
+    public static NotebookService service;
     private VendorDao vendorDao;
 
     @Override
     public void init() {
         service = new NotebookServiceImpl();
         vendorDao = (((NotebookServiceImpl)service).getVendorDao());
+        ((NotebookServiceImpl)service).getLog().info("Menu.init()");
     }
 
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException {
-//            if (req.getParameter("addNote") != null) {
-//                try {
-//                    req.setAttribute("messageText", "");
-//                    req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp")
-//                            .forward(req, res);
-//                    return;
-//                }
-//                catch (Exception e) {
-//                    throw new ServletException(e.getMessage());
-//                }
-//            }
+        if (req.getParameter("crVen") != null) {
+            try {
+                req.setAttribute("messageText", "");
+                req.setAttribute("mode", "0");
+                req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+        if (req.getParameter("updVen") != null) {
+            try {
+                req.setAttribute("messageText", "");
+                req.setAttribute("mode", "1");
+                req.setAttribute("venSelInx", "1");
+                req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+
     }
 
     @Override
@@ -97,18 +115,6 @@ public class Menu extends HttpServlet {
 //        setNoteAttributes(req);
 //        req.getRequestDispatcher("/hw6.notes/pages/addNotebook.jsp").forward(req, res);
     }
-
-    public SessionFactory getSessionFactory() {
-        Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg =
-                new Configuration().configure("hw7.notes/hibernate.cfg.xml");
-        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-        sb.applySettings(cfg.getProperties());
-        StandardServiceRegistry standardServiceRegistry = sb.build();
-
-        return cfg.buildSessionFactory(standardServiceRegistry);
-    }
-
 
     private void setNoteAttributes(HttpServletRequest req){
         req.setAttribute("serialA", req.getParameter("serial"));

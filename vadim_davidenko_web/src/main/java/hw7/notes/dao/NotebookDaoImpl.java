@@ -1,6 +1,8 @@
 package hw7.notes.dao;
 
+import hw7.notes.domain.CPU;
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Vendor;
 import org.hibernate.*;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 /**
  * Created by Вадим on 14.02.2016.
  */
+@SuppressWarnings("unchecked")
 public class NotebookDaoImpl implements NotebookDao {
 
     private SessionFactory factory;
@@ -91,42 +94,50 @@ public class NotebookDaoImpl implements NotebookDao {
 
     @Override
     public List<Notebook> findAll() {
-        List<Notebook> list = new ArrayList<Notebook>();
         Session session = factory.openSession();
         try {
-            List result = session.createQuery("FROM hw7.notes.domain.Notebook").list();
-            if (result != null) {
-                for (Object obj : result) {
-                    list.add((Notebook) obj);
-                }
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            return (List<Notebook>)session.createQuery("FROM Notebook").list();
         } finally {
             session.close();
         }
-        return list;
     }
 
-    public List<Notebook> findByPortion(int firstResult, int maxResults) {
-        List<Notebook> list = new ArrayList<Notebook>();
+    ////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public List<Notebook> findByPortion(int page, int size) {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("FROM hw7.notes.domain.Notebook");
-            query.setFirstResult(firstResult);
-            query.setMaxResults(maxResults);
-            List result = query.list();
-            if (result != null) {
-                for (Object obj : result) {
-                    list.add((Notebook) obj);
-                }
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            Query query = session.createQuery("FROM Notebook");
+            query.setFirstResult(page);
+            query.setMaxResults(size);
+            return (List<Notebook>)query.list();
         } finally {
             session.close();
         }
-        return list;
+    }
+
+    @Override
+    public List<Notebook> findByCpuVendor(Vendor cpuVendor) {
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select * from NOTEBOOK n, CPU c, VENDOR v " +
+                            "where n.CPU_ID = c.CPU_ID " +
+                            "and c.VENDOR_ID = v.VENDOR_ID " +
+                            "and v.NAME like :vendorName"
+            );
+            query.addEntity(Notebook.class);
+            query.setParameter("vendorName", cpuVendor.getName());
+            return query.list();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Notebook> findAllOnStore() {
+        return findAll();
     }
 
 }

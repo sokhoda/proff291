@@ -124,6 +124,21 @@ public class NotebookServiceImpl implements NotebookService {
 
     }
 
+    @Override
+    public boolean createStore(Store store) {
+        if (store == null) return false;
+
+        storeDao.create(store);
+        return true;
+    }
+
+    @Override
+    public boolean createNotebok(Notebook notebook) {
+        if(notebook == null) return false;
+
+        notebookDao.create(notebook);
+        return true;
+    }
 
     @Override
     public boolean updateNotebook(Notebook notebook) {
@@ -136,9 +151,47 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    public Vendor getVendorById(Long id) {
+        return vendorDao.read(id);
+    }
+
+    @Override
+    public CPU getCPUById(Long id) {
+        return cpuDao.read(id);
+    }
+
+    @Override
+    public Memory getMemoryById(Long id) {
+        return memoryDao.read(id);
+    }
+
+    @Override
+    public Notebook getNotebookById(Long id) {
+        return notebookDao.read(id);
+    }
+
+    @Override
     public boolean removeFromStore(Store store, int amount) {
         return false;
     }
 
+    @Override
+    public List getAllCPUs() {
+      return  cpuDao.findAll();
+    }
 
+    @Override
+    public List getAllMemories() {
+        return memoryDao.findAll();
+    }
+
+    @Override
+    public List getAllVendors() {
+        return vendorDao.findAll();
+    }
+
+    @Override
+    public List getAllNotebooks() {
+        return notebookDao.findAll();
+    }
 }

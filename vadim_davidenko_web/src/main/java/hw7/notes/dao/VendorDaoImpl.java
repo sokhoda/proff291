@@ -95,20 +95,11 @@ public class VendorDaoImpl implements VendorDao {
 
     @Override
     public List<Vendor> findAll() {
-        List<Vendor> list = new ArrayList<Vendor>();
         Session session = factory.openSession();
         try {
-            List result = session.createQuery("FROM hw7.notes.domain.Vendor").list();
-            if (result != null) {
-                for (Object obj : result) {
-                    list.add((Vendor) obj);
-                }
-            }
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            return (List<Vendor>)session.createQuery("FROM Vendor").list();
         } finally {
             session.close();
         }
-        return list;
     }
 }

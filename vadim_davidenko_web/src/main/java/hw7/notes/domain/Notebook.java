@@ -2,6 +2,8 @@ package hw7.notes.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 
@@ -13,13 +15,12 @@ import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
 
 @Entity
 @Table(name = "NOTEBOOK")
-@SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
-        allocationSize = 1, initialValue = 1001)
-
 public class Notebook {
     @Id
+    @SequenceGenerator(name = "NOTEBOOK_SEQ", sequenceName = "NOTEBOOK_SEQ",
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOK_SEQ")
-    @Column(name = "NOTE_ID")
+    @Column(name = "NOTEBOOK_ID")
     private Long id;
 
     @Column(name = "MODEL", length = 50)
@@ -40,9 +41,8 @@ public class Notebook {
     @JoinColumn(name = "MEMORY_ID")
     private Memory memory;
 
-    @ManyToOne
-    @JoinColumn(name = "STORE_ID")
-    private Store store;
+    @OneToMany(mappedBy = "notebook", cascade = CascadeType.REFRESH)
+    private Set<Store> stores = new HashSet<Store>();
 
     public Notebook() {}
 
@@ -111,11 +111,11 @@ public class Notebook {
         this.memory = memory;
     }
 
-    public Store getStore() {
-        return store;
+    public Set<Store> getStores() {
+        return stores;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStores(Set<Store> stores) {
+        this.stores = stores;
     }
 }

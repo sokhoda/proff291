@@ -2,6 +2,8 @@ package hw7.notes.dao;
 
 
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Vendor;
+import org.hibernate.HibernateException;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ public interface NotebookDao {
     hw7.notes.domain.Notebook read(Long id);
     boolean update(Notebook ntb);
     boolean delete(Notebook ntb);
+    boolean checkExist(Notebook ntb) throws HibernateException;
     List findAll();
 
 

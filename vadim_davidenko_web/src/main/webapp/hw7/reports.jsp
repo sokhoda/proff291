@@ -1,3 +1,5 @@
+<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим
@@ -18,7 +20,7 @@
        <tr><td colspan="3"><hr/></td></tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="byPortion"></td>
-           <td>Show notebooks by portion:</td>
+           <td>Show all notebooks by portion:</td>
            <td><input type="text" name="portion" size="2" maxlength="2"/></td>
        </tr>
        <tr>
@@ -29,15 +31,28 @@
        <tr>
            <td><input type="radio" name="reportMenu" value="byCPU"></td>
            <td>Show notebooks by CPU vendor:</td>
-           <td><input type="text" name="cpuVendor" size="20" maxlength="20"/>&nbsp;</td>
+           <%--<td><input type="text" name="cpuVendor" size="15" maxlength="15"/>&nbsp;</td>--%>
+           <td>
+               <select size="3" name="cpuVendor">
+                   <option disabled>Select ..................</option>
+                   <%
+                       List<Vendor> vendorList = (List<Vendor>)request.getAttribute("vendorList");
+                       if(vendorList != null && !vendorList.isEmpty()){
+                           for (Vendor vendor : vendorList){
+                   %>
+                   <option value="<%=String.valueOf(vendor.getId())%>"><%=vendor.getName()%></option>
+                   <% } } %>
+               </select>
+           </td>
+
        </tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="storeAll" checked></td>
-           <td colspan="2">Show notebooks from store</td>
+           <td colspan="2">Show all notebooks</td>
        </tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="storePresent"></td>
-           <td colspan="2">Show notebooks present on market</td>
+           <td colspan="2">Show notebooks present on store</td>
        </tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="salesByDays"></td>
@@ -48,10 +63,10 @@
            <td colspan="3" align="center">
                <input type="button" value="Select" onclick="submitForm()" style="width: 80px"/>
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
+               <a href="../hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
            </td>
        </tr>
-       <tr><td colspan="3" align="center"><b>${server_msg}</b></td></tr>
+       <tr><td colspan="3" align="center"><span id="msg"><b>${server_msg}</b></span></td></tr>
    </table>
 </form>
 

@@ -12,17 +12,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CPU")
-@SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
-        allocationSize = 1, initialValue = 2001)
-
 public class CPU {
     @Id
+    @SequenceGenerator(name = "CPU_SEQ", sequenceName = "CPU_SEQ",
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CPU_SEQ")
     @Column(name = "CPU_ID")
     private Long id;
-
-    @Column(name = "VENDOR", length = 50)
-    private String vendor;
 
     @Column(name = "MODEL", length = 50)
     private String model;
@@ -30,7 +26,11 @@ public class CPU {
     @Column(name = "FREQUENCY", length = 20)
     private String frequency;
 
-    @OneToMany(mappedBy = "cpu")
+    @ManyToOne
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendor;
+
+    @OneToMany(mappedBy = "cpu", cascade = CascadeType.REFRESH)
     private Set<Notebook> notebooks = new HashSet<Notebook>();
 
     public CPU() {}
@@ -53,11 +53,11 @@ public class CPU {
         this.id = id;
     }
 
-    public String getVendor() {
+    public Vendor getVendor() {
         return vendor;
     }
 
-    public void setVendor(String vendor) {
+    public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 

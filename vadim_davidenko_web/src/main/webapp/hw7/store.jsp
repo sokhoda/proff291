@@ -21,14 +21,14 @@
     <tr><td colspan="8"><hr/></td></tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="receive" checked></td>
-      <td>Receive notebooks to store:</td>
+      <td>Receive notebooks to store</td>
       <td align="right">Note id:</td>
       <td>
-        <select size="2" name="noteIdRemove">
-          <option disabled>Select...</option>
+        <select size="2" name="notebookId">
+          <option disabled>Select</option>
           <%
-            List<Notebook> noteList = (List<Notebook>)request.getAttribute("noteList");
-            String noteId = (String)request.getAttribute("noteIdRemove");
+            List<Notebook> noteList = (List<Notebook>)request.getAttribute("notebookList");
+            String noteId = (String)request.getAttribute("notebookId");
             if(noteList != null && !noteList.isEmpty()){
               for (Notebook note : noteList){
           %>
@@ -44,20 +44,21 @@
     </tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="remove"></td>
-      <td>Remove notebooks from store:</td>
-      <td align="right">Note id:</td>
+      <td>Remove notebooks from store</td>
+      <td align="right">Store id:</td>
       <td>
-        <select size="2" name="noteIdRemove">
-          <option disabled>Select...</option>
-          <%
-            noteId = (String)request.getAttribute("noteIdRemove");
-            if(noteList != null && !noteList.isEmpty()){
-              for (Notebook note : noteList){
-          %>
-          <option <%=(String.valueOf(note.getId()).equals(noteId)) ? "selected" : ""%>
-                  value="<%=String.valueOf(note.getId())%>"><%=String.valueOf(note.getId())%></option>
-          <% } } %>
-        </select>
+          <select size="2" name="storeIdRemove">
+              <option disabled>Select</option>
+              <%
+                  String storeId = (String)request.getAttribute("storeIdRemove");
+                  List<Store> storeList = (List<Store>)request.getAttribute("storeList");
+                  if(storeList != null && !storeList.isEmpty()){
+                      for (Store store : storeList){
+              %>
+              <option <%=(String.valueOf(store.getId()).equals(storeId)) ? "selected" : ""%>
+                      value="<%=String.valueOf(store.getId())%>"><%=String.valueOf(store.getId())%></option>
+              <% } } %>
+          </select>
       </td>
       <td align="right">Amount:</td>
       <td><input type="text" name="amountRemove" size="5" maxlength="5"/></td>
@@ -65,14 +66,13 @@
     </tr>
     <tr>
       <td><input type="radio" name="storeMenu" value="sale"></td>
-      <td>Sale store of notebooks:</td>
+      <td>Sale store of notebooks</td>
       <td align="right">Store id:</td>
       <td>
-        <select size="2" name="storeId">
-          <option disabled>Select...</option>
+        <select size="2" name="storeIdSale">
+          <option disabled>Select</option>
           <%
-            String storeId = (String)request.getAttribute("storeId");
-            List<Store> storeList = (List<Store>)request.getAttribute("storeList");
+            storeId = (String)request.getAttribute("storeIdSale");
             if(storeList != null && !storeList.isEmpty()){
               for (Store store : storeList){
           %>
@@ -93,7 +93,7 @@
         <a href="hw7/menu.jsp"><input type="button" value="Back" style="width: 80px"/></a>
       </td>
     </tr>
-    <tr><td colspan="8" align="center"><b>${server_msg}</b></td></tr>
+    <tr><td colspan="8" align="center"><span id="msg"><i>${server_msg}</i></span></td></tr>
   </table>
 </form>
 
@@ -107,6 +107,7 @@
   function submitForm() {
     var form = document.storeForm;
     if(checkFields(form)) {
+      document.getElementById("msg").innerHTML = '';
       form.submit();
     }
   }
