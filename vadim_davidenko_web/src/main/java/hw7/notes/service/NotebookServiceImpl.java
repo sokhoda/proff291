@@ -189,7 +189,7 @@ public class NotebookServiceImpl implements NotebookService {
     // Reports
 
     @Override
-    public List<Notebook> getNotebooksByPortion(int size) {
+    public List<Notebook> getNotebooksByPortion(int page, int size) {
         return (List<Notebook>) notebookDao.findByPortion(page, size);
     }
 

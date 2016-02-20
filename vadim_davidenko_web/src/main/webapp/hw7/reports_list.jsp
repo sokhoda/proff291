@@ -21,6 +21,8 @@
 
 <form name="listForm" action="/listServlet" method="post">
     <input type="hidden" name="reportMenu">
+    <input type="hidden" name="action">
+    <input type="hidden" name="page">
     <input type="hidden" name="portion">
     <input type="hidden" name="gtAmount">
     <table align="center" cellpadding="3">
@@ -108,12 +110,12 @@
         <tr style="background-color: #d4ecff">
             <td colspan="3">
                 <% if (option.equals("byPortion")) { %>
-                    <input type="button" value="Prev" style="width: 80px"/>
+                    <input type="button" value="Prev" onclick="submitPrevForm()" style="width: 80px"/>
                     &nbsp;&nbsp;&nbsp;
-                    <input type="button" value="Next" style="width: 80px"/>
+                    <input type="button" value="Next" onclick="submitNextForm()" style="width: 80px"/>
                 <% } %>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="button" value="Back" onclick="submitForm()" style="width: 80px"/>
+                <input type="button" value="Back" onclick="submitBackForm()" style="width: 80px"/>
             </td>
         </tr>
 
@@ -123,9 +125,24 @@
 <script>
     document.listForm.reportMenu.value = '${reportMenu}';
     document.listForm.portion.value = '${portion}';
+    document.listForm.page.value = '${page}';
     document.listForm.gtAmount.value = '${gtAmount}';
 
-    function submitForm() {
+
+    function submitPrevForm() {
+        var page = document.listForm.page.value;
+        page = (+page > 0) ? page - 1 : 0;
+        document.listForm.page.value = page;
+        document.listForm.action.value = 'paging';
+        document.listForm.submit();
+    }
+    function submitNextForm() {
+        document.listForm.action.value = 'paging';
+        document.listForm.page.value = +document.listForm.page.value + 1;
+        document.listForm.submit();
+    }
+    function submitBackForm() {
+        document.listForm.action.value = 'back';
         document.listForm.submit();
     }
 </script>

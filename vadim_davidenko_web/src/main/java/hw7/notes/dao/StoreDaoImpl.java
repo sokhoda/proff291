@@ -93,7 +93,7 @@ public class StoreDaoImpl implements StoreDao {
     public List<Store> findAll() {
         Session session = factory.openSession();
         try {
-            return (List<Store>)session.createQuery("FROM Store").list();
+            return (List<Store>)session.createQuery("from hw7.notes.domain.Store").list();
         } finally {
             session.close();
         }

@@ -1,5 +1,6 @@
 package hw7.notes.action;
 
+import hw7.notes.domain.Notebook;
 import hw7.notes.domain.Vendor;
 import hw7.notes.service.Menu;
 
@@ -29,12 +30,27 @@ public class ListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
-        Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
-        for(Map.Entry<String, String[]> entry : entries) {
-            req.setAttribute(entry.getKey(), entry.getValue()[0]);
+        String action = parameterMap.get("action")[0];
+
+        if (action.equals("paging")) {
+            Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
+            Integer page = Integer.parseInt(parameterMap.get("page")[0]);
+            List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(page, portion);
+
+            req.setAttribute("noteList", noteList);
+            req.setAttribute("reportMenu", parameterMap.get("reportMenu")[0]);
+            req.setAttribute("portion", parameterMap.get("portion")[0]);
+            req.setAttribute("page", parameterMap.get("page")[0]);
+            req.getRequestDispatcher(Menu.REPORTS_LIST_PAGE).forward(req, resp);
+
+        } else if (action.equals("back")) {
+            Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+            for (Map.Entry<String, String[]> entry : entries) {
+                req.setAttribute(entry.getKey(), entry.getValue()[0]);
+            }
+            List<Vendor> vendorList = Menu.noteService.getAllVendors();
+            req.setAttribute("vendorList", vendorList);
+            req.getRequestDispatcher(Menu.REPORTS_PAGE).forward(req, resp);
         }
-        List<Vendor> vendorList = Menu.noteService.getAllVendors();
-        req.setAttribute("vendorList", vendorList);
-        req.getRequestDispatcher(Menu.REPORTS_PAGE).forward(req, resp);
     }
 }
