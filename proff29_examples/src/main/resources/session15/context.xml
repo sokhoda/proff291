@@ -10,7 +10,7 @@
     <context:property-placeholder location="classpath:session15/conf.properties"/>
 
     <bean id="phone1" class="session15.Phone">
-        <property name="name" value="Kirpich"/>
+        <property name="name" value="${car.model}"/>
         <property name="age" value="15"/>
     </bean>
 
