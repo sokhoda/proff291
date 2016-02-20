@@ -1,17 +1,24 @@
-package hw6.notes.dao;
+package hw7.notes.dao;
 
-import hw6.notes.domain.Notebook;
+import hw7.notes.domain.CPU;
+import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Vendor;
 import org.apache.log4j.Logger;
+import org.aspectj.weaver.ast.Not;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+/**
+ * Created by Администратор on 15.02.2016.
+ */
 public class NotebookDaoImpl implements NotebookDao {
+
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
 
@@ -89,17 +96,38 @@ public class NotebookDaoImpl implements NotebookDao {
 
     @Override
     public List findAll() {
+        List<Object> list = new ArrayList<>();
+        Session session = factory.openSession();
+        try {
+            List<Object[]> result  = session.createQuery("select n from Notebook n").list();
+
+            if (result != null) {
+                for (Object n : result) {
+                    list.add(n);
+                }
+            }
+
+            return list;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public List findAll(int size, int from) {
         Session session = factory.openSession();
         Query query = null;
         try {
-            query = session.createQuery("from hw6.notes.domain.Notebook");
+            query = session.createQuery("from Notebook");
             List<Object[]> list = query.list();
-            System.out.println(Arrays.toString(list.get(0)));
-            System.out.println(Arrays.toString(list.get(1)));
+            //System.out.println(Arrays.toString(list.get(0)));
+            //System.out.println(Arrays.toString(list.get(1)));
             List count;
-            for (int i = 0; (count = query.list()).size() != 0; i = +5) {
+            for (int i = from; (count = query.list()).size() != 0; i = +size) {
                 query.setFirstResult(i);
-                query.setMaxResults(5);
+                query.setMaxResults(size);
                 System.out.println(count);
             }
 
@@ -118,92 +146,100 @@ public class NotebookDaoImpl implements NotebookDao {
         return query.list();
     }
 
-    @Override
-    public List<Notebook> findByModel(String model) {
-        List<Notebook> list = new ArrayList<Notebook>();
-        Session session = factory.openSession();
-        Query query = null;
-        try {
-            query = session.createQuery("from Notebook n WHERE n.model = :model");
-            query.setParameter("model", model);
 
-            List results = query.list();
-            for(Object note : results) {
-                list.add((Notebook)note);
+    @Override
+    public Notebook findNotebookByParam(String vendor, String model, String modelCPU, String vendMemory, String sizeMemory) {
+        Session session = factory.openSession();
+        Notebook notebook = null;
+        try {
+            List<Notebook> notes = session.createQuery("from Notebook n where n.vendor.name = :name and n.model = :model " +
+                    "and n.cpu.model = :modelCPU and n.memory.vendor.name = :vendMemory and n.memory.size = :sizeMemory ")
+                    .setString("name", vendor)
+                    .setString("model", model)
+                    .setString("modelCPU", modelCPU)
+                    .setString("vendMemory", vendMemory)
+                    .setString("sizeMemory", sizeMemory).list();
+
+
+            for (Notebook note : notes) {
+                notebook = note;
             }
+
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             session.close();
         }
-        return list;
+        return notebook;
     }
 
     @Override
-    public List findByVendor(String vendor) {
-        List<Notebook> list = new ArrayList<>();
+    public List findNotebooksGtAmount(int amount) {
+        List<Object> list = new ArrayList<>();
         Session session = factory.openSession();
-        Query query = null;
-        try{
-            query = session.createQuery("from hw6.notes.domain.Notebook n where n.vendor = :vendor");
-            query.setParameter("vendor", vendor);
+        try {
+            List<Object[]> result  = session.createQuery("from Store s join s.notebook n where s.amount > :amount ")
+                 .setParameter("amount", amount).list();
 
-            List results = query.list();
-            for(Object note : results){
-                list.add((Notebook)note);
+            if (result != null) {
+                for (Object n : result) {
+                    list.add(n);
+                }
             }
-        }catch (HibernateException e){
+
+            return list;
+        } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
-        return list;
+        return null;
     }
 
     @Override
-    public List findByPriceManufDate(Double price, Date date) {
-        List<Notebook> list = new ArrayList<>();
+    public List findNotebooksByCpuVendor(Vendor cpuVendor) {
+        List<Object> list = new ArrayList<>();
         Session session = factory.openSession();
-        Query query = null;
-        try{
-            query = session.createQuery("from hw6.notes.domain.Notebook n where n.price = :price and n.manufactureDate =  :manufactureDate");
-            query.setParameter("price", price);
-            query.setParameter("manufactureDate", date);
+        try {
+            List<Object[]> result  = session.createQuery("from Notebook n join n.cpu c where c.vendor = :cpuVendor ")
+                    .setParameter("cpuVendor", cpuVendor).list();
 
-            List results = query.list();
-            for(Object note : results){
-                list.add((Notebook)note);
+            if (result != null) {
+                for (Object n : result) {
+                    list.add(n);
+                }
             }
-        }catch (HibernateException e){
+
+            return list;
+        } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
-        return list;
+        return null;
     }
 
     @Override
-    public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
-        List<Notebook> list = new ArrayList<>();
+    public List getNotebooksFromStore() {
+        List<Object> list = new ArrayList<>();
         Session session = factory.openSession();
-        Query query = null;
-        try{
-            query = session.createQuery("from hw6.notes.domain.Notebook as n where n.price > :priceFrom AND n.price <  :priceTo AND "+
-                    "n.manufactureDate <= : date AND n.vendor = :vendor ");
-            query.setParameter("priceFrom", priceFrom);
-            query.setParameter("priceTo", priceTo);
-            query.setParameter("date", date);
-            query.setParameter("vendor", vendor);
+        try {
+            List<Object[]> result  = session.createQuery("from Store s join s.notebook n order by n.vendor  ").list();
 
-            List results = query.list();
-            for(Object note : results){
-                list.add((Notebook)note);
+            if (result != null) {
+                for (Object n : result) {
+                    list.add(n);
+                }
             }
-        }catch (HibernateException e){
+
+            return list;
+        } catch (HibernateException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
         }
-        return list;
+        return null;
     }
+
+
 }

@@ -12,8 +12,6 @@
 
 </head>
 <body>
-<script src="js/s.js" type="text/javascript"></script>
-<button onclick="createTree(document.documentElement,'')">Create Tree</button>
 <form action="/form" method="post">
     <input type="text" name="login" value="Sveta"/>
     <input type="submit" value="POST"/>

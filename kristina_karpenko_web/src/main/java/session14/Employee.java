@@ -1,9 +1,4 @@
-package main.java.web.domain;
-
-import javax.persistence.Entity;
-
-
-
+package session14;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,12 +10,14 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-@SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
+
+
+    @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    private Integer id;
+    private Long id;
 
     @Column(name = "FIRST_NAME", length = 20)
     private String firstName;
@@ -32,7 +29,8 @@ public class Employee {
     private String email;
 
     @Column(name = "PHONE_NUMBER", length = 25)
-    private String phoneNumber;
+    @Convert(converter = MoneyConverter.class)
+    private Long phoneNumber;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "HIRE_DATE")
@@ -71,11 +69,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -103,11 +101,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
