@@ -18,7 +18,7 @@ public class Notebook {
     private String vendor;
     @Column(name = "MODEL")
     private String model;
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column(name = "MANUFACTURE_DATE")
     private Date manufactureDate;
     @Column(name = "PRICE")
