@@ -26,12 +26,11 @@
        <tr>
            <td><input type="radio" name="reportMenu" value="gtAmount"></td>
            <td>Show notebooks greater then amount:</td>
-           <td><input type="text" name="gtAmount" size="6" maxlength="6"/></td>
+           <td><input type="text" name="gtAmount" size="5" maxlength="5"/></td>
        </tr>
        <tr>
            <td><input type="radio" name="reportMenu" value="byCPU"></td>
            <td>Show notebooks by CPU vendor:</td>
-           <%--<td><input type="text" name="cpuVendor" size="15" maxlength="15"/>&nbsp;</td>--%>
            <td>
                <select size="3" name="cpuVendor">
                    <option disabled>Select ..................</option>

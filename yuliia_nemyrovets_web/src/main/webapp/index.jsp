@@ -8,15 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Table</title>
+    <title>Notebooks Shop</title>
 </head>
 <style>
     .b1 {
-        background: darkblue;
+        background: black;
         color: white; /* Белые буквы */
         font-size: 10pt; /* Размер шрифта в пунктах */
         text-align: center;
-        width: 300px;
+        width: 150px;
         height: 50px;
         align: center;
     }
@@ -24,28 +24,32 @@
     body {
         margin: 0; /* Убираем отступы */
         height: 100%; /* Высота страницы */
-        background: lavender; /* Параметры фона */
+        background: url("img/utro-stol-noutbuk-cveta.jpg"); /* Параметры фона */
         background-size: cover; /* Фон занимает всю доступную площадь */
     }
 </style>
 <body>
-<form action="/list" method="post"></form>
-<table border="1" width="300">
-    <tr>
-        <td> Login :</td>
-        <td><input type="text" name="login"/></td>
-    </tr>
-    <tr>
-        <td> Password :</td>
-        <td><input type="text" name="password"/></td>
-    </tr>
-    <tr>
-        <td>
-            <input type="submit" value="POST"/>
-        </td>
-    </tr>
 
 
-</table>
+<div align="center">
+
+    <h1> Notebook Shop Greeting You! </h1>
+    <h3><a href="Menu.jsp">
+        <form>
+            <p><input type="button" value="Menu" style=" width: 150px; height: 50px " class="b1">
+        </p>
+
+        </form>
+    </a></h3>
+    <h3><a href="Notebook.jsp">
+        <form>
+            <p><input type="button" value="Notebook" style=" width: 150px; height: 50px " class="b1">
+            </p>
+
+        </form>
+    </a></h3>
+</div>
+
+
 </body>
 </html>
