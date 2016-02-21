@@ -21,7 +21,7 @@ public class Main {
         EmployeeDao employeeDao=cont.getBean("dao",EmployeeDaoIml.class);
 //        Ditector director =cont.getBean("director", Ditector.class);
 //        Car car=cont.getBean("car", Car.class);
-        System.out.println(employeeDao.findAllEmployee());
+        System.out.println(employeeDao.findAllEmployeeWithNoDepartment());
 
     }
 

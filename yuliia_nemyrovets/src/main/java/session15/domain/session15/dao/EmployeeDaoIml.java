@@ -46,7 +46,7 @@ public class EmployeeDaoIml implements EmployeeDao{
     public List findAllEmployeeByDepartment(int dep_id) {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("from EMPLOYEES WHERE DEPARTMENT_ID="+dep_id);
+            Query query = session.createQuery("from Employee WHERE DEPARTMENT_ID="+dep_id);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");
@@ -61,7 +61,7 @@ public class EmployeeDaoIml implements EmployeeDao{
     public List findAllEmployeeWithNoDepartment() {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("FROM EMPLOYEES WHERE DEPARTMENT_ID IS NULL ");
+            Query query = session.createQuery("FROM Employee WHERE DEPARTMENT_ID IS NULL ");
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");
