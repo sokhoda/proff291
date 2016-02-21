@@ -44,7 +44,7 @@ public interface NotebookService {
     Long sale(Long storeId, int amount);
 
 
-    List getNotebooksByPortion(int size);
+    List getNotebooksByPortion(int page, int size);
 
     List getNotebooksGtAmount(int amount);
 
