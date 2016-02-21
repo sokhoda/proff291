@@ -2,6 +2,8 @@ package hw7.springnotes.action;
 
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,13 @@ import java.util.Set;
 @WebServlet("/vendorServlet")
 public class VendorServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
@@ -33,7 +42,7 @@ public class VendorServlet extends HttpServlet {
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
-            Vendor vendor = Menu.noteService.getVendorById(id);
+            Vendor vendor = noteService.getVendorById(id);
             if (vendor == null) {
                 req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
                 req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
@@ -52,7 +61,7 @@ public class VendorServlet extends HttpServlet {
             vendor.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             vendor.setName(vendorName);
 
-            if (Menu.noteService.updateVendor(vendor)) {
+            if (noteService.updateVendor(vendor)) {
                 if (id.isEmpty()) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
                 } else {

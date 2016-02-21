@@ -3,6 +3,8 @@ package hw7.springnotes.action;
 import hw7.springnotes.domain.CPU;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,13 @@ import java.util.Set;
 @WebServlet("/cpuServlet")
 public class CPUServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
@@ -30,13 +39,13 @@ public class CPUServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Vendor> vendorList = Menu.noteService.getAllVendors();
+        List<Vendor> vendorList = noteService.getAllVendors();
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
-            CPU cpu = Menu.noteService.getCPUById(id);
+            CPU cpu = noteService.getCPUById(id);
             if (cpu == null) {
                 req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
                 req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
@@ -56,7 +65,7 @@ public class CPUServlet extends HttpServlet {
             String id = parameterMap.get("id")[0];
             String model = parameterMap.get("model")[0].trim();
             Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
-            Vendor vendor = Menu.noteService.getVendorById(vendorId);
+            Vendor vendor = noteService.getVendorById(vendorId);
             String freq = parameterMap.get("frequency")[0].trim();
 
             CPU cpu = new CPU();
@@ -65,7 +74,7 @@ public class CPUServlet extends HttpServlet {
             cpu.setVendor(vendor);
             cpu.setFrequency(freq);
 
-            if (Menu.noteService.updateCPU(cpu)) {
+            if (noteService.updateCPU(cpu)) {
                 if (id.isEmpty()) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
                 } else {

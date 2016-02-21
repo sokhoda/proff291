@@ -3,6 +3,8 @@ package hw7.springnotes.action;
 import hw7.springnotes.domain.Memory;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,12 @@ import java.util.Set;
 @WebServlet("/memoryServlet")
 public class MemoryServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
@@ -30,13 +38,13 @@ public class MemoryServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
 
-        List<Vendor> vendorList = Menu.noteService.getAllVendors();
+        List<Vendor> vendorList = noteService.getAllVendors();
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
-            Memory memory = Menu.noteService.getMemoryById(id);
+            Memory memory = noteService.getMemoryById(id);
             if (memory == null) {
                 req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
                 req.setAttribute("server_msg", Menu.NO_SUCH_ENTITY_MSG);
@@ -53,7 +61,7 @@ public class MemoryServlet extends HttpServlet {
         if (action.equals("save")) {
             String id = parameterMap.get("id")[0];
             Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
-            Vendor vendor = Menu.noteService.getVendorById(vendorId);
+            Vendor vendor = noteService.getVendorById(vendorId);
             String size = parameterMap.get("size")[0].trim();
 
             Memory memory = new Memory();
@@ -61,7 +69,7 @@ public class MemoryServlet extends HttpServlet {
             memory.setVendor(vendor);
             memory.setSize(size);
 
-            if (Menu.noteService.updateMemory(memory)) {
+            if (noteService.updateMemory(memory)) {
                 if (id.isEmpty()) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
                 } else {

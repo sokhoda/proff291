@@ -4,6 +4,8 @@ import hw7.springnotes.domain.CPU;
 import hw7.springnotes.domain.Memory;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 import hw7.springnotes.util.Utils;
 import hw7.springnotes.domain.Notebook;
 
@@ -25,6 +27,13 @@ import java.util.Set;
 @WebServlet("/noteServlet")
 public class NoteServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         service(req, resp);
@@ -34,16 +43,16 @@ public class NoteServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        List<Vendor> vendorList = Menu.noteService.getAllVendors();
-        List<CPU> cpuList = Menu.noteService.getAllCPUs();
-        List<Memory> memoryList = Menu.noteService.getAllMemories();
+        List<Vendor> vendorList = noteService.getAllVendors();
+        List<CPU> cpuList = noteService.getAllCPUs();
+        List<Memory> memoryList = noteService.getAllMemories();
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         String action = parameterMap.get("action")[0];
 
         if (action.equals("find")) {
             Long id = Long.valueOf(parameterMap.get("selectedId")[0]);
-            Notebook note = Menu.noteService.getNotebookById(id);
+            Notebook note = noteService.getNotebookById(id);
 
             if (note == null) {
                 req.setAttribute("selectedId",parameterMap.get("selectedId")[0]);
@@ -69,11 +78,11 @@ public class NoteServlet extends HttpServlet {
             Date date = Utils.stringToDate(parameterMap.get("date")[0].trim(), "dd.MM.yyyy");
 
             Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
-            Vendor vendor = Menu.noteService.getVendorById(vendorId);
+            Vendor vendor = noteService.getVendorById(vendorId);
             Long cpuId = Long.valueOf(parameterMap.get("cpuId")[0]);
-            CPU cpu = Menu.noteService.getCPUById(cpuId);
+            CPU cpu = noteService.getCPUById(cpuId);
             Long memoryId = Long.valueOf(parameterMap.get("memoryId")[0]);
-            Memory memory = Menu.noteService.getMemoryById(memoryId);
+            Memory memory = noteService.getMemoryById(memoryId);
 
             Notebook note = new Notebook();
             note.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
@@ -83,7 +92,7 @@ public class NoteServlet extends HttpServlet {
             note.setCpu(cpu);
             note.setMemory(memory);
 
-            if (Menu.noteService.updateNotebook(note)) {
+            if (noteService.updateNotebook(note)) {
                 if (id.isEmpty()) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
                 } else {

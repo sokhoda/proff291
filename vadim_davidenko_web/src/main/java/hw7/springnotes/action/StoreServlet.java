@@ -3,6 +3,8 @@ package hw7.springnotes.action;
 import hw7.springnotes.domain.Notebook;
 import hw7.springnotes.domain.Store;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,13 @@ import java.util.Set;
 @WebServlet("/storeServlet")
 public class StoreServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -48,9 +57,9 @@ public class StoreServlet extends HttpServlet {
         for(Map.Entry<String, String[]> entry : entries) {
             req.setAttribute(entry.getKey(), entry.getValue()[0]);
         }
-        List<Notebook> notebookList = Menu.noteService.getAllNotebooks();
+        List<Notebook> notebookList = noteService.getAllNotebooks();
         req.setAttribute("notebookList", notebookList);
-        List<Store> storeList = Menu.noteService.getAllStores();
+        List<Store> storeList = noteService.getAllStores();
         req.setAttribute("storeList", storeList);
 
         req.getRequestDispatcher(Menu.STORE_PAGE).forward(req, resp);
@@ -67,7 +76,7 @@ public class StoreServlet extends HttpServlet {
         Integer amountReceive = Integer.valueOf(parameterMap.get("amountReceive")[0]);
         Double priceReceive = Double.valueOf(parameterMap.get("priceReceive")[0]);
 
-        Long storeId = Menu.noteService.receive(noteId, amountReceive, priceReceive);
+        Long storeId = noteService.receive(noteId, amountReceive, priceReceive);
         req.setAttribute("server_msg", Menu.STORE_RECEIVE_MSG + String.valueOf(storeId));
     }
 
@@ -81,9 +90,9 @@ public class StoreServlet extends HttpServlet {
         Long storeId = Long.valueOf(parameterMap.get("storeIdRemove")[0]);
         Integer amountRemove = Integer.valueOf(parameterMap.get("amountRemove")[0]);
 
-        Store store = Menu.noteService.getStoreById(storeId);
+        Store store = noteService.getStoreById(storeId);
         if (store != null) {
-            if (Menu.noteService.removeFromStore(store, amountRemove)) {
+            if (noteService.removeFromStore(store, amountRemove)) {
                 req.setAttribute("server_msg", Menu.STORE_REMOVE_MSG + String.valueOf(storeId));
             } else {
                 req.setAttribute("server_msg", Menu.STORE_REMOVE_ERR_MSG + String.valueOf(storeId));
@@ -102,9 +111,9 @@ public class StoreServlet extends HttpServlet {
         Map<String, String[]> parameterMap = req.getParameterMap();
         Long storeId = Long.valueOf(parameterMap.get("storeIdSale")[0]);
         Integer amountSale = Integer.valueOf(parameterMap.get("amountSale")[0]);
-        Store store = Menu.noteService.getStoreById(storeId);
+        Store store = noteService.getStoreById(storeId);
         if (store != null) {
-            Long saleId = Menu.noteService.sale(storeId, amountSale);
+            Long saleId = noteService.sale(storeId, amountSale);
             if (saleId != 0) {
                 req.setAttribute("server_msg", Menu.SALE_STORE_MSG + String.valueOf(storeId));
             } else {

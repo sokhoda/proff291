@@ -3,6 +3,8 @@ package hw7.springnotes.action;
 import hw7.springnotes.domain.Notebook;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,13 @@ import java.util.Set;
 @WebServlet("/listServlet")
 public class ListServlet extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         serviceRefreshPage(req, resp);
@@ -35,7 +44,7 @@ public class ListServlet extends HttpServlet {
         if (action.equals("paging")) {
             Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
             Integer page = Integer.parseInt(parameterMap.get("page")[0]);
-            List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(page, portion);
+            List<Notebook> noteList = noteService.getNotebooksByPortion(page, portion);
 
             req.setAttribute("noteList", noteList);
             req.setAttribute("reportMenu", parameterMap.get("reportMenu")[0]);
@@ -48,7 +57,7 @@ public class ListServlet extends HttpServlet {
             for (Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);
             }
-            List<Vendor> vendorList = Menu.noteService.getAllVendors();
+            List<Vendor> vendorList = noteService.getAllVendors();
             req.setAttribute("vendorList", vendorList);
             req.getRequestDispatcher(Menu.REPORTS_PAGE).forward(req, resp);
         }

@@ -4,6 +4,8 @@ import hw7.springnotes.domain.Notebook;
 import hw7.springnotes.domain.Store;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
+import hw7.springnotes.service.NotebookService;
+import hw7.springnotes.util.SpringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,21 +25,19 @@ import java.util.Set;
 @WebServlet("/reportsServlet")
 public class ReportsServlet  extends HttpServlet {
 
+    private NotebookService noteService;
+
+    @Override
+    public void init() throws ServletException {
+        noteService = SpringUtils.createNotebookService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         service(req, resp);
     }
-
-    /*
-     * Показать все ноутбуки на складе (пользователь указывает размер порции)
-     * Показать все ноутбуки которых больше указанного количества
-     * Показать все ноутбуки по указанному имени производителя процессора
-     * Показать все ноутбуки на складе
-     * Показать типы ноутбуков, оставшиеся на складе по каждому производителю
-     *
-     * Получить объем продаж ноутбуков в среднем за день (в штуках)
-     */
+    
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -48,36 +48,36 @@ public class ReportsServlet  extends HttpServlet {
         switch (option) {
             case "byPortion":
                 Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-                List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(0, portion);
+                List<Notebook> noteList = noteService.getNotebooksByPortion(0, portion);
                 req.setAttribute("noteList", noteList);
                 req.setAttribute("page", "0");
                 break;
 
             case "byCPU":
                 Long vendorId = Long.valueOf(parameterMap.get("cpuVendor")[0]);
-                Vendor vendor = Menu.noteService.getVendorById(vendorId);
-                noteList = Menu.noteService.getNotebooksByCpuVendor(vendor);
+                Vendor vendor = noteService.getVendorById(vendorId);
+                noteList = noteService.getNotebooksByCpuVendor(vendor);
                 req.setAttribute("noteList", noteList);
                 break;
 
             case "storeAll":
-                noteList = Menu.noteService.getNotebooksFromStore();
+                noteList = noteService.getNotebooksFromStore();
                 req.setAttribute("noteList", noteList);
                 break;
 
             case "gtAmount":
                 Integer amount = Integer.parseInt(parameterMap.get("gtAmount")[0]);
-                noteList = Menu.noteService.getNotebooksGtAmount(amount);
+                noteList = noteService.getNotebooksGtAmount(amount);
                 req.setAttribute("noteList", noteList);
                 break;
 
             case "storePresent":
-                List<Store> storeList = Menu.noteService.getNotebooksStorePresent();
+                List<Store> storeList = noteService.getNotebooksStorePresent();
                 req.setAttribute("storeList", storeList);
                 break;
 
             case "salesByDays":
-                Map<Date, Integer> salesMap = Menu.noteService.getSalesByDays();
+                Map<Date, Integer> salesMap = noteService.getSalesByDays();
                 req.setAttribute("salesMap", salesMap);
                 break;
         }
@@ -85,7 +85,7 @@ public class ReportsServlet  extends HttpServlet {
         for(Map.Entry<String, String[]> entry : entries) {
             req.setAttribute(entry.getKey(), entry.getValue()[0]);
         }
-        List<Vendor> vendorList = Menu.noteService.getAllVendors();
+        List<Vendor> vendorList = noteService.getAllVendors();
         req.setAttribute("vendorList", vendorList);
         req.getRequestDispatcher(Menu.REPORTS_LIST_PAGE).forward(req, resp);
     }

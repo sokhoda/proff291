@@ -1,6 +1,7 @@
 package hw7.springnotes.service;
 
 import hw7.springnotes.domain.*;
+import hw7.springnotes.util.SpringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -37,26 +38,11 @@ public class Menu extends HttpServlet {
     public final static String SALE_STORE_MSG = "Notebooks sold from Store ";
     public final static String SALE_STORE_ERR_MSG = "Notebooks number to sale is greater then existent on Store ";
 
-    public static NotebookService noteService;
+    private NotebookService noteService;
 
     @Override
     public void init() throws ServletException {
-        Locale.setDefault(Locale.ENGLISH);
-        ApplicationContext context = new ClassPathXmlApplicationContext("hw7/context.xml");
-        noteService = context.getBean("notebookService", NotebookService.class);
-
-//        Configuration cfg = new Configuration().configure("hw7/hibernate.cfg.xml");
-//        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-//        sb.applySettings(cfg.getProperties());
-//        StandardServiceRegistry standardServiceRegistry = sb.build();
-//        SessionFactory sessionFactory = cfg.buildSessionFactory(standardServiceRegistry);
-//        NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
-//        VendorDao vendorDao = new VendorDaoImpl(sessionFactory);
-//        CPUDao cpuDao = new CPUDaoImpl(sessionFactory);
-//        MemoryDao memoryDao = new MemoryDaoImpl(sessionFactory);
-//        StoreDao storeDao = new StoreDaoImpl(sessionFactory);
-//        SalesDao salesDao = new SalesDaoImpl(sessionFactory);
-//        noteService = new NotebookServiceImpl(noteDao, vendorDao, cpuDao, memDao, storeDao, salesDao);
+        noteService = SpringUtils.createNotebookService();
     }
 
     @Override
