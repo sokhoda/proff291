@@ -6,7 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -52,14 +52,14 @@ public class NotebookDaoImpl implements NotebookDao {
         return null;
     }
 
-    /////////////
+
     @Override
     public boolean update(Notebook ntb) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            Query query = session.createQuery("from hw6.notes.domain.Notebook n where n.id = '4' ");
-            //:ntb.id
+            session.update(ntb);
+            session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
             log.error("Transaction failed");
@@ -74,8 +74,10 @@ public class NotebookDaoImpl implements NotebookDao {
     public boolean delete(Notebook ntb) {
         Session session = factory.openSession();
         try {
+            session.beginTransaction();
             session.delete(ntb);
-            return  true;
+            session.getTransaction().commit();
+            return true;
         } catch (HibernateException e) {
             log.error("Transaction failed");
             session.getTransaction().rollback();
@@ -90,9 +92,7 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         Query query = null;
         try {
-
-            query = session.createQuery("select n from hw6.notes.domain.Notebook n");
-
+            query = session.createQuery("from hw6.notes.domain.Notebook");
             List<Object[]> list = query.list();
             System.out.println(Arrays.toString(list.get(0)));
             System.out.println(Arrays.toString(list.get(1)));
@@ -119,22 +119,91 @@ public class NotebookDaoImpl implements NotebookDao {
     }
 
     @Override
-    public List findByModel(String model) {
-        return null;
+    public List<Notebook> findByModel(String model) {
+        List<Notebook> list = new ArrayList<Notebook>();
+        Session session = factory.openSession();
+        Query query = null;
+        try {
+            query = session.createQuery("from Notebook n WHERE n.model = :model");
+            query.setParameter("model", model);
+
+            List results = query.list();
+            for(Object note : results) {
+                list.add((Notebook)note);
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
     }
 
     @Override
     public List findByVendor(String vendor) {
-        return null;
+        List<Notebook> list = new ArrayList<>();
+        Session session = factory.openSession();
+        Query query = null;
+        try{
+            query = session.createQuery("from hw6.notes.domain.Notebook n where n.vendor = :vendor");
+            query.setParameter("vendor", vendor);
+
+            List results = query.list();
+            for(Object note : results){
+                list.add((Notebook)note);
+            }
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
     }
 
     @Override
     public List findByPriceManufDate(Double price, Date date) {
-        return null;
+        List<Notebook> list = new ArrayList<>();
+        Session session = factory.openSession();
+        Query query = null;
+        try{
+            query = session.createQuery("from hw6.notes.domain.Notebook n where n.price = :price and n.manufactureDate =  :manufactureDate");
+            query.setParameter("price", price);
+            query.setParameter("manufactureDate", date);
+
+            List results = query.list();
+            for(Object note : results){
+                list.add((Notebook)note);
+            }
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
     }
 
     @Override
     public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
-        return null;
+        List<Notebook> list = new ArrayList<>();
+        Session session = factory.openSession();
+        Query query = null;
+        try{
+            query = session.createQuery("from hw6.notes.domain.Notebook as n where n.price > :priceFrom AND n.price <  :priceTo AND "+
+                    "n.manufactureDate <= : date AND n.vendor = :vendor ");
+            query.setParameter("priceFrom", priceFrom);
+            query.setParameter("priceTo", priceTo);
+            query.setParameter("date", date);
+            query.setParameter("vendor", vendor);
+
+            List results = query.list();
+            for(Object note : results){
+                list.add((Notebook)note);
+            }
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+        return list;
     }
 }
