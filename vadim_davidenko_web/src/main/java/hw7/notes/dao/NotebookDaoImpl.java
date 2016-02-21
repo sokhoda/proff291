@@ -96,7 +96,7 @@ public class NotebookDaoImpl implements NotebookDao {
     public List<Notebook> findAll() {
         Session session = factory.openSession();
         try {
-            return (List<Notebook>)session.createQuery("FROM Notebook").list();
+            return (List<Notebook>)session.createQuery("from hw7.notes.domain.Notebook").list();
         } finally {
             session.close();
         }
@@ -108,8 +108,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List<Notebook> findByPortion(int page, int size) {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("FROM Notebook");
-            query.setFirstResult(page);
+            Query query = session.createQuery("from hw7.notes.domain.Notebook");
+            query.setFirstResult(page * size);
             query.setMaxResults(size);
             return (List<Notebook>)query.list();
         } finally {
@@ -138,6 +138,25 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public List<Notebook> findAllOnStore() {
         return findAll();
+    }
+
+    @Override
+    public List<Notebook> findGtAmount(int amount) {
+        Session session = factory.openSession();
+        try {
+            SQLQuery query = session.createSQLQuery(
+                    "select * from NOTEBOOK n\n" +
+                            "where :amount < (\n" +
+                            "select sum(s.AMOUNT) from STORE s " +
+                            "where s.NOTEBOOK_ID = n.NOTEBOOK_ID\n" +
+                            ")"
+            );
+            query.addEntity(Notebook.class);
+            query.setParameter("amount", amount);
+            return query.list();
+        } finally {
+            session.close();
+        }
     }
 
 }

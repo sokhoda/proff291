@@ -97,7 +97,7 @@ public class MemoryDaoImpl implements MemoryDao {
     public List<Memory> findAll() {
         Session session = factory.openSession();
         try {
-            return (List<Memory>)session.createQuery("FROM Memory").list();
+            return (List<Memory>)session.createQuery("from hw7.notes.domain.Memory").list();
         } finally {
             session.close();
         }

@@ -27,4 +27,5 @@ public interface NotebookDao {
 
     List findAllOnStore();
 
+    List findGtAmount(int amount);
 }
