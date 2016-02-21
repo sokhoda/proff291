@@ -5,16 +5,21 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import session13.domain.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by s_okhoda on 20.02.2016.
  */
+
+@Component("emplDao")
 public class EmployeeDaoImpl implements EmployeeDao {
-    private SessionFactory factory;
     private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
+
+    @Autowired(required = true)
+    private SessionFactory factory;
 
     public EmployeeDaoImpl() {
     }
@@ -48,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List findAllDept(int id) {
+    public List findAllDept(Long id) {
         Session session = factory.openSession();
         try{
             Query query = session.createQuery("from Employee e join e.department d where d.id = :DEPT");
@@ -67,7 +72,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public List findAllUnemployed() {
         Session session = factory.openSession();
         try{
-            Query query = session.createQuery("from Employee e join e.department d where d.id = null");
+            Query query = session.createQuery("from Employee e where e.department = null");
             return query.list();
         } catch (HibernateException e) {
             log.error("Transaction failed", e);

@@ -7,6 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import session15.dao.EmployeeDao;
 import session15.dao.EmployeeDaoImpl;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -20,7 +22,22 @@ public class DbMain {
 
         SessionFactory factory = cont.getBean("sf", SessionFactory.class);
 //        Employee
-        EmployeeDao  emplDao1 = cont.getBean("emplDao1", EmployeeDaoImpl.class);
-        System.out.println(  emplDao1.findAll());
+        EmployeeDao  emplDao1 = cont.getBean("emplDao", EmployeeDaoImpl.class);
+//        System.out.println(emplDao1.findAll());
+//        System.out.println(emplDao1.findAllUnemployed());
+        List list = emplDao1.findAllDept(100L);
+        printList(list);
+    }
+
+    private static  void printList(List<Object[]> list){
+            if (list.size() == 0){
+                System.out.println("List is empty");
+                return;
+            }
+            for (Object[] obj : list) {
+                for (Object ob : obj) {
+                    System.out.println(ob);
+                }
+            }
     }
 }
