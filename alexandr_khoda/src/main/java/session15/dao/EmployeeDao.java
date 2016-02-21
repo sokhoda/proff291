@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface EmployeeDao {
     List findAll();
-    List findAllDept(int id);
+    List findAllDept(Long id);
     List findAllUnemployed();
 
 }

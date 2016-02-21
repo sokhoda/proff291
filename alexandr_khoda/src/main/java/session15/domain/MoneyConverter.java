@@ -17,6 +17,10 @@ public class MoneyConverter implements AttributeConverter<Long, String> {
 
     @Override
     public Long convertToEntityAttribute(String str) {
-        return Long.parseLong(str.substring(0, str.indexOf(".")));
+        int inx1 = str.indexOf(".");
+        int inx2 = str.indexOf(" ");
+        return Long.parseLong(str.substring(0,
+                (inx1  > -1) ? inx1 : inx2));
+
     }
 }

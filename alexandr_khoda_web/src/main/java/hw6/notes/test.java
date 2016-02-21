@@ -32,6 +32,7 @@ public class test {
 
         return cfg.buildSessionFactory(standardServiceRegistry);
     }
+
     public static String checkDate(GregorianCalendar gc) {
         SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
         if (gc == null) {
