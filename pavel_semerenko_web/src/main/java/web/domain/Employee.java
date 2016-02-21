@@ -10,10 +10,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-@SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
+    @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Integer id;
 
