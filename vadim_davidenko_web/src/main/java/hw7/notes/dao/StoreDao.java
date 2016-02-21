@@ -19,6 +19,4 @@ public interface StoreDao {
     List findAll();
 
     List findOnStorePresent();
-
-    List findGtAmount(int amount);
 }
