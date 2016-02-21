@@ -4,7 +4,6 @@ import notes.dao.NotebookDao;
 import notes.dao.NotebookDaoImpl;
 import notes.service.NotebookService;
 import notes.service.NotebookServiceImpl;
-import notes.view.Menu;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

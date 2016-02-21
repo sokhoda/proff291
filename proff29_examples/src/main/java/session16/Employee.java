@@ -1,4 +1,4 @@
-package web.domain;
+package session16;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -163,5 +163,4 @@ public class Employee {
                 + comissionPct + ", manager=\n" + manager + ",\n " +
                 "]";
     }
-
 }
