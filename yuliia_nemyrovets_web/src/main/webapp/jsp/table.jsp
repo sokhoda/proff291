@@ -8,15 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Notebooks Shop</title>
+    <title>Table</title>
 </head>
 <style>
     .b1 {
-        background: black;
+        background: darkblue;
         color: white; /* Белые буквы */
         font-size: 10pt; /* Размер шрифта в пунктах */
         text-align: center;
-        width: 150px;
+        width: 300px;
         height: 50px;
         align: center;
     }
@@ -24,32 +24,16 @@
     body {
         margin: 0; /* Убираем отступы */
         height: 100%; /* Высота страницы */
-        background: url("img/utro-stol-noutbuk-cveta.jpg"); /* Параметры фона */
+        background: lavender; /* Параметры фона */
         background-size: cover; /* Фон занимает всю доступную площадь */
     }
 </style>
 <body>
+<script src="../js/homework_table1.js" type="text/javascript"></script>
 
-
-<div align="center">
-
-    <h1> Notebook Shop Greeting You! </h1>
-    <h3><a href="Menu.jsp">
-        <form>
-            <p><input type="button" value="Menu" style=" width: 150px; height: 50px " class="b1">
-        </p>
-
-        </form>
-    </a></h3>
-    <h3><a href="Notebook.jsp">
-        <form>
-            <p><input type="button" value="Notebook" style=" width: 150px; height: 50px " class="b1">
-            </p>
-
-        </form>
-    </a></h3>
-</div>
-
+<center>
+    <button onclick="tableCreate()" class="b1">Create Table</button>
+</center>
 
 </body>
 </html>

@@ -30,7 +30,7 @@
         <a href="registeredClient.jsp"><h3> Registration</h3></a>
     </td>
         <td>
-            <a href="dashboard.jsp"><h3> Taxi</h3></a>
+            <a href="../dashboard.jsp"><h3> Taxi</h3></a>
         </td>
     </tr>
     <tr>

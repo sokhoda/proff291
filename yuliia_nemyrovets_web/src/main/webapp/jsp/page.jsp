@@ -16,7 +16,7 @@
         //        }
         //        fun();
     </script>
-    <script src="js/script.js" type="text/javascript"></script>
+    <script src="../js/script.js" type="text/javascript"></script>
     <%--  <script src="js/telephone.js" type="text/javascript"></script>--%>
     <style>
         table {
@@ -59,7 +59,7 @@
     <tr>
         <td width="100%" colspan="6" align="CENTER">
             <h1><a href="http://rost.kh.ua/"><img
-                    src="img/persimmon_01.jpg" width="=200" height="200"/></a>
+                    src="../img/persimmon_01.jpg" width="=200" height="200"/></a>
             </h1>
 
         </td>
@@ -97,7 +97,7 @@
 
         </td>
         <td width="48%" height="50px" colspan="4">
-            <img src="img/x_0bc8685d.jpg" width="=100" height="100" align="left"
+            <img src="../img/x_0bc8685d.jpg" width="=100" height="100" align="left"
                  vspace="5" hspace="5"/>
             Arsenal Football Club is a professional football club based in Holloway, London. The club play in the
             Premier League, the top flight of English football. One of the most successful clubs in English football,
@@ -113,7 +113,7 @@
             <ol>
                 <li color: green> history
                     <br>
-                    <img src="img/images.jpg" width="320" height="118" align="left" vspace="5" hspace="5"/>
+                    <img src="../img/images.jpg" width="320" height="118" align="left" vspace="5" hspace="5"/>
                     Arsenal Football Club were formed as Dial Square in 1886 by workers at the Royal Arsenal in
                     Woolwich, south-east London, and were renamed Royal Arsenal shortly afterwards. The club were
                     renamed again to Woolwich Arsenal after becoming a limited company in 1893. The club became the
@@ -187,7 +187,7 @@
                 </li>
                 <li> cups
                     <br>
-                    <img src="img/images%20(1).jpg" width="275" height="183" align="left"
+                    <img src="../img/images%20(1).jpg" width="275" height="183" align="left"
                          vspace="5" hspace="5"/>
                     Arsenal's tally of 13 League Championships is the third highest in English football, after
                     Manchester United (20) and Liverpool (180), with a record of 12 FA Cup titles. Arsenal have achieved
