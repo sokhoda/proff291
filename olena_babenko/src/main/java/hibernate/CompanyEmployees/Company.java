@@ -1,5 +1,5 @@
 package hibernate.CompanyEmployees;
-
+import hibernate.Convert.ConverterClass;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +21,7 @@ public class Company {
     private String name;
 
     @Column(name = "COMPANY_MONEY")
+    @Convert(converter = ConverterClass.class)
     private double money;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
