@@ -1,6 +1,6 @@
 package session15.domain;
 
-import web.domain.Employee;
+import session15.domain.Employee;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,10 +12,10 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "DEPARTMENTS")
-//@SequenceGenerator(name = "sequence", sequenceName = "DEPARTMENTS_SEQ")
 public class Department {
     @Id
     @Column(name = "DEPARTMENT_ID")
+    @SequenceGenerator(name = "sequence", sequenceName = "DEPARTMENTS_SEQ", allocationSize = 1, initialValue = 50)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
@@ -25,12 +25,13 @@ public class Department {
     @Column(name = "MANAGER_ID", length = 6)
     private Long managerId;
 
-    @Column(name = "MANAGER_ID", length = 4, insertable = false, updatable = false)
+    @Column(name = "LOCATION_ID", length = 4, insertable = false, updatable =
+            false)
     private Long locationId;
+
 
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees;
-
     public Department() {
     }
 

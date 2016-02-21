@@ -1,4 +1,4 @@
-package session15.domain;
+package session16.domain;
 
 import session15.domain.Department;
 import session15.domain.MoneyConverter;
