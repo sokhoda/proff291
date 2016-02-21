@@ -22,7 +22,7 @@ public class DbMain {
 
         SessionFactory factory = cont.getBean("sf", SessionFactory.class);
 //        Employee
-        EmployeeDao  emplDao1 = cont.getBean("emplDao", EmployeeDaoImpl.class);
+        EmployeeDao  emplDao1 = cont.getBean("emplDao", EmployeeDao.class);
 //        System.out.println(emplDao1.findAll());
 //        System.out.println(emplDao1.findAllUnemployed());
         List list = emplDao1.findAllDept(100L);

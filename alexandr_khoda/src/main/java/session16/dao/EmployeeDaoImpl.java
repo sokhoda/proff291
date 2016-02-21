@@ -1,4 +1,4 @@
-package session15.dao;
+package session16.dao;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -6,8 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import session16.domain.Employee;
 
 import java.util.List;
 
@@ -24,6 +25,28 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     public EmployeeDaoImpl() {
     }
+
+    @Override
+    public void create(Employee employee) {
+        factory.getCurrentSession().save(employee);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Employee read(Long id) {
+        return (Employee)factory.getCurrentSession().get(Employee.class, id);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        factory.getCurrentSession().save(employee);
+    }
+
+    @Override
+    public void delete(Employee employee) {
+        factory.getCurrentSession().save(employee);
+    }
+
 
     public EmployeeDaoImpl(SessionFactory factory) {
         this.factory = factory;
@@ -82,5 +105,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public Integer getESalary(String name) {
+        return null;
     }
 }
