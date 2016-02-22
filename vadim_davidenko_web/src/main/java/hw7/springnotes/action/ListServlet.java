@@ -4,7 +4,7 @@ import hw7.springnotes.domain.Notebook;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
 import hw7.springnotes.service.NotebookService;
-import hw7.springnotes.util.SpringUtils;
+import hw7.springnotes.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class ListServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        noteService = SpringUtils.createNotebookService();
+        noteService = StartupListener.getBean("notebookService", NotebookService.class);
     }
 
     @Override

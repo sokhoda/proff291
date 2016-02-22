@@ -1,9 +1,7 @@
 package hw7.springnotes.service;
 
 import hw7.springnotes.domain.*;
-import hw7.springnotes.util.SpringUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import hw7.springnotes.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -42,7 +39,7 @@ public class Menu extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        noteService = SpringUtils.createNotebookService();
+        noteService = StartupListener.getBean("notebookService", NotebookService.class);
     }
 
     @Override
