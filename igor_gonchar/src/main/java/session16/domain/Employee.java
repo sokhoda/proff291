@@ -11,9 +11,18 @@ import java.util.Date;
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
-    @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ",
+            allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Integer id;
+
+    public Employee() {
+    }
+
+    public Employee(String lastName, String email) {
+        this.lastName = lastName;
+        this.email = email;
+    }
 
     @Column(name = "FIRST_NAME", length = 20)
     private String firstName;

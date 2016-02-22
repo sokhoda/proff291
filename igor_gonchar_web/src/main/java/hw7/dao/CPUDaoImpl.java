@@ -29,7 +29,7 @@ public class CPUDaoImpl implements CPUDao {
         Long id = null;
         try {
             session.beginTransaction();
-            session.save(cpu);
+            id = (Long) session.save(cpu);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException e) {

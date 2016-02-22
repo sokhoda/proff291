@@ -1,10 +1,7 @@
 package session16.dao;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateError;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,29 +13,31 @@ import java.util.List;
  * Created by Home on 20.02.2016.
  */
 @Repository("empDao")
-@Transactional
 public class EmployeeDaoImpl implements EmployeeDao {
     private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
 
     @Autowired(required = true)
-    private SessionFactory sf;
+    private SessionFactory mySessionFactory;
 
     @Override
-    @Transactional(readOnly = true)
-    public int getEmployeeSalaryByName(String name) {
-        Session session = sf.openSession();
-        Query query = session.createQuery("SELECT e.salary FROM Employee e WHERE e.firstName =:name");
-        query.setString("name",name);
-        String salaryS = query.toString();
-        return Integer.parseInt(salaryS);
+    public List<Integer> getEmployeeSalaryByName(String firstName) {
+        Session session = mySessionFactory.getCurrentSession();
+        Query query = session.createQuery("SELECT e.salary FROM Employee e WHERE e.firstName =:firstName").setString("firstName", firstName);
+        System.out.println(query.toString());
+        List<Integer> salary = query.list();
+
+        return salary;
     }
 
-    public EmployeeDaoImpl(){
+    public EmployeeDaoImpl() {
     }
 
     @Override
-    public Long create(Employee employee) {
-        return null;
+    public Integer create(Employee employee) {
+        Session session = mySessionFactory.getCurrentSession();
+        Integer id = (Integer) session.save(employee);
+        System.out.println("employee was added");
+        return id;
     }
 
     @Override
@@ -47,27 +46,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void delete(Employee id) {
-
+    public boolean delete(Employee employee) {
+        Session session = mySessionFactory.getCurrentSession();
+        session.delete(employee);
+        return true;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Employee> findAll() {
-        Session session = sf.openSession();
+        Session session = mySessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Employee e");
         return query.list();
 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Employee> findByDep(Long depId) {
         return null;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Employee> findEcceptDep(Long depId) {
         return null;
     }
