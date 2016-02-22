@@ -35,6 +35,7 @@ public class ListServlet extends HttpServlet {
         serviceRefreshPage(req, resp);
     }
 
+    @SuppressWarnings("unchecked")
     public void serviceRefreshPage(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

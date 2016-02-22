@@ -37,6 +37,7 @@ public class StoreServlet extends HttpServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -68,6 +69,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Принять на склад партию ноутбуков (id ноутбука, количество, цена)
      */
+    @SuppressWarnings("unchecked")
     public void receiveService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -83,6 +85,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Списать со склада ноутбуки (ключ, количество)
      */
+    @SuppressWarnings("unchecked")
     public void removeService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -105,6 +108,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Продать указанное количество ноутбуков со склада(id склада, количество)
      */
+    @SuppressWarnings("unchecked")
     public void salesService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

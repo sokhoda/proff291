@@ -40,6 +40,7 @@ public class NoteServlet extends HttpServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

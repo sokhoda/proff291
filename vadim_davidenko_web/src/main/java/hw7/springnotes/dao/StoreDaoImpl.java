@@ -19,99 +19,42 @@ public class StoreDaoImpl implements StoreDao {
 
     public StoreDaoImpl() {}
 
-    @Override
     public Long create(Store store) {
-        Session session = factory.openSession();
-        Long id = null;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            id = (Long)session.save(store);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return (Long)session.save(store);
     }
 
-    @Override
     public Store read(Long id) {
-        Session session = factory.openSession();
-        Store store = null;
-        try {
-            store = (Store)session.get(Store.class, id);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return store;
+        Session session = factory.getCurrentSession();
+        return (Store)session.get(Store.class, id);
     }
 
-    @Override
     public boolean update(Store store) {
-        Session session = factory.openSession();
-        boolean isUpdated = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.update(store);
-            tx.commit();
-            isUpdated = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isUpdated;
+        Session session = factory.getCurrentSession();
+        session.update(store);
+        return true;
     }
 
-    @Override
     public boolean delete(Store store) {
-        Session session = factory.openSession();
-        boolean isDeleted = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.delete(store);
-            tx.commit();
-            isDeleted = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isDeleted;
+        Session session = factory.getCurrentSession();
+        session.delete(store);
+        return true;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Store> findAll() {
-        Session session = factory.openSession();
-        try {
-            return (List<Store>)session.createQuery("from hw7.springnotes.domain.Store").list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        return (List<Store>)session.createQuery("from hw7.springnotes.domain.Store").list();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Store> findOnStorePresent() {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n, STORE s " +
-                            "where n.NOTEBOOK_ID = s.NOTEBOOK_ID"
-            );
-            query.addEntity(Store.class);
-            return query.list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        SQLQuery query = session.createSQLQuery(
+                "select * from NOTEBOOK n, STORE s " +
+                        "where n.NOTEBOOK_ID = s.NOTEBOOK_ID"
+        );
+        query.addEntity(Store.class);
+        return query.list();
     }
-
 }

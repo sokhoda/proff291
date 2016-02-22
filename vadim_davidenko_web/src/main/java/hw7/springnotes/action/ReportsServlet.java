@@ -39,6 +39,7 @@ public class ReportsServlet  extends HttpServlet {
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

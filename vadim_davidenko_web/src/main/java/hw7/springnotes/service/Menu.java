@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ public class Menu extends HttpServlet {
     /*
      * Main menu
      */
+    @SuppressWarnings("unchecked")
     public void main(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Map<String, String[]> parameterMap = req.getParameterMap();
@@ -70,6 +72,7 @@ public class Menu extends HttpServlet {
     /*
      * Go to Store menu page
      */
+    @SuppressWarnings("unchecked")
     public void storeService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -85,6 +88,7 @@ public class Menu extends HttpServlet {
     /*
      * Go to Reports menu page
      */
+    @SuppressWarnings("unchecked")
     public void reportsService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -96,6 +100,7 @@ public class Menu extends HttpServlet {
     /*
      * Add/Modify entity menu (Notebook type, Vendor, CPU, Memory)
      */
+    @SuppressWarnings("unchecked")
     public void entityService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

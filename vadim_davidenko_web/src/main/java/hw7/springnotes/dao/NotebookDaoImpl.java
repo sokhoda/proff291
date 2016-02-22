@@ -20,141 +20,76 @@ public class NotebookDaoImpl implements NotebookDao {
 
     public NotebookDaoImpl() {}
 
-    @Override
     public Long create(Notebook notebook) {
-        Session session = factory.openSession();
-        Long id = null;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            id = (Long)session.save(notebook);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return (Long)session.save(notebook);
     }
 
-    @Override
     public Notebook read(Long id) {
-        Session session = factory.openSession();
-        Notebook notebook = null;
-        try {
-            notebook = (Notebook)session.get(Notebook.class, id);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return notebook;
+        Session session = factory.getCurrentSession();
+        return (Notebook)session.get(Notebook.class, id);
     }
 
-    @Override
     public boolean update(Notebook notebook) {
-        Session session = factory.openSession();
-        boolean isUpdated = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.update(notebook);
-            tx.commit();
-            isUpdated = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isUpdated;
+        Session session = factory.getCurrentSession();
+        session.update(notebook);
+        return true;
     }
 
-    @Override
     public boolean delete(Notebook notebook) {
-        Session session = factory.openSession();
-        boolean isDeleted = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.delete(notebook);
-            tx.commit();
-            isDeleted = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isDeleted;
+        Session session = factory.getCurrentSession();
+        session.delete(notebook);
+        return true;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Notebook> findAll() {
-        Session session = factory.openSession();
-        try {
-            return (List<Notebook>)session.createQuery("from hw7.springnotes.domain.Notebook").list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        return (List<Notebook>)session.createQuery("from hw7.springnotes.domain.Notebook").list();
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Notebook> findByPortion(int page, int size) {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from hw7.springnotes.domain.Notebook");
-            query.setFirstResult(page * size);
-            query.setMaxResults(size);
-            return (List<Notebook>)query.list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from hw7.springnotes.domain.Notebook");
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        return (List<Notebook>)query.list();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Notebook> findByCpuVendor(Vendor cpuVendor) {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n, CPU c, VENDOR v " +
-                            "where n.CPU_ID = c.CPU_ID " +
-                            "and c.VENDOR_ID = v.VENDOR_ID " +
-                            "and v.NAME like :vendorName"
-            );
-            query.addEntity(Notebook.class);
-            query.setParameter("vendorName", cpuVendor.getName());
-            return query.list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        SQLQuery query = session.createSQLQuery(
+                "select * from NOTEBOOK n, CPU c, VENDOR v " +
+                        "where n.CPU_ID = c.CPU_ID " +
+                        "and c.VENDOR_ID = v.VENDOR_ID " +
+                        "and v.NAME like :vendorName"
+        );
+        query.addEntity(Notebook.class);
+        query.setParameter("vendorName", cpuVendor.getName());
+        return query.list();
     }
 
-    @Override
     public List<Notebook> findAllOnStore() {
         return findAll();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Notebook> findGtAmount(int amount) {
-        Session session = factory.openSession();
-        try {
-            SQLQuery query = session.createSQLQuery(
-                    "select * from NOTEBOOK n\n" +
-                            "where :amount < (\n" +
-                            "select sum(s.AMOUNT) from STORE s " +
-                            "where s.NOTEBOOK_ID = n.NOTEBOOK_ID\n" +
-                            ")"
-            );
-            query.addEntity(Notebook.class);
-            query.setParameter("amount", amount);
-            return query.list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        SQLQuery query = session.createSQLQuery(
+                "select * from NOTEBOOK n\n" +
+                        "where :amount < (\n" +
+                        "select sum(s.AMOUNT) from STORE s " +
+                        "where s.NOTEBOOK_ID = n.NOTEBOOK_ID\n" +
+                        ")"
+        );
+        query.addEntity(Notebook.class);
+        query.setParameter("amount", amount);
+        return query.list();
     }
 
 }
