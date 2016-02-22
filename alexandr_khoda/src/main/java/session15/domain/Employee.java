@@ -1,4 +1,4 @@
-package web.domain;
+package session15.domain;
 
 import session15.domain.Department;
 import session15.domain.MoneyConverter;
@@ -13,11 +13,12 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-//@SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
 public class Employee {
     @Id
-    @Column(name = "EMPLOYEE_ID")
+    @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ",
+            allocationSize = 1, initialValue = 50)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @Column(name = "EMPLOYEE_ID")
     private Long id;
 
     @Column(name = "FIRST_NAME", length = 20)
