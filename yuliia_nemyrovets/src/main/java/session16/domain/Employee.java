@@ -1,15 +1,12 @@
-package session15.domain.session15.dao;
-
+package session16.domain;
 
 import web.domain.MoneyConverter;
-
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by Юлия on 20.02.2016.
+ * Created by Юлия on 22.02.2016.
  */
-
 @Entity
 @Table(name = "EMPLOYEES")
 @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ")
@@ -47,6 +44,11 @@ public class Employee {
     @Column(name = "COMMISSION_PCT")
     private Integer comissionPct;
 
+    @ManyToOne
+    @JoinColumn(name = "MANAGER_ID")
+    private Employee manager;
+
+    //    @Column(name = "DEPARTMENT_ID")
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
@@ -128,6 +130,13 @@ public class Employee {
         this.comissionPct = comissionPct;
     }
 
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
 
     public String getJobId() {
         return jobId;
@@ -147,6 +156,7 @@ public class Employee {
                 + ", lastName=" + lastName + ", email=" + email
                 + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate
                 + ", salary=" + salary + ", comissionPct="
-                + comissionPct + "]";
+                + comissionPct +
+                "]";
     }
 }
