@@ -3,7 +3,6 @@ package hw7.springnotes.service;
 import hw7.springnotes.dao.*;
 import hw7.springnotes.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +34,8 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Autowired(required = true)
     private SalesDao salesDao;
+
+    private static int pageCounter = -1;
 
     private NotebookServiceImpl() {}
 
@@ -148,8 +149,16 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Transactional
     @SuppressWarnings("unchecked")
-    public List<Notebook> getNotebooksByPortion(int page, int size) {
-        return (List<Notebook>) notebookDao.findByPortion(page, size);
+    public List<Notebook> getNotebooksByPortion(int size) {
+        if (size == 0) {
+            pageCounter = -1;
+            return null;
+        } if (size < 0) {
+            if (pageCounter > 0) pageCounter--;
+        } else {
+            pageCounter++;
+        }
+        return (List<Notebook>) notebookDao.findByPortion(pageCounter, Math.abs(size));
     }
 
     @Transactional
