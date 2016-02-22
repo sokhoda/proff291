@@ -19,83 +19,31 @@ public class CPUDaoImpl implements CPUDao {
 
     public CPUDaoImpl() {}
 
-    @Override
     public Long create(CPU cpu) {
-        Session session = factory.openSession();
-        Long id = null;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            id = (Long)session.save(cpu);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return (Long)session.save(cpu);
     }
 
-    @Override
     public CPU read(Long id) {
-        Session session = factory.openSession();
-        CPU cpu = null;
-        try {
-            cpu = (CPU)session.get(CPU.class, id);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return cpu;
+        Session session = factory.getCurrentSession();
+        return (CPU)session.get(CPU.class, id);
     }
 
-    @Override
     public boolean update(CPU cpu) {
-        Session session = factory.openSession();
-        boolean isUpdated = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.update(cpu);
-            tx.commit();
-            isUpdated = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isUpdated;
+        Session session = factory.getCurrentSession();
+        session.update(cpu);
+        return true;
     }
 
-    @Override
     public boolean delete(CPU cpu) {
-        Session session = factory.openSession();
-        boolean isDeleted = false;
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.delete(cpu);
-            tx.commit();
-            isDeleted = true;
-        } catch (HibernateException e) {
-            if (tx != null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return isDeleted;
+        Session session = factory.getCurrentSession();
+        session.delete(cpu);
+        return true;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<CPU> findAll() {
-        Session session = factory.openSession();
-        try {
-            return (List<CPU>)session.createQuery("from hw7.springnotes.domain.CPU").list();
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        return (List<CPU>)session.createQuery("from hw7.springnotes.domain.CPU").list();
     }
 }

@@ -5,7 +5,7 @@ import hw7.springnotes.domain.Store;
 import hw7.springnotes.domain.Vendor;
 import hw7.springnotes.service.Menu;
 import hw7.springnotes.service.NotebookService;
-import hw7.springnotes.util.SpringUtils;
+import hw7.springnotes.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class ReportsServlet  extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        noteService = SpringUtils.createNotebookService();
+        noteService = StartupListener.getBean("notebookService", NotebookService.class);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class ReportsServlet  extends HttpServlet {
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

@@ -4,7 +4,7 @@ import hw7.springnotes.domain.Notebook;
 import hw7.springnotes.domain.Store;
 import hw7.springnotes.service.Menu;
 import hw7.springnotes.service.NotebookService;
-import hw7.springnotes.util.SpringUtils;
+import hw7.springnotes.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class StoreServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        noteService = SpringUtils.createNotebookService();
+        noteService = StartupListener.getBean("notebookService", NotebookService.class);
     }
     
     @Override
@@ -37,6 +37,7 @@ public class StoreServlet extends HttpServlet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -68,6 +69,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Принять на склад партию ноутбуков (id ноутбука, количество, цена)
      */
+    @SuppressWarnings("unchecked")
     public void receiveService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -83,6 +85,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Списать со склада ноутбуки (ключ, количество)
      */
+    @SuppressWarnings("unchecked")
     public void removeService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -105,6 +108,7 @@ public class StoreServlet extends HttpServlet {
     /*
      * Продать указанное количество ноутбуков со склада(id склада, количество)
      */
+    @SuppressWarnings("unchecked")
     public void salesService(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

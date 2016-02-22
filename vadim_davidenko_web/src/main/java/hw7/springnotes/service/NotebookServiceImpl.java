@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 /**
@@ -40,7 +41,7 @@ public class NotebookServiceImpl implements NotebookService {
     ////////////////////////////////////////////////////////////
     // Updates
 
-    @Override
+    @Transactional
     public boolean updateCPU(CPU cpu) {
         if (cpu == null) return false;
         if (cpuDao.read(cpu.getId()) != null) {
@@ -50,7 +51,7 @@ public class NotebookServiceImpl implements NotebookService {
         }
     }
 
-    @Override
+    @Transactional
     public boolean updateMemory(Memory memory) {
         if (memory == null) return false;
         if (memoryDao.read(memory.getId()) != null) {
@@ -60,7 +61,7 @@ public class NotebookServiceImpl implements NotebookService {
         }
     }
 
-    @Override
+    @Transactional
     public boolean updateVendor(Vendor vendor) {
         if (vendor == null) return false;
         if (vendorDao.read(vendor.getId()) != null) {
@@ -70,7 +71,7 @@ public class NotebookServiceImpl implements NotebookService {
         }
     }
 
-    @Override
+    @Transactional
     public boolean updateNotebook(Notebook notebook) {
         if (notebook == null) return false;
         if (notebookDao.read(notebook.getId()) != null) {
@@ -83,7 +84,7 @@ public class NotebookServiceImpl implements NotebookService {
     ////////////////////////////////////////////////////////////
     // Store services
 
-    @Override
+    @Transactional
     public Long receive(Long noteId, int amount, double price) {
         Store store = new Store();
         store.setAmount(amount);
@@ -94,7 +95,7 @@ public class NotebookServiceImpl implements NotebookService {
         return storeDao.create(store);
     }
 
-    @Override
+    @Transactional
     public boolean removeFromStore(Store store, int amount) {
         Integer currentAmount = store.getAmount();
 
@@ -110,7 +111,7 @@ public class NotebookServiceImpl implements NotebookService {
         return false;
     }
 
-    @Override
+    @Transactional
     public Long sale(Long storeId, int amount) {
         Store store = getStoreById(storeId);
         if (store == null) return 0L;
@@ -138,32 +139,38 @@ public class NotebookServiceImpl implements NotebookService {
     /////////////////////////////////////////////////////////////
     // Reports
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksByPortion(int page, int size) {
         return (List<Notebook>) notebookDao.findByPortion(page, size);
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksGtAmount(int amount) {
         return (List<Notebook>) notebookDao.findGtAmount(amount);
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
         return (List<Notebook>) notebookDao.findByCpuVendor(cpuVendor);
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksFromStore() {
         return (List<Notebook>) notebookDao.findAllOnStore();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Store> getNotebooksStorePresent() {
         return (List<Store>) storeDao.findOnStorePresent();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public Map<Date, Integer> getSalesByDays() {
         return (Map<Date, Integer>) salesDao.findAllByDays();
     }
@@ -171,27 +178,27 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Getters by Id
 
-    @Override
+    @Transactional
     public Notebook getNotebookById(Long id) {
         return notebookDao.read(id);
     }
 
-    @Override
+    @Transactional
     public Vendor getVendorById(Long id) {
         return vendorDao.read(id);
     }
 
-    @Override
+    @Transactional
     public CPU getCPUById(Long id) {
         return cpuDao.read(id);
     }
 
-    @Override
+    @Transactional
     public Memory getMemoryById(Long id) {
         return memoryDao.read(id);
     }
 
-    @Override
+    @Transactional
     public Store getStoreById(Long id) {
         return storeDao.read(id);
     }
@@ -199,28 +206,35 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Get all (list)
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Notebook> getAllNotebooks() {
         return notebookDao.findAll();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Vendor> getAllVendors() {
         return vendorDao.findAll();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<CPU> getAllCPUs() {
         return cpuDao.findAll();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Memory> getAllMemories() {
         return memoryDao.findAll();
     }
 
-    @Override
+    @Transactional
+    @SuppressWarnings("unchecked")
     public List<Store> getAllStores() {
         return storeDao.findAll();
     }
+
+
 }

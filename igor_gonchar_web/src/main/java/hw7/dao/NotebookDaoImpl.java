@@ -27,7 +27,7 @@ public class NotebookDaoImpl implements NotebookDao {
         Long id = null;
         try {
             session.beginTransaction();
-            session.save(notebook);
+            id = (Long)session.save(notebook);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException e) {
