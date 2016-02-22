@@ -67,14 +67,16 @@ public class MemoryServlet extends HttpServlet {
             String size = parameterMap.get("size")[0].trim();
 
             Memory memory = new Memory();
-            memory.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             memory.setVendor(vendor);
             memory.setSize(size);
 
-            if (noteService.updateMemory(memory)) {
-                if (id.isEmpty()) {
+            if (id.isEmpty()) {
+                if (!noteService.insertMemory(memory).equals(0L)) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
-                } else {
+                }
+            } else {
+                memory.setId(Long.valueOf(id));
+                if (noteService.updateMemory(memory)) {
                     req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
                 }
             }

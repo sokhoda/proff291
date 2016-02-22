@@ -39,46 +39,53 @@ public class NotebookServiceImpl implements NotebookService {
     private NotebookServiceImpl() {}
 
     ////////////////////////////////////////////////////////////
+    // Inserts
+
+    @Transactional
+    public Long insertCPU(CPU cpu) {
+        if (cpu == null) return 0L;
+        return cpuDao.create(cpu);
+    }
+
+    @Transactional
+    public Long insertMemory(Memory memory) {
+        if (memory == null) return 0L;
+        return memoryDao.create(memory);
+    }
+
+    @Transactional
+    public Long insertVendor(Vendor vendor) {
+        if (vendor == null) return 0L;
+        return vendorDao.create(vendor);
+    }
+
+    @Transactional
+    public Long insertNotebook(Notebook notebook) {
+        if (notebook == null) return 0L;
+        return notebookDao.create(notebook);
+    }
+
+    ////////////////////////////////////////////////////////////
     // Updates
 
     @Transactional
     public boolean updateCPU(CPU cpu) {
-        if (cpu == null) return false;
-        if (cpuDao.read(cpu.getId()) != null) {
-            return cpuDao.update(cpu);
-        } else {
-            return (cpuDao.create(cpu) != null);
-        }
+        return cpuDao.update(cpu);
     }
 
     @Transactional
     public boolean updateMemory(Memory memory) {
-        if (memory == null) return false;
-        if (memoryDao.read(memory.getId()) != null) {
-            return memoryDao.update(memory);
-        } else {
-            return (memoryDao.create(memory) != null);
-        }
+        return memoryDao.update(memory);
     }
 
     @Transactional
     public boolean updateVendor(Vendor vendor) {
-        if (vendor == null) return false;
-        if (vendorDao.read(vendor.getId()) != null) {
-            return vendorDao.update(vendor);
-        } else {
-            return (vendorDao.create(vendor) != null);
-        }
+        return vendorDao.update(vendor);
     }
 
     @Transactional
     public boolean updateNotebook(Notebook notebook) {
-        if (notebook == null) return false;
-        if (notebookDao.read(notebook.getId()) != null) {
-            return notebookDao.update(notebook);
-        } else {
-            return (notebookDao.create(notebook) != null);
-        }
+        return notebookDao.update(notebook);
     }
 
     ////////////////////////////////////////////////////////////
