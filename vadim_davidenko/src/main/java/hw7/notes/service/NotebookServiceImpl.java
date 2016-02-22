@@ -17,7 +17,7 @@ public class NotebookServiceImpl implements NotebookService {
     private StoreDao storeDao;
     private SalesDao salesDao;
 
-    private static Integer page = 1;
+    private static int pageCounter = -1;
 
     private NotebookServiceImpl() {}
 
@@ -189,8 +189,16 @@ public class NotebookServiceImpl implements NotebookService {
     // Reports
 
     @Override
-    public List<Notebook> getNotebooksByPortion(int page, int size) {
-        return (List<Notebook>) notebookDao.findByPortion(page, size);
+    public List<Notebook> getNotebooksByPortion(int size) {
+        if (size == 0) {
+            pageCounter = -1;
+            return null;
+        } if (size < 0) {
+            if (pageCounter > 0) pageCounter--;
+        } else {
+            pageCounter++;
+        }
+        return (List<Notebook>) notebookDao.findByPortion(pageCounter, Math.abs(size));
     }
 
     @Override

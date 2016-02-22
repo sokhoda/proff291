@@ -34,16 +34,16 @@ public class ListServlet extends HttpServlet {
 
         if (action.equals("paging")) {
             Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-            Integer page = Integer.parseInt(parameterMap.get("page")[0]);
-            List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(page, portion);
+            Integer page = Integer.parseInt(parameterMap.get("page")[0]);   // -1 (prev) or 1 (next)
+            List<Notebook> noteList = Menu.noteService.getNotebooksByPortion(portion * page);
 
             req.setAttribute("noteList", noteList);
             req.setAttribute("reportMenu", parameterMap.get("reportMenu")[0]);
             req.setAttribute("portion", parameterMap.get("portion")[0]);
-            req.setAttribute("page", parameterMap.get("page")[0]);
             req.getRequestDispatcher(Menu.REPORTS_LIST_PAGE).forward(req, resp);
 
         } else if (action.equals("back")) {
+            Menu.noteService.getNotebooksByPortion(0);   // reset paging to '0' page
             Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
             for (Map.Entry<String, String[]> entry : entries) {
                 req.setAttribute(entry.getKey(), entry.getValue()[0]);

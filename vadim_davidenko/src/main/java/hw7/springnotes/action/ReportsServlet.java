@@ -49,9 +49,8 @@ public class ReportsServlet  extends HttpServlet {
         switch (option) {
             case "byPortion":
                 Integer portion = Integer.parseInt(parameterMap.get("portion")[0]);
-                List<Notebook> noteList = noteService.getNotebooksByPortion(0, portion);
+                List<Notebook> noteList = noteService.getNotebooksByPortion(portion);
                 req.setAttribute("noteList", noteList);
-                req.setAttribute("page", "0");
                 break;
 
             case "byCPU":
