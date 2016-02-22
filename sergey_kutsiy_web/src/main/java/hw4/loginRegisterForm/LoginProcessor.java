@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by skuciy on 21.01.2016.
  */
-@WebServlet ("/logon")
+@WebServlet ("/")
 public class LoginProcessor extends HttpServlet {
     public ArrayList<User> users = new ArrayList<>();
     @Override

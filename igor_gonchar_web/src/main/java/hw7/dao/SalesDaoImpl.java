@@ -27,7 +27,7 @@ public class SalesDaoImpl implements SalesDao{
         Long id = null;
         try {
             session.beginTransaction();
-            session.save(sales);
+            id = (Long)session.save(sales);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException e) {
