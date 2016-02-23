@@ -19,7 +19,6 @@ public class StoreDaoImpl implements StoreDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Store store) {
         Session session = factory.openSession();
         Long id = null;
@@ -37,7 +36,6 @@ public class StoreDaoImpl implements StoreDao {
         return id;
     }
 
-    @Override
     public Store read(Long id) {
         Session session = factory.openSession();
         Store store = null;
@@ -51,7 +49,6 @@ public class StoreDaoImpl implements StoreDao {
         return store;
     }
 
-    @Override
     public boolean update(Store store) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -70,7 +67,6 @@ public class StoreDaoImpl implements StoreDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Store store) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -89,7 +85,6 @@ public class StoreDaoImpl implements StoreDao {
         return isDeleted;
     }
 
-    @Override
     public List<Store> findAll() {
         Session session = factory.openSession();
         try {
@@ -99,7 +94,6 @@ public class StoreDaoImpl implements StoreDao {
         }
     }
 
-    @Override
     public List<Store> findOnStorePresent() {
         Session session = factory.openSession();
         try {

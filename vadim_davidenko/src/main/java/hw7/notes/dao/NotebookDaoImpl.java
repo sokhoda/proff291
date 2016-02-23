@@ -22,7 +22,6 @@ public class NotebookDaoImpl implements NotebookDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Notebook notebook) {
         Session session = factory.openSession();
         Long id = null;
@@ -40,7 +39,6 @@ public class NotebookDaoImpl implements NotebookDao {
         return id;
     }
 
-    @Override
     public Notebook read(Long id) {
         Session session = factory.openSession();
         Notebook notebook = null;
@@ -54,7 +52,6 @@ public class NotebookDaoImpl implements NotebookDao {
         return notebook;
     }
 
-    @Override
     public boolean update(Notebook notebook) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -73,7 +70,6 @@ public class NotebookDaoImpl implements NotebookDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Notebook notebook) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -92,7 +88,6 @@ public class NotebookDaoImpl implements NotebookDao {
         return isDeleted;
     }
 
-    @Override
     public List<Notebook> findAll() {
         Session session = factory.openSession();
         try {
@@ -104,7 +99,6 @@ public class NotebookDaoImpl implements NotebookDao {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    @Override
     public List<Notebook> findByPortion(int page, int size) {
         Session session = factory.openSession();
         try {
@@ -117,7 +111,6 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
-    @Override
     public List<Notebook> findByCpuVendor(Vendor cpuVendor) {
         Session session = factory.openSession();
         try {
@@ -135,12 +128,10 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
-    @Override
     public List<Notebook> findAllOnStore() {
         return findAll();
     }
 
-    @Override
     public List<Notebook> findGtAmount(int amount) {
         Session session = factory.openSession();
         try {

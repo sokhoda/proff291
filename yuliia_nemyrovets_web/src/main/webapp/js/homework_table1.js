@@ -19,50 +19,6 @@ vector[6] = new telephone("0631818181", 0);
 vector[7] = new telephone("0981425626", 78);
 
 
-/*
- function createTable() {
- var table='<table border="1" align="center"> <tr>';
- table+='<th> Telephone Number</th><th>Balance</th></tr>'
- for(var i=0; i<=vector.length-1; i++){
-
- table +='<tr><td>'+vector[i].number+'</td><td>'+vector[i].balance+'</td></tr>';
-
- }
- table += '<table>';
- document.write(table);
-
- }*/
-
-//function title(table) {
-//
-//    for (var i = 0; i < vector.length; i++) {
-//        var tr = document.createElement('tr');
-//        for (var j = 0; j < i; j++) {
-//            var th = document.createElement('th');
-//            if (i === 0) {
-//                th.appendChild(document.createTextNode('Number'));
-//                tr.appendChild(th);
-//            }
-//            if (i === 1) {
-//                th.appendChild(document.createTextNode('Balance'));
-//                tr.appendChild(th);
-//            }
-//            if (i === 2) {
-//                th.appendChild(document.createTextNode('Delete'));
-//                tr.appendChild(th);
-//            }
-//            if (i === 3) {
-//                th.appendChild(document.createTextNode('Edit'));
-//                tr.appendChild(th);
-//            }
-//
-//        }
-//
-//    }
-//    table.appendChild(tr);
-//
-//
-//}
 
 function tableCreate() {
     var body = document.getElementsByTagName('body')[0];

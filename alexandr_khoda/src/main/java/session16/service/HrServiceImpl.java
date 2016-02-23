@@ -21,6 +21,6 @@ public class HrServiceImpl implements  HrService {
 
     @Override
     public Integer getESalary(String name) {
-        return empDao.getESalary();
+        return empDao.getESalary(name);
     }
 }

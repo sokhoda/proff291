@@ -60,15 +60,17 @@ public class CPUServlet extends HttpServlet {
             String freq = parameterMap.get("frequency")[0].trim();
 
             CPU cpu = new CPU();
-            cpu.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             cpu.setModel(model);
             cpu.setVendor(vendor);
             cpu.setFrequency(freq);
 
-            if (Menu.noteService.updateCPU(cpu)) {
-                if (id.isEmpty()) {
+            if (id.isEmpty()) {
+                if (!Menu.noteService.insertCPU(cpu).equals(0L)) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
-                } else {
+                }
+            } else {
+                cpu.setId(Long.valueOf(id));
+                if (Menu.noteService.updateCPU(cpu)) {
                     req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
                 }
             }

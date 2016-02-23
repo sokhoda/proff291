@@ -17,7 +17,7 @@ public class NotebookServiceImpl implements NotebookService {
     private StoreDao storeDao;
     private SalesDao salesDao;
 
-    private static Integer page = 1;
+    private static int pageCounter = -1;
 
     private NotebookServiceImpl() {}
 
@@ -30,54 +30,51 @@ public class NotebookServiceImpl implements NotebookService {
         this.storeDao = storeDao;
         this.salesDao = salesDao;
     }
+    ////////////////////////////////////////////////////////////
+    // Inserts
+
+    public Long insertCPU(CPU cpu) {
+        if (cpu == null) return 0L;
+        return cpuDao.create(cpu);
+    }
+
+    public Long insertMemory(Memory memory) {
+        if (memory == null) return 0L;
+        return memoryDao.create(memory);
+    }
+
+    public Long insertVendor(Vendor vendor) {
+        if (vendor == null) return 0L;
+        return vendorDao.create(vendor);
+    }
+
+    public Long insertNotebook(Notebook notebook) {
+        if (notebook == null) return 0L;
+        return notebookDao.create(notebook);
+    }
 
     ////////////////////////////////////////////////////////////
     // Updates
 
-    @Override
     public boolean updateCPU(CPU cpu) {
-        if (cpu == null) return false;
-        if (cpuDao.read(cpu.getId()) != null) {
-            return cpuDao.update(cpu);
-        } else {
-            return (cpuDao.create(cpu) != null);
-        }
+        return cpuDao.update(cpu);
     }
 
-    @Override
     public boolean updateMemory(Memory memory) {
-        if (memory == null) return false;
-        if (memoryDao.read(memory.getId()) != null) {
-            return memoryDao.update(memory);
-        } else {
-            return (memoryDao.create(memory) != null);
-        }
+        return memoryDao.update(memory);
     }
 
-    @Override
     public boolean updateVendor(Vendor vendor) {
-        if (vendor == null) return false;
-        if (vendorDao.read(vendor.getId()) != null) {
-            return vendorDao.update(vendor);
-        } else {
-            return (vendorDao.create(vendor) != null);
-        }
+        return vendorDao.update(vendor);
     }
 
-    @Override
     public boolean updateNotebook(Notebook notebook) {
-        if (notebook == null) return false;
-        if (notebookDao.read(notebook.getId()) != null) {
-            return notebookDao.update(notebook);
-        } else {
-            return (notebookDao.create(notebook) != null);
-        }
+        return notebookDao.update(notebook);
     }
 
     ////////////////////////////////////////////////////////////
     // Store services
 
-    @Override
     public Long receive(Long noteId, int amount, double price) {
         Store store = new Store();
         store.setAmount(amount);
@@ -88,7 +85,6 @@ public class NotebookServiceImpl implements NotebookService {
         return storeDao.create(store);
     }
 
-    @Override
     public boolean removeFromStore(Store store, int amount) {
         Integer currentAmount = store.getAmount();
 
@@ -104,7 +100,6 @@ public class NotebookServiceImpl implements NotebookService {
         return false;
     }
 
-    @Override
     public Long sale(Long storeId, int amount) {
         Store store = getStoreById(storeId);
         if (store == null) return 0L;
@@ -132,27 +127,22 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Getters by Id
 
-    @Override
     public Notebook getNotebookById(Long id) {
         return notebookDao.read(id);
     }
 
-    @Override
     public Vendor getVendorById(Long id) {
         return vendorDao.read(id);
     }
 
-    @Override
     public CPU getCPUById(Long id) {
         return cpuDao.read(id);
     }
 
-    @Override
     public Memory getMemoryById(Long id) {
         return memoryDao.read(id);
     }
 
-    @Override
     public Store getStoreById(Long id) {
         return storeDao.read(id);
     }
@@ -160,27 +150,22 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Get all (list)
 
-    @Override
     public List<Notebook> getAllNotebooks() {
         return notebookDao.findAll();
     }
 
-    @Override
     public List<Vendor> getAllVendors() {
         return vendorDao.findAll();
     }
 
-    @Override
     public List<CPU> getAllCPUs() {
         return cpuDao.findAll();
     }
 
-    @Override
     public List<Memory> getAllMemories() {
         return memoryDao.findAll();
     }
 
-    @Override
     public List<Store> getAllStores() {
         return storeDao.findAll();
     }
@@ -188,32 +173,34 @@ public class NotebookServiceImpl implements NotebookService {
     /////////////////////////////////////////////////////////////
     // Reports
 
-    @Override
-    public List<Notebook> getNotebooksByPortion(int page, int size) {
-        return (List<Notebook>) notebookDao.findByPortion(page, size);
+    public List<Notebook> getNotebooksByPortion(int size) {
+        if (size == 0) {
+            pageCounter = -1;
+            return null;
+        } if (size < 0) {
+            if (pageCounter > 0) pageCounter--;
+        } else {
+            pageCounter++;
+        }
+        return (List<Notebook>) notebookDao.findByPortion(pageCounter, Math.abs(size));
     }
 
-    @Override
     public List<Notebook> getNotebooksGtAmount(int amount) {
         return (List<Notebook>) notebookDao.findGtAmount(amount);
     }
 
-    @Override
     public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
         return (List<Notebook>) notebookDao.findByCpuVendor(cpuVendor);
     }
 
-    @Override
     public List<Notebook> getNotebooksFromStore() {
         return (List<Notebook>) notebookDao.findAllOnStore();
     }
 
-    @Override
     public List<Store> getNotebooksStorePresent() {
         return (List<Store>) storeDao.findOnStorePresent();
     }
 
-    @Override
     public Map<Date, Integer> getSalesByDays() {
         return (Map<Date, Integer>) salesDao.findAllByDays();
     }

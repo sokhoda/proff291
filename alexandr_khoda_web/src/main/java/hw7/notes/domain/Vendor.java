@@ -45,4 +45,5 @@ public class Vendor {
     public void setName(String name) {
         this.name = name;
     }
+
 }

@@ -73,17 +73,19 @@ public class NoteServlet extends HttpServlet {
             Memory memory = Menu.noteService.getMemoryById(memoryId);
 
             Notebook note = new Notebook();
-            note.setId((!id.isEmpty()) ? Long.valueOf(id) : 0L);
             note.setModel(model);
             note.setManufactureDate(date);
             note.setVendor(vendor);
             note.setCpu(cpu);
             note.setMemory(memory);
 
-            if (Menu.noteService.updateNotebook(note)) {
-                if (id.isEmpty()) {
+            if (id.isEmpty()) {
+                if (!Menu.noteService.insertNotebook(note).equals(0L)) {
                     req.setAttribute("server_msg", Menu.ADD_SUCCESS_MSG);
-                } else {
+                }
+            } else {
+                note.setId(Long.valueOf(id));
+                if (Menu.noteService.updateNotebook(note)) {
                     req.setAttribute("server_msg", Menu.UPDATE_SUCCESS_MSG);
                 }
             }
