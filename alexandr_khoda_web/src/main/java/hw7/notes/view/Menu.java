@@ -61,7 +61,7 @@ public class Menu extends HttpServlet {
             try {
                 req.setAttribute("messageText", "");
                 req.setAttribute("mode", "1");
-                req.setAttribute("venSelInx", "1");
+                req.setAttribute("venSelInx", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
                 return;

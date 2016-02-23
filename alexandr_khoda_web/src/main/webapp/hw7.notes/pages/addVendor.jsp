@@ -3,6 +3,7 @@
   User: al1
   Date: 21.11.15
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static hw7.notes.view.Servlet.*" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
@@ -48,6 +49,8 @@
         venSelInx = (String) request.getAttribute("venSelInx");
         venSelVal = (String) request.getAttribute("venSelVal");
     }
+    request.setAttribute("vendor", vendor);
+
     String vendorInputText = getAttribValue(request, "nameA");
 
     String[] message = getAttribArray(request);
@@ -60,50 +63,36 @@
 
 
     <div id="divVenSel">
-        <label for="venSel">SELECT VENDOR:</label>
-        <% if(vendor != null){
-        %>
-        <select size="<%vendor.size();%>" name="venSel" id="venSel"
-                onchange="this.form.submit();">
-
-            <option disabled>select item</option>
-            <%
-                int cnt = 1;
-                for (Vendor v : vendor) {
-                    if(venSelInx != null){
-                        if (cnt == Integer.parseInt(venSelInx)){
-            %>
-                            <option value="<%=v.getId()%>" selected>
-                    <%
-                        }
-                        else{
-                    %>
-                            <option value="<%=v.getId()%>">
-                    <%
-                        }
-                    }
-                    else {
-                        if (venSelVal != null && v.getId() ==
-                        Integer.parseInt(venSelVal)){
-                    %>
-                            <option value="<%=v.getId()%>" selected>
-                    <%
-                        }
-                        else{
-                    %>
-                            <option value="<%=v.getId()%>">
-                    <%
-                        }
-                    }
-                    %>
-
-                            <%=v.getName()%></option>
-            <%
-                        cnt++;
-                    }
-                }
-            %>
-        </select><br>
+        <c:if test="${mode == 1}">
+            <label for="venSel">SELECT VENDOR:</label>
+            <select size="1" name="venSel" id="venSel"
+                    onchange="this.form.submit();">
+                <option disabled>select item</option>
+                <c:forEach var="v" items="${vendor}" varStatus="cnt">
+                    <c:choose>
+                        <c:when test="${venSelInx != null}">
+                            <c:if test="${cnt.index == venSelInx}">
+                                <option value="${v.id}" selected>${v.name}</option>
+                            </c:if>
+                            <c:if test="${cnt.index != venSelInx}">
+                                <option value="${v.id}">${v.name}</option>
+                            </c:if>
+                        </c:when>
+                        <c:when test="${venSelVal != null}">
+                            <c:if test="${v.id == venSelVal}">
+                                <option value="${v.id}" selected>${v.name}</option>
+                            </c:if>
+                            <c:if test="${v.id != venSelVal}">
+                                <option value="${v.id}">${v.name}</option>
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${v.id}">${v.name}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select><br>
+        </c:if>
     </div>
 
     <label for="vendors">NAME:</label>

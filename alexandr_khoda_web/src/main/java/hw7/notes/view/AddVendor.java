@@ -34,6 +34,7 @@ public class AddVendor extends HttpServlet {
     @Override
     public void init() {
         vendorDao = (((NotebookServiceImpl)Menu.service).getVendorDao());
+
     }
 
     @Override
