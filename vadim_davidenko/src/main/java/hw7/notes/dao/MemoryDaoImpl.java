@@ -23,7 +23,6 @@ public class MemoryDaoImpl implements MemoryDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Memory memory) {
         Session session = factory.openSession();
         Long id = null;
@@ -41,7 +40,6 @@ public class MemoryDaoImpl implements MemoryDao {
         return id;
     }
 
-    @Override
     public Memory read(Long id) {
         Session session = factory.openSession();
         Memory memory = null;
@@ -55,7 +53,6 @@ public class MemoryDaoImpl implements MemoryDao {
         return memory;
     }
 
-    @Override
     public boolean update(Memory memory) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -74,7 +71,6 @@ public class MemoryDaoImpl implements MemoryDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Memory memory) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -93,7 +89,6 @@ public class MemoryDaoImpl implements MemoryDao {
         return isDeleted;
     }
 
-    @Override
     public List<Memory> findAll() {
         Session session = factory.openSession();
         try {

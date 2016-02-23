@@ -21,7 +21,6 @@ public class SalesDaoImpl implements SalesDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Sales sales) {
         Session session = factory.openSession();
         Long id = null;
@@ -39,7 +38,6 @@ public class SalesDaoImpl implements SalesDao {
         return id;
     }
 
-    @Override
     public Sales read(Long id) {
         Session session = factory.openSession();
         Sales sales = null;
@@ -53,7 +51,6 @@ public class SalesDaoImpl implements SalesDao {
         return sales;
     }
 
-    @Override
     public boolean update(Sales sales) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -72,7 +69,6 @@ public class SalesDaoImpl implements SalesDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Sales sales) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -91,7 +87,6 @@ public class SalesDaoImpl implements SalesDao {
         return isDeleted;
     }
 
-    @Override
     public List<Sales> findAll() {
         Session session = factory.openSession();
         try {

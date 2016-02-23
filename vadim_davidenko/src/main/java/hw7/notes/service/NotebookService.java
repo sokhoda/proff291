@@ -27,6 +27,14 @@ import java.util.Map;
  */
 public interface NotebookService {
 
+    Long insertCPU(CPU cpu);
+
+    Long insertMemory(Memory memory);
+
+    Long insertVendor(Vendor vendor);
+
+    Long insertNotebook(Notebook notebook);
+
     boolean updateCPU(CPU cpu);
 
     boolean updateMemory(Memory memory);
