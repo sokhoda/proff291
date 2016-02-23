@@ -26,7 +26,7 @@ import static hw7.notes.view.Servlet.setMessageAttr;
  * Created by s_okhoda on 09.02.2016.
  */
 @WebServlet("/AddVen")
-public class AddVendor extends HttpServlet {
+public class AddUpdateVendor extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private VendorDao vendorDao;
@@ -106,7 +106,7 @@ public class AddVendor extends HttpServlet {
                     setVendorAttributes(req);
                 }
                 req.setAttribute("mode","1");
-                req.setAttribute("venSelVal", venId.toString());
+                req.setAttribute("SelVal", venId.toString());
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
                 return;
@@ -122,7 +122,7 @@ public class AddVendor extends HttpServlet {
                 Vendor ven = vendorDao.read(venId);
                 setVendorAttributes2(req, ven);
                 req.setAttribute("mode","1");
-                req.setAttribute("venSelVal", venId.toString());
+                req.setAttribute("SelVal", venId.toString());
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
                 return;

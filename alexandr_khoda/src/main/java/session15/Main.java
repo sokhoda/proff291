@@ -16,13 +16,13 @@ public class Main {
 //        System.out.println(phone1);
 //        System.out.println(phone2);
 //
-//        Car car1 = cont.getBean("car1", Car.class);
-//        Chef chef1 = cont.getBean("chef1", Chef.class);
-//        Company company1 = cont.getBean("comp1", Company.class);
-//
-//        System.out.println(car1);
-//        System.out.println(chef1);
-//        System.out.println(company1);
+        Car car1 = cont.getBean("car1", Car.class);
+        Chef chef1 = cont.getBean("chef1", Chef.class);
+        Company company1 = cont.getBean("comp1", Company.class);
+
+        System.out.println(car1);
+        System.out.println(chef1);
+        System.out.println(company1);
 
 
 

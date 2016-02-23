@@ -46,7 +46,6 @@ public class Menu extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException {
         if (req.getParameter("crVen") != null) {
             try {
-                req.setAttribute("messageText", "");
                 req.setAttribute("mode", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
@@ -59,9 +58,8 @@ public class Menu extends HttpServlet {
 
         if (req.getParameter("updVen") != null) {
             try {
-                req.setAttribute("messageText", "");
                 req.setAttribute("mode", "1");
-                req.setAttribute("venSelInx", "0");
+                req.setAttribute("SelInx", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
                 return;

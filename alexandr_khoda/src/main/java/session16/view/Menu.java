@@ -28,16 +28,16 @@ public class Menu {
                     System.exit(0);
                     break;
                 case SHOW_ALL_USERS_ITEM:
-                    showAllUsers();
+//                    showAllUsers();
                     break;
                 case ADD_NEW_USER_ITEM:
-                    addNewUser();
+//                    addNewUser();
 
             }
         } while (!chs.equals(EXIT_ITEM_S));
     }
 
-    private int getInputString() {
+    private String getInputString() {
         int res = -1;
         System.out.println("Please, input Employee name:");
         String inputStr = scan.nextLine();

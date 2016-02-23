@@ -18,7 +18,7 @@ import static hw7.notes.view.Servlet.setMessageAttr;
  * Created by s_okhoda on 09.02.2016.
  */
 @WebServlet("/AddCpu")
-public class AddCPU extends HttpServlet {
+public class AddUpdateCPU extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
     private NotebookService service;

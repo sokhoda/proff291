@@ -35,9 +35,9 @@
 
     %>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/1.jsp").forward(request,response); %>--%>
-    <%--<%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>--%>
+    <%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addMemory.jsp").forward(request,response); %>--%>
-    <%request.getRequestDispatcher("hw7.notes/pages/addVendor.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("hw7.notes/pages/addVendor.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/noteList.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("session14/pages/EmployeeLogin.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw6.notes/pages/menu.jsp").forward(request,response); %>--%>

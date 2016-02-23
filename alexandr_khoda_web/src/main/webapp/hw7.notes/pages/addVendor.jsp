@@ -20,43 +20,31 @@
 
 <%!
     VendorDao vendorDao;
-    Integer mode;
     List<Vendor> vendor = null;
-    String headPart;
-    String venSelInx;
-    String venSelVal;
-%>
-<%
-    mode = String2Integer(getAttribValue(request, "mode"));
-    headPart =  (mode == 0 ? "Add New" : "Update");
 %>
 
+<c:if test="${mode == null}">
+    <c:set var="mode" value="0"/>
+</c:if>
+
 <head>
-    <title><%=headPart%> Vendor Type</title>
+    <title>${mode == 0 ? 'Add New': 'Update'} Vendor Type</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1><%=headPart%> Vendor Type</h1></center><br>
+    <center><h1>${mode == 0 ? 'Add New': 'Update'} Vendor Type</h1></center><br>
 </head>
 <body>
 
 
 <%
     vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
-
-    if (mode == 1) {
-        vendor = (List<Vendor>)vendorDao.findAll();
-        venSelInx = (String) request.getAttribute("venSelInx");
-        venSelVal = (String) request.getAttribute("venSelVal");
-    }
-    request.setAttribute("vendor", vendor);
-
-    String vendorInputText = getAttribValue(request, "nameA");
-
-    String[] message = getAttribArray(request);
-//        message[0] = "brown";
-//        message[1] = "";
 %>
+    <c:if test="${mode == 1}">
+        <% vendor = (List<Vendor>)vendorDao.findAll();
+           request.setAttribute("vendor", vendor);
+        %>
+    </c:if>
 
 <form action="/AddVen" method="get">
     <img src="/hw7.notes/img/addLaptop1.jpg" align="left" style="margin-right: 20px">
@@ -70,19 +58,19 @@
                 <option disabled>select item</option>
                 <c:forEach var="v" items="${vendor}" varStatus="cnt">
                     <c:choose>
-                        <c:when test="${venSelInx != null}">
-                            <c:if test="${cnt.index == venSelInx}">
+                        <c:when test="${SelInx != null}">
+                            <c:if test="${cnt.index == SelInx}">
                                 <option value="${v.id}" selected>${v.name}</option>
                             </c:if>
-                            <c:if test="${cnt.index != venSelInx}">
+                            <c:if test="${cnt.index != SelInx}">
                                 <option value="${v.id}">${v.name}</option>
                             </c:if>
                         </c:when>
-                        <c:when test="${venSelVal != null}">
-                            <c:if test="${v.id == venSelVal}">
+                        <c:when test="${SelVal != null}">
+                            <c:if test="${v.id == SelVal}">
                                 <option value="${v.id}" selected>${v.name}</option>
                             </c:if>
-                            <c:if test="${v.id != venSelVal}">
+                            <c:if test="${v.id != SelVal}">
                                 <option value="${v.id}">${v.name}</option>
                             </c:if>
                         </c:when>
@@ -96,7 +84,7 @@
     </div>
 
     <label for="vendors">NAME:</label>
-    <input  type="text" value="<%=vendorInputText%>" placeholder="TOSHIBA"
+    <input  type="text" value="${nameA == null ? '': nameA}" placeholder="TOSHIBA"
             name="name" id="vendors"><br>
 
     <br><br>
@@ -112,30 +100,27 @@
     </p>
     <br>
     <br>
-    <label id="message" style="width: 100%; margin-top:10%; color:<%=message[0]%>;
-            text-align: center; font-size:x-large"><%=message[1]%>
+    <label id="message" style="width: 100%; margin-top:10%;
+            color:${messageColor == null ? 'brown' : messageColor};
+            text-align: center; font-size:x-large">${messageText}
     </label>
 </form>
 
-<%
-    if(mode == 1){ //update
-%>
-<script type="text/javascript">
-    setVisibility('divVenSel', 'block');
-    setVisibility('updateBtn','inline');
-    setVisibility('addBtn','none');
-</script>
-<%
-}
-else{
-%>
+
+<c:if test="${mode == 1}">  <%--update--%>
+    <script type="text/javascript">
+        setVisibility('divVenSel', 'block');
+        setVisibility('updateBtn','inline');
+        setVisibility('addBtn','none');
+    </script>
+</c:if>
+<c:if test="${mode != 1}">  <%--add--%>
 <script type="text/javascript">
     setVisibility('divVenSel', 'none');
     setVisibility('updateBtn','none');
     setVisibility('addBtn','inline');
 </script>
-<%
-    }
-%>
+</c:if>
+
 </body>
 </html>
