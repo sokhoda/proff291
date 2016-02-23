@@ -21,7 +21,6 @@ public class CPUDaoImpl implements CPUDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(CPU cpu) {
         Session session = factory.openSession();
         Long id = null;
@@ -39,7 +38,6 @@ public class CPUDaoImpl implements CPUDao {
         return id;
     }
 
-    @Override
     public CPU read(Long id) {
         Session session = factory.openSession();
         CPU cpu = null;
@@ -53,7 +51,6 @@ public class CPUDaoImpl implements CPUDao {
         return cpu;
     }
 
-    @Override
     public boolean update(CPU cpu) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -72,7 +69,6 @@ public class CPUDaoImpl implements CPUDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(CPU cpu) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -91,7 +87,6 @@ public class CPUDaoImpl implements CPUDao {
         return isDeleted;
     }
 
-    @Override
     public List<CPU> findAll() {
         Session session = factory.openSession();
         try {

@@ -27,7 +27,7 @@ public class StoreDaoImpl implements StoreDao {
         Long id = null;
         try {
             session.beginTransaction();
-            session.save(store);
+            id = (Long) session.save(store);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException e) {
