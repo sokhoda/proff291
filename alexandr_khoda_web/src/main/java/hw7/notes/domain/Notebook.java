@@ -29,6 +29,7 @@ public class Notebook {
     private Long cpuId;
     private Long memoryId;
 
+    @Transient
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
     public Notebook(){

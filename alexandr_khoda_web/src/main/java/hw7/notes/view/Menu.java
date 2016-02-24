@@ -46,7 +46,6 @@ public class Menu extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException {
         if (req.getParameter("crVen") != null) {
             try {
-                req.setAttribute("messageText", "");
                 req.setAttribute("mode", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
                         .forward(req, res);
@@ -56,13 +55,34 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
+        if (req.getParameter("crCPU") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/addCPU.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
 
         if (req.getParameter("updVen") != null) {
             try {
-                req.setAttribute("messageText", "");
                 req.setAttribute("mode", "1");
-                req.setAttribute("venSelInx", "1");
+                req.setAttribute("SelInx", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+        if (req.getParameter("updCPU") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/updateCPU.jsp")
                         .forward(req, res);
                 return;
             }

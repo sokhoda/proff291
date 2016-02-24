@@ -36,7 +36,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Integer create(Employee employee) {
         Session session = mySessionFactory.getCurrentSession();
         Integer id = (Integer) session.save(employee);
-        System.out.println("employee was added");
         return id;
     }
 

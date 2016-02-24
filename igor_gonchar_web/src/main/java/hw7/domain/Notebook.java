@@ -78,4 +78,17 @@ public class Notebook {
     public Store getStore() {
         return store;
     }
+
+    @Override
+    public String toString() {
+        return "Notebook{" +
+                "id=" + id +
+                ", vendor=" + vendor.getName() +
+                ", model='" + model + '\'' +
+                ", manufactureDate=" + manufactureDate +
+                ", cpu=" + cpu.getModel() +
+                ", memory=" + memory.getSize() +
+                ", store=" + store +
+                '}';
+    }
 }

@@ -20,11 +20,11 @@
 <html>
 
 <head>
-    <title>Add new CPU type</title>
+    <title>Update CPU type</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>Add new CPU type</h1></center><br>
+    <center><h1>Update CPU type</h1></center><br>
 </head>
 <body>
 <%! CPUDao cpuDao;
