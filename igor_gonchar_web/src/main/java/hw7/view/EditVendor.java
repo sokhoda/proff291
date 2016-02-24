@@ -36,8 +36,8 @@ public class EditVendor extends HttpServlet {
 
         Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
         Vendor vendor = notebookService.getVendorById(vendorId);
+        System.out.println(vendor);
 
-        vendor.setName(name);
         notebookService.updateVendor(vendor);
 
         String pageAddress = "/hw7/editVendor.jsp";
