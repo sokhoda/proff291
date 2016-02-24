@@ -5,6 +5,7 @@ import hw7.domain.*;
 import hw7.service.NotebookService;
 import hw7.service.NotebookServiceImpl;
 import hw7.util.HiberSessionFactory;
+import hw7.util.StartupListener;
 import org.hibernate.SessionFactory;
 
 import javax.servlet.ServletException;
@@ -21,6 +22,13 @@ import java.util.List;
 @WebServlet("/notebooksAdvancedForm")
 public class Menu extends HttpServlet {
 
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -29,6 +37,7 @@ public class Menu extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String add = request.getParameter("addButton");
         String show = request.getParameter("showButton");
+        String edit = request.getParameter("editButton");
 
         String option = request.getParameter("addOption");
         String message = "Operation was done successfully";
@@ -54,19 +63,19 @@ public class Menu extends HttpServlet {
                     pageAddress = "/hw7/addNotebook.jsp";
                     message = "Add notebook";
 
-                    List<Vendor> vendorList = Main.notebookService.getAllVendors();
+                    List<Vendor> vendorList = notebookService.getAllVendors();
                     request.setAttribute("vendorList", vendorList);
 
-                    List<CPU> cpuList = Main.notebookService.getAllCPUs();
+                    List<CPU> cpuList = notebookService.getAllCPUs();
                     request.setAttribute("cpuList", cpuList);
 
-                    List<Memory> memoryList = Main.notebookService.getAllMemories();
+                    List<Memory> memoryList = notebookService.getAllMemories();
                     request.setAttribute("memoryList", memoryList);
 
                     request.getRequestDispatcher("/hw7/addNotebook.jsp").forward(request, response);
                     break;
                 case "store":
-                    List<Notebook> notebookList = Main.notebookService.getAllNotebooks();
+                    List<Notebook> notebookList = notebookService.getAllNotebooks();
                     request.setAttribute("notebookList", notebookList);
 
                     request.getRequestDispatcher("/hw7/addStore.jsp").forward(request, response);
@@ -75,48 +84,48 @@ public class Menu extends HttpServlet {
                 default:
                     break;
             }
-        } else {
+        } else if (show != null) {
             switch (option) {
                 case "cpu":
-                    List<CPU> list =  Main.notebookService.getAllCPUs();
+                    List<CPU> list = notebookService.getAllCPUs();
                     StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i <list.size() ; i++) {
+                    for (int i = 0; i < list.size(); i++) {
                         sb.append(list.get(i).toString());
                         sb.append("<br/>");
                     }
                     message = sb.toString();
                     break;
                 case "memory":
-                    List<Memory> list2 =  Main.notebookService.getAllMemories();
+                    List<Memory> list2 = notebookService.getAllMemories();
                     StringBuilder sb2 = new StringBuilder();
-                    for (int i = 0; i <list2.size() ; i++) {
+                    for (int i = 0; i < list2.size(); i++) {
                         sb2.append(list2.get(i).toString());
                         sb2.append("<br/>");
                     }
                     message = sb2.toString();
                     break;
                 case "vendor":
-                    List<Vendor> list3 =  Main.notebookService.getAllVendors();
+                    List<Vendor> list3 = notebookService.getAllVendors();
                     StringBuilder sb3 = new StringBuilder();
-                    for (int i = 0; i <list3.size() ; i++) {
+                    for (int i = 0; i < list3.size(); i++) {
                         sb3.append(list3.get(i).toString());
                         sb3.append("<br/>");
                     }
                     message = sb3.toString();
                     break;
                 case "notebook":
-                    List<Notebook> list4 =  Main.notebookService.getAllNotebooks();
+                    List<Notebook> list4 = notebookService.getAllNotebooks();
                     StringBuilder sb4 = new StringBuilder();
-                    for (int i = 0; i <list4.size() ; i++) {
+                    for (int i = 0; i < list4.size(); i++) {
                         sb4.append(list4.get(i).toString());
                         sb4.append("<br/>");
                     }
                     message = sb4.toString();
                     break;
                 case "store":
-                    List<Store> list5 =  Main.notebookService.getAllNotebooks();
+                    List<Store> list5 = notebookService.getAllNotebooks();
                     StringBuilder sb5 = new StringBuilder();
-                    for (int i = 0; i <list5.size() ; i++) {
+                    for (int i = 0; i < list5.size(); i++) {
                         sb5.append(list5.get(i).toString());
                         sb5.append("<br/>");
                     }
@@ -125,9 +134,47 @@ public class Menu extends HttpServlet {
                 default:
                     break;
             }
+        } else {
+            switch (option) {
+                case "cpu":
+                    List<CPU> cpuList = notebookService.getAllCPUs();
+                    request.setAttribute("cpuList", cpuList);
+
+                    pageAddress = "/hw7/editCPU.jsp";
+                    message = "editCPU";
+                    break;
+                case "memory":
+                    List<Memory> memoryList = notebookService.getAllMemories();
+                    request.setAttribute("memoryList", memoryList);
+
+                    pageAddress = "/hw7/editMemory.jsp";
+                    message = "editMemory";
+                    break;
+                case "vendor":
+                    List<Vendor> vendorList = notebookService.getAllVendors();
+                    request.setAttribute("vendorList", vendorList);
+
+                    pageAddress = "/hw7/editVendor.jsp";
+                    message = "editVendor";
+                    break;
+                case "notebook":
+                    List<Notebook> notebookList = notebookService.getAllNotebooks();
+                    request.setAttribute("notebookList", notebookList);
+
+                    pageAddress = "/hw7/editNotebook.jsp";
+                    message = "editNotebook";
+                    break;
+                case "store":
+                    List<Store> storeList = notebookService.getAllStores();
+                    request.setAttribute("storeList", storeList);
+
+                    pageAddress = "/hw7/editStore.jsp";
+                    message = "editStore";
+                    break;
+                default:
+                    break;
+            }
         }
-
-
         request.setAttribute("reg_result", message);
         request.getRequestDispatcher(pageAddress).forward(request, response);
 
