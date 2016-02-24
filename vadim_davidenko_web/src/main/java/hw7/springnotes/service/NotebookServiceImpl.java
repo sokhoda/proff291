@@ -2,11 +2,10 @@ package hw7.springnotes.service;
 
 import hw7.springnotes.dao.*;
 import hw7.springnotes.domain.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 /**
@@ -15,24 +14,14 @@ import java.util.*;
 
 @Scope("singleton")
 @Service("notebookService")
+@Transactional (readOnly = true)
 public class NotebookServiceImpl implements NotebookService {
 
-    @Autowired(required = true)
     private NotebookDao notebookDao;
-
-    @Autowired(required = true)
     private VendorDao vendorDao;
-
-    @Autowired(required = true)
     private CPUDao cpuDao;
-
-    @Autowired(required = true)
     private MemoryDao memoryDao;
-
-    @Autowired(required = true)
     private StoreDao storeDao;
-
-    @Autowired(required = true)
     private SalesDao salesDao;
 
     private static int pageCounter = -1;
@@ -42,25 +31,25 @@ public class NotebookServiceImpl implements NotebookService {
     ////////////////////////////////////////////////////////////
     // Inserts
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long insertCPU(CPU cpu) {
         if (cpu == null) return 0L;
         return cpuDao.create(cpu);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long insertMemory(Memory memory) {
         if (memory == null) return 0L;
         return memoryDao.create(memory);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long insertVendor(Vendor vendor) {
         if (vendor == null) return 0L;
         return vendorDao.create(vendor);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long insertNotebook(Notebook notebook) {
         if (notebook == null) return 0L;
         return notebookDao.create(notebook);
@@ -69,22 +58,22 @@ public class NotebookServiceImpl implements NotebookService {
     ////////////////////////////////////////////////////////////
     // Updates
 
-    @Transactional
+    @Transactional (readOnly = false)
     public boolean updateCPU(CPU cpu) {
         return cpuDao.update(cpu);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public boolean updateMemory(Memory memory) {
         return memoryDao.update(memory);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public boolean updateVendor(Vendor vendor) {
         return vendorDao.update(vendor);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public boolean updateNotebook(Notebook notebook) {
         return notebookDao.update(notebook);
     }
@@ -92,7 +81,7 @@ public class NotebookServiceImpl implements NotebookService {
     ////////////////////////////////////////////////////////////
     // Store services
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long receive(Long noteId, int amount, double price) {
         Store store = new Store();
         store.setAmount(amount);
@@ -103,7 +92,7 @@ public class NotebookServiceImpl implements NotebookService {
         return storeDao.create(store);
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public boolean removeFromStore(Store store, int amount) {
         Integer currentAmount = store.getAmount();
 
@@ -119,7 +108,7 @@ public class NotebookServiceImpl implements NotebookService {
         return false;
     }
 
-    @Transactional
+    @Transactional (readOnly = false)
     public Long sale(Long storeId, int amount) {
         Store store = getStoreById(storeId);
         if (store == null) return 0L;
@@ -147,7 +136,6 @@ public class NotebookServiceImpl implements NotebookService {
     /////////////////////////////////////////////////////////////
     // Reports
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksByPortion(int size) {
         if (size == 0) {
@@ -161,31 +149,26 @@ public class NotebookServiceImpl implements NotebookService {
         return (List<Notebook>) notebookDao.findByPortion(pageCounter, Math.abs(size));
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksGtAmount(int amount) {
         return (List<Notebook>) notebookDao.findGtAmount(amount);
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksByCpuVendor(Vendor cpuVendor) {
         return (List<Notebook>) notebookDao.findByCpuVendor(cpuVendor);
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Notebook> getNotebooksFromStore() {
         return (List<Notebook>) notebookDao.findAllOnStore();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Store> getNotebooksStorePresent() {
         return (List<Store>) storeDao.findOnStorePresent();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public Map<Date, Integer> getSalesByDays() {
         return (Map<Date, Integer>) salesDao.findAllByDays();
@@ -194,27 +177,22 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Getters by Id
 
-    @Transactional
     public Notebook getNotebookById(Long id) {
         return notebookDao.read(id);
     }
 
-    @Transactional
     public Vendor getVendorById(Long id) {
         return vendorDao.read(id);
     }
 
-    @Transactional
     public CPU getCPUById(Long id) {
         return cpuDao.read(id);
     }
 
-    @Transactional
     public Memory getMemoryById(Long id) {
         return memoryDao.read(id);
     }
 
-    @Transactional
     public Store getStoreById(Long id) {
         return storeDao.read(id);
     }
@@ -222,35 +200,55 @@ public class NotebookServiceImpl implements NotebookService {
     ///////////////////////////////////////////////////////////////////////////
     // Get all (list)
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Notebook> getAllNotebooks() {
         return notebookDao.findAll();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Vendor> getAllVendors() {
         return vendorDao.findAll();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<CPU> getAllCPUs() {
         return cpuDao.findAll();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Memory> getAllMemories() {
         return memoryDao.findAll();
     }
 
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<Store> getAllStores() {
         return storeDao.findAll();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Setters
 
+    public void setNotebookDao(NotebookDao notebookDao) {
+        this.notebookDao = notebookDao;
+    }
+
+    public void setVendorDao(VendorDao vendorDao) {
+        this.vendorDao = vendorDao;
+    }
+
+    public void setCpuDao(CPUDao cpuDao) {
+        this.cpuDao = cpuDao;
+    }
+
+    public void setMemoryDao(MemoryDao memoryDao) {
+        this.memoryDao = memoryDao;
+    }
+
+    public void setStoreDao(StoreDao storeDao) {
+        this.storeDao = storeDao;
+    }
+
+    public void setSalesDao(SalesDao salesDao) {
+        this.salesDao = salesDao;
+    }
 }
