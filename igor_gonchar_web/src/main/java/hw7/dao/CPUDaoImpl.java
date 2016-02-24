@@ -8,98 +8,59 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by i.gonchar on 2/15/2016.
  */
+@Repository("cpuDao")
 public class CPUDaoImpl implements CPUDao {
     private static Logger log = Logger.getLogger(VendorDaoImpl.class);
-    private SessionFactory factory;
 
+    @Autowired(required = true)
+    private SessionFactory mySessionFactory;
 
-    public CPUDaoImpl(SessionFactory factory) {
-        this.factory = factory;
+    public CPUDaoImpl() {
     }
 
     @Override
     public Long create(CPU cpu) {
-        Session session = factory.openSession();
-        Long id = null;
-        try {
-            session.beginTransaction();
-            id = (Long) session.save(cpu);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-
-        return null;
+        Session session = mySessionFactory.getCurrentSession();
+        Long id = (Long) session.save(cpu);
+        return id;
     }
 
     @Override
     public CPU read(Long id) {
-        Session session = factory.openSession();
-        try {
-            return (CPU) session.get(CPU.class, id);
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return null;
-
+        Session session = mySessionFactory.getCurrentSession();
+        return (CPU) session.get(CPU.class, id);
     }
 
     @Override
     public boolean update(CPU cpu) {
-        Session session = factory.openSession();
         boolean isUpdated = false;
-        try {
-            session.beginTransaction();
-            session.update(cpu);
-            session.getTransaction().commit();
-            isUpdated = true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-
+        Session session = mySessionFactory.getCurrentSession();
+        session.update(cpu);
+        isUpdated = true;
         return isUpdated;
     }
 
     @Override
     public boolean delete(CPU cpu) {
         boolean isDeleted = false;
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(cpu);
-            session.getTransaction().commit();
-            isDeleted = true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
+        Session session = mySessionFactory.getCurrentSession();
+        session.delete(cpu);
+        isDeleted = true;
         return isDeleted;
     }
 
     @Override
     public List findAll() {
-        Session session = factory.openSession();
+        Session session = mySessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM hw7.domain.CPU c");
         return query.list();
     }
-
-
 }

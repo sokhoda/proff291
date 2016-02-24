@@ -10,7 +10,7 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:component-scan base-package="hw7.springnotes"/>
+    <context:component-scan base-package="hw7"/>
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
@@ -23,7 +23,10 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>hw7.springnotes</value>
+                <value>hw7.dao</value>
+                <value>hw7.service</value>
+                <value>hw7.domain</value>
+                <value>hw7.view</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -40,14 +43,5 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="txManager" />
-
-    <bean id="notebookService" class="hw7.springnotes.service.NotebookServiceImpl">
-        <property name="notebookDao" ref="notebookDao"/>
-        <property name="vendorDao" ref="vendorDao"/>
-        <property name="cpuDao" ref="cpuDao"/>
-        <property name="memoryDao" ref="memoryDao"/>
-        <property name="storeDao" ref="storeDao"/>
-        <property name="salesDao" ref="salesDao"/>
-    </bean>
 
 </beans>

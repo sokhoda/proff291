@@ -1,6 +1,7 @@
 package hw7.view;
 
 import hw7.domain.CPU;
+import hw7.domain.Vendor;
 import hw7.service.NotebookService;
 import hw7.util.StartupListener;
 
@@ -13,10 +14,10 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by i.gonchar on 2/16/2016.
+ * Created by i.gonchar on 2/24/2016.
  */
-@WebServlet("/addCPU")
-public class AddCPU extends HttpServlet {
+@WebServlet("/editVendor")
+public class EditVendor extends HttpServlet {
     private NotebookService notebookService;
 
     @Override
@@ -31,15 +32,17 @@ public class AddCPU extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
-        String vendorName = parameterMap.get("vendorName")[0];
-        String frequency = parameterMap.get("frequency")[0];
-        String model = parameterMap.get("model")[0];
+        String name = parameterMap.get("name")[0];
 
-        CPU cpu = new CPU (vendorName, frequency, model);
-        notebookService.createCPU(cpu);
+        Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
+        Vendor vendor = notebookService.getVendorById(vendorId);
+        System.out.println(vendor);
 
-        String pageAddress = "/hw7/addCPU.jsp";
-        request.setAttribute("reg_result", "CPU was added");
+        notebookService.updateVendor(vendor);
+
+        String pageAddress = "/hw7/editVendor.jsp";
+        request.setAttribute("reg_result", "Vendor was edited");
         request.getRequestDispatcher(pageAddress).forward(request, resp);
+
     }
 }

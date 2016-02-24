@@ -4,6 +4,8 @@ import hw7.domain.CPU;
 import hw7.domain.Memory;
 import hw7.domain.Notebook;
 import hw7.domain.Vendor;
+import hw7.service.NotebookService;
+import hw7.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +26,12 @@ import java.util.Map;
 @WebServlet("/addNotebook")
 public class AddNotebook extends HttpServlet {
 
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
 
 
     @Override
@@ -35,13 +43,13 @@ public class AddNotebook extends HttpServlet {
         Map<String, String[]> parameterMap = request.getParameterMap();
 
         Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
-        Vendor vendor = Main.notebookService.getVendorById(vendorId);
+        Vendor vendor = notebookService.getVendorById(vendorId);
 
         Long cpuId = Long.valueOf(parameterMap.get("cpuId")[0]);
-        CPU cpu = Main.notebookService.getCPUById(cpuId);
+        CPU cpu = notebookService.getCPUById(cpuId);
 
         Long memoryId = Long.valueOf(parameterMap.get("memoryId")[0]);
-        Memory memory = Main.notebookService.getMemoryById(memoryId);
+        Memory memory = notebookService.getMemoryById(memoryId);
 
         String model = parameterMap.get("model")[0];
 
@@ -55,7 +63,7 @@ public class AddNotebook extends HttpServlet {
         }
 
         Notebook notebook = new Notebook(vendor, model, date, cpu, memory);
-        Main.notebookService.createNotebok(notebook);
+        notebookService.createNotebok(notebook);
 
         request.setAttribute("reg_result", "Notebook was added");
         request.getRequestDispatcher("/hw7/addNotebook.jsp").forward(request, resp);

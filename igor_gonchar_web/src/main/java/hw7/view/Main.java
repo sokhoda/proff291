@@ -5,6 +5,7 @@ import hw7.service.NotebookService;
 import hw7.service.NotebookServiceImpl;
 import hw7.util.HiberSessionFactory;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Created by i.gonchar on 2/17/2016.
@@ -19,12 +21,19 @@ import java.io.IOException;
 @WebServlet("/notebooksAdvancedMain")
 public class Main extends HttpServlet {
 
-    HiberSessionFactory sessionFactor = new HiberSessionFactory();
-    public static  NotebookService notebookService;
+    //Before Spring
+   /* HiberSessionFactory sessionFactor = new HiberSessionFactory();
+    public static  NotebookService notebookService;*/
+
+   /* @Autowired(required = true)
+    public static NotebookService notebookService;*/
 
     @Override
     public void init() throws ServletException {
-        SessionFactory sessionFactory = sessionFactor.getSessionFactory();
+        Locale.setDefault(Locale.ENGLISH);
+        //Before Spring
+
+       /* SessionFactory sessionFactory = sessionFactor.getSessionFactory();
         NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
         CPUDao cpuDao = new CPUDaoImpl(sessionFactory);
         VendorDao vendorDao = new VendorDaoImpl(sessionFactory);
@@ -32,7 +41,7 @@ public class Main extends HttpServlet {
         SalesDao salesDao = new SalesDaoImpl(sessionFactory);
         StoreDao storeDao = new StoreDaoImpl(sessionFactory);
 
-        notebookService = new NotebookServiceImpl(notebookDao, cpuDao, memoryDao, vendorDao, salesDao, storeDao);
+        notebookService = new NotebookServiceImpl(notebookDao, cpuDao, memoryDao, vendorDao, salesDao, storeDao);*/
 
     }
 
