@@ -55,12 +55,34 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
+        if (req.getParameter("crCPU") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/addCPU.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
 
         if (req.getParameter("updVen") != null) {
             try {
                 req.setAttribute("mode", "1");
                 req.setAttribute("SelInx", "0");
                 req.getRequestDispatcher("/hw7.notes/pages/addVendor.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+        if (req.getParameter("updCPU") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/updateCPU.jsp")
                         .forward(req, res);
                 return;
             }

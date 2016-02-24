@@ -58,13 +58,13 @@
           <tbody>
               <tr>
                   <td class="col0">
-                      <input type="submit" name="addNote"
+                      <input type="submit" name="crCPU"
                              value="1. Create CPU type">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNote"
+                      <input type="submit" name="crMemory"
                              value="2. Create Memory type">
                   </td>
               </tr>
@@ -76,89 +76,44 @@
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="updtPrice"
+                      <input type="submit" name="crNtbType"
                              value="4. Create Notebook type">
                   </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">id:</label>
-                          <input type="text" name="idUpdtPrice" value="" >
-                      </div>
-                  </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">price:</label>
-                          <input type="text" name="priceUpdtPrice" value="" >
-                      </div>
-                  </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="updtSnVendor"
+                      <input type="submit" name="accBatch"
                              value="5. Accept batch of Notes">
                   </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">id:</label>
-                          <input type="text" name="idUpdtSnVendor" value="">
-                      </div>
-                  </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">serial:</label>
-                          <input type="text" name="serialUpdtSnVendor" value="">
-                      </div>
-                  </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">vendor:</label>
-                          <input type="text" name="vendorUpdtSnVendor" value="">
-                      </div>
-                  </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="delNoteByModel"
+                      <input type="submit" name="sell"
                              value="6. Sell Notebooks from the store">
                   </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">model:</label>
-                          <input type="text" name="modelDelNoteByModel"
-                                 value="">
-                      </div>
-                  </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByVendor"
+                      <input type="submit" name="updCPU"
                              value="7. Update CPU">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
-                          <label class="smallSign">vendor:</label>
-                          <input type="text" name="vendorListNoteByVendor"
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="updCPUPortion"
                                  value="">
                       </div>
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDate"
+                      <input type="submit" name="updMemory"
                              value="8. Update Memory">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
-                          <label class="smallSign">price:</label>
-                          <input type="text" name="priceListNoteByPriceManDate"
-                                 value="">
-                      </div>
-                  </td>
-                  <td class="colA">
-                      <div class="cellIn">
-                          <label class="smallSign">date of manuf.:</label>
-                          <input type="text"
-                                 name="manDateListNoteByPriceManDate"
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="updMemoryPortion"
                                  value="">
                       </div>
                   </td>

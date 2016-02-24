@@ -21,7 +21,7 @@
 <head>
     <title>Update CPU Type</title>
     <style>
-        <%@include file='/hw7.notes/css/addNotebook.css' %>
+        <%@include file='/hw7.notes/css/updateCPU.css' %>
     </style>
     <center><h1>Update CPU Type</h1></center><br>
 </head>
@@ -44,16 +44,16 @@
 <script type="text/javascript">
     function onUpdate(id){
        var hid = document.getElementById('idVal');
-        hid.innerText = (id == null ? 0 : id);
+        hid.value = (id == null ? 0 : id);
+        this.form.submit();
     }
 </script>
 
 
 <form action="/AddCpu" method="get">
-    <div>
+    <div style="display: inline-block">
         <input type="submit" name="back" value="&longleftarrow; back">
-        <label id="message" style="width: 100%; margin-top:10%;
-                color:${messageColor == null ? 'brown' : messageColor};
+        <label id="message" style="width: 100%; color:${messageColor == null ? 'brown' : messageColor};
                 text-align: center; font-size:x-large">${messageText}
         </label>
 
@@ -62,9 +62,9 @@
 
     <table>
         <thead>
-        <tr>
-            <th colspan="100%"><h1>CPU list</h1></th>
-        </tr>
+        <%--<tr>--%>
+            <%--<th colspan="100%"><h1>CPU list</h1></th>--%>
+        <%--</tr>--%>
         <tr>
             <%--<th class="shrink"><h3>ID</h3></th>--%>
             <th><h3>ID</h3></th>
@@ -77,14 +77,14 @@
 
         <c:forEach var="c" items="${cpu}" varStatus="cnt">
             <tr>
-                <td class="shrink">c.id</td>
-                <td align="left">c.vendor</td>
-                <td align="left">c.freq</td>
-                <td align="left">c.model</td>
-                <td><button id="butUpdate" name="${c.id}"
+                <td class="shrink">${c.id}</td>
+                <td align="left">${c.vendor}</td>
+                <td align="left">${c.freq}</td>
+                <td align="left">${c.model}</td>
+                <td><button id="butUpdate" name="updCPU2"
                             onclick="onUpdate(${c.id})">Update</button>
                 </td>
-                <td><button id="butDelete" name="${c.id}"
+                <td><button id="butDelete" name="delCPU"
                             onclick="onUpdate(${c.id})">Delete</button>
                 </td>
             </tr>

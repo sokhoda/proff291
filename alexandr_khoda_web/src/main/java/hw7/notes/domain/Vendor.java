@@ -3,6 +3,8 @@ package hw7.notes.domain;
 import org.hibernate.annotations.Tables;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by s_okhoda on 16.02.2016.
@@ -17,6 +19,10 @@ public class Vendor {
     private Long id;
 
     private String name;
+
+    @OneToMany (mappedBy = "vendor")
+    private Set<CPU> cpus;
+
 
     public Vendor(String name) {
         this.name = name;

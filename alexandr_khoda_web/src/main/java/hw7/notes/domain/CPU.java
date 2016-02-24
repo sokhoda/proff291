@@ -13,24 +13,39 @@ public class CPU {
             allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private Long vendorId;
+
+    @ManyToOne
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendor;
+
+    @Column (name = "FREQUENCY")
     private Double freq;
+
+    @Column (name = "MODEL")
     private String model;
 
 
-    public CPU(Long vendorId, Double freq, String model) {
-        this.vendorId = vendorId;
+    public CPU(Vendor vendor, Double freq, String model) {
+        this.vendor = vendor;
         this.freq = freq;
         this.model = model;
+    }
+
+    public CPU(Vendor vendor) {
+        this(vendor, null, "N/A");
     }
 
     public CPU() {
     }
 
     @Override
-    public String toString(){
-        return "id=" + id + ", vendorId=" + vendorId + ", " + String.format
-                ("%.2f", freq)  + ", model=" + model;
+    public String toString() {
+        return "CPU{" +
+                "id=" + id +
+                ", vendor=" + vendor +
+                ", freq=" + freq +
+                ", model='" + model + '\'' +
+                '}';
     }
 
     public Long getId() {
@@ -41,12 +56,12 @@ public class CPU {
         this.id = id;
     }
 
-    public Long getVendorId() {
-        return vendorId;
+    public Vendor getVendor() {
+        return vendor;
     }
 
-    public void setVendorId(Long vendorId) {
-        this.vendorId = vendorId;
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
     public Double getFreq() {
