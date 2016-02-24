@@ -16,6 +16,8 @@ public interface NotebookDao {
     boolean update(Notebook ntb);
     boolean delete(Notebook ntb);
     boolean checkExist(Notebook ntb) throws HibernateException;
+    boolean checkExistExceptId(Notebook ntb, Long ntbID) throws
+            HibernateException;
     List findAll();
 
 

@@ -23,7 +23,7 @@
 %>
     <%
         request.setAttribute("cnt", 1);
-        request.setAttribute("totPortion", 5);
+        request.setAttribute("totPages", 5);
         request.setAttribute("mode", "1");
         request.setAttribute("SelInx", "0");
 

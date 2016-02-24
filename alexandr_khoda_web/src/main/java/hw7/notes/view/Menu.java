@@ -1,9 +1,12 @@
 package hw7.notes.view;
 
+import hw7.notes.dao.CPUDao;
 import hw7.notes.dao.NotebookDao;
 import hw7.notes.dao.NotebookDaoImpl;
 import hw7.notes.dao.VendorDao;
+import hw7.notes.domain.CPU;
 import hw7.notes.domain.Notebook;
+import hw7.notes.exception.PortionException;
 import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
 import org.hibernate.HibernateException;
@@ -23,6 +26,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static hw7.notes.view.Servlet.String2Integer;
+
 /**
  * Created by s_okhoda on 09.02.2016.
  */
@@ -33,12 +38,14 @@ public class Menu extends HttpServlet {
 
     public static NotebookService service;
     private VendorDao vendorDao;
+    private CPUDao cpuDao;
 
     @Override
     public void init() {
         service = new NotebookServiceImpl();
         vendorDao = (((NotebookServiceImpl)service).getVendorDao());
-        ((NotebookServiceImpl)service).getLog().info("Menu.init()");
+        cpuDao = (((NotebookServiceImpl)service).getCpuDao());
+//        ((NotebookServiceImpl)service).getLog().info("Menu.init()");
     }
 
 
@@ -82,6 +89,19 @@ public class Menu extends HttpServlet {
 
         if (req.getParameter("updCPU") != null) {
             try {
+                List cpu = (List<CPU>)cpuDao.findAll();
+                Integer sPortion = String2Integer((String)req.getParameter("updCPUPortion"));
+                if (sPortion == 0) {
+                    throw new PortionException("Portion size can not be ZERO.");
+                }
+                Integer totPages = (cpu.size() == 0 ? 1 :(int) Math.ceil
+                        (cpu.size() / (double)sPortion));
+                List cpuPortion = (List<CPU>)cpuDao.getCPUByPortion
+                        (sPortion, 1);
+                req.setAttribute("cnt", 1);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("cpuPortion", cpuPortion);
+                req.setAttribute("sPortion", sPortion);
                 req.getRequestDispatcher("/hw7.notes/pages/updateCPU.jsp")
                         .forward(req, res);
                 return;

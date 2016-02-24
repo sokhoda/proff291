@@ -43,8 +43,8 @@ public class NList extends HttpServlet {
                     req.setAttribute("messageText", "");
                     String cntMark = req.getParameter("cntMark");
                     int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
-                    int totPortion = Integer.parseInt(cntMark.split(" of ")[1]);
-                    req.setAttribute("totPortion", totPortion);
+                    int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
+                    req.setAttribute("totPages", totPages);
 
                     if (cnt > 1) {
                         cnt--;
@@ -64,10 +64,10 @@ public class NList extends HttpServlet {
                     req.setAttribute("messageText", "");
                     String cntMark = req.getParameter("cntMark");
                     int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
-                    int totPortion = Integer.parseInt(cntMark.split(" of ")[1]);
-                    req.setAttribute("totPortion", totPortion);
+                    int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
+                    req.setAttribute("totPages", totPages);
 
-                    if (cnt < totPortion) {
+                    if (cnt < totPages) {
                          cnt++;
                     }
                     req.setAttribute("cnt", cnt);

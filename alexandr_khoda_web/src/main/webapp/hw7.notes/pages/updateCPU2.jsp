@@ -85,13 +85,14 @@
     <br><br>
     <br><br>
     <p style="text-align: center;">
-        <input type="submit" name="back" value="&longleftarrow; back">
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="update" value="Update">
 
         <input type="button" value="Clear All"
                onclick="setSelectIndex('venSel', 0);
                clearElemContent('freq');
                clearElemContent('model');">
+
     </p>
     <br>
     <br>
@@ -99,6 +100,7 @@
             color:${messageColor == null ? 'brown' : messageColor};
             text-align: center; font-size:x-large">${messageText}
     </label>
+    <input type="hidden" name="idVal" id="idVal" value="${idVal}">
 </form>
 
 </body>

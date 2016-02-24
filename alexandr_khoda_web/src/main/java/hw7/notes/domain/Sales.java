@@ -17,14 +17,21 @@ public class Sales {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
-    private Long storeId;
+    @ManyToOne
+    @JoinColumn (name = "STORE_ID")
+    private Store store;
+
+    @Column (name = "SALE_DATE")
     private Date saleDate;
+
+    @Column (name = "QUANTITY")
     private int quantity;
 
+    @Transient
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
-    public Sales(Long storeId, Date saleDate, int quantity) {
-        this.storeId = storeId;
+    public Sales(Store store, Date saleDate, int quantity) {
+        this.store = store;
         this.saleDate = saleDate;
         this.quantity = quantity;
     }
@@ -33,11 +40,14 @@ public class Sales {
     }
 
     @Override
-    public String toString(){
-        return "id=" + id + ", storeId=" + storeId + ", saleDate=" + df.format
-                (saleDate) +", quantity=" + quantity;
+    public String toString() {
+        return "Sales{" +
+                "quantity=" + quantity +
+                ", saleDate=" + saleDate +
+                ", store=" + store +
+                ", id=" + id +
+                '}';
     }
-
 
     public Long getId() {
         return id;
@@ -45,14 +55,6 @@ public class Sales {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
     }
 
     public Date getSaleDate() {
@@ -69,5 +71,13 @@ public class Sales {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

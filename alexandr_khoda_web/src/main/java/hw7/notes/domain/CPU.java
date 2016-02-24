@@ -1,6 +1,7 @@
 package hw7.notes.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by s_okhoda on 16.02.2016.
@@ -23,6 +24,9 @@ public class CPU {
 
     @Column (name = "MODEL")
     private String model;
+
+    @OneToMany (mappedBy = "cpu")
+    private Set<Notebook> notebks;
 
 
     public CPU(Vendor vendor, Double freq, String model) {

@@ -17,7 +17,7 @@ import java.util.List;
  * Created by s_okhoda on 09.02.2016.
  */
 public class NotebookDaoImpl implements NotebookDao {
-    private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
+    private static Logger log = Logger.getLogger(NotebookDao.class);
     private SessionFactory factory;
 
     public NotebookDaoImpl(SessionFactory factory) {
@@ -122,11 +122,11 @@ public class NotebookDaoImpl implements NotebookDao {
         try{
             Query query = session.createQuery("from Notebook nt where vendorId = :vendorId and" +
                     " model = :model and  manDate = :manDate and cpuId = :cpuId and memoryId = :memoryId" )
-                    .setParameter("vendorId", ntb.getVendorId())
+                    .setParameter("vendorId", ntb.getVendor().getId())
                     .setParameter("model", ntb.getModel())
                     .setParameter("manDate", ntb.getManDate())
-                    .setParameter("cpuId", ntb.getCpuId())
-                    .setParameter("memoryId", ntb.getMemoryId());
+                    .setParameter("cpuId", ntb.getCpu().getId())
+                    .setParameter("memoryId", ntb.getMemory().getId());
             return (query.list().size() > 0 ? true : false);
         }
         catch (HibernateException e){
@@ -138,7 +138,31 @@ public class NotebookDaoImpl implements NotebookDao {
         }
     }
 
-//    @Override
+    @Override
+    public boolean checkExistExceptId(Notebook ntb, Long ntbID) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Notebook nt where vendorId = :vendorId and" +
+                    " model = :model and  manDate = :manDate and cpuId = :cpuId and memoryId = :memoryId " +
+                    " and nt.id <> :ntbID" )
+                    .setParameter("vendorId", ntb.getVendor().getId())
+                    .setParameter("model", ntb.getModel())
+                    .setParameter("manDate", ntb.getManDate())
+                    .setParameter("cpuId", ntb.getCpu().getId())
+                    .setParameter("memoryId", ntb.getMemory().getId())
+                    .setParameter("ntbID", ntbID);
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    //    @Override
 //    public boolean changePrice(Long id, double price) {
 //        Session session = factory.openSession();
 //        Notebook ntb;

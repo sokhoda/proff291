@@ -15,7 +15,7 @@ import java.util.List;
  * Created by s_okhoda on 16.02.2016.
  */
 public class MemoryDaoImpl implements MemoryDao {
-    private static Logger log = Logger.getLogger(MemoryDaoImpl.class);
+    private static Logger log = Logger.getLogger(MemoryDao.class);
     private SessionFactory factory;
 
     public MemoryDaoImpl(SessionFactory factory) {
@@ -49,7 +49,7 @@ public class MemoryDaoImpl implements MemoryDao {
         Session session = factory.openSession();
         Memory memory = null;
         try {
-            memory = (Memory) session.get(Vendor.class, id);
+            memory = (Memory) session.get(Memory.class, id);
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
         } finally {
@@ -104,10 +104,30 @@ public class MemoryDaoImpl implements MemoryDao {
     public boolean checkExist(Memory memory) throws HibernateException {
         Session session = factory.openSession();
         try{
-            Query query = session.createQuery("from Memory m where vendorId = :vendorId and " +
-                    " m.size = :size" )
-                    .setParameter("vendorId", memory.getVendorId())
-                    .setParameter("size", memory.getSize());
+            Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
+                    " m.sizze = :sizze")
+                    .setParameter("vendorId", memory.getVendor().getId())
+                    .setParameter("sizze", memory.getSizze());
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean checkExistExceptId(Memory memory, Long memoryID) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
+                    " m.sizze = :sizze and m.id <> :memoryID")
+                    .setParameter("vendorId", memory.getVendor().getId())
+                    .setParameter("sizze", memory.getSizze())
+                    .setParameter("memoryID", memoryID);
             return (query.list().size() > 0 ? true : false);
         }
         catch (HibernateException e){

@@ -16,5 +16,7 @@ public interface MemoryDao {
     boolean update(Memory memory);
     boolean delete(Memory memory);
     boolean checkExist(Memory memory) throws HibernateException;
+    boolean checkExistExceptId(Memory memory, Long memoryID) throws
+            HibernateException;
     List findAll();
 }
