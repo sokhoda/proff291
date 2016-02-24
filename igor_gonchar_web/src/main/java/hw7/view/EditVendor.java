@@ -1,5 +1,7 @@
 package hw7.view;
 
+import hw7.domain.CPU;
+import hw7.domain.Vendor;
 import hw7.service.NotebookService;
 import hw7.util.StartupListener;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by i.gonchar on 2/24/2016.
@@ -28,5 +31,18 @@ public class EditVendor extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        String name = parameterMap.get("name")[0];
+
+        Long vendorId = Long.valueOf(parameterMap.get("vendorId")[0]);
+        Vendor vendor = notebookService.getVendorById(vendorId);
+
+        vendor.setName(name);
+        notebookService.updateVendor(vendor);
+
+        String pageAddress = "/hw7/editVendor.jsp";
+        request.setAttribute("reg_result", "Vendor was edited");
+        request.getRequestDispatcher(pageAddress).forward(request, resp);
+
     }
 }
