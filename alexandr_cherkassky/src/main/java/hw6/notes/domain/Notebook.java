@@ -4,6 +4,7 @@ package hw6.notes.domain;
 
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -18,10 +19,10 @@ public class Notebook {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
 
 
-    private Long id=null;
+    private Long id;
 
     @Column(name="SERIAL")
-    private Long serial=null;
+    private String serial=null;
 
     @Column(name="VENDOR")
     private String vendor=null;
@@ -30,23 +31,21 @@ public class Notebook {
     private String model=null;
 
     @Column(name="MANUFACTURE DATE")
-    private GregorianCalendar manufDate;
+    private Date manufDate;
 
     @Column(name="PRICE")
     private Double price=null;
 
-    public Notebook(Long id, Long serial, String vendor, String model, GregorianCalendar manufDate, Double price) {
+    public Notebook(){
+
+    }
+
+    public Notebook( String serial, String vendor, String model,Date manufDate, Double price) {
         this.id = id;
         this.serial = serial;
         this.vendor = vendor;
         this.model = model;
         this.manufDate = manufDate;
-        this.price = price;
-    }
-
-    public Notebook(Long id,String model, Double price) {
-        this.id = id;
-        this.model = model;
         this.price = price;
     }
 
@@ -57,7 +56,7 @@ public class Notebook {
                 ", serial=" + serial +
                 ", vendor='" + vendor + '\'' +
                 ", model='" + model + '\'' +
-                ", manufDate=" + manufDate +
+               /* ", manufDate=" + manufDate +*/
                 ", price=" + price +
                 '}';
     }
@@ -66,7 +65,7 @@ public class Notebook {
         return id;
     }
 
-    public Long getSerial() {
+    public String getSerial() {
         return serial;
     }
 
@@ -74,7 +73,7 @@ public class Notebook {
         return vendor;
     }
 
-    public GregorianCalendar getManufDate() {
+    public Date getManufDate() {
         return manufDate;
     }
 
@@ -90,7 +89,7 @@ public class Notebook {
         this.id = id;
     }
 
-    public void setSerial(Long serial) {
+    public void setSerial(String serial) {
         this.serial = serial;
     }
 
@@ -102,7 +101,7 @@ public class Notebook {
         this.model = model;
     }
 
-    public void setManufDate(GregorianCalendar manufDate) {
+    public void setManufDate(Date manufDate) {
         this.manufDate = manufDate;
     }
 
