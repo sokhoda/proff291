@@ -13,7 +13,7 @@
 </head>
 <body>
 <h3>Edit Vendor:</h3>
-Select Memory: <br/>
+Select Vendor: <br/>
 <form id="editVendor" action="/editVendor" method="post">
 
     <select size="4" name="vendorId">

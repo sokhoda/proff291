@@ -6,9 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static hw7.notes.view.Servlet.*" %>
-<%@ page import="hw7.notes.domain.CPU" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
 <%@ page import="hw7.notes.view.Menu" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
@@ -27,13 +25,11 @@
     <center><h1>Update CPU type</h1></center><br>
 </head>
 <body>
-<%! CPUDao cpuDao;
+<%!
     VendorDao vendorDao;
-    List<CPU> cpu;
     List<Vendor> vendor;
 %>
 <%
-    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
     vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
     vendor = (List<Vendor>)vendorDao.findAll();
     request.setAttribute("vendor", vendor);
@@ -45,7 +41,7 @@
 
 
     <div id="divVenSel">
-        <label for="venSel">SELECT VENDOR:</label>
+        <label for="venSel">VENDOR:</label>
         <select size="1" name="venSel" id="venSel">
             <option disabled>select item</option>
             <c:forEach var="v" items="${vendor}" varStatus="cnt">
@@ -85,13 +81,14 @@
     <br><br>
     <br><br>
     <p style="text-align: center;">
-        <input type="submit" name="back" value="&longleftarrow; back">
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="update" value="Update">
 
         <input type="button" value="Clear All"
                onclick="setSelectIndex('venSel', 0);
                clearElemContent('freq');
                clearElemContent('model');">
+
     </p>
     <br>
     <br>
@@ -99,6 +96,7 @@
             color:${messageColor == null ? 'brown' : messageColor};
             text-align: center; font-size:x-large">${messageText}
     </label>
+    <input type="hidden" name="idVal" id="idVal" value="${idVal}">
 </form>
 
 </body>

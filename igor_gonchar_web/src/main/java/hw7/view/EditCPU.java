@@ -33,8 +33,14 @@ public class EditCPU extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
 
+
+
         Long CPUId = Long.valueOf(parameterMap.get("cpuId")[0]);
         CPU cpu = notebookService.getCPUById(CPUId);
+
+
+
+
 
         request.setAttribute("reg_result", "CPU was edited");
         request.getRequestDispatcher("/hw7/editCPU.jsp").forward(request, resp);

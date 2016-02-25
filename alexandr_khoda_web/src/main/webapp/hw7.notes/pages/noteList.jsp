@@ -23,11 +23,11 @@
 <%!
     List<Notebook> nlist;
     int cnt;
-    int totPortion;
+    int totPages;
 %>
 <%
     cnt = (Integer)request.getAttribute("cnt");
-    totPortion = (Integer)request.getAttribute("totPortion");
+    totPages = (Integer)request.getAttribute("totPages");
     nlist = (List<Notebook>) request.getAttribute("nlist");
     String[] message = getAttribArray(request);
     if (nlist == null || nlist.size() == 0 ) {
@@ -41,17 +41,17 @@
 
     <input type="submit" name="back" id="back" class="but"
            value="&longleftarrow;">
-    <label class="cntMark"><%=cnt%> of <%=totPortion%></label>
+    <label class="cntMark"><%=cnt%> of <%=totPages%></label>
     <input type="submit" name="forward" id="forward" class="but"
            value="&longrightarrow;">
 
-    <input type="hidden" name="cntMark" value="<%=cnt%> of <%=totPortion%>">
+    <input type="hidden" name="cntMark" value="<%=cnt%> of <%=totPages%>">
 
     <label class="regMessage"style="color: <%=message[0]%>"><%=message[1]%></label>
 </div>
 
 <%
-    if (cnt == totPortion){
+    if (cnt == totPages){
 %>
         <script type="text/javascript">
             document.getElementById("forward").disabled = true;

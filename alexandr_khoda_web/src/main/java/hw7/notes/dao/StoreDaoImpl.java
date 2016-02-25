@@ -14,7 +14,7 @@ import java.util.List;
  * Created by s_okhoda on 16.02.2016.
  */
 public class StoreDaoImpl implements StoreDao {
-    private static Logger log = Logger.getLogger(StoreDaoImpl.class);
+    private static Logger log = Logger.getLogger(StoreDao.class);
     private SessionFactory factory;
 
     public StoreDaoImpl(SessionFactory factory) {
@@ -48,7 +48,7 @@ public class StoreDaoImpl implements StoreDao {
         Session session = factory.openSession();
         Store store = null;
         try {
-            store = (Store) session.get(Vendor.class, id);
+            store = (Store) session.get(Store.class, id);
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
         } finally {

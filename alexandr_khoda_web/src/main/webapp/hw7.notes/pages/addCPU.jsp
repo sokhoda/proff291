@@ -85,13 +85,14 @@
     <br><br>
     <br><br>
     <p style="text-align: center;">
-        <input type="submit" name="back" value="&longleftarrow; back">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
         <input type="submit" name="add" value="Add">
 
         <input type="button" value="Clear All"
                onclick="setSelectIndex('venSel', 0);
                clearElemContent('freq');
-               clearElemContent('model');">
+               clearElemContent('model');
+               clearElemContent('message');">
     </p>
     <br>
     <br>

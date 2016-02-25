@@ -23,7 +23,7 @@
 %>
     <%
         request.setAttribute("cnt", 1);
-        request.setAttribute("totPortion", 5);
+        request.setAttribute("totPages", 5);
         request.setAttribute("mode", "1");
         request.setAttribute("SelInx", "0");
 
@@ -34,9 +34,9 @@
 //                Arrays.asList("ven1","ven2","ven5","ven4"));
 
     %>
-    <%request.getRequestDispatcher("hw7.notes/pages/addCPU.jsp").forward(request,response); %>
+    <%--<%request.getRequestDispatcher("hw7.notes/pages/addCPU.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/1.jsp").forward(request,response); %>--%>
-    <%--<%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>--%>
+    <%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addMemory.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addVendor.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/noteList.jsp").forward(request,response); %>--%>

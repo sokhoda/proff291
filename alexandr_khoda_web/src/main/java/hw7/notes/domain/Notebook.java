@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 /**
  * Created by s_okhoda on 09.02.2016.
@@ -19,15 +20,26 @@ public class Notebook {
     @Column(name = "ID")
     private Long id;
 
-    private Long vendorId;
+    @ManyToOne
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendor;
 
     @Column(name="MODEL")
     private String model;
 
     @Column(name="MANDATE")
     private Date manDate;
-    private Long cpuId;
-    private Long memoryId;
+
+    @ManyToOne
+    @JoinColumn (name = "CPU_ID")
+    private CPU cpu;
+
+    @ManyToOne
+    @JoinColumn (name = "MEMORY_ID")
+    private Memory memory;
+
+    @OneToMany (mappedBy = "notebk")
+    private Set<Store> stores;
 
     @Transient
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
@@ -35,57 +47,55 @@ public class Notebook {
     public Notebook(){
     }
 
-    public Notebook(Long vendorId, String model, Date manDate, Long cpuId,
-                    Long memoryId) {
-        this.vendorId = vendorId;
+    public Notebook(Vendor vendor, String model, Date manDate, CPU cpu,
+                    Memory memory) {
+        this.vendor = vendor;
         this.model = model;
         this.manDate = manDate;
-        this.cpuId = cpuId;
-        this.memoryId = memoryId;
+        this.cpu = cpu;
+        this.memory = memory;
     }
 
-    public Notebook(Long vendorId, String model, Date manDate) {
-        this(vendorId, model, manDate, null, null);
-
+    public Notebook(Vendor vendor, String model, Date manDate) {
+        this(vendor, model, manDate, null, null);
     }
 
     @Override
-    public String toString(){
-        return "id=" + id + ", vendorId=" + vendorId + ", model=" +
-                model + ", manDate=" + df.format(manDate) + ", cpuId=" + cpuId +
-                ", memoryId=" + memoryId;
+    public String toString() {
+        return "Notebook{" +
+                "id=" + id +
+                ", vendor=" + vendor +
+                ", model='" + model + '\'' +
+                ", manDate=" + manDate +
+                ", cpu=" + cpu +
+                ", memory=" + memory +
+                ", stores=" + stores +
+                '}';
     }
 
-    public long getId() {
-        return id;
+
+    public Vendor getVendor() {
+        return vendor;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
-    public Long getVendorId() {
-        return vendorId;
+    public CPU getCpu() {
+        return cpu;
     }
 
-    public void setVendorId(Long vendorId) {
-        this.vendorId = vendorId;
+    public void setCpu(CPU cpu) {
+        this.cpu = cpu;
     }
 
-    public Long getCpuId() {
-        return cpuId;
+    public Memory getMemory() {
+        return memory;
     }
 
-    public void setCpuId(Long cpuId) {
-        this.cpuId = cpuId;
-    }
-
-    public Long getMemoryId() {
-        return memoryId;
-    }
-
-    public void setMemoryId(Long memoryId) {
-        this.memoryId = memoryId;
+    public void setMemory(Memory memory) {
+        this.memory = memory;
     }
 
     public String getModel() {
@@ -104,8 +114,11 @@ public class Notebook {
         this.manDate = manDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
-
 }

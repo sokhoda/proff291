@@ -119,6 +119,24 @@ public class VendorDaoImpl implements VendorDao {
     }
 
     @Override
+    public boolean checkExistExceptId(Vendor vendor, Long venID) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from Vendor v where name = :NAME and v.id <> :venID")
+                    .setParameter("NAME", vendor.getName())
+                    .setParameter("venID", venID);
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List findAll() {
         Session session = factory.openSession();
         try {
