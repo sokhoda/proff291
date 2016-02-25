@@ -40,7 +40,10 @@ Select Notebook: <br/>
     <input id="row4c3" type="text" name="price"> <br/>
     <input type="submit" <%--onclick="validateRow4()"--%> value="Add Store"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 
 ${reg_result}
 

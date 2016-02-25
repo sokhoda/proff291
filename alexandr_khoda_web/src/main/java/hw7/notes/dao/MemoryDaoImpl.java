@@ -3,6 +3,7 @@ package hw7.notes.dao;
 import hw7.notes.domain.CPU;
 import hw7.notes.domain.Memory;
 import hw7.notes.domain.Vendor;
+import hw7.notes.exception.PortionException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -148,6 +149,26 @@ public class MemoryDaoImpl implements MemoryDao {
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
             return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List getMemoryByPortion(int size, int cnt) throws
+            PortionException, HibernateException {
+        if (size <= 0) {
+            throw new PortionException("Negative portion size.");
+        }
+        Session session = factory.openSession();
+        try {
+            Query query = session.createQuery("from Memory");
+            query.setFirstResult((cnt - 1) * size);
+            query.setMaxResults(size);
+            return query.list();
+        } catch (HibernateException e) {
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
         } finally {
             session.close();
         }

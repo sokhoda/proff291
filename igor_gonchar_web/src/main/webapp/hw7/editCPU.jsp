@@ -39,8 +39,12 @@ Select CPU: <br/>
     Change model: <br/>
     <input id="editCPUmodel" type="text" name="model"> <br/>
     <input type="submit" value="Edit CPU"/>
+    <input name="deleteButton" type="submit" value="Delete CPU"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>
