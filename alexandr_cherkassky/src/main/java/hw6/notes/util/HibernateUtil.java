@@ -1,11 +1,11 @@
 package hw6.notes.util;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+        import org.hibernate.SessionFactory;
+        import org.hibernate.boot.registry.StandardServiceRegistry;
+        import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+        import org.hibernate.cfg.Configuration;
 
-import java.util.Locale;
+        import java.util.Locale;
 
 /**
  * Created by Пк2 on 11.02.2016.
