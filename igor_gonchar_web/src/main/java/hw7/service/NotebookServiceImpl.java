@@ -3,6 +3,7 @@ package hw7.service;
 import hw7.dao.*;
 import hw7.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 /**
  * Created by i.gonchar on 2/15/2016.
  */
+@Scope("singleton")
 @Service("notebookService")
 public class NotebookServiceImpl implements NotebookService {
 
@@ -53,10 +55,7 @@ public class NotebookServiceImpl implements NotebookService {
     @Override
     public boolean updateCPU(CPU cpu) {
         if (cpu == null) return false;
-        if (cpuDao.read(cpu.getId()) != null) {
-            cpuDao.update(cpu);
-        }
-        return true;
+        return cpuDao.update(cpu);
     }
 
     @Override
@@ -71,10 +70,7 @@ public class NotebookServiceImpl implements NotebookService {
     @Transactional
     public boolean updateMemory(Memory memory) {
         if (memory == null) return false;
-        if (memoryDao.read(memory.getId()) != null) {
-            memoryDao.update(memory);
-        }
-        return true;
+        return memoryDao.update(memory);
     }
 
     @Override
@@ -89,17 +85,14 @@ public class NotebookServiceImpl implements NotebookService {
     @Transactional
     public boolean updateVendor(Vendor vendor) {
         if (vendor == null) return false;
-        if (vendorDao.read(vendor.getId()) != null)
-            vendorDao.update(vendor);
-        return true;
+        return vendorDao.update(vendor);
     }
 
     @Override
     @Transactional
-    public boolean createVendor(Vendor vendor) {
-        if (vendor == null) return false;
-        vendorDao.create(vendor);
-        return true;
+    public Long createVendor(Vendor vendor) {
+        if (vendor == null) return null;
+        return vendorDao.create(vendor);
     }
 
     @Override
@@ -122,11 +115,7 @@ public class NotebookServiceImpl implements NotebookService {
     @Transactional
     public boolean updateNotebook(Notebook notebook) {
         if (notebook == null) return false;
-        if (notebookDao.read(notebook.getId()) != null) {
-            return notebookDao.update(notebook);
-        } else {
-            return (notebookDao.create(notebook) != null);
-        }
+        return notebookDao.update(notebook);
     }
 
     @Override
@@ -187,5 +176,26 @@ public class NotebookServiceImpl implements NotebookService {
     @Transactional(readOnly = true)
     public List getAllNotebooks() {
         return notebookDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public boolean removeVendor(Vendor vendor) {
+        return vendorDao.delete(vendor);
+    }
+
+    @Override
+    public boolean removeMemory(Memory memory) {
+        return memoryDao.delete(memory);
+    }
+
+    @Override
+    public boolean removeCPU(CPU cpu) {
+      return cpuDao.delete(cpu);
+    }
+
+    @Override
+    public boolean removeNotebook(Notebook notebook) {
+        return notebookDao.delete(notebook);
     }
 }
