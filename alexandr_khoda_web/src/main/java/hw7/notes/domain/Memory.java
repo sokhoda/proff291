@@ -29,6 +29,19 @@ public class Memory {
     public Memory() {
     }
 
+    public Memory(String sizze, Vendor vendor) {
+        this.sizze = sizze;
+        this.vendor = vendor;
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "sizze='" + sizze + '\'' +
+                ", vendor=" + vendor +
+                ", id=" + id +
+                '}';
+    }
 
     public String getSizze() {
         return sizze;

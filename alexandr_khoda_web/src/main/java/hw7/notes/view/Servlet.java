@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by s_okhoda on 09.02.2016.
@@ -26,6 +24,7 @@ import java.util.Locale;
 public class Servlet extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
+    public static List<String> sizze = Arrays.asList("512M", "1G", "2G", "4G", "8G", "16G");
     private NotebookService service;
 
     @Override

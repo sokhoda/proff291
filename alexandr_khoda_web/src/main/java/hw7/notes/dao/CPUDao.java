@@ -18,5 +18,5 @@ public interface CPUDao {
     boolean checkExist(CPU cpu) throws HibernateException;
     boolean checkExistExceptId(CPU cpu, Long cpuID) throws HibernateException;
     List findAll();
-    List getCPUByPortion(int size, int cnt)throws PortionException;
+    List getCPUByPortion(int size, int cnt)throws PortionException, HibernateException;
 }

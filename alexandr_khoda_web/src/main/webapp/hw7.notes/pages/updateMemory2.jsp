@@ -6,9 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static hw7.notes.view.Servlet.*" %>
-<%@ page import="hw7.notes.domain.CPU" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
 <%@ page import="hw7.notes.view.Menu" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
@@ -20,32 +18,31 @@
 <html>
 
 <head>
-    <title>Add new CPU type</title>
+    <title>Update Memory type</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>Add new CPU type</h1></center><br>
+    <center><h1>Update Memory type</h1></center><br>
 </head>
 <body>
-<%! CPUDao cpuDao;
+<%!
     VendorDao vendorDao;
-    List<CPU> cpu;
     List<Vendor> vendor;
 %>
 <%
-    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
     vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
     vendor = (List<Vendor>)vendorDao.findAll();
     request.setAttribute("vendor", vendor);
+    request.setAttribute("size", hw7.notes.view.Servlet.sizze);
 %>
 
-<form action="/AddCpu" method="get">
-    <img src="/hw7.notes/img/cpu.jpg" align="left" style="margin-right: 20px;
+<form action="/AddMem" method="get">
+    <img src="/hw7.notes/img/memory.jpg" align="left" style="margin-right: 20px;
      width: 200px; height: auto">
 
 
     <div id="divVenSel">
-        <label for="venSel">SELECT VENDOR:</label>
+        <label for="venSel">VENDOR:</label>
         <select size="1" name="venSel" id="venSel">
             <option disabled>select item</option>
             <c:forEach var="v" items="${vendor}" varStatus="cnt">
@@ -74,25 +71,46 @@
         </select><br>
     </div>
 
-
-    <label for="freq">FREQUENCY:</label>
-    <input  type="text" value="${freqA}" placeholder="3.5G"
-            name="freq" id="freq"><br>
-
-    <label for="model">MODEL:</label>
-    <input  type="text" value="${modelA}" placeholder="Quad"
-            name="model" id="model"><br>
+    <div id="divSizeSel">
+        <label for="sizeSel">SIZE:</label>
+        <select size="1" name="sizeSel" id="sizeSel">
+            <option disabled>select item</option>
+            <c:forEach var="s" items="${size}" varStatus="cnt">
+                <c:choose>
+                    <c:when test="${SelInxS != null}">
+                        <c:if test="${cnt.index == SelInxS}">
+                            <option value="${s}" selected>${s}</option>
+                        </c:if>
+                        <c:if test="${cnt.index != SelInxS}">
+                            <option value="${s}">${s}</option>
+                        </c:if>
+                    </c:when>
+                    <c:when test="${SelValS != null}">
+                        <c:if test="${s == SelValS}">
+                            <option value="${s}" selected>${s}</option>
+                        </c:if>
+                        <c:if test="${s != SelValS}">
+                            <option value="${s}">${s}</option>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${s}">${s}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select><br>
+    </div>
     <br><br>
     <br><br>
     <p style="text-align: center;">
         <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="update" value="Update">
 
         <input type="button" value="Clear All"
                onclick="setSelectIndex('venSel', 0);
-               clearElemContent('freq');
-               clearElemContent('model');
+               setSelectIndex('sizeSel', 0);
                clearElemContent('message');">
+
     </p>
     <br>
     <br>
@@ -100,6 +118,7 @@
             color:${messageColor == null ? 'brown' : messageColor};
             text-align: center; font-size:x-large">${messageText}
     </label>
+    <input type="hidden" name="idVal" id="idVal" value="${idVal}">
 </form>
 
 </body>
