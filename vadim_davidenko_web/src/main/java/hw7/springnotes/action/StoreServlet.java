@@ -115,11 +115,13 @@ public class StoreServlet extends HttpServlet {
         Map<String, String[]> parameterMap = req.getParameterMap();
         Long storeId = Long.valueOf(parameterMap.get("storeIdSale")[0]);
         Integer amountSale = Integer.valueOf(parameterMap.get("amountSale")[0]);
+
         Store store = noteService.getStoreById(storeId);
         if (store != null) {
             Long saleId = noteService.sale(storeId, amountSale);
             if (saleId != 0) {
                 req.setAttribute("server_msg", Menu.SALE_STORE_MSG + String.valueOf(storeId));
+                noteService.removeFromStore(store, amountSale);
             } else {
                 req.setAttribute("server_msg", Menu.SALE_STORE_ERR_MSG + String.valueOf(storeId));
             }
