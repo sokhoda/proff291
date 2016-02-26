@@ -59,7 +59,7 @@ public class AddToSellFromStore extends HttpServlet {
                     Integer quantity = String2Integer(req.getParameter("quantity"));
                     Double price = String2Double(req.getParameter("price"));
 
-                    if (!checkLsEqZero(req, quantity) && !checkLsZero(req, price)){
+                    if (!checkLsEqZeroInt(req, quantity) && !checkLsZero(req, price)){
                         if(Menu.service.receive(ntbId, quantity, price) != null){
                             setMessageAttr(req, "green", "Store successfully added.");
                         }
@@ -85,7 +85,7 @@ public class AddToSellFromStore extends HttpServlet {
 
                 if (!checkStringPar(req,"quantity")){
                     Integer quantity = String2Integer(req.getParameter("quantity"));
-                    if (!checkLsEqZero(req, quantity)){
+                    if (!checkLsEqZeroInt(req, quantity)){
                         if(Menu.service.sale(storeId, quantity) != null){
                             setMessageAttr(req, "green", quantity + " items " +
                                     "successfully sold.");

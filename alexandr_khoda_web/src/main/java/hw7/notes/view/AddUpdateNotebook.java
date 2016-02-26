@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -109,7 +110,6 @@ public class AddUpdateNotebook extends HttpServlet {
             }
         }
 
-
         if (req.getParameter("add") != null) {
             try {
                 Long venId = Long.parseLong(req.getParameter("venSel"));
@@ -190,12 +190,12 @@ public class AddUpdateNotebook extends HttpServlet {
                 Date manDate = String2Date(req.getParameter("manDate"));
                 String model = req.getParameter("model");
 
-                if (!checkStringPar(req,"model")) {
+                if (!checkStringPar(req, "model")) {
                     Notebook notebookCheck = new Notebook(ven, model, manDate,
                             cpu, mem);
                     if (notebookDao.checkExistExceptId(notebookCheck, notebookId)) {
                         setMessageAttr(req, "red", "Notebook type '" +
-                                notebookCheck +"' already exists in DB.");
+                                notebookCheck + "' already exists in DB.");
                     }
                     else {
                         notebook.setVendor(ven);
@@ -265,8 +265,8 @@ public class AddUpdateNotebook extends HttpServlet {
 
     }
 
-    private void setNotebookAttributes(HttpServletRequest req){
+    private void setNotebookAttributes(HttpServletRequest req) throws ParseException {
         req.setAttribute("modelA", req.getParameter("model"));
-        req.setAttribute("manDateA", req.getParameter("manDate"));
+        req.setAttribute("manDateA", String2Date(req.getParameter("manDate")));
     }
 }

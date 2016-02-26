@@ -10,59 +10,59 @@
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="hw7.notes.dao.NotebookDao" %>
-<%@ page import="hw7.notes.domain.Notebook" %>
+<%@ page import="hw7.notes.dao.*" %>
+<%@ page import="hw7.notes.domain.Store" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
 <script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
 <head>
-    <title>Add Store</title>
+    <title>Sell from Store</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>Add Store</h1></center>
+    <center><h1>Sell from Store</h1></center>
 </head>
 <body>
 <%!
-    NotebookDao notebookDao;
-    List<Notebook> notebook;
+    StoreDao storeDao;
+    List<Store> store;
 %>
 <%
-    notebookDao = ((NotebookServiceImpl) Menu.service).getNoteDao();
-    notebook = (List<Notebook>)notebookDao.findAll();
-    request.setAttribute("notebook", notebook);
+    storeDao = ((NotebookServiceImpl) Menu.service).getStoreDao();
+    store = (List<Store>)storeDao.findAll();
+    request.setAttribute("store", store);
 %>
 
 <form action="/AddSellStore" method="get">
     <%--<img src="/hw7.notes/img/addLaptop1.jpg" align="left"--%>
          <%--style="margin-right: 20px">--%>
 
-    <div id="divNtbSel">
-        <label for="notebookSel">NOTEBOOK TYPE:</label>
-        <select size="1" name="notebookSel" id="notebookSel">
+    <div id="divStoreSel">
+        <label for="storeSel">STORE:</label>
+        <select size="1" name="storeSel" id="storeSel">
             <option disabled>select item</option>
-            <c:forEach var="n" items="${notebook}" varStatus="cnt">
+            <c:forEach var="s" items="${store}" varStatus="cnt">
                 <c:choose>
                     <c:when test="${SelInx != null}">
                         <c:if test="${cnt.index == SelInx}">
-                            <option value="${n.id}" selected>${n.toString()}</option>
+                            <option value="${s.id}" selected>${s.toString()}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInx}">
-                            <option value="${n.id}">${n.toString()}</option>
+                            <option value="${s.id}">${s.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:when test="${SelVal != null}">
-                        <c:if test="${n.id == SelVal}">
-                            <option value="${n.id}" selected>${n.toString()}</option>
+                        <c:if test="${s.id == SelVal}">
+                            <option value="${s.id}" selected>${s.toString()}</option>
                         </c:if>
-                        <c:if test="${n.id != SelVal}">
-                            <option value="${n.id}">${n.toString()}</option>
+                        <c:if test="${s.id != SelVal}">
+                            <option value="${s.id}">${s.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <option value="${n.id}">${n.toString()}</option>
+                        <option value="${s.id}">${s.toString()}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -73,21 +73,15 @@
     <label for="quantity">QUANTITY:</label>
     <input  type="text" value="${quantityA}" placeholder="1"
             name="quantity" id="quantity"><br>
-
-    <label for="price">PRICE:</label>
-    <input  type="text" value="${priceA}" placeholder="1000"
-            name="price" id="price"><br>
-
     <br><br>
     <br><br>
     <p style="text-align: center;">
         <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
-        <input type="submit" name="add" value="Add">
+        <input type="submit" name="sell" value="Sell">
 
         <input type="button" value="Clear All"
-               onclick="setSelectIndex('notebookSel', 1);
+               onclick="setSelectIndex('storeSel', 1);
                clearElemContent('quantity');
-               clearElemContent('price');
                clearElemContent('message');">
     </p>
     <br>

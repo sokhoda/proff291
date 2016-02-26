@@ -6,14 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="static hw7.notes.view.Servlet.*" %>
-<%@ page import="hw7.notes.domain.CPU" %>
-<%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
-<%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
-<%@ page import="hw7.notes.domain.Vendor" %>
-<%@ page import="hw7.notes.dao.VendorDao" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
 <script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>

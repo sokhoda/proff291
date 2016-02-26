@@ -89,10 +89,10 @@ public class Servlet extends HttpServlet {
         return false;
     }
 
-    public static <T extends Number> boolean checkLsZero(HttpServletRequest req,
+    public static <T extends Double> boolean checkLsZero(HttpServletRequest req,
                                                       T number){
-        if (((Double)number).compareTo(BigDecimal.ZERO.doubleValue()) < 0){
-            setMessageAttr(req, "red", "Price can not be negative.");
+        if (number.compareTo(0.0) < 0){
+            setMessageAttr(req, "red", "Value can not be negative.");
             return true;
         }
         else {
@@ -100,16 +100,39 @@ public class Servlet extends HttpServlet {
         }
     }
 
-    public static <T extends Number> boolean checkLsEqZero(HttpServletRequest
+    public static <T extends Double> boolean checkLsEqZero(HttpServletRequest
                                                                  req, T number){
-        if (((Double)number).compareTo(BigDecimal.ZERO.doubleValue()) <= 0){
-            setMessageAttr(req, "red", "Price can not be negative or ZERO.");
+        if (number.compareTo(0.0) <= 0){
+            setMessageAttr(req, "red", "Value can not be negative or ZERO.");
             return true;
         }
         else {
             return false;
         }
     }
+
+    public static <T extends Integer> boolean checkLsZeroInt(HttpServletRequest req,
+                                                             T number){
+        if (number.compareTo(0) < 0){
+            setMessageAttr(req, "red", "Value can not be negative.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Integer> boolean checkLsEqZeroInt
+            (HttpServletRequest req, T number){
+        if (number.compareTo(0) <= 0){
+            setMessageAttr(req, "red", "Value can not be negative or ZERO.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
     public static Integer String2Integer(String str) throws NumberFormatException{
         if (str == null) {

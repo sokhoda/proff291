@@ -196,6 +196,28 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
+        if (req.getParameter("sell") != null) {
+            try {
+                req.setAttribute("SelInx", "0");
+                req.getRequestDispatcher("/hw7.notes/pages/sellFromStore.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+        if (req.getParameter("accBatch") != null) {
+            try {
+                req.setAttribute("SelInx", "0");
+                req.getRequestDispatcher("/hw7.notes/pages/addStore.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
 
     }
 

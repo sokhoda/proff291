@@ -42,7 +42,7 @@ public class Store {
     public String toString() {
         return "Store{" +
                 "id=" + id +
-                ", notebk=" + notebk +
+                ", " + notebk +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';
