@@ -40,8 +40,8 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public boolean update(Memory memory) {
-        Session session = mySessionFactory.getCurrentSession();
         boolean isUpdated = false;
+        Session session = mySessionFactory.getCurrentSession();
         session.update(memory);
         isUpdated = true;
         return isUpdated;
@@ -49,8 +49,8 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public boolean delete(Memory memory) {
-        Session session = mySessionFactory.getCurrentSession();
         boolean isDeleted = false;
+        Session session = mySessionFactory.getCurrentSession();
         session.delete(memory);
         isDeleted = true;
         return isDeleted;

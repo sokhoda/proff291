@@ -31,7 +31,7 @@ public interface NotebookService {
 
     boolean createCPU(CPU cpu);
 
-    boolean createVendor(Vendor vendor);
+    Long createVendor(Vendor vendor);
 
     boolean createMemory(Memory memory);
 
@@ -46,6 +46,14 @@ public interface NotebookService {
     boolean updateVendor(Vendor vendor);
 
     boolean updateNotebook(Notebook notebook);
+
+    boolean removeVendor(Vendor vendor);
+
+    boolean removeMemory(Memory memory);
+
+    boolean removeCPU(CPU cpu);
+
+    boolean removeNotebook(Notebook notebook);
 
     boolean removeFromStore(Store store, int amount);
 
