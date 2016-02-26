@@ -11,6 +11,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -91,13 +93,25 @@ public class test {
 //        catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println(Integer.parseInt(""));
+        System.out.println(Integer.parseInt("33"));
         Session session = factory.openSession();
         try{
-            Query query = session.createQuery("from Vendor where name = :NAME")
-                    .setParameter("NAME","Apple");
-            Vendor vendor = (Vendor) query.uniqueResult();
-            System.out.println(vendor);
+//            Query query = session.createQuery("from Vendor where name = :NAME")
+//                    .setParameter("NAME","Apple");
+//            Vendor vendor = (Vendor) query.uniqueResult();
+
+            Query query = session.createQuery("select n.id, v.name, n.model, to_char(n.manDate, 'dd.mm.yyyy'), CONCAT(cpuv.name, ' ', c.model, ' ', c.freq), CONCAT(memv.name, ' ', m.sizze),   sum(s.quantity) as qua from Notebook n   join n .stores s " +
+                    " join n.cpu c "+
+                    " join c.vendor cpuv "+
+                    " join n.memory m "+
+                    " join m.vendor memv "+
+                    " join n.vendor v "+
+                    "group by n.id, v.name, n.model, n.manDate, cpuv.name, c.model, c.freq, memv.name, m.sizze" +
+                    " ORDER BY  qua desc");
+//                    .setParameter("NAME","Apple");
+            List list = query.list();
+            System.out.println("RES:");
+            printList(list);
 
         }
         catch (HibernateException e){
@@ -110,6 +124,20 @@ public class test {
 
 
     }
+
+    public static void printList(List<Object[]> list) {
+        if (list.size() == 0) {
+            System.out.println("List is empty");
+            return;
+        }
+        for (Object[] obj : list) {
+            System.out.println(Arrays.toString(obj));
+//            for (Object ob : obj) {
+//                System.out.println(ob);
+//            }
+        }
+    }
+
     public static boolean loginCheck(String firstName, String lastName,
                                      SessionFactory factory) {
         Session session = factory.openSession();
