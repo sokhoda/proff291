@@ -107,6 +107,54 @@ public class AddToSellFromStore extends HttpServlet {
             }
         }
 
+        if (req.getParameter("back") != null) {
+            try {
+                Integer sPortion = Integer.parseInt(req.getParameter("sPortion"));
+                String cntMark = req.getParameter("cntMark");
+                int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
+                int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
+
+                if (cnt > 1) {
+                    cnt--;
+                }
+
+                List noteInStorePortion = Menu.service.getNotebooksByPortion(sPortion, cnt);
+                req.setAttribute("cnt", cnt);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("noteInStorePortion", noteInStorePortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateStore.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+        if (req.getParameter("forward") != null) {
+            try {
+                Integer sPortion = Integer.parseInt(req.getParameter("sPortion"));
+                String cntMark = req.getParameter("cntMark");
+                int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
+                int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
+
+                if (cnt < totPages) {
+                    cnt++;
+                }
+                List noteInStorePortion = Menu.service.getNotebooksByPortion(sPortion, cnt);
+                req.setAttribute("cnt", cnt);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("noteInStorePortion", noteInStorePortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateStore.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
     }
 
     private void setStoreAttributes(HttpServletRequest req){

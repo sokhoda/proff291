@@ -3,6 +3,7 @@ package hw7.notes.service;
 import hw7.notes.dao.*;
 import hw7.notes.domain.*;
 import hw7.notes.exception.CPUException;
+import hw7.notes.exception.NotebookException;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
 import org.apache.log4j.Logger;
@@ -122,21 +123,81 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
-    public List getNotebooksByPortion(int size, int cnt) throws
-            PortionException, HibernateException{
-        if (size <= 0) {
-            throw new PortionException("Negative portion size.");
+    public boolean deleteNotebookType(Long noteId) throws NotebookException{
+        Notebook notebook = noteDao.read(noteId);
+        if (notebook == null){
+            throw new NotebookException("Notebook type not found: id=" + noteId);
         }
+        return noteDao.delete(notebook);
+    }
+
+    @Override
+    public Integer getNotebookTypesTotPages(int size) {
+        List notebook = (List<Notebook>)noteDao.findAll();
+        return  (notebook.size() == 0 ? 1 :(int) Math.ceil
+                (notebook.size() / (double)size));
+    }
+
+    @Override
+    public Integer getNotebookInStoreTotPages(int size) throws HibernateException {
         Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Notebook");
-            query.setFirstResult(cnt * size);
-            query.setMaxResults(size);
-            return query.list();
-        } catch (HibernateException e) {
+        try{
+            Query query = getNotebookInStoreQuery(session);
+            List list = query.list();
+            return  (list.size() == 0 ? 1 :(int) Math.ceil
+                    (list.size() / (double)size));
+        }
+        catch (HibernateException e){
             log.error("Transaction failed", e);
             throw new HibernateException(e.getMessage());
-        } finally {
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List getNotebookTypesByPortion(int size, int cnt) throws
+            PortionException, HibernateException{
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
+        }
+       return noteDao.getNotebookTypesByPortion(size, cnt);
+    }
+
+    private Query getNotebookInStoreQuery(Session session){
+        return session.createQuery("select n.id, v.name, n.model, " +
+                "to_char(n.manDate, 'dd.mm.yyyy'), " +
+                " cpuv.name, c.model, c.freq, " +
+                " memv.name, m.sizze,   sum(s.quantity) as qua from Notebook n " +
+                " join n.stores s " +
+                " join n.vendor v "+
+                " join n.cpu c "+
+                " join c.vendor cpuv "+
+                " join n.memory m "+
+                " join m.vendor memv "+
+                " group by n.id, v.name, n.model, n.manDate, cpuv.name, c.model, c.freq, memv.name, m.sizze" +
+                " ORDER BY  qua desc");
+    }
+
+    @Override
+    public List getNotebooksByPortion(int size, int cnt) throws PortionException,
+            HibernateException {
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
+        }
+        Session session = factory.openSession();
+        try{
+            Query query = getNotebookInStoreQuery(session);
+            query.setFirstResult((cnt - 1) * size);
+            query.setMaxResults(size);
+            return query.list();
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
             session.close();
         }
     }

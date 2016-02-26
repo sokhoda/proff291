@@ -12,11 +12,11 @@
 
 <html>
 <head>
-    <title>List all Batches</title>
+    <title>List all Notebooks in the Store</title>
     <style>
         <%@include file='/hw7.notes/css/updateCPU.css' %>
     </style>
-    <center><h1>List all Batches</h1></center><br>
+    <center><h1>List all Notebooks in the Store</h1></center><br>
 </head>
 <body>
 
@@ -46,7 +46,7 @@
 
         <input type="hidden" name="cntMark" value="${cnt} of ${totPages}">
         <input type="hidden" name="sPortion" value="${sPortion}">
-        <input type="hidden" name="idVal" id="idVal" value="">
+        <%--<input type="hidden" name="idVal" id="idVal" value="">--%>
     </div>
 
 
@@ -55,24 +55,36 @@
         <tr>
             <%--<th class="shrink"><h3>ID</h3></th>--%>
             <th><h3>ID</h3></th>
-            <th><h3>Notebook</h3></th>
-            <th><h3>Quantity</h3></th>
+            <th><h3>Notebook Vendor</h3></th>
             <th><h3>Model</h3></th>
+            <th><h3>Date of Manuf.</h3></th>
+            <th><h3>CPU vendor</h3></th>
+            <th><h3>Model</h3></th>
+            <th><h3>Frequency</h3></th>
+            <th><h3>Memory vendor</h3></th>
+            <th><h3>Size</h3></th>
+            <th><h3>Quantity</h3></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="c" items="${cpuPortion}" varStatus="count">
+        <c:forEach var="ns" items="${noteInStorePortion}" varStatus="count">
             <tr>
-                <td class="shrink">${c.id}</td>
-                <td align="left">${c.vendor}</td>
-                <td align="left">${c.freq}</td>
-                <td align="left">${c.model}</td>
-                <td><button id="butUpdate" name="updCPU2"
-                            onclick="onUpdate(${c.id})">Update</button>
-                </td>
-                <td><button id="butDelete" name="delCPU"
-                            onclick="onUpdate(${c.id})">Delete</button>
-                </td>
+                <td class="shrink">${ns[0]}</td>
+                <td align="left">${ns[1]}</td>
+                <td align="left">${ns[2]}</td>
+                <td align="left">${ns[3]}</td>
+                <td align="left">${ns[4]}</td>
+                <td align="left">${ns[5]}</td>
+                <td align="left">${ns[6]}</td>
+                <td align="left">${ns[7]}</td>
+                <td align="left">${ns[8]}</td>
+                <td align="left">${ns[9]}</td>
+                <%--<td><button id="butUpdate" name="updCPU2"--%>
+                            <%--onclick="onUpdate(${c.id})">Update</button>--%>
+                <%--</td>--%>
+                <%--<td><button id="butDelete" name="delCPU"--%>
+                            <%--onclick="onUpdate(${c.id})">Delete</button>--%>
+                <%--</td>--%>
             </tr>
         </c:forEach>
         </tbody>

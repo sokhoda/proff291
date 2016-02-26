@@ -131,6 +131,7 @@ public class test {
             return;
         }
         for (Object[] obj : list) {
+            System.out.println(obj[0]);
             System.out.println(Arrays.toString(obj));
 //            for (Object ob : obj) {
 //                System.out.println(ob);
