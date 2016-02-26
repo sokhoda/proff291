@@ -1,24 +1,26 @@
-package session15;
+package session15.beans;
 
-import hibernate.User;
 import org.hibernate.HibernateError;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import session15.Employee;
+import session15.EmployeeDao;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Pavel on 20.02.2016.
  */
-public class EmployeeDaoImpl implements EmployeeDao{
-    ApplicationContext cont;
+@Repository("empDao")
+public class EmployeeDaoImpl implements EmployeeDao {
+
+    @Autowired(required = true)
+    private SessionFactory sessionFactory;
 
     public EmployeeDaoImpl() {
-        cont = new ClassPathXmlApplicationContext("session15/context-db.xml");
     }
 
     @Override
@@ -41,7 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
         Session session = null;
         List<Employee> resultObj = null;
         try {
-            session = cont.getBean("sf", SessionFactory.class).openSession();
+            session = sessionFactory.openSession();
             Query query = session.createQuery("FROM Employee");
             resultObj = query.list();
         } catch (HibernateError e){

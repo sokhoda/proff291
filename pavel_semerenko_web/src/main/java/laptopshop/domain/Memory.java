@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Pavel on 18.02.2016.
  */
+@Entity(name = "MEMORYS")
 public class Memory {
     @Id
     @Column(name = "id")
