@@ -1,9 +1,7 @@
-package notes.service;
+package hw6.notes.service;
 
-import notes.dao.NotebookDao;
-import notes.domain.Notebook;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import hw6.notes.dao.NotebookDao;
+import hw6.notes.domain.Notebook;
 
 import java.util.Date;
 import java.util.List;

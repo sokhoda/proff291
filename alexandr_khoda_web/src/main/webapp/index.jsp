@@ -5,9 +5,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.dao.MemoryDao" %>
-<%@ page import="hw7.notes.service.NotebookService" %>
+<%@ page import="hw7.NotebookService" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
 <%@ page import="java.util.Arrays" %>
 <%--<%@ include file="loginTaxi.jsp"%>--%>

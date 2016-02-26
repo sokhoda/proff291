@@ -1,6 +1,6 @@
-package notes.dao;
+package hw6.notes.dao;
 
-import notes.domain.Notebook;
+import hw6.notes.domain.Notebook;
 
 import java.util.Date;
 import java.util.List;

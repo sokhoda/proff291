@@ -1,6 +1,6 @@
-package notes.service;
+package hw6.notes.service;
 
-import notes.domain.Notebook;
+import hw6.notes.domain.Notebook;
 
 import java.util.Date;
 import java.util.List;

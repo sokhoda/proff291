@@ -1,9 +1,9 @@
-package notes;
+package hw6.notes.view;
 
-import notes.dao.NotebookDao;
-import notes.dao.NotebookDaoImpl;
-import notes.service.NotebookService;
-import notes.service.NotebookServiceImpl;
+import hw6.notes.dao.NotebookDao;
+import hw6.notes.dao.NotebookDaoImpl;
+import hw6.notes.service.NotebookService;
+import hw6.notes.service.NotebookServiceImpl;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -20,9 +20,9 @@ public class Main {
         NotebookDao notebookDao = new NotebookDaoImpl(sessionFactory);
         NotebookService notebookService = new NotebookServiceImpl(notebookDao);
 
- //       Menu menu = new Menu(notebookService);
+        Menu menu = new Menu(notebookService);
 
- //       menu.main();
+        menu.main();
     }
 
     private static SessionFactory getSessionFactory() {

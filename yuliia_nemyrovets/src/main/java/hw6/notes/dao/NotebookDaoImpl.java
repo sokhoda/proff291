@@ -1,9 +1,7 @@
-package notes.dao;
+package hw6.notes.dao;
 
 
-import android.text.format.DateFormat;
-import notes.dao.NotebookDao;
-import notes.domain.Notebook;
+import hw6.notes.domain.Notebook;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
 
@@ -15,6 +13,7 @@ import java.util.List;
  * Created by Юлия on 12.02.2016.
  */
 public class NotebookDaoImpl implements NotebookDao {
+
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
     private SessionFactory factory;
 
@@ -103,7 +102,7 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findAll() {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("from NOTES");
+            Query query = session.createQuery("from Notebook");
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is failed");
@@ -118,8 +117,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findByModel(String model) {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("from NOTES where MODEL = :MODEL");
-          query.setParameter("MODEL", model);
+            Query query = session.createQuery("from Notebook n where n.model = :model");
+          query.setParameter("model", model);
            return query.list();
         } catch (Exception e) {
             log.error("Transaction is failed");
@@ -133,8 +132,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findByVendor(String vendor) {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("from NOTES where VENDOR = :VENDOR");
-            query.setParameter("VENDOR", vendor);
+            Query query = session.createQuery("from Notebook n where n.vendor = :vendor");
+            query.setParameter("vendor", vendor);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is failed");
@@ -149,9 +148,9 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         SimpleDateFormat format=new SimpleDateFormat("dd.MM.yyyy");
         try {
-            Query query = session.createQuery("from NOTES where PRICE = :PRICE and MANUFACTURE_DATE = : MANUFACTURE_DATE");
-            query.setParameter("PRICE", price);
-            query.setParameter("MANUFACTURE_DATE", date);
+            Query query = session.createQuery("from Notebook n where n.price = :price and n.date = : date");
+            query.setParameter("price", price);
+            query.setParameter("date", date);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is failed");
@@ -166,11 +165,11 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         SimpleDateFormat format=new SimpleDateFormat("dd.MM.yyyy");
         try {
-            Query query = session.createQuery("from NOTES where PRICE > :PRICEFROM and PRICE < :PRICETO  and MANUFACTURE_DATE = : MANUFACTURE_DATE and VENDOR = :VENDOR");
-            query.setParameter("PRICEFROM", priceFrom);
-            query.setParameter("PRICETO", priceTo);
-            query.setParameter("MANUFACTURE_DATE", date);
-            query.setParameter("VENDOR", vendor);
+            Query query = session.createQuery("from Notebook n where n.price > :priceFrom and n.price < :priceTo  and n.date = : date and vendor = :vendor");
+            query.setParameter("priceFrom", priceFrom);
+            query.setParameter("priceTo", priceTo);
+            query.setParameter("date", date);
+            query.setParameter("vendor", vendor);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is failed");

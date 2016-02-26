@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.domain.Notebook" %>
+<%@ page import="hw7.Notebook" %>
 <%@ page import="static hw6.notes.view.Menu.*" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <%--

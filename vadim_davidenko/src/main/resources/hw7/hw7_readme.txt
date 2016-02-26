@@ -14,7 +14,7 @@
 Продажи(склад ноутбуков, дата продажи, количество)
 
 domain
-hw7.notes.domain.Notebook
+hw7.Notebook
 hw7.notes.domain.Vendor
 hw7.notes.domain.CPU
 hw7.notes.domain.Memory
@@ -34,7 +34,7 @@ hw7.notes.domain.Sales
 Продать указанное количество ноутбуков со склада(id склада, количество)
 
 dao
-hw7.notes.dao.NotebookDao
+hw7.NotebookDao
 Long create(Notebook notebook)
 Notebook read(Long id)
 boolean update(Notebook notebook)
@@ -76,7 +76,7 @@ boolean update(Sales sales)
 boolean delete(Sales sales)
 List findAll()
 
-hw7.notes.dao.NotebookDaoImpl
+hw7.NotebookDaoImpl
 hw7.notes.dao.VendorDaoImpl
 hw7.notes.dao.CPUDaoImpl
 hw7.notes.dao.MemoryDaoImpl
@@ -84,12 +84,12 @@ hw7.notes.dao.StoreDaoImpl
 hw7.notes.dao.SalesDaoImpl
 
 service
-hw7.notes.service.NotebookService
+hw7.NotebookService
 Long receive(Long noteId, int amount, double price)
 Long sale(Long storeId, int amount)
-hw7.notes.service.NotebookServiceImpl
+hw7.NotebookServiceImpl
 view
-hw7.notes.service.Menu
+hw7.Menu
 main()
 
 
@@ -103,7 +103,7 @@ main()
 Изменить тип ноутбука
 Списать со склад ноутбуки (ключ, количество)
 
-hw7.notes.service.NotebookService
+hw7.NotebookService
 ---------------------------------
 boolean updateCPU(CPU cpu)
 boolean updateMemory(Memory memory)
@@ -122,7 +122,7 @@ boolean removeFromStore(Store store, int amount)
 Показать типы ноутбуков, оставшиеся на складе по каждому производителю
 Получить объем продаж ноутбуков в среднем за день (в штуках)
 
-hw7.notes.service.NotebookService
+hw7.NotebookService
 ----------------------------------
 List getNotebooksByPortion(int size)
 List getNotebooksGtAmount(int amount)

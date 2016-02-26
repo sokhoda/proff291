@@ -1,4 +1,4 @@
-package notes.domain;
+package hw6.notes.domain;
 
 import java.sql.*;
 import java.util.Locale;
