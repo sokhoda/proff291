@@ -1,10 +1,8 @@
 package hw7.notes.view;
 
-import hw7.notes.dao.CPUDao;
-import hw7.notes.dao.NotebookDao;
-import hw7.notes.dao.NotebookDaoImpl;
-import hw7.notes.dao.VendorDao;
+import hw7.notes.dao.*;
 import hw7.notes.domain.CPU;
+import hw7.notes.domain.Memory;
 import hw7.notes.domain.Notebook;
 import hw7.notes.exception.PortionException;
 import hw7.notes.service.NotebookService;
@@ -39,12 +37,16 @@ public class Menu extends HttpServlet {
     public static NotebookService service;
     private VendorDao vendorDao;
     private CPUDao cpuDao;
+    private MemoryDao memoryDao;
+    private NotebookDao notebookDao;
 
     @Override
     public void init() {
         service = new NotebookServiceImpl();
         vendorDao = (((NotebookServiceImpl)service).getVendorDao());
         cpuDao = (((NotebookServiceImpl)service).getCpuDao());
+        memoryDao = ((NotebookServiceImpl) service).getMemoryDao();
+        notebookDao = ((NotebookServiceImpl) service).getNoteDao();
 //        ((NotebookServiceImpl)service).getLog().info("Menu.init()");
     }
 
@@ -72,8 +74,26 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
-
-
+        if (req.getParameter("crMemory") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/addMemory.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+        if (req.getParameter("crNtbType") != null) {
+            try {
+                req.getRequestDispatcher("/hw7.notes/pages/addNotebook.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
         if (req.getParameter("updVen") != null) {
             try {
                 req.setAttribute("mode", "1");
@@ -110,7 +130,72 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
-
+        if (req.getParameter("updMemory") != null) {
+            try {
+                List memory = (List<Memory>)memoryDao.findAll();
+                Integer sPortion = String2Integer((String)req.getParameter("updMemoryPortion"));
+                if (sPortion == 0) {
+                    throw new PortionException("Portion size can not be ZERO.");
+                }
+                Integer totPages = (memory.size() == 0 ? 1 :(int) Math.ceil
+                        (memory.size() / (double)sPortion));
+                List memoryPortion = (List<Memory>)memoryDao.getMemoryByPortion(sPortion, 1);
+                req.setAttribute("cnt", 1);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("memoryPortion", memoryPortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateMemory.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+        if (req.getParameter("updNtb") != null) {
+            try {
+                List notebook = (List<Notebook>)notebookDao.findAll();
+                Integer sPortion = String2Integer((String)req.getParameter("updNtbPortion"));
+                if (sPortion == 0) {
+                    throw new PortionException("Portion size can not be ZERO.");
+                }
+                Integer totPages = (notebook.size() == 0 ? 1 :(int) Math.ceil
+                        (notebook.size() / (double)sPortion));
+                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, 1);
+                req.setAttribute("cnt", 1);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("notebookPortion", notebookPortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateNotebook.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+        if (req.getParameter("listNtbByPortion") != null) {
+            try {
+                List notebook = (List<Notebook>)notebookDao.findAll();
+                Integer sPortion = String2Integer((String)req.getParameter("listNtbByPortionPortion"));
+                if (sPortion == 0) {
+                    throw new PortionException("Portion size can not be ZERO.");
+                }
+                Integer totPages = (notebook.size() == 0 ? 1 :(int) Math.ceil
+                        (notebook.size() / (double)sPortion));
+                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, 1);
+                req.setAttribute("cnt", 1);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("notebookPortion", notebookPortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateNotebook.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
 
     }
 

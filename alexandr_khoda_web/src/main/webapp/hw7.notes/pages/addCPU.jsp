@@ -27,13 +27,11 @@
     <center><h1>Add new CPU type</h1></center><br>
 </head>
 <body>
-<%! CPUDao cpuDao;
+<%!
     VendorDao vendorDao;
-    List<CPU> cpu;
     List<Vendor> vendor;
 %>
 <%
-    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
     vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
     vendor = (List<Vendor>)vendorDao.findAll();
     request.setAttribute("vendor", vendor);

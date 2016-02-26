@@ -2,6 +2,7 @@ package hw7.notes.service;
 
 import hw7.notes.dao.*;
 import hw7.notes.domain.*;
+import hw7.notes.exception.CPUException;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
 import org.apache.log4j.Logger;
@@ -17,6 +18,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import static hw7.notes.view.Servlet.String2Integer;
+import static hw7.notes.view.Servlet.checkStringPar;
+import static hw7.notes.view.Servlet.setMessageAttr;
 
 /**
  * Created by s_okhoda on 09.02.2016.
@@ -45,32 +50,48 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
-    public Long receive(Long noteId, int amount, double price) {
-        return storeDao.create( new Store(noteDao.read(noteId), amount, price));
+    public Long receive(Long noteId, int amount, double price) throws StoreException {
+        if (noteId == null){
+            throw new StoreException("NotebookId is null.");
+        }
+        Notebook notebook = noteDao.read(noteId);
+        if (notebook == null){
+            throw new StoreException("Notebook is null.");
+        }
+        return storeDao.create(new Store(notebook, amount, price));
 
     }
 
     @Override
     public Long sale(Long storeId, int amount) throws StoreException{
+        if (storeId == null){
+            throw new StoreException("StoreId is null.");
+        }
         Store store = storeDao.read(storeId);
-        int existingQuant;
-
-        if ((existingQuant = store.getQuantity()) >= amount){
-            store.setQuantity(existingQuant - amount);
-            if(storeDao.update(store)){
+        int existingQuantity = store.getQuantity();
+        if (existingQuantity < amount){
+            throw new StoreException("Existing amount in the Store '" +
+                    store + "' is less than required amount.");
+        }
+        else {
+            store.setQuantity(existingQuantity - amount);
+            if (storeDao.update(store)) {
                 return storeId;
             }
             else {
-                throw new StoreException("Failed to sale items.");
+                return null;
             }
         }
-        throw new StoreException("Amount of existing items on store less than" +
-                "  required.");
     }
 
     @Override
-    public boolean updateCPU(CPU cpu) {
-        return cpuDao.update(cpu);
+    public boolean updateCPU(CPU cpu) throws CPUException{
+        if (cpuDao.checkExistExceptId(cpu, cpu.getId())) {
+            throw new CPUException("CPU '" + cpu + "' already exists in DB.");
+        }
+        else {
+            return cpuDao.update(cpu);
+        }
     }
 
     @Override

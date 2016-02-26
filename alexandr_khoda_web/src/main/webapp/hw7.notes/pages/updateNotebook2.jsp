@@ -1,4 +1,3 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: al1
@@ -7,26 +6,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="static hw7.notes.view.Servlet.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.domain.Vendor" %>
-<%@ page import="sun.plugin2.gluegen.runtime.CPU" %>
-<%@ page import="hw7.notes.domain.Memory" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
-<%@ page import="hw7.notes.dao.VendorDao" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.view.Menu" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="hw7.notes.dao.CPUDao" %>
+<%@ page import="hw7.notes.domain.CPU" %>
+<%@ page import="hw7.notes.domain.Memory" %>
 <%@ page import="hw7.notes.dao.MemoryDao" %>
-<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
+<%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
+<script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
+
 <head>
-    <title>Add Notebook</title>
+    <title>Update Notebook type</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>Add New Notebook Type</h1></center>
+    <center><h1>Update Notebook type</h1></center><br>
 </head>
 <body>
 <%!
@@ -50,8 +51,8 @@
 %>
 
 <form action="/AddNotebook" method="get">
-    <img src="/hw7.notes/img/addLaptop1.jpg" align="left"
-         style="margin-right: 20px">
+    <img src="/hw7.notes/img/addLaptop1.jpg" align="left" style="margin-right: 20px;
+     width: 200px; height: auto">
 
     <div id="divVenSel">
         <label for="venSel">VENDOR:</label>
@@ -110,7 +111,7 @@
                         </c:if>
                         <c:if test="${cnt.index != SelInxC}">
                             <option value="${c.id}">${c.vendor}, ${c.freq},
-                            ${c.model}
+                                    ${c.model}
                             </option>
                         </c:if>
                     </c:when>
@@ -143,7 +144,7 @@
                     <c:when test="${fn:length(SelInxM) > 0}">
                         <c:if test="${cnt.index == SelInxM}">
                             <option value="${m.id}"selected>${m.vendor},
-                            ${m.sizze}</option>
+                                    ${m.sizze}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInxM}">
                             <option value="${m.id}">${m.vendor}, ${m.sizze}
@@ -169,7 +170,6 @@
         </select>
         <br>
     </div>
-
     <br><br>
     <br><br>
     <p style="text-align: center;">

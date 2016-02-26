@@ -4,6 +4,7 @@ package hw7.notes.service;
 import hw7.notes.dao.MemoryDao;
 import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.*;
+import hw7.notes.exception.CPUException;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
 
@@ -16,9 +17,9 @@ import java.util.Map;
  */
 public interface NotebookService {
 
-    Long receive(Long noteId, int amount, double price);
-    Long sale(Long storeId, int amount) throws StoreException;
-    boolean updateCPU(CPU cpu);
+    Long receive(Long noteId, int amount, double price)throws StoreException;
+    Long sale(Long storeId, int amount)throws StoreException;
+    boolean updateCPU(CPU cpu) throws CPUException;
     boolean updateMemory(Memory memory);
     boolean updateVendor(Vendor vendor);
     boolean updateNotebook(Notebook notebook);

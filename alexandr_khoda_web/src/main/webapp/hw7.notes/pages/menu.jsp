@@ -133,6 +133,13 @@
                       <input type="submit" name="updNtb"
                              value="10. Update Notebook">
                   </td>
+                  <td class="colA">
+                      <div class="cellIn">
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="updNtbPortion"
+                                 value="${defPortion}">
+                      </div>
+                  </td>
               </tr>
               <tr>
                   <td  class="col0">
@@ -143,7 +150,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNtbByPortion"
-                             value="12. List all Notebooks by Portion">
+                             value="12. List all Notebooks in the Store by Portion">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -185,16 +192,12 @@
                   <td  class="col0">
                       <input type="submit" name="listNtbStore"
                              value="15. List all Notebooks in the Store">
-                      <input type="text" name="listNtbStorePortion"
-                             value="${defPortion}">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNtbStoreByVen"
                              value="16. List all Notebooks in the Store by Vendor">
-                      <input type="text" name="listNtbStoreByVenPortion"
-                             value="${defPortion}">
                   </td>
               </tr>
               <tr>
@@ -218,6 +221,7 @@
       </table>
         <footer style="text-align: center">&copy;<%=Menu.NameSurname%>
         </footer>
+        ${kkk}
     </form>
     </body>
 </html>

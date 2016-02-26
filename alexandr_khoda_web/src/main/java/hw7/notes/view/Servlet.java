@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,18 +77,40 @@ public class Servlet extends HttpServlet {
             return  null;
         }
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
-        date = df.parse(dateStr);
+        Date date = df.parse(dateStr);
         return date;
     }
-public static boolean checkStringPar(HttpServletRequest req, String parName){
-    String par = req.getParameter(parName);
-    if (par.trim().length() == 0){
-        setMessageAttr(req, "red", "'" + parName + "' can not have ZERO length.");
-        return true;
+    public static boolean checkStringPar(HttpServletRequest req, String parName){
+        String par = req.getParameter(parName);
+        if (par.trim().length() == 0){
+            setMessageAttr(req, "red", "'" + parName + "' can not have ZERO length.");
+            return true;
+        }
+        return false;
     }
-    return false;
-}
+
+    public static <T extends Number> boolean checkLsZero(HttpServletRequest req,
+                                                      T number){
+        if (((Double)number).compareTo(BigDecimal.ZERO.doubleValue()) < 0){
+            setMessageAttr(req, "red", "Price can not be negative.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Number> boolean checkLsEqZero(HttpServletRequest
+                                                                 req, T number){
+        if (((Double)number).compareTo(BigDecimal.ZERO.doubleValue()) <= 0){
+            setMessageAttr(req, "red", "Price can not be negative or ZERO.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public static Integer String2Integer(String str) throws NumberFormatException{
         if (str == null) {
             return null;

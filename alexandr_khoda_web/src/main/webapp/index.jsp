@@ -26,6 +26,7 @@
         request.setAttribute("totPages", 5);
         request.setAttribute("mode", "1");
         request.setAttribute("SelInx", "0");
+//        request.setAttribute("kkk", "null5");
 
 //        service = new NotebookServiceImpl();
 //        request.setAttribute("NotebookService", service);
