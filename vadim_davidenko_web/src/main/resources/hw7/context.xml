@@ -41,13 +41,13 @@
 
     <tx:annotation-driven transaction-manager="txManager" />
 
-    <bean id="notebookService" class="hw7.springnotes.service.NotebookServiceImpl">
-        <property name="notebookDao" ref="notebookDao"/>
-        <property name="vendorDao" ref="vendorDao"/>
-        <property name="cpuDao" ref="cpuDao"/>
-        <property name="memoryDao" ref="memoryDao"/>
-        <property name="storeDao" ref="storeDao"/>
-        <property name="salesDao" ref="salesDao"/>
-    </bean>
+    <!--<bean id="notebookService" class="hw7.springnotes.service.NotebookServiceImpl">-->
+        <!--<property name="notebookDao" ref="notebookDao"/>-->
+        <!--<property name="vendorDao" ref="vendorDao"/>-->
+        <!--<property name="cpuDao" ref="cpuDao"/>-->
+        <!--<property name="memoryDao" ref="memoryDao"/>-->
+        <!--<property name="storeDao" ref="storeDao"/>-->
+        <!--<property name="salesDao" ref="salesDao"/>-->
+    <!--</bean>-->
 
 </beans>
