@@ -15,8 +15,6 @@
 <body>
 <script src="js/advancedNotebooks.js" type="text/javascript"></script>
 <h3>Add Store:</h3>
-
-
 Select Notebook: <br/>
 <form id="addStore" action="/addStore" method="post">
     <select size="4" name="notebookId">
@@ -40,7 +38,10 @@ Select Notebook: <br/>
     <input id="row4c3" type="text" name="price"> <br/>
     <input type="submit" <%--onclick="validateRow4()"--%> value="Add Store"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 
 ${reg_result}
 

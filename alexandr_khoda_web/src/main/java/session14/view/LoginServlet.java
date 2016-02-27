@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
                 String pass = req.getParameter("pass");
                 if (service.loginCheck(login, pass)){
                     res.getWriter().println("Hallo!");
+                    req.getRequestDispatcher("/hw7.notes/pages/menu.jsp").forward(req, res);
                 }
                 else {
                     res.getWriter().println("Bye!");

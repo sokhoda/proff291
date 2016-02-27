@@ -54,6 +54,7 @@ public class NotebookDaoImpl implements NotebookDao {
         } finally {
 
             session.close();
+            sessionFactory.close();
         }
 
     }
@@ -69,6 +70,7 @@ public class NotebookDaoImpl implements NotebookDao {
         } finally {
 
             session.close();
+            sessionFactory.close();
         }
 
     }
@@ -87,6 +89,7 @@ public class NotebookDaoImpl implements NotebookDao {
         }finally {
 
             session.close();
+            sessionFactory.close();
         }
 
     }
@@ -105,6 +108,7 @@ public class NotebookDaoImpl implements NotebookDao {
         }finally {
 
             session.close();
+            sessionFactory.close();
         }
     }
 
@@ -112,6 +116,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findAll() {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from Notebook");
+        session.close();
+        sessionFactory.close();
         return query.list();
 
     }
@@ -120,6 +126,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findByModel(String model) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from Notebook n where n.model like " + "'" + model + "'");
+        session.close();
+        sessionFactory.close();
         return query.list();
     }
 
@@ -127,6 +135,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findByVendor(String vendor) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from Notebook n where n.vendor like " + "'" + vendor + "'");
+        session.close();
+        sessionFactory.close();
         return query.list();
 
     }
@@ -135,6 +145,8 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findByPriceManufDate(Double price, Date date) {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from Notebook n where n.price like " + price + " and n.manufactureDate like " + date);
+        session.close();
+        sessionFactory.close();
         return query.list();
 
     }
@@ -144,6 +156,8 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from Notebook n where n.price > " + priceFrom + " and n.price <  " + priceTo + " and n.manufactureDate < " + date +
                 " and n.vendor < " + "'" + vendor + "'" );
+        session.close();
+        sessionFactory.close();
         return query.list();
     }
 

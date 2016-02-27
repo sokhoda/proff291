@@ -2,7 +2,7 @@
  * Created by i.gonchar on 2/15/2016.
  */
 
-function validateRow1(){
+function validateRow1() {
     var doc = document;
     var col1 = doc.getElementById("row1").value;
 
@@ -18,7 +18,7 @@ function validateRow1(){
     }
 }
 
-function validateRow2(){
+function validateRow2() {
     var doc = document;
 
     var col1 = doc.getElementById("row2c1").value;
@@ -36,7 +36,7 @@ function validateRow2(){
     }
 }
 
-function validateRow3(){
+function validateRow3() {
     var doc = document;
 
     var col1 = doc.getElementById("row3c1").value;
@@ -56,7 +56,7 @@ function validateRow3(){
     }
 }
 
-function validateRow4(){
+function validateRow4() {
     var doc = document;
 
     var col1 = doc.getElementById("row4c1").value;
@@ -75,6 +75,15 @@ function validateRow4(){
         var form = doc.getElementById("addNotebook");
         form.submit();
     }
+}
 
 
+function confirmDelete() {
+    /*var doc = document;
+    var conf = confirm('Are you sure you want to delete?');
+    if (conf) {
+        var form = doc.getElementById('editVendor');
+        form.submit();
+    }*/
+    alert('OLOLOLO');
 }

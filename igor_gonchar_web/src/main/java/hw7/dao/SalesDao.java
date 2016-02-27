@@ -16,5 +16,5 @@ public interface SalesDao {
 
     public boolean delete(Sales sales);
 
-    public List findall();
-};
+    public List findAll();
+}

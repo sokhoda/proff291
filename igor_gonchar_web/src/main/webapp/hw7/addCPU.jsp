@@ -22,6 +22,10 @@ Enter vendor: <br/>
     <input id="row3c3" type="text" name="model"> <br/>
     <input type="button" onclick="validateRow3()" value="Add CPU"/>
 </form>
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

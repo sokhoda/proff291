@@ -82,7 +82,10 @@ Select Vendor: <br/>
 
     <input type="submit" <%--onclick="validateRow4()"--%> value="Add Notebook"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 
 ${reg_result}
 </body>
