@@ -8,8 +8,6 @@
 <html>
     <head>
         <title>Proff29</title>
-
-
     </head>
     <body>
     <script src="js/alexEx.js" type="text/javascript"></script>
@@ -20,23 +18,7 @@
             <input type="submit" value="POST"/>
         </form>
 
-        <%!
-            public void globalMethod() {
-
-            }
-
-            int field;
-        %>
-
-        ${name}
-
-        <%
-            String name = (String)request.getAttribute("name");
-            Date date = new Date();
-            out.println(name);
-        %>
         <br/>
-        <%= "Это датаЖ " + date %>
 
         <h1>Hello proff29!!!</h1>
         <p>Para</p>
