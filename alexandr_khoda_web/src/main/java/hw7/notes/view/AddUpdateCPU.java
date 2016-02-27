@@ -164,23 +164,13 @@ public class AddUpdateCPU extends HttpServlet {
                 String model = req.getParameter("model");
 
                 if (!checkStringPar(req,"freq")) {
-                    CPU cpuCheck = new CPU(ven, freq, model);
-                    if (cpuDao.checkExistExceptId(cpuCheck, cpuId)) {
-                        setMessageAttr(req, "red", "CPU '" + cpuCheck +
-                                "' already exists in DB.");
+                    if (Menu.service.updateCPU(cpu)) {
+                        setMessageAttr(req, "green", "CPU successfully " +
+                                "updated.");
                     }
                     else {
-                        cpu.setVendor(ven);
-                        cpu.setFreq(freq);
-                        cpu.setModel(model);
-                        if (cpuDao.update(cpu)) {
-                            setMessageAttr(req, "green", "CPU successfully " +
-                                    "updated.");
-                        }
-                        else {
-                            setMessageAttr(req, "red", "Failed to update CPU '" +
-                                     cpu + "'.");
-                        }
+                        setMessageAttr(req, "red", "Failed to update CPU '" +
+                                cpu + "'.");
                     }
                 }
                 setCPUAttributes(req);

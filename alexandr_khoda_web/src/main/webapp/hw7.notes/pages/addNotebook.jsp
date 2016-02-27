@@ -6,14 +6,19 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.GregorianCalendar" %>
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
-<%@ page import="sun.plugin2.gluegen.runtime.CPU" %>
 <%@ page import="hw7.notes.domain.Memory" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="hw7.notes.dao.CPUDao" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.notes.view.Menu" %>
+<%@ page import="hw7.notes.dao.MemoryDao" %>
+<%@ page import="hw7.notes.domain.CPU" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
+<script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
 <head>
@@ -25,28 +30,29 @@
 </head>
 <body>
 <%!
-    List<Vendor> vendors;
-    List<CPU> cpus;
-    List<Memory> memories;
+    CPUDao cpuDao;
+    List<CPU> cpu;
+    MemoryDao memoryDao;
+    List<Memory> memory;
+    VendorDao vendorDao;
+    List<Vendor> vendor;
 %>
 <%
-    String serial = getAttribValue(request, "serialA");
-    String vendor = getAttribValue(request, "vendorA");
-    String model = getAttribValue(request, "modelA");
-    String manDate = getAttribValue(request, "manDateA");
-    String price = getAttribValue(request, "priceA");
-
-
-    String[] message = getAttribArray(request);
-    vendors = (List<Vendor>) request.getAttribute("vendors");
-    cpus = (List<CPU>) request.getAttribute("cpus");
-    memories = (List<Memory>) request.getAttribute("memories");
-
+    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
+    cpu = (List<CPU>)cpuDao.findAll();
+    memoryDao = ((NotebookServiceImpl) Menu.service).getMemoryDao();
+    memory = (List<Memory>)memoryDao.findAll();
+    vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
+    vendor = (List<Vendor>)vendorDao.findAll();
+    request.setAttribute("cpu", cpu);
+    request.setAttribute("memory", memory);
+    request.setAttribute("vendor", vendor);
 %>
 
-<form>
+<form action="/AddNotebook" method="get">
     <img src="/hw7.notes/img/addLaptop1.jpg" align="left"
          style="margin-right: 20px">
+
     <div id="divVenSel">
         <label for="venSel">VENDOR:</label>
         <select size="1" name="venSel" id="venSel">
@@ -55,22 +61,22 @@
                 <c:choose>
                     <c:when test="${SelInx != null}">
                         <c:if test="${cnt.index == SelInx}">
-                            <option value="${v.id}" selected>${v.name}</option>
+                            <option value="${v.id}" selected>${v.toString()}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInx}">
-                            <option value="${v.id}">${v.name}</option>
+                            <option value="${v.id}">${v.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:when test="${SelVal != null}">
                         <c:if test="${v.id == SelVal}">
-                            <option value="${v.id}" selected>${v.name}</option>
+                            <option value="${v.id}" selected>${v.toString()}</option>
                         </c:if>
                         <c:if test="${v.id != SelVal}">
-                            <option value="${v.id}">${v.name}</option>
+                            <option value="${v.id}">${v.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <option value="${v.id}">${v.name}</option>
+                        <option value="${v.id}">${v.toString()}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -79,14 +85,17 @@
     </div>
 
     <label for="model">MODEL:</label>
-    <input  type="text" value="${model}" placeholder="Satellite S-2535LX"
+    <input  type="text" value="${modelA}" placeholder="Satellite S-2535LX"
             name="model" id="model"><br>
 
     <c:set var="now" value="<%=new Date()%>"/>
     <fmt:formatDate var="today" pattern="dd.MM.yyyy" value="${now}"/>
+    <%--<fmt:parseDate value="${manDateA}" pattern="dd.MM.yyyy" var="manDateAParsed"/>--%>
+    <fmt:formatDate var="manDateAFormatted" pattern="dd.MM.yyyy"
+                    value="${manDateA}"/>
 
     <label for="manDate">DATE OF MANUFACTURE:</label>
-    <input  type="text" value="<%= manDate %>" placeholder="${today}"
+    <input  type="text" value="${manDateAFormatted}" placeholder="${today}"
             name="manDate" id="manDate"><br>
 
     <div id="divCpuSel">
@@ -97,27 +106,22 @@
                 <c:choose>
                     <c:when test="${SelInxC != null}">
                         <c:if test="${cnt.index == SelInxC}">
-                            <option value="${c.id}"selected>${c.vendor}, ${c.freq},
-                                    ${c.model}</option>
+                            <option value="${c.id}"selected>${c.toString()}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInxC}">
-                            <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                            </option>
+                            <option value="${c.id}">${c.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:when test="${SelValC != null}">
                         <c:if test="${c.id == SelValC}">
-                            <option value="${c.id}"selected>${c.vendor}, ${c.freq},
-                                    ${c.model}</option>
+                            <option value="${c.id}"selected>${c.toString()}</option>
                         </c:if>
                         <c:if test="${c.id != SelValC}">
-                            <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                            </option>
+                            <option value="${c.id}">${c.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                        </option>
+                        <option value="${c.id}">${c.toString()}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -133,28 +137,22 @@
                 <c:choose>
                     <c:when test="${SelInxM != null}">
                         <c:if test="${cnt.index == SelInxM}">
-                            <option value="${m.id}"selected>${m.vendor},
-                            ${c.freq},
-                                    ${c.model}</option>
+                            <option value="${m.id}"selected>${m.toString()}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInxM}">
-                            <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                            </option>
+                            <option value="${m.id}">${m.toString()}</option>
                         </c:if>
                     </c:when>
-                    <c:when test="${SelValC != null}">
-                        <c:if test="${c.id == SelValC}">
-                            <option value="${c.id}"selected>${c.vendor}, ${c.freq},
-                                    ${c.model}</option>
+                    <c:when test="${SelValM != null}">
+                        <c:if test="${m.id == SelValM}">
+                            <option value="${m.id}"selected>${m.toString()}</option>
                         </c:if>
-                        <c:if test="${c.id != SelValC}">
-                            <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                            </option>
+                        <c:if test="${m.id != SelValM}">
+                            <option value="${m.id}">${m.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <option value="${c.id}">${c.vendor}, ${c.freq}, ${c.model}
-                        </option>
+                        <option value="${m.id}">${m.toString()}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -165,15 +163,21 @@
     <br><br>
     <br><br>
     <p style="text-align: center;">
-        <input type="submit" name="back" value="&longleftarrow; back"  action="/MenuNote" method="get">
-        <input type="submit" name="addNoteB" value="Add Notebook"  action="/MenuNote" method="get">
-        <button name="clearAddNoteB" onclick="clearAllAddNotebook();">Clear
-            All</button>
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="add" value="Add">
+
+        <input type="button" value="Clear All"
+               onclick="setSelectIndex('venSel', 1);
+               clearElemContent('manDate');
+               clearElemContent('model');
+               setSelectIndex('cpuSel', 1);
+               setSelectIndex('memorySel', 1);
+               clearElemContent('message');">
     </p>
     <br>
     <br>
-    <label id="message" style="width: 100%; margin-top:10%; color:<%=message[0]%>;
-            text-align: center; font-size:x-large"><%=message[1]%>
+    <label id="message" style="width: 100%; margin-top:10%;
+            color:${messageColor}; text-align: center; font-size:x-large">${messageText}
     </label>
 </form>
 

@@ -5,6 +5,7 @@ import javax.persistence.*;
 /**
  * Created by Pavel on 18.02.2016.
  */
+@Entity(name = "CPUS")
 public class CPU {
 
     @Id

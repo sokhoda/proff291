@@ -34,15 +34,25 @@ Select Vendor: <br/>
     <br/>
     Change Name: <br/>
     <input id="editVendorName" type="text" name="name"> <br/>
-    <input name = "editButton" type="submit" value="Edit Vendor"/>
-    <input name="deleteButton" type="submit"<%-- onclick="confirmDelete()"--%> value="Delete Vendor"/>
+    <input name="editButton" type="submit" value="Edit Vendor"/>
+    <input name="deleteButton" type="button" onclick="confirmDelete()" value="Delete Vendor"/>
 </form>
 <br/>
 <a href="/hw7/notesAdvanced.jsp">
-<button>Back</button>
+    <button>Back</button>
 </a>
 <p>
     ${reg_result}
 </p>
+<script>
+    function confirmDelete() {
+        var doc = document;
+        var conf = confirm('Are you sure you want to delete?');
+        if (conf) {
+            var form = doc.getElementById('editVendor');
+            form.submit();
+        }
+    }
+</script>
 </body>
 </html>

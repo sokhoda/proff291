@@ -27,13 +27,11 @@
     <center><h1>Add new CPU type</h1></center><br>
 </head>
 <body>
-<%! CPUDao cpuDao;
+<%!
     VendorDao vendorDao;
-    List<CPU> cpu;
     List<Vendor> vendor;
 %>
 <%
-    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
     vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
     vendor = (List<Vendor>)vendorDao.findAll();
     request.setAttribute("vendor", vendor);
@@ -52,22 +50,22 @@
                 <c:choose>
                     <c:when test="${SelInx != null}">
                         <c:if test="${cnt.index == SelInx}">
-                            <option value="${v.id}" selected>${v.name}</option>
+                            <option value="${v.id}" selected>${v.toString()}</option>
                         </c:if>
                         <c:if test="${cnt.index != SelInx}">
-                            <option value="${v.id}">${v.name}</option>
+                            <option value="${v.id}">${v.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:when test="${SelVal != null}">
                         <c:if test="${v.id == SelVal}">
-                            <option value="${v.id}" selected>${v.name}</option>
+                            <option value="${v.id}" selected>${v.toString()}</option>
                         </c:if>
                         <c:if test="${v.id != SelVal}">
-                            <option value="${v.id}">${v.name}</option>
+                            <option value="${v.id}">${v.toString()}</option>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <option value="${v.id}">${v.name}</option>
+                        <option value="${v.id}">${v.toString()}</option>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -89,7 +87,7 @@
         <input type="submit" name="add" value="Add">
 
         <input type="button" value="Clear All"
-               onclick="setSelectIndex('venSel', 0);
+               onclick="setSelectIndex('venSel', 1);
                clearElemContent('freq');
                clearElemContent('model');
                clearElemContent('message');">

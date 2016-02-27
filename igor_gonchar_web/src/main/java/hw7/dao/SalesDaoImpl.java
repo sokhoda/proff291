@@ -57,7 +57,7 @@ public class SalesDaoImpl implements SalesDao {
     }
 
     @Override
-    public List findall() {
+    public List findAll() {
         Session session = mySessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM hw7.domain.Sales s");
         return query.list();

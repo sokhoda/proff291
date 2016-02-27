@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Set;
 
 /**
@@ -38,7 +37,7 @@ public class Notebook {
     @JoinColumn (name = "MEMORY_ID")
     private Memory memory;
 
-    @OneToMany (mappedBy = "notebk")
+    @OneToMany (mappedBy = "notebk", fetch = FetchType.EAGER)
     private Set<Store> stores;
 
     @Transient
@@ -66,10 +65,9 @@ public class Notebook {
                 "id=" + id +
                 ", vendor=" + vendor +
                 ", model='" + model + '\'' +
-                ", manDate=" + manDate +
-                ", cpu=" + cpu +
-                ", memory=" + memory +
-                ", stores=" + stores +
+                ", manDate=" + df.format(manDate) +
+                ", " + cpu +
+                ", " + memory +
                 '}';
     }
 
