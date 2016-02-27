@@ -15,12 +15,12 @@ import java.util.Locale;
 public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
-        ApplicationContext cont = new ClassPathXmlApplicationContext("session16/context-db.xml");
 
-        EmployeeDao employeeDao = cont.getBean("empoyeeImpl", EmployeeDao.class);
+        ApplicationContext cont = new ClassPathXmlApplicationContext("session16/example.xml");
 
-        List<Employee> list = employeeDao.findAllEmployee();
-        System.out.println(list);
+        EmployeeService service = cont.getBean("serviceImpl", EmployeeService.class);
+
+        System.out.println(service.findAll());
 
     }
 }

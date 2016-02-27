@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Юлия on 22.02.2016.
  */
 
-@Repository("empoyeeImpl")
+@Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
@@ -48,7 +48,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Session session = factory.getCurrentSession();
         try {
             Query query = session.createQuery(" from Employee e where e.name=:name ");
-           // query.setParameter("NAME", name);
+           query.setParameter("name", name);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");

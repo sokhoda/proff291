@@ -14,7 +14,9 @@
     <import resource="mvc-dispatcher-servlet.xml"/>
     <!--<import resource="security.xml"/>-->
 
-    <context:component-scan base-package="web"/>
+    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="service"/>
+    <context:component-scan base-package="dao"/>
 
     <mvc:resources mapping="/**" location="/"/>
     <mvc:annotation-driven/>

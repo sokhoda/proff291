@@ -1,35 +1,38 @@
-package session16.service;
+package service;
 
+import dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import session16.dao.EmployeeDao;
+import web.domain.Employee;
+
 
 import java.util.List;
+import java.util.Locale;
 
 /**
- * Created by Юлия on 22.02.2016.
+ * Created with IntelliJ IDEA.
+ * User: al1
+ * Date: 17.03.15
  */
-@Transactional
-@Service("serviceImpl")
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    private EmployeeDao dao;
+    private EmployeeDao employeeDao;
 
     public EmployeeServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List findByName(String name) {
-        return dao.findName(name);
+    public List<Employee> findAll() {
+        return employeeDao.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List findAll() {
-        return dao.findAllEmployee();
+    public Employee findByName(String firstName) {
+        return employeeDao.findEmployeeByName(firstName);
     }
 }
-
-
