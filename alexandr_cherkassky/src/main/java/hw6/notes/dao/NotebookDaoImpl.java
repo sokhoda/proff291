@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class NotebookDaoImpl implements NotebookDao {
     private SessionFactory factory= null;
+    private String newField;
+
 
     public NotebookDaoImpl(){}
 
