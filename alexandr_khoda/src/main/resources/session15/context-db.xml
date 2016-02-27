@@ -32,9 +32,13 @@
         </property>
     </bean>
 
-    <bean id="emplDao1" class="session15.dao.EmployeeDaoImpl">
-        <constructor-arg ref="sf"/>
-    </bean>
+    <context:component-scan base-package="session15"/>
+
+
+
+    <!--<bean id="emplDao" class="session15.dao.EmployeeDaoImpl">-->
+        <!--<constructor-arg ref="sf"/>-->
+    <!--</bean>-->
 
 </beans>
 

@@ -43,15 +43,19 @@ public class EmployeeDaoIml implements EmployeeDao{
     }
 
     @Override
-    public List findAllEmployeeByDepartment(int dep_id) {
+    public List findAllEmployeeByDepartment(Integer dep_id) {
         Session session = factory.openSession();
+        session.beginTransaction();
         try {
-            Query query = session.createQuery("from Employee WHERE DEPARTMENT_ID="+dep_id);
+            Query query = session.createQuery("from Employee e join e.department where e.department=:DEP");
+            query.setParameter("DEP", dep_id);
+            System.out.println(dep_id);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");
             return null;
         } finally {
+            session.getTransaction().commit();
             session.close();
 
         }
@@ -60,13 +64,16 @@ public class EmployeeDaoIml implements EmployeeDao{
     @Override
     public List findAllEmployeeWithNoDepartment() {
         Session session = factory.openSession();
+        session.beginTransaction();
         try {
-            Query query = session.createQuery("FROM Employee WHERE DEPARTMENT_ID IS NULL ");
+            Query query = session.createQuery("from Employee e join e.department where e.department is null");
+
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");
             return null;
         } finally {
+            session.getTransaction().commit();
             session.close();
 
         }

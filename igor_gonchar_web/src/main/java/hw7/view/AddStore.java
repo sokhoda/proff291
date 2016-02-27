@@ -3,6 +3,8 @@ package hw7.view;
 import hw7.domain.CPU;
 import hw7.domain.Notebook;
 import hw7.domain.Store;
+import hw7.service.NotebookService;
+import hw7.util.StartupListener;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
@@ -19,6 +21,14 @@ import java.util.Map;
 @WebServlet("/addStore")
 public class AddStore extends HttpServlet {
 
+
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
@@ -33,13 +43,17 @@ public class AddStore extends HttpServlet {
         int price = Integer.parseInt(priceS);
 
         Long notebookId = Long.valueOf(parameterMap.get("notebookId")[0]);
-        Notebook notebook = Main.notebookService.getNotebookById(notebookId);
+        Notebook notebook = notebookService.getNotebookById(notebookId);
 
         Store store = new Store(notebook, quantity, price);
-        Main.notebookService.createStore(store);
+        notebookService.createStore(store);
 
         request.setAttribute("reg_result", "Store was added");
         request.getRequestDispatcher("/hw7/addStore.jsp").forward(request, resp);
+
+        String pageAddress = "/hw7/addStore.jsp";
+        request.setAttribute("reg_result", "Store was added");
+        request.getRequestDispatcher(pageAddress).forward(request, resp);
 
     }
 }

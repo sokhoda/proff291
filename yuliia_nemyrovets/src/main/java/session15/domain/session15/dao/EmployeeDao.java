@@ -9,7 +9,7 @@ public interface EmployeeDao {
 
     List findAllEmployee();
 
-    List findAllEmployeeByDepartment(int dep_id);
+    List findAllEmployeeByDepartment(Integer dep_id);
 
     List findAllEmployeeWithNoDepartment();
 

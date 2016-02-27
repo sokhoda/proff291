@@ -1,6 +1,7 @@
 package hw7.notes.dao;
 
 import hw6.notes.domain.Notebook;
+import hw7.notes.domain.CPU;
 import hw7.notes.domain.Vendor;
 import org.hibernate.HibernateException;
 
@@ -15,5 +16,7 @@ public interface VendorDao {
     boolean update(Vendor vendor);
     boolean delete(Vendor vendor);
     boolean checkExist(Vendor vendor) throws HibernateException;
+    boolean checkExistExceptId(Vendor vendor, Long venID) throws
+            HibernateException;
     List findAll();
 }

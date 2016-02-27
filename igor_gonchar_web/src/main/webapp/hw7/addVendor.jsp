@@ -18,6 +18,10 @@ Enter name: <br/>
     <input id="row1" type="text" name="vendorName"> <br/>
     <input type="button" onclick="validateRow1()" value="Add Vendor"/>
 </form>
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

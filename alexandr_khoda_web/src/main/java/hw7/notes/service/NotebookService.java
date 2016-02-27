@@ -4,8 +4,11 @@ package hw7.notes.service;
 import hw7.notes.dao.MemoryDao;
 import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.*;
+import hw7.notes.exception.CPUException;
+import hw7.notes.exception.NotebookException;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
+import org.hibernate.HibernateException;
 
 import java.util.Date;
 import java.util.List;
@@ -16,15 +19,22 @@ import java.util.Map;
  */
 public interface NotebookService {
 
-    Long receive(Long noteId, int amount, double price);
-    Long sale(Long storeId, int amount) throws StoreException;
-    boolean updateCPU(CPU cpu);
+    Long receive(Long noteId, int amount, double price)throws StoreException;
+    Long sale(Long storeId, int amount)throws StoreException;
+    boolean updateCPU(CPU cpu) throws CPUException;
     boolean updateMemory(Memory memory);
     boolean updateVendor(Vendor vendor);
     boolean updateNotebook(Notebook notebook);
     boolean removeFromStore(Store store, int amount)  throws StoreException;
 
-    List getNotebooksByPortion(int size, int cnt)throws PortionException;
+    boolean deleteNotebookType(Long noteId) throws NotebookException;
+    Integer getNotebookTypesTotPages(int size);
+    Integer getNotebookInStoreTotPages(int size) throws HibernateException;
+
+    List getNotebookTypesByPortion(int size, int cnt) throws
+            PortionException, HibernateException;
+    List getNotebooksByPortion(int size, int cnt) throws PortionException,
+            HibernateException;
     List getNotebooksGtAmount(int amount);
     List getNotebooksByCpuVendor(Vendor cpuVendor);
     List getNotebooksFromStore();

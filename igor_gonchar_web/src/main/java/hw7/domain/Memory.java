@@ -34,6 +34,22 @@ public class Memory {
         this.size = size;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
     public long getId() {
         return id;
     }

@@ -19,9 +19,10 @@
     <input type="radio" value="vendor" name="addOption"> Vendor  <br/>
     <input type="radio" value="notebook" name="addOption"> Notebook  <br/>
     <input type="radio" value="store" name="addOption"> Store  <br/>
+    <input type="radio" value="sales" name="addOption"> Sales  <br/>
     <input name="addButton" type="submit" value="Add"/>
+    <input name="editButton" type="submit" value="Edit"/>
     <input name="showButton" type="submit" value="Show All"/>
- <%--   <input id="editButton" type="submit" value="Edit"/>--%>
 </form>
 </div>
 <p>

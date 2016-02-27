@@ -23,6 +23,9 @@ public class Store {
     @Column(name="PRICE")
     private double price;
 
+    @Column(name="TOTAL_PRICE")
+    private double priceTotal;
+
     public Store(){
 
     }
@@ -30,6 +33,7 @@ public class Store {
     public Store(Notebook notebook, int amount, double price) {
         this.amount = amount;
         this.price = price;
+        this.priceTotal = amount * price;
     }
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
