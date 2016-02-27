@@ -1,34 +1,96 @@
 package hw7.notes.dao;
 
-import antlr.collections.List;
-import hw7.notes.damain.Vendor;
+
+import hw7.notes.domain.Vendor;
+import hw7.notes.service.NotebookServiceImpl;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 /**
  * Created by Admin on 17.02.2016.
  */
 public class VendorDaoImpl implements VendorDao {
+
+    public VendorDaoImpl(){}
+
+    private SessionFactory sessionFactory = NotebookServiceImpl.getSessionFactory();
+
     @Override
     public Long create(Vendor vendor) {
-        return null;
+        Long id = null;
+        Session session = sessionFactory.openSession();
+        try{
+            session.beginTransaction();
+            id = (Long)session.save(vendor);
+            session.getTransaction().commit();
+            return id;
+        } catch (HibernateException e){
+            session.getTransaction().rollback();
+            return null;
+        } finally {
+            session.close();
+            sessionFactory.close();
+        }
     }
 
     @Override
     public Vendor read(Long id) {
-        return null;
+        Session session = sessionFactory.openSession();
+        try {
+            return (Vendor) session.get(Vendor.class, id);
+        } catch (HibernateException e){
+            return null;
+        } finally {
+            session.close();
+            sessionFactory.close();
+        }
     }
 
     @Override
     public boolean update(Vendor vendor) {
-        return false;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(vendor);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException e){
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+            sessionFactory.close();
+        }
     }
 
     @Override
     public boolean delete(Vendor vendor) {
-        return false;
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.delete(vendor);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException e){
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+            sessionFactory.close();
+        }
     }
 
     @Override
     public List findAll() {
-        return null;
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from hw7.notes.domain.Vendor");
+        session.close();
+        sessionFactory.close();
+        return query.list();
     }
+
 }

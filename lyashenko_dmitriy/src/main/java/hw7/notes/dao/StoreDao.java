@@ -1,7 +1,7 @@
 package hw7.notes.dao;
 
-import antlr.collections.List;
-import hw7.notes.damain.Store;
+import java.util.List;
+import hw7.notes.domain.Store;
 
 /**
  * Created by Admin on 17.02.2016.
