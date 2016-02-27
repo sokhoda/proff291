@@ -75,13 +75,15 @@ function validateRow4() {
         var form = doc.getElementById("addNotebook");
         form.submit();
     }
+}
 
-    function confirmDelete() {
-        var doc = document;
-        var conf = confirm('Are you sure you want to delete?');
-        if (conf) {
-            var form = doc.getElementsByName('deleteButton');
-            form.submit();
-        }
-    }
+
+function confirmDelete() {
+    /*var doc = document;
+    var conf = confirm('Are you sure you want to delete?');
+    if (conf) {
+        var form = doc.getElementById('editVendor');
+        form.submit();
+    }*/
+    alert('OLOLOLO');
 }

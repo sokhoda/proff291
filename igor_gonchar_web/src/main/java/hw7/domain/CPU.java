@@ -39,22 +39,6 @@ public class CPU {
         this.model = model;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public String getVendor() {
-        return vendor;
-    }
-
     @Override
     public String toString() {
         return "CPU{" +
@@ -63,5 +47,45 @@ public class CPU {
                 ", frequency='" + frequency + '\'' +
                 ", model='" + model + '\'' +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Set<Notebook> getNotebooks() {
+        return notebooks;
+    }
+
+    public void setNotebooks(Set<Notebook> notebooks) {
+        this.notebooks = notebooks;
     }
 }

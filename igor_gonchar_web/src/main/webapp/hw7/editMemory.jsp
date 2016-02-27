@@ -14,7 +14,7 @@
 <body>
 <h3>Edit Memory:</h3>
 Select Memory: <br/>
-<form id="editCPU" action="/editMemory" method="post">
+<form id="editMemory" action="/editMemory" method="post">
 
     <select size="4" name="memoryId">
         <option disabled>No selected ...................</option>
@@ -25,7 +25,7 @@ Select Memory: <br/>
                 for (Memory memory : memoryList) {
         %>
         <option <%=(String.valueOf(memory.getId()).equals(memoryId)) ? "selected" : ""%>
-                value="<%=String.valueOf(memory.getId())%>"><%=memory.getSize()%>
+                value="<%=String.valueOf(memory.getId())%>"><%=memory.getVendor()%>, <%=memory.getSize()%>
         </option>
         <% }
         } %>
@@ -45,6 +45,16 @@ Select Memory: <br/>
 <p>
     ${reg_result}
 </p>
+<script>
+    function confirmDelete() {
+        var doc = document;
+        var conf = confirm('Are you sure you want to delete?');
+        if (conf) {
+            var form = doc.getElementById('editMemory');
+            form.submit();
+        }
+    }
+</script>
 </body>
 </body>
 </html>

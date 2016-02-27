@@ -46,12 +46,16 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String hello(Model model) {
+    public String hello(@RequestParam("login") String name, Model model) {
         log.info("/hello.html controller");
-        model.addAttribute("name", "Petro");
-        return "hello";
+        model.addAttribute("name", "hello " + name);
+        return "index";
+    }
+
+    @RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
+    public @ResponseBody String helloBody(@RequestParam("login") String name) {
+        log.info("/hello.html controller");
+        return "hello " + name;
     }
 
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
