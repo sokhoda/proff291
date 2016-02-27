@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +16,8 @@ import java.util.List;
 public class NotebookDaoImpl implements NotebookDao {
     private SessionFactory factory= null;
 
+    public NotebookDaoImpl(){}
+
     public NotebookDaoImpl(SessionFactory factory){
         this.factory=factory;
     }
@@ -21,14 +25,13 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public Long create(Notebook ntb) {
         Session currSession=factory.openSession();
-        Transaction tr;
         Long id=null;
         try{
             currSession.beginTransaction();
             id=(Long)currSession.save(ntb);
             currSession.getTransaction().commit();
         } catch(Exception e){
-
+            e.printStackTrace();
             currSession.getTransaction().rollback();
         }
         finally {
@@ -45,6 +48,7 @@ public class NotebookDaoImpl implements NotebookDao {
             currSession.beginTransaction();
             aNotebook=(Notebook)currSession.get(Notebook.class,id);
         } catch(Exception e){
+            e.printStackTrace();
             currSession.getTransaction().rollback();
         }
         finally{
@@ -55,12 +59,19 @@ public class NotebookDaoImpl implements NotebookDao {
 
     @Override
     public boolean update(Notebook ntb) {
-
+        Session currSession=factory.openSession();
+        try{
+            currSession.beginTransaction();
+            currSession.update(ntb);//?????????
+            currSession.getTransaction().commit();
+        } catch(Exception e){
+            e.printStackTrace();
+            currSession.getTransaction().rollback();
+        } finally{
+            currSession.close();
+        }
         return false;
     }
-
-
-
 
     @Override
     public boolean delete(Notebook ntb) {
@@ -87,13 +98,83 @@ public class NotebookDaoImpl implements NotebookDao {
     public List findAll() {
         Session currSession=factory.openSession();
         try {
-            Query currQuery = currSession.createQuery("from Notebook");
+            String queryStr="from Notebook";
+            Query currQuery = currSession.createQuery(queryStr);
             return currQuery.list();
         } catch(Exception e){
-
+               e.printStackTrace();
+               return null;
         } finally{
             currSession.close();
         }
 
+    }
+
+    @Override
+    public List findByModel(String model) {
+        Session session=factory.openSession();
+        try{
+            Query query=session.createQuery("from Notebook where model=:Model");
+            query.setParameter("Model",model);
+            return query.list();
+        } catch( Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        } finally{
+            session.close();
+        }
+    }
+
+    @Override
+    public List findByVendor(String vendor) {
+        Session session=factory.openSession();
+        try{
+            Query query=session.createQuery("from Notebook where vendor=:Vendor");
+            query.setParameter("Vendor",vendor);
+            return query.list();
+        } catch( Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        } finally{
+            session.close();
+        }
+    }
+
+    @Override
+    public List findByPriceManufDate(Double price, Date date) {
+        Session session=factory.openSession();
+        try{
+            Query query=session.createQuery("from Notebook where price=:Price and manufDate=:Date");
+            query.setParameter("Price",price);
+            query.setParameter("Date",date);
+            return query.list();
+        } catch( Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        } finally{
+            session.close();
+        }
+    }
+
+    @Override
+    public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
+        Session session=factory.openSession();
+        try{
+            Query query=session.createQuery("from Notebook where price>=:PriceFrom and price<=:PriceTo and manufDate<=:Date and vendor=:Vendor ");
+            query.setParameter("PriceFrom",priceFrom);
+            query.setParameter("PriceTo",priceTo);
+            query.setParameter("Date",date);
+            query.setParameter("Vendor",vendor);
+            return query.list();
+        } catch( Exception e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return null;
+        } finally{
+            session.close();
+        }
     }
 }

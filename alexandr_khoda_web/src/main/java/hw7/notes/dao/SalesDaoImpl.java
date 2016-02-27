@@ -15,7 +15,7 @@ import java.util.List;
  * Created by s_okhoda on 16.02.2016.
  */
 public class SalesDaoImpl implements SalesDao {
-    private static Logger log = Logger.getLogger(SalesDaoImpl.class);
+    private static Logger log = Logger.getLogger(SalesDao.class);
     private SessionFactory factory;
 
     public SalesDaoImpl(SessionFactory factory) {
@@ -49,7 +49,7 @@ public class SalesDaoImpl implements SalesDao {
         Session session = factory.openSession();
         Sales sales = null;
         try {
-            sales = (Sales) session.get(Vendor.class, id);
+            sales = (Sales) session.get(Sales.class, id);
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
         } finally {

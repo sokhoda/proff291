@@ -7,93 +7,58 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by i.gonchar on 2/15/2016.
  */
-public class SalesDaoImpl implements SalesDao{
+@Repository("salesDao")
+public class SalesDaoImpl implements SalesDao {
     private static Logger log = Logger.getLogger(VendorDaoImpl.class);
-    private SessionFactory factory;
 
-    public SalesDaoImpl(SessionFactory factory) {
-        this.factory = factory;
+    @Autowired(required = true)
+    private SessionFactory mySessionFactory;
+
+    public SalesDaoImpl() {
     }
 
     @Override
     public Long create(Sales sales) {
-        Session session = factory.openSession();
-        Long id = null;
-        try {
-            session.beginTransaction();
-            id = (Long)session.save(sales);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-
-        return null;
+        Session session = mySessionFactory.getCurrentSession();
+        Long id = (Long) session.save(sales);
+        return id;
     }
 
     @Override
     public Sales read(Long id) {
-        Session session = factory.openSession();
-        try {
-            return (Sales) session.get(Sales.class, id);
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return null;
+        Session session = mySessionFactory.getCurrentSession();
+        return (Sales) session.get(Sales.class, id);
     }
 
     @Override
     public boolean update(Sales sales) {
-        Session session = factory.openSession();
+        Session session = mySessionFactory.getCurrentSession();
         boolean isUpdated = false;
-        try {
-            session.beginTransaction();
-            session.update(sales);
-            session.getTransaction().commit();
-            isUpdated = true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-
+        session.update(sales);
+        isUpdated = true;
         return isUpdated;
     }
 
     @Override
     public boolean delete(Sales sales) {
         boolean isDeleted = false;
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(sales);
-            session.getTransaction().commit();
-            isDeleted = true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed");
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
+        Session session = mySessionFactory.getCurrentSession();
+        session.delete(sales);
+        isDeleted = true;
         return isDeleted;
     }
 
     @Override
-    public List findall() {
-        Session session = factory.openSession();
+    public List findAll() {
+        Session session = mySessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM hw7.domain.Sales s");
         return query.list();
     }

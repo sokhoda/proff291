@@ -20,6 +20,10 @@ Enter vendor: <br/>
     <input id="row2c2" type="text" name="size"> <br/>
     <input type="button" onclick="validateRow2()" value="Add Memory"/>
 </form>
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

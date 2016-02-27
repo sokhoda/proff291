@@ -1,39 +1,51 @@
 package hw7.notes.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by s_okhoda on 16.02.2016.
  */
 @Entity
-@Table (name = "STORE")
+@Table (name = "STORES")
 public class Store {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "STORE_SEQ",
             allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
-    private Long ntbId;
+
+    @ManyToOne
+    @JoinColumn (name = "NOTETYPE_ID")
+    private Notebook notebk;
+
+    @Column (name = "QUANTITY")
     private int quantity;
+
+    @Column (name = "PRICE")
     private Double price;
 
-    public Store(Long id, Long ntbId, int quantity, Double price) {
-        this.id = id;
-        this.ntbId = ntbId;
+    @OneToMany (mappedBy = "store")
+    private Set<Sales> sales;
+
+
+    public Store(Notebook notebk, int quantity, Double price) {
+        this.notebk = notebk;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Store(Notebook ntb, int quantity, Double price) {
-        this.ntbId = ntbId;
-        this.quantity = quantity;
-        this.price = price;
+    public Store() {
     }
 
     @Override
-    public String toString(){
-        return "id=" + id + ", ntbId=" + ntbId + ", quantity=" + quantity + ", " +
-                "price=" + String.format("%.2f", price);
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", " + notebk +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 
     public Long getId() {
@@ -44,12 +56,12 @@ public class Store {
         this.id = id;
     }
 
-    public Long getNtbId() {
-        return ntbId;
+    public Notebook getNotebk() {
+        return notebk;
     }
 
-    public void setNtbId(Long ntbId) {
-        this.ntbId = ntbId;
+    public void setNotebk(Notebook notebk) {
+        this.notebk = notebk;
     }
 
     public int getQuantity() {

@@ -27,6 +27,14 @@ import java.util.Map;
  */
 public interface NotebookService {
 
+    Long insertCPU(CPU cpu);
+
+    Long insertMemory(Memory memory);
+
+    Long insertVendor(Vendor vendor);
+
+    Long insertNotebook(Notebook notebook);
+
     boolean updateCPU(CPU cpu);
 
     boolean updateMemory(Memory memory);
@@ -44,7 +52,7 @@ public interface NotebookService {
     Long sale(Long storeId, int amount);
 
 
-    List getNotebooksByPortion(int page, int size);
+    List getNotebooksByPortion(int size);
 
     List getNotebooksGtAmount(int amount);
 

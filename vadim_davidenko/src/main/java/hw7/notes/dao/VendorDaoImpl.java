@@ -23,7 +23,6 @@ public class VendorDaoImpl implements VendorDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Vendor vendor) {
         Session session = factory.openSession();
         Long id = null;
@@ -41,7 +40,6 @@ public class VendorDaoImpl implements VendorDao {
         return id;
     }
 
-    @Override
     public Vendor read(Long id) {
         Session session = factory.openSession();
         Vendor vendor = null;
@@ -55,7 +53,6 @@ public class VendorDaoImpl implements VendorDao {
         return vendor;
     }
 
-    @Override
     public boolean update(Vendor vendor) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -74,7 +71,6 @@ public class VendorDaoImpl implements VendorDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Vendor vendor) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -93,7 +89,6 @@ public class VendorDaoImpl implements VendorDao {
         return isDeleted;
     }
 
-    @Override
     public List<Vendor> findAll() {
         Session session = factory.openSession();
         try {

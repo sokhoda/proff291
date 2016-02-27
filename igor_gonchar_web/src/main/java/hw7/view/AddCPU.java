@@ -1,6 +1,8 @@
 package hw7.view;
 
 import hw7.domain.CPU;
+import hw7.service.NotebookService;
+import hw7.util.StartupListener;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,13 @@ import java.util.Map;
  */
 @WebServlet("/addCPU")
 public class AddCPU extends HttpServlet {
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
@@ -27,6 +36,10 @@ public class AddCPU extends HttpServlet {
         String model = parameterMap.get("model")[0];
 
         CPU cpu = new CPU (vendorName, frequency, model);
-        Main.notebookService.createCPU(cpu);
+        notebookService.createCPU(cpu);
+
+        String pageAddress = "/hw7/addCPU.jsp";
+        request.setAttribute("reg_result", "CPU was added");
+        request.getRequestDispatcher(pageAddress).forward(request, resp);
     }
 }

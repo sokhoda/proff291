@@ -21,7 +21,6 @@ public class SalesDaoImpl implements SalesDao {
         this.factory = factory;
     }
 
-    @Override
     public Long create(Sales sales) {
         Session session = factory.openSession();
         Long id = null;
@@ -39,7 +38,6 @@ public class SalesDaoImpl implements SalesDao {
         return id;
     }
 
-    @Override
     public Sales read(Long id) {
         Session session = factory.openSession();
         Sales sales = null;
@@ -53,7 +51,6 @@ public class SalesDaoImpl implements SalesDao {
         return sales;
     }
 
-    @Override
     public boolean update(Sales sales) {
         Session session = factory.openSession();
         boolean isUpdated = false;
@@ -72,7 +69,6 @@ public class SalesDaoImpl implements SalesDao {
         return isUpdated;
     }
 
-    @Override
     public boolean delete(Sales sales) {
         Session session = factory.openSession();
         boolean isDeleted = false;
@@ -91,7 +87,6 @@ public class SalesDaoImpl implements SalesDao {
         return isDeleted;
     }
 
-    @Override
     public List<Sales> findAll() {
         Session session = factory.openSession();
         try {
@@ -108,10 +103,11 @@ public class SalesDaoImpl implements SalesDao {
             SQLQuery query = session.createSQLQuery(
                     "select trunc(SALE_DATE), sum (AMOUNT) " +
                             "from SALES " +
-                            "group by trunc(SALE_DATE)"
+                            "group by trunc(SALE_DATE)" +
+                            "order by trunc(SALE_DATE) desc"
             );
             List<Object[]> results = query.list();
-            salesMap = new HashMap<Date, Integer>();
+            salesMap = new LinkedHashMap<Date, Integer>();
             for (Object[] obj : results) {
                 salesMap.put((Date) obj[0], Integer.parseInt(obj[1].toString()));
             }

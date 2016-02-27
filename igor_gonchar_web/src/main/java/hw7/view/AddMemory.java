@@ -2,6 +2,8 @@ package hw7.view;
 
 import hw7.domain.CPU;
 import hw7.domain.Memory;
+import hw7.service.NotebookService;
+import hw7.util.StartupListener;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
@@ -17,6 +19,13 @@ import java.util.Map;
  */
 @WebServlet("/addMemory")
 public class AddMemory extends HttpServlet {
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
@@ -29,6 +38,10 @@ public class AddMemory extends HttpServlet {
         int size = Integer.parseInt(sizeS);
 
         Memory memory = new Memory (vendorName, size);
-        Main.notebookService.createMemory(memory);
+        notebookService.createMemory(memory);
+
+        String pageAddress = "/hw7/addMemory.jsp";
+        request.setAttribute("reg_result", "Memory was added");
+        request.getRequestDispatcher(pageAddress).forward(request, resp);
     }
 }
