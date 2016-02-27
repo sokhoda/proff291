@@ -44,10 +44,17 @@ public class HelloController {
         return new Employee(name + " from Server");
     }
 
+//    @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
+//    public String hello(@RequestParam("login") String name, Model model) {
+//        log.info("/hello.html controller");
+//        model.addAttribute("name", "hello " + name);
+//        return "index";
+//    }
+
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
     public String hello(@RequestParam("login") String name, Model model) {
         log.info("/hello.html controller");
-        model.addAttribute("name", "hello " + name);
+        model.addAttribute("name", service.findInfoaboutUser(name));
         return "index";
     }
 

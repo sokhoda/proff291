@@ -27,7 +27,7 @@
                     </span>
                                 </td>
                                 <td>
-                                    <button name="Button" value="showRegistrForm"type="submit" formaction="/client" formmethod="post">Show</button>
+                                    <button name="Button" value="showRegistrForm" type="submit" formaction="/client" formmethod="post">Show</button>
                                 </td>
                             </tr>
                         </table>

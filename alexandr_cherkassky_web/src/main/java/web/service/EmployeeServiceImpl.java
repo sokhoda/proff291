@@ -7,6 +7,7 @@ import web.dao.EmployeeDao;
 import web.domain.Employee;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,9 +19,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;
 
+    public EmployeeServiceImpl(){
+        Locale.setDefault(Locale.ENGLISH);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Employee> findAll() {
         return employeeDao.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public Employee findInfoaboutUser(String firstName){
+        return employeeDao.findAllaboutUser(firstName);
+    }
+
 }

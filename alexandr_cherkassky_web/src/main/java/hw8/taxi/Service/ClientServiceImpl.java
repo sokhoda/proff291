@@ -1,4 +1,4 @@
-package hw8.taxi.Service;
+package hw8.taxi.service;
 import hw8.taxi.domain.Client;
 import hw8.taxi.exception.ClientException;
 

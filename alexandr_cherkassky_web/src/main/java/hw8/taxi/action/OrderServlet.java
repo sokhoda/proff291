@@ -1,7 +1,7 @@
 package hw8.taxi.action;
 
-import hw8.taxi.Service.OrderService;
-import hw8.taxi.Service.OrderServiceImpl;
+import hw8.taxi.service.OrderService;
+import hw8.taxi.service.OrderServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
