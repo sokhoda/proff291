@@ -7,18 +7,15 @@
 <html>
 <head>
     <title>JavaScript</title>
-    <script>
-        x = 3;
-        console.log('Hello JS' + 3);
-        document.write('Hello JS');
-    </script>
 
     <script type="text/javascript" src="/script/script.js"></script>
 </head>
 <body onload="/*fun()*/">
   <h2 id="elh" onclick="ajaxic('Sestra')">Header</h2>
-  <form action="/controller" onsubmit="return check()" method="">
-    <input id="text" type="text" value="teeeeeeeeeeeeeeeeeeeeext"/>
+  <form action="/hello.html" onsubmit="return check()">
+        <input id="text" name="login" type="text" value="user name"/>
+      <input type="submit" value="send"/>
   </form>
+${name}
 </body>
 </html>
