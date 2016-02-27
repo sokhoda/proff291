@@ -60,22 +60,22 @@
                     <c:choose>
                         <c:when test="${SelInx != null}">
                             <c:if test="${cnt.index == SelInx}">
-                                <option value="${v.id}" selected>${v.name}</option>
+                                <option value="${v.id}" selected>${v.toString()}</option>
                             </c:if>
                             <c:if test="${cnt.index != SelInx}">
-                                <option value="${v.id}">${v.name}</option>
+                                <option value="${v.id}">${v.toString()}</option>
                             </c:if>
                         </c:when>
                         <c:when test="${SelVal != null}">
                             <c:if test="${v.id == SelVal}">
-                                <option value="${v.id}" selected>${v.name}</option>
+                                <option value="${v.id}" selected>${v.toString()}</option>
                             </c:if>
                             <c:if test="${v.id != SelVal}">
-                                <option value="${v.id}">${v.name}</option>
+                                <option value="${v.id}">${v.toString()}</option>
                             </c:if>
                         </c:when>
                         <c:otherwise>
-                            <option value="${v.id}">${v.name}</option>
+                            <option value="${v.id}">${v.toString()}</option>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>

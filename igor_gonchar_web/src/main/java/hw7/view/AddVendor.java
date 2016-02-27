@@ -5,6 +5,7 @@ import hw7.domain.Vendor;
 import hw7.service.NotebookService;
 import hw7.service.NotebookServiceImpl;
 import hw7.util.HiberSessionFactory;
+import hw7.util.StartupListener;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -20,6 +21,14 @@ import java.io.IOException;
  */
 @WebServlet("/addVendor")
 public class AddVendor extends HttpServlet {
+
+    private NotebookService notebookService;
+
+    @Override
+    public void init() throws ServletException {
+        notebookService = StartupListener.getBean("notebookService", NotebookService.class);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
@@ -27,8 +36,13 @@ public class AddVendor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
         String vendorName = request.getParameter("vendorName");
+
         Vendor vendor = new Vendor(vendorName);
-        Main.notebookService.createVendor(vendor);
+        notebookService.createVendor(vendor);
+
+        String pageAddress = "/hw7/addVendor.jsp";
+        request.setAttribute("reg_result", "Vendor was added");
+        request.getRequestDispatcher(pageAddress).forward(request, resp);
 
     }
 }

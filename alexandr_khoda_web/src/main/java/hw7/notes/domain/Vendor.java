@@ -1,8 +1,11 @@
 package hw7.notes.domain;
 
+import hw7.notes.view.Menu;
 import org.hibernate.annotations.Tables;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by s_okhoda on 16.02.2016.
@@ -14,9 +17,19 @@ public class Vendor {
     @SequenceGenerator(name = "sequence", sequenceName = "VENDOR_SEQ",
             allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @Column(name = "ID")
     private Long id;
 
     private String name;
+
+    @OneToMany (mappedBy = "vendor")
+    private Set<CPU> cpus;
+
+    @OneToMany (mappedBy = "vendor")
+    private Set<Memory> memories;
+
+    @OneToMany (mappedBy = "vendor")
+    private Set<Notebook> notebks;
 
     public Vendor(String name) {
         this.name = name;

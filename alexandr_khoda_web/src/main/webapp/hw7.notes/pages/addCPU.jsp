@@ -18,98 +18,78 @@
 <script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
-<c:if test="${mode == null}">
-    <c:set var="mode" value="0"/>
-</c:if>
 
 <head>
-    <title>${mode == 0 ? 'Add New': 'Update'} CPU Type</title>
+    <title>Add new CPU type</title>
     <style>
         <%@include file='/hw7.notes/css/addNotebook.css' %>
     </style>
-    <center><h1>${mode == 0 ? 'Add New': 'Update'} CPU Type</h1></center><br>
+    <center><h1>Add new CPU type</h1></center><br>
 </head>
 <body>
-<%! CPUDao cpuDao;
+<%!
     VendorDao vendorDao;
-    List<CPU> cpu;
+    List<Vendor> vendor;
 %>
 <%
-    cpuDao = ((NotebookServiceImpl) Menu.service).getCpuDao();
+    vendorDao = ((NotebookServiceImpl) Menu.service).getVendorDao();
+    vendor = (List<Vendor>)vendorDao.findAll();
+    request.setAttribute("vendor", vendor);
 %>
 
-<c:if test="${mode == 1}">
-    <% cpu = (List<CPU>)vendorDao.findAll();
-        request.setAttribute("vendor", vendor);
-    %>
-</c:if>
-
-    if (mode == 1) {
-        vendor = (List<Vendor>)vendorDao.findAll();
-        venSelInx = (String) request.getAttribute("venSelInx");
-        venSelVal = (String) request.getAttribute("venSelVal");
-    }
-    request.setAttribute("vendor", vendor);
-
-    String vendorInputText = getAttribValue(request, "nameA");
-
-
 <form action="/AddCpu" method="get">
-    <img src="/hw7.notes/img/addLaptop1.jpg" align="left" style="margin-right: 20px">
+    <img src="/hw7.notes/img/cpu.jpg" align="left" style="margin-right: 20px;
+     width: 200px; height: auto">
 
-    <div id="divCpuSel">
-        <c:if test="${mode == 1}">
-            <label for="cpuSel">SELECT CPU:</label>
-            <select size="1" name="cpuSel" id="cpuSel"
-                    onchange="this.form.submit();">
-                <option disabled>select item</option>
-                <c:forEach var="v" items="${vendor}" varStatus="cnt">
-                    <c:choose>
-                        <c:when test="${venSelInx != null}">
-                            <c:if test="${cnt.index == venSelInx}">
-                                <option value="${v.id}" selected>${v.name}</option>
-                            </c:if>
-                            <c:if test="${cnt.index != venSelInx}">
-                                <option value="${v.id}">${v.name}</option>
-                            </c:if>
-                        </c:when>
-                        <c:when test="${venSelVal != null}">
-                            <c:if test="${v.id == venSelVal}">
-                                <option value="${v.id}" selected>${v.name}</option>
-                            </c:if>
-                            <c:if test="${v.id != venSelVal}">
-                                <option value="${v.id}">${v.name}</option>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${v.id}">${v.name}</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select><br>
-        </c:if>
+
+    <div id="divVenSel">
+        <label for="venSel">SELECT VENDOR:</label>
+        <select size="1" name="venSel" id="venSel">
+            <option disabled>select item</option>
+            <c:forEach var="v" items="${vendor}" varStatus="cnt">
+                <c:choose>
+                    <c:when test="${SelInx != null}">
+                        <c:if test="${cnt.index == SelInx}">
+                            <option value="${v.id}" selected>${v.toString()}</option>
+                        </c:if>
+                        <c:if test="${cnt.index != SelInx}">
+                            <option value="${v.id}">${v.toString()}</option>
+                        </c:if>
+                    </c:when>
+                    <c:when test="${SelVal != null}">
+                        <c:if test="${v.id == SelVal}">
+                            <option value="${v.id}" selected>${v.toString()}</option>
+                        </c:if>
+                        <c:if test="${v.id != SelVal}">
+                            <option value="${v.id}">${v.toString()}</option>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${v.id}">${v.toString()}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select><br>
     </div>
 
 
-
-    <label for="vendors">VENDOR:</label>
-    <input  type="text" value="${nameA == null ? '': nameA}"
-            placeholder="TOSHIBA"
-            name="name" id="vendors"><br>
     <label for="freq">FREQUENCY:</label>
-    <input  type="text" value="<%=vendor%>" placeholder="TOSHIBA"
-            name="name" id="freq"><br>
+    <input  type="text" value="${freqA}" placeholder="3.5G"
+            name="freq" id="freq"><br>
+
     <label for="model">MODEL:</label>
-    <input  type="text" value="<%=vendor%>" placeholder="TOSHIBA"
-            name="name" id="model"><br>
+    <input  type="text" value="${modelA}" placeholder="Quad"
+            name="model" id="model"><br>
     <br><br>
     <br><br>
     <p style="text-align: center;">
-        <input type="submit" name="back" value="&longleftarrow; back">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
         <input type="submit" name="add" value="Add">
 
         <input type="button" value="Clear All"
-               onclick="clearElemContent('vendors');
+               onclick="setSelectIndex('venSel', 1);
+               clearElemContent('freq');
+               clearElemContent('model');
                clearElemContent('message');">
     </p>
     <br>
