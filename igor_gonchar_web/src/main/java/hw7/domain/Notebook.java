@@ -51,34 +51,6 @@ public class Notebook {
         this.memory = memory;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public Date getManufactureDate() {
-        return manufactureDate;
-    }
-
-    public CPU getCpu() {
-        return cpu;
-    }
-
-    public Memory getMemory() {
-        return memory;
-    }
-
-    public Store getStore() {
-        return store;
-    }
-
     @Override
     public String toString() {
         return "Notebook{" +
@@ -90,5 +62,61 @@ public class Notebook {
                 ", memory=" + memory.getSize() +
                 ", store=" + store +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Date getManufactureDate() {
+        return manufactureDate;
+    }
+
+    public void setManufactureDate(Date manufactureDate) {
+        this.manufactureDate = manufactureDate;
+    }
+
+    public CPU getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(CPU cpu) {
+        this.cpu = cpu;
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public void setMemory(Memory memory) {
+        this.memory = memory;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

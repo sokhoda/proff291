@@ -15,8 +15,6 @@
 <body>
 <script src="js/advancedNotebooks.js" type="text/javascript"></script>
 <h3>Add Store:</h3>
-
-
 Select Notebook: <br/>
 <form id="addStore" action="/addStore" method="post">
     <select size="4" name="notebookId">
