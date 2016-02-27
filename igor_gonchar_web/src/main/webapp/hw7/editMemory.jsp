@@ -35,9 +35,13 @@ Select Memory: <br/>
     <input id="editMemoryVendor" type="text" name="vendor"> <br/>
     Change frequency: <br/>
     <input id="editMemorySize" type="text" name="size"> <br/>
-    <input type="submit" value="Edit CPU"/>
+    <input name = "editButton" type="submit" value="Edit Memory"/>
+    <input name="deleteButton" type="submit"<%-- onclick="confirmDelete()"--%> value="Delete Memory"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

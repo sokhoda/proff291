@@ -11,6 +11,10 @@
     <title>Title</title>
 </head>
 <body>
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+    <button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

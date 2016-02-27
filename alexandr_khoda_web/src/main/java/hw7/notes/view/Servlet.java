@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by s_okhoda on 09.02.2016.
@@ -26,6 +25,7 @@ import java.util.Locale;
 public class Servlet extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
+    public static List<String> sizze = Arrays.asList("512M", "1G", "2G", "4G", "8G", "16G");
     private NotebookService service;
 
     @Override
@@ -77,18 +77,63 @@ public class Servlet extends HttpServlet {
             return  null;
         }
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-        Date date = null;
-        date = df.parse(dateStr);
+        Date date = df.parse(dateStr);
         return date;
     }
-public static boolean checkStringPar(HttpServletRequest req, String parName){
-    String par = req.getParameter(parName);
-    if (par.trim().length() == 0){
-        setMessageAttr(req, "red", "'" + parName + "' can not have ZERO length.");
-        return true;
+    public static boolean checkStringPar(HttpServletRequest req, String parName){
+        String par = req.getParameter(parName);
+        if (par.trim().length() == 0){
+            setMessageAttr(req, "red", "'" + parName + "' can not have ZERO length.");
+            return true;
+        }
+        return false;
     }
-    return false;
-}
+
+    public static <T extends Double> boolean checkLsZero(HttpServletRequest req,
+                                                      T number){
+        if (number.compareTo(0.0) < 0){
+            setMessageAttr(req, "red", "Value can not be negative.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Double> boolean checkLsEqZero(HttpServletRequest
+                                                                 req, T number){
+        if (number.compareTo(0.0) <= 0){
+            setMessageAttr(req, "red", "Value can not be negative or ZERO.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Integer> boolean checkLsZeroInt(HttpServletRequest req,
+                                                             T number){
+        if (number.compareTo(0) < 0){
+            setMessageAttr(req, "red", "Value can not be negative.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T extends Integer> boolean checkLsEqZeroInt
+            (HttpServletRequest req, T number){
+        if (number.compareTo(0) <= 0){
+            setMessageAttr(req, "red", "Value can not be negative or ZERO.");
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
     public static Integer String2Integer(String str) throws NumberFormatException{
         if (str == null) {
             return null;

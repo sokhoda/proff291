@@ -2,6 +2,7 @@ package hw7.notes.dao;
 
 import hw7.notes.domain.CPU;
 import hw7.notes.domain.Vendor;
+import hw7.notes.exception.PortionException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -120,6 +121,27 @@ public class CPUDaoImpl implements CPUDao {
     }
 
     @Override
+    public boolean checkExistExceptId(CPU cpu, Long cpuID) throws HibernateException {
+        Session session = factory.openSession();
+        try{
+            Query query = session.createQuery("from CPU cp join cp.vendor v " +
+                    " where v.id = :venId and cp.freq = :freq and cp.model = :model and cp.id <> :cpuID")
+                    .setParameter("venId", cpu.getVendor().getId())
+                    .setParameter("freq", cpu.getFreq())
+                    .setParameter("model", cpu.getModel())
+                    .setParameter("cpuID", cpuID);
+            return (query.list().size() > 0 ? true : false);
+        }
+        catch (HibernateException e){
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    @Override
     public List findAll() {
         Session session = factory.openSession();
         try {
@@ -128,6 +150,26 @@ public class CPUDaoImpl implements CPUDao {
         } catch (HibernateException e) {
             log.error("Transaction failed", e);
             return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List getCPUByPortion(int size, int cnt) throws
+            PortionException, HibernateException{
+        if (size <= 0) {
+            throw new PortionException("Negative portion size.");
+        }
+        Session session = factory.openSession();
+        try {
+            Query query = session.createQuery("from CPU");
+            query.setFirstResult((cnt - 1) * size);
+            query.setMaxResults(size);
+            return query.list();
+        } catch (HibernateException e) {
+            log.error("Transaction failed", e);
+            throw new HibernateException(e.getMessage());
         } finally {
             session.close();
         }

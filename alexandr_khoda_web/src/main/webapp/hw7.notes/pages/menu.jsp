@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="hw7.notes.view.Menu" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="java.util.List" %>
@@ -34,9 +35,11 @@
         vendorDao = ((NotebookServiceImpl)Menu.service).getVendorDao();
 
         vendor = (List<Vendor>)vendorDao.findAll();
-        String[] message = getAttribArray(request);
-
+        request.setAttribute("vendor", vendor);
     %>
+    <c:set var="defPortion" value="5"/>
+    <c:set var="defQuant" value="15"/>
+
     <form action="/MainNote" method="post">
 
         <center><img id="MenuImg" src="/hw7.notes/img/laptop1.gif">
@@ -46,9 +49,9 @@
             <label align="left" style="font-size: larger; font-weight: bold;
               color: firebrick">Please, make your choice:
             </label>
-            <label id="message" style="width: 100%; margin-top:10%;
-                color:<%=message[0]%>; text-align: center; font-size:x-large"><%=message[1]%>
-            </label
+            <label id="message" style="width: 100%; color:${messageColor == null ? 'brown' : messageColor};
+                    text-align: center; font-size:x-large">${messageText}
+            </label>
         </div>
 
       <table width="100%">
@@ -101,7 +104,7 @@
                       <div class="cellIn">
                           <label class="smallSign">Portion:</label>
                           <input type="text" name="updCPUPortion"
-                                 value="">
+                                 value="${defPortion}">
                       </div>
                   </td>
               </tr>
@@ -114,7 +117,7 @@
                       <div class="cellIn">
                           <label class="smallSign">Portion:</label>
                           <input type="text" name="updMemoryPortion"
-                                 value="">
+                                 value="${defPortion}">
                       </div>
                   </td>
               </tr>
@@ -130,88 +133,89 @@
                       <input type="submit" name="updNtb"
                              value="10. Update Notebook">
                   </td>
+                  <td class="colA">
+                      <div class="cellIn">
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="updNtbPortion"
+                                 value="${defPortion}">
+                      </div>
+                  </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
+                      <input type="submit" name="writeOffNtb"
                              value="11. Write off Notebooks">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="ByPortion"
-                             value="12. List all Notebooks by Portion">
+                      <input type="submit" name="listNtbTypesByPortion"
+                             value="12. List all Notebook types by Portion">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
                           <label class="smallSign">Portion:</label>
-                          <input type="text" name="ByPortionPortion"
-                                 value="">
+                          <input type="text" name="listNtbTypesByPortionPortion"
+                                 value="${defPortion}">
                       </div>
                   </td>
               </tr>
-
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="ByGreaterQuantity"
-                             value="13. List all Notebooks, quant. >=">
+                      <input type="submit" name="listNtbByPortion"
+                             value="13. List all Notebooks in the Store by Portion">
+                  </td>
+                  <td class="colA">
+                      <div class="cellIn">
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="listNtbByPortionPortion"
+                                 value="${defPortion}">
+                      </div>
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="ByGtQuan"
+                             value="14. List all Notebooks, quant. >=">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
                           <label class="smallSign">Quantity:</label>
-                          <input type="text" name="ByGreaterQuantityQuantity"
-                                 value="">
+                          <input type="text" name="ByGtQuanQuan"
+                                 value="${defQuant}">
                       </div>
                   </td>
 
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="ByCPUVendor"
-                             value="14. List all Notebooks by CPU Vendor">
+                      <input type="submit" name="ByCPUVen"
+                             value="15. List all Notebooks by CPU Vendor">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
-                          <label for="vendors">CPU Vendor:</label>
-                          <% if(vendor != null){
-                          %>
-                          <select size="<%vendor.size();%>" name="ByCPUVendorCPUVendor" id="vendors">
-                              <option disabled>select item</option>
-                              <%
-                                  for (Vendor v : vendor) {
-                              %>
-                              <option value="<%=v.getId()%>">
-                                  <%=v.getName()%></option>
-                              <%
-                                  }
-                              %>
-                          </select>
-                          <script type="text/javascript">
-                              setSelectIndex('vendors', 1);
-                          </script>
-                          <%
-                              }
-                          %>
-
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="ByCPUVenPortion"
+                                 value="${defPortion}">
                       </div>
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
-                             value="15. List all Notebooks in the Store">
+                      <input type="submit" name="listNtbStore"
+                             value="16. List all Notebooks in the Store">
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
+                      <input type="submit" name="listNtbStoreByVen"
+                             value="17. List all Notebooks in the Store by Vendor">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNoteByPriceManDateVendor"
-                             value="16. List all Notebooks in the Store by Vendor">
-                  </td>
-              </tr>
-              <tr>
-                  <td  class="col0">
-                      <input type="submit" name="listNoteByPriceManDateVendor"
-                             value="17. Get AVE Daily Sell Rate">
+                             value="18. Get AVE Daily Sell Rate">
                   </td>
               </tr>
 
@@ -220,7 +224,7 @@
                   <td  class="col0">
                       <%--<input type="submit" name="exit" class="but"--%>
                              <%--value=">10. Exit">--%>
-                      <button name="exit" onclick="self.close()" class="but">18.
+                      <button name="exit" onclick="self.close()" class="but">19.
                           Exit</button>
                   </td>
               </tr>
@@ -229,6 +233,7 @@
       </table>
         <footer style="text-align: center">&copy;<%=Menu.NameSurname%>
         </footer>
+        ${kkk}
     </form>
     </body>
 </html>

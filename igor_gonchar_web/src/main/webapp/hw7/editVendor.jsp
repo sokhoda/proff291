@@ -12,8 +12,9 @@
     <title>Title</title>
 </head>
 <body>
+<script src="js/advancedNotebooks.js" type="text/javascript"></script>
 <h3>Edit Vendor:</h3>
-Select Memory: <br/>
+Select Vendor: <br/>
 <form id="editVendor" action="/editVendor" method="post">
 
     <select size="4" name="vendorId">
@@ -33,9 +34,13 @@ Select Memory: <br/>
     <br/>
     Change Name: <br/>
     <input id="editVendorName" type="text" name="name"> <br/>
-    <input type="submit" value="Edit Vendor"/>
+    <input name = "editButton" type="submit" value="Edit Vendor"/>
+    <input name="deleteButton" type="submit"<%-- onclick="confirmDelete()"--%> value="Delete Vendor"/>
 </form>
-
+<br/>
+<a href="/hw7/notesAdvanced.jsp">
+<button>Back</button>
+</a>
 <p>
     ${reg_result}
 </p>

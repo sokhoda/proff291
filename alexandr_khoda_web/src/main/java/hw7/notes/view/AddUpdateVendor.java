@@ -1,16 +1,8 @@
 package hw7.notes.view;
 
 import hw7.notes.dao.VendorDao;
-import hw7.notes.dao.VendorDaoImpl;
 import hw7.notes.domain.Vendor;
-import hw7.notes.exception.InvalidParamValueException;
-import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import session14.service.GeneralServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,17 +48,18 @@ public class AddUpdateVendor extends HttpServlet {
             try {
                 String name = req.getParameter("name");
                  if (!checkStringPar(req,"name")){
-                     if(vendorDao.checkExist(new Vendor(name))){
-                         setMessageAttr(req, "red", "Vendor '" +
-                                 name + "' already exists in DB.");
+                     Vendor ven = new Vendor(name);
+                     if(vendorDao.checkExist(ven)){
+                         setMessageAttr(req, "red", "Vendor '" + ven
+                                  + "' already exists in DB.");
                      }
                      else {
-                         if (vendorDao.create(new Vendor(name)) != null) {
+                         if (vendorDao.create(ven) != null) {
                              setMessageAttr(req, "green", "Vendor successfully added.");
                          }
                          else {
                              setMessageAttr(req, "red", "Failed to add Vendor '" +
-                                     name + "'.");
+                                     ven + "'.");
                          }
                      }
                      setVendorAttributes(req);
@@ -86,9 +79,10 @@ public class AddUpdateVendor extends HttpServlet {
                 String name = req.getParameter("name");
                 Long venId = Long.parseLong(req.getParameter("venSel"));
                 if (!checkStringPar(req,"name")){
-                    if(vendorDao.checkExist(new Vendor(name))){
-                        setMessageAttr(req, "red", "Vendor '" +
-                                name + "' already exists in DB.");
+                    Vendor venCh = new Vendor(name);
+                    if(vendorDao.checkExistExceptId(venCh, venId)){
+                        setMessageAttr(req, "red", "Vendor '" + venCh + "' " +
+                                "already exists in DB.");
                     }
                     else {
                         Vendor ven = vendorDao.read(venId);
@@ -99,8 +93,7 @@ public class AddUpdateVendor extends HttpServlet {
                         }
                         else {
                             setMessageAttr(req, "red", "Failed to update " +
-                                    "Vendor '" +
-                                    name + "'.");
+                                    "Vendor '" + ven + "'.");
                         }
                     }
                     setVendorAttributes(req);

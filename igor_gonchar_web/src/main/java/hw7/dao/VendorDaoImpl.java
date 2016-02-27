@@ -71,7 +71,6 @@ public class VendorDaoImpl implements VendorDao {
         boolean isUpdated = false;
         Session session = mySessionFactory.getCurrentSession();
         session.update(vendor);
-        session.getTransaction().commit();
         isUpdated = true;
         return isUpdated;
     }
