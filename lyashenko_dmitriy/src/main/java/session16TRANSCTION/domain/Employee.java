@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-public class Emloyee {
+public class Employee {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "EMPLOYEES_SEQ",
             allocationSize = 1, initialValue = 1)
@@ -19,7 +19,7 @@ public class Emloyee {
     @Column(name = "DEPARTMENT_ID")
     private Integer departments;
 
-    public  Emloyee (){}
+    public Employee(){}
 
     public Long getId() {
         return id;
@@ -39,7 +39,7 @@ public class Emloyee {
 
     @Override
     public String toString() {
-        return "Emloyee{" +
+        return "Employee{" +
                 "id=" + id +
                 ", departments=" + departments +
                 '}';

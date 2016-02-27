@@ -1,7 +1,9 @@
 package hw7.notes.dao;
 
-import antlr.collections.List;
-import hw7.notes.damain.Vendor;
+
+import hw7.notes.domain.Vendor;
+
+import java.util.List;
 
 /**
  * Created by Admin on 17.02.2016.

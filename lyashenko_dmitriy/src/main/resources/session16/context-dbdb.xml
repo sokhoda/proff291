@@ -8,7 +8,8 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="classpath:session16/conf.properties"/>
-    <context:component-scan base-package="session16TRANSCTION"/>
+    <context:component-scan base-package="session16TRANSCTION.dao"/>
+    <context:component-scan base-package="session16TRANSCTION.service"/>
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}"/>
@@ -21,8 +22,9 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-
-                <value>session16TRANSCTION</value>
+                <value>session16TRANSCTION.dao</value>
+                <value>session16TRANSCTION.domain</value>
+                <value>session16TRANSCTION.service</value>
             </list>
         </property>
         <property name="hibernateProperties">

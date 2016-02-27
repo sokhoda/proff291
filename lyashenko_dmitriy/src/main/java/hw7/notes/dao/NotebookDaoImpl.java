@@ -2,7 +2,7 @@ package hw7.notes.dao;
 
 
 
-import hw7.notes.damain.Notebook;
+import hw7.notes.domain.Notebook;
 import hw7.notes.service.NotebookServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -88,7 +88,7 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public List findAll() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Notebook");
+        Query query = session.createQuery("from hw7.notes.domain.Notebook");
         session.close();
         sessionFactory.close();
         return query.list();
