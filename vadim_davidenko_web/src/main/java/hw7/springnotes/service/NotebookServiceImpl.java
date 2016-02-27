@@ -5,6 +5,7 @@ import hw7.springnotes.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -98,14 +99,13 @@ public class NotebookServiceImpl implements NotebookService {
     public boolean removeFromStore(Store store, int amount) {
         Integer currentAmount = store.getAmount();
 
-        if (currentAmount.compareTo(amount) > 0) {
+        if (currentAmount.compareTo(amount) >= 0) {
             Integer newAmount = currentAmount - amount;
             Double newPrice = store.getPrice() / currentAmount * newAmount;
             store.setAmount(newAmount);
             store.setPrice(newPrice);
+
             return storeDao.update(store);
-        } else if (currentAmount.compareTo(amount) == 0) {
-            return storeDao.delete(store);
         }
         return false;
     }
@@ -115,23 +115,15 @@ public class NotebookServiceImpl implements NotebookService {
         if (store == null) return 0L;
 
         Integer currentAmount = store.getAmount();
-        if (currentAmount.compareTo(amount) > 0) {
-            Integer newAmount = currentAmount - amount;
-            Double newPrice = store.getPrice() / currentAmount * newAmount;
-            store.setAmount(newAmount);
-            store.setPrice(newPrice);
-            storeDao.update(store);
-        } else if (currentAmount.compareTo(amount) == 0) {
-            storeDao.delete(store);
+        if (currentAmount.compareTo(amount) >= 0) {
+            Sales sale = new Sales();
+            sale.setAmount(amount);
+            sale.setStore(store);
+            sale.setDate(new Date());
+            return salesDao.create(sale);
         } else {
             return 0L;
         }
-        Sales sale = new Sales();
-        sale.setAmount(amount);
-        sale.setStore(store);
-        sale.setDate(new Date());
-
-        return salesDao.create(sale);
     }
 
     /////////////////////////////////////////////////////////////
