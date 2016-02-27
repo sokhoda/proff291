@@ -1,6 +1,6 @@
 package hw7.notes.dao;
 
-import hw7.notes.damain.CPU;
+import hw7.notes.domain.CPU;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface CPUDao {
     CPU read(Long id);
     boolean update(CPU cpu);
     boolean delete(CPU cpu);
-   List findAll();
+    List findAll();
 
 }
