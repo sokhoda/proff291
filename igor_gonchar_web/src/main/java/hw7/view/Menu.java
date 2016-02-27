@@ -81,6 +81,12 @@ public class Menu extends HttpServlet {
                     request.getRequestDispatcher("/hw7/addStore.jsp").forward(request, response);
 
                     break;
+                case "sales":
+                    List<Store> storeList = notebookService.getAllStores();
+                    request.setAttribute("storeList", storeList);
+
+                    request.getRequestDispatcher("/hw7/addSales.jsp").forward(request, response);
+                    break;
                 default:
                     break;
             }
@@ -131,6 +137,15 @@ public class Menu extends HttpServlet {
                     }
                     message = sb5.toString();
                     break;
+                case "sales":
+                    List<Sales> list6 = notebookService.getAllSales();
+                    StringBuilder sb6 = new StringBuilder();
+                    for (int i = 0; i < list6.size(); i++) {
+                        sb6.append(list6.get(i).toString());
+                        sb6.append("<br/>");
+                    }
+                    message = sb6.toString();
+                    break;
                 default:
                     break;
             }
@@ -161,6 +176,15 @@ public class Menu extends HttpServlet {
                     List<Notebook> notebookList = notebookService.getAllNotebooks();
                     request.setAttribute("notebookList", notebookList);
 
+                    List<Notebook> notebookList1 = notebookService.getAllNotebooks();
+                    request.setAttribute("notebookList", notebookList1);
+                    List<CPU> cpuList1 = notebookService.getAllCPUs();
+                    request.setAttribute("cpuList", cpuList1);
+                    List<Memory> memoryList1 = notebookService.getAllMemories();
+                    request.setAttribute("memoryList", memoryList1);
+                    List<Vendor> vendorList1 = notebookService.getAllVendors();
+                    request.setAttribute("vendorList", vendorList1);
+
                     pageAddress = "/hw7/editNotebook.jsp";
                     message = "editNotebook";
                     break;
@@ -170,6 +194,13 @@ public class Menu extends HttpServlet {
 
                     pageAddress = "/hw7/editStore.jsp";
                     message = "editStore";
+                    break;
+                case "sales":
+                    List<Sales> salesList = notebookService.getAllSales();
+                    request.setAttribute("salesList", salesList);
+
+                    pageAddress = "/hw7/editSales.jsp";
+                    message = "editSales";
                     break;
                 default:
                     break;

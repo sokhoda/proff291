@@ -53,6 +53,7 @@ public class NotebookServiceImpl implements NotebookService {
     private VendorDao vendorDao;
 
     @Override
+    @Transactional
     public boolean updateCPU(CPU cpu) {
         if (cpu == null) return false;
         return cpuDao.update(cpu);
@@ -162,6 +163,12 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     @Transactional(readOnly = true)
+    public List getAllSales() {
+        return salesDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List getAllMemories() {
         return memoryDao.findAll();
     }
@@ -185,16 +192,19 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional
     public boolean removeMemory(Memory memory) {
         return memoryDao.delete(memory);
     }
 
     @Override
+    @Transactional
     public boolean removeCPU(CPU cpu) {
       return cpuDao.delete(cpu);
     }
 
     @Override
+    @Transactional
     public boolean removeNotebook(Notebook notebook) {
         return notebookDao.delete(notebook);
     }

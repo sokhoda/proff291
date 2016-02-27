@@ -29,6 +29,8 @@ public interface NotebookService {
 
     List getAllStores();
 
+    List getAllSales();
+
     boolean createCPU(CPU cpu);
 
     Long createVendor(Vendor vendor);

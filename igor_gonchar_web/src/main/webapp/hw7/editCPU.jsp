@@ -38,7 +38,7 @@ Select CPU: <br/>
     <input id="editCPUfreq" type="text" name="frequency"> <br/>
     Change model: <br/>
     <input id="editCPUmodel" type="text" name="model"> <br/>
-    <input type="submit" value="Edit CPU"/>
+    <input name = "editButton" type="submit" value="Edit CPU"/>
     <input name="deleteButton" type="submit" value="Delete CPU"/>
 </form>
 <br/>
@@ -48,5 +48,15 @@ Select CPU: <br/>
 <p>
     ${reg_result}
 </p>
+<script>
+    function confirmDelete() {
+        var doc = document;
+        var conf = confirm('Are you sure you want to delete?');
+        if (conf) {
+            var form = doc.getElementById('editCPU');
+            form.submit();
+        }
+    }
+</script>
 </body>
 </html>
