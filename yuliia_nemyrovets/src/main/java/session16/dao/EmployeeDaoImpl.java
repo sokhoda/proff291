@@ -15,12 +15,12 @@ import java.util.List;
  * Created by Юлия on 22.02.2016.
  */
 
-@Repository("service")
+@Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
 
-    @Autowired
+    @Autowired(required = true)
     private SessionFactory factory;
 
     public EmployeeDaoImpl() {
@@ -47,8 +47,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public List findName(String name) {
         Session session = factory.getCurrentSession();
         try {
-            Query query = session.createQuery("select s from Employee e where e.name=:NAME ");
-            query.setParameter("NAME", name);
+            Query query = session.createQuery(" from Employee e where e.name=:name ");
+           query.setParameter("name", name);
             return query.list();
         } catch (Exception e) {
             log.error("Transaction is being failed");

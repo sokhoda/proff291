@@ -18,15 +18,15 @@
 Таблица ноутбуки имеет следующую структуру
 (id, serial, vendor, model, manufacture date, price)
 domain
-hw6.notes.domain.Notebook
+hw6.Notebook
 dao
-hw6.notes.dao.NotebookDao
+hw6.NotebookDao
 Long create(Notebook ntb)
 Notebook read(Long ig)
 boolean update(Notebook ntb)
 boolean delete(Notebook ntb)
 List findAll()
-hw6.notes.dao.NotebookDaoImpl
+hw6.NotebookDaoImpl
 
 2. Заготовка справочника
 ********************************
@@ -35,24 +35,24 @@ hw6.notes.dao.NotebookDaoImpl
 - Добавить новый ноутбук
 - Показать список ноутбуков (включая порядковый номер id)
 domain
-hw6.notes.domain.Notebook
+hw6.Notebook
 dao
-hw6.notes.dao.NotebookDao
+hw6.NotebookDao
 Long create(Notebook notebook)
 Notebook read(Long id)
 boolean update(Notebook notebook)
 boolean delete(Notebook notebook)
 List findAll()
-hw6.notes.dao.NotebookDaoImpl
+hw6.NotebookDaoImpl
 util
-hw6.notes.util.HibernateUtil
+hw6.HibernateUtil
 service
-hw6.notes.service.NotebookService
+hw6.NotebookService
 Long add(Notebook notebook)
 List findAll()
-hw6.notes.service.NotebookServiceImpl
+hw6.NotebookServiceImpl
 view
-hw6.notes.service.Menu
+hw6.Menu
 main()
 
 3. Справочник ноутбуков
@@ -62,27 +62,27 @@ main()
 - Изменить цену ноутбука по id
 - Изменить серийный номер и производителя по id
 domain
-hw6.notes.domain.Notebook
+hw6.Notebook
 dao
-hw6.notes.dao.NotebookDao
+hw6.NotebookDao
 Long create(Notebook notebook)
 Notebook read(Long id)
 boolean update(Notebook notebook)
 boolean delete(Notebook notebook)
 List findAll()
-hw6.notes.dao.NotebookDaoImpl
+hw6.NotebookDaoImpl
 util
-hw6.notes.util.HibernateUtil
+hw6.HibernateUtil
 service
-hw6.notes.service.NotebookService
+hw6.NotebookService
 Long add(Notebook notebook)
 List findAll()
 void changePrice(Long id, double price)
 void changeSerialVendor(Long id, String serial, String vendor)
 boolean delete(Long id)
-hw6.notes.service.NotebookServiceImpl
+hw6.NotebookServiceImpl
 view
-hw6.notes.service.Menu
+hw6.Menu
 main()
 void deleteNtb(Notebook notebook)
 void changePrice(Notebook notebook)
@@ -97,25 +97,25 @@ void changeSerialVendor(Notebook notebook)
 - Получить ноутбуки по цене в указанном диапазоне, меньше указанной даты выпуска и указанного производителя
 
 domain
-hw6.notes.domain.Notebook
+hw6.Notebook
 dao
-hw6.notes.dao.NotebookDao
+hw6.NotebookDao
 List findByModel(String model)
 List findByVendor(String vendor)
 List findByPriceManufDate(Double price, Date date)
 List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor)
-hw6.notes.dao.NotebookDaoImpl
+hw6.NotebookDaoImpl
 util
-hw6.notes.util.HibernateUtil
+hw6.HibernateUtil
 service
-hw6.notes.service.NotebookService
+hw6.NotebookService
 boolean deleteByModel(String model)
 List findByVendor(String vendor)
 List findByPriceManufDate(Double price, Date date)
 List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor)
-hw6.notes.service.NotebookServiceImpl
+hw6.NotebookServiceImpl
 view
-hw6.notes.service.Menu
+hw6.Menu
 main()
 void deleteByModel()
 void showByVendor()

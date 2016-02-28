@@ -24,7 +24,7 @@
 
 
         </script>
-        <script src="js/script.js" type="text/javascript">
+        <script src="js/script1.js" type="text/javascript">
 
     </script>
         <script src="js/Phone.js" type="text/javascript">

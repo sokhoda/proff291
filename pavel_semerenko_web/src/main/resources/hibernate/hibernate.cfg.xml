@@ -18,6 +18,6 @@
         <mapping class="hibernate.User"/>
         <mapping class="session13.domain.Person"/>
         <mapping class="session13.domain.Company"/>
-        <mapping class="hw6.notes.domain.Notebook"/>
+        <mapping class="hw6.Notebook"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,5 +1,5 @@
 /**
- * Created by Юлия on 23.01.2016.
+ * Created by al1 on 28.11.15.
  */
 
 val = 55;
@@ -11,48 +11,46 @@ function createTree(node, tabs) {
         createTree(node.childNodes.item(i), tabs);
     }
 }
+var functionFun = function() {
+    //alert(vaz);
+    //alert('Fun function ' + arguments.length);
+    var vaz = 4;
+    //var obj = [];
 
-var functionFun = function fun() {
-    var val = 5;
     var obj = {
-        field: 1,
-        field2: 'name',
-        //alert('Fun Function'+arguments.length);
-        // return 3;
-        du: function () {
+        field : 1,
+        field2 : 'поле',
+        du : function () {
             alert(this.field + this.field2 + this.id);
         }
     };
     obj['id'] = 1;
-    obj.du();
+    function Class() {
+        this.field = 12;
+        this.method = function() {
+            this.field = 45;
+            return this.field;
+        };
+        this.toString = function() {
+            return 2;
+        }
+    }
 
-//    function Class() {
-//        this.field = 12;
-//        this.method = function () {
-//            this.field = 45;
-//            return this.field;
-//        }
-//    };
-//    var obj = new Class();
-//    alert(obj.field + obj.method());
-//    var vector = new Array(3);
-//    var sub = Object.create(obj);
-//    sub.__proto__ = (vector);
-//    //  second way
-////var sub={};
-////    sub.prototype=obj;
-//
-//    //  alert(sub.field);
-//
-//    alert(sub.hasOwnProperty('field'));
+    var obj = new Class();
+    //alert(obj.field + obj.method());
 
-    var doc=document.documentElement;
-    //can write in tree
-    document.write('empty');
-    document.write(doc.nodeType);
-    document.write(doc.tagName);
-    document.write(doc.childNodes);
+    var vector = new Array(3);
+
+    //var sub = Object.create(obj);
+    var sub = {};
+    sub.__proto__ = obj;
+
+
+    alert(obj + sub);
 
 
 };
-//fun("", 2);
+
+
+
+//alert(functionFun());

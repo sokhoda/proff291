@@ -1,14 +1,14 @@
 package session16;
 
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import session12.dentist.domain.*;
+        import org.apache.log4j.Logger;
+        import org.hibernate.HibernateException;
+        import org.hibernate.Session;
+        import org.hibernate.SessionFactory;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Repository;
+        import session12.dentist.domain.*;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
