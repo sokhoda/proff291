@@ -14,8 +14,8 @@ app.controller("HelloCtrl", function ($scope, $http) {
 		responsePromise.success(
 			function(data, status, headers, config) {
 				$scope.greeting = data;
-				for(var i=0; i<data;i++){
-					$scope.vector.push(i);
+				for(var i=0; i<5;i++){
+					$scope.vector.push(note);
 				}
 
 			});
