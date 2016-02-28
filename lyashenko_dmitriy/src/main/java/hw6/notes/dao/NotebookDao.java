@@ -2,7 +2,7 @@ package hw6.notes.dao;
 
 import hw6.notes.domain.Notebook;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
