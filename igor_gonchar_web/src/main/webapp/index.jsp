@@ -28,7 +28,7 @@
      </script>--%>
 </head>
 <body>
-<script src="js/script.js" type="text/javascript"></script>
+<script src="js/script1.js" type="text/javascript"></script>
 <table border="1">
     <tbody>
 
