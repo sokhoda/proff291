@@ -21,10 +21,10 @@
         <!--<mapping class="session13.Person"/>-->
         <!--<mapping class="session14.Company"/>-->
         <!--<mapping class="session14.Person"/>-->
-        <!--<mapping class="hw6.notes.domain.Notebook"/>-->
+        <!--<mapping class="hw6.Notebook"/>-->
         <mapping class="hw7.notes.domain.CPU"/>
         <mapping class="hw7.notes.domain.Memory"/>
-        <mapping class="hw7.notes.domain.Notebook"/>
+        <mapping class="hw7.Notebook"/>
         <mapping class="hw7.notes.domain.Sales"/>
         <mapping class="hw7.notes.domain.Store"/>
         <mapping class="hw7.notes.domain.Vendor"/>

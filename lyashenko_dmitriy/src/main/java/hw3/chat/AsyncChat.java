@@ -25,6 +25,7 @@ import java.nio.channels.SocketChannel;
  */
 public class AsyncChat extends Application {
 
+    public AsyncChat(){}
 
     private TextField serverIPdAdress;
     private TextField serverPort;

@@ -1,4 +1,4 @@
-<%@ page import="hw6.notes.domain.Notebook" %>
+<%@ page import="hw6.Notebook" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.

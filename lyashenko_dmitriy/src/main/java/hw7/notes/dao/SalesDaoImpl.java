@@ -1,6 +1,9 @@
 package hw7.notes.dao;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import hw7.notes.domain.Sales;
 import hw7.notes.service.NotebookServiceImpl;
@@ -90,5 +93,10 @@ public class SalesDaoImpl implements SalesDao {
         session.close();
         sessionFactory.close();
         return query.list();
+    }
+
+    @Override
+    public Map getSalesByDays() {
+        return new LinkedHashMap<Date, Integer>();
     }
 }

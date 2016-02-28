@@ -118,7 +118,7 @@
         </td>
     </tr>
 </table>
-<a href="index.jsp">
+<a href="index1.jsp">
     <button style="width:100%">Back Home</button>
 </a>
 <p>

@@ -102,17 +102,18 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public List getNotebooksGtAmount(int amount) {
+
         return null;
     }
 
     @Override
     public List getNotebooksByCpuVendor(Vendor cpuVendor) {
-        return null;
+        return notebookDao.getNotebooksByCpuVendor(cpuVendor);
     }
 
     @Override
     public List getNotebooksFromStore() {
-        return null;
+        return notebookDao.findAll();
     }
 
     @Override
@@ -122,7 +123,8 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public Map getSalesByDays() {
-        return null;
+
+        return salesDao.getSalesByDays();
     }
 
     public CPUDao getCpuDao() {

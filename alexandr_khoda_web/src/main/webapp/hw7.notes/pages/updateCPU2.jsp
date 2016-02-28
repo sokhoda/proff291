@@ -8,7 +8,7 @@
 <%@ page import="static hw7.notes.view.Servlet.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
