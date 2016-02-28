@@ -4,7 +4,7 @@ import hw6.notes.dao.NotebookDao;
 import hw6.notes.dao.NotebookDaoImpl;
 import hw6.notes.domain.Notebook;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**

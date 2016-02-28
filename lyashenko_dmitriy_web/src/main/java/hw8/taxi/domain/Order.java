@@ -15,6 +15,8 @@ public class Order {
     private String addressTo = "";
     private Date dateOfOder;
 
+    public Order(){}
+
     public Order(Client client, String amount, String addressFrom, String addressTo){
         int tempLong = hw8.taxi.service.OrderService.orders.size() + 1;
         long tmpFromInt = tempLong;
