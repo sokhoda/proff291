@@ -7,12 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.domain.Employee;
 import web.service.EmployeeService;
-//import web.service.EmployeeService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
+
+//import web.service.EmployeeService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,10 +44,17 @@ public class HelloController {
         return new Employee(name + " from Server");
     }
 
+//    @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
+//    public String hello(@RequestParam("login") String name, Model model) {
+//        log.info("/hello.html controller");
+//        model.addAttribute("name", "hello " + name);
+//        return "index";
+//    }
+
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
     public String hello(@RequestParam("login") String name, Model model) {
         log.info("/hello.html controller");
-        model.addAttribute("name", "hello " + name);
+        model.addAttribute("name", service.findInfoaboutUser(name));
         return "index";
     }
 
@@ -85,7 +91,7 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping(value = "/helloAngular", method = RequestMethod.GET)
+    @RequestMapping(value = "/angular", method = RequestMethod.GET)
     public String angular() {
         return "helloAngular";
     }
@@ -93,10 +99,5 @@ public class HelloController {
     @RequestMapping(value = "/angularModel", method = RequestMethod.GET)
     public String angularModel() {
         return "angularModel";
-    }
-
-    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
-    public String angularController() {
-        return "angularController";
     }
 }
