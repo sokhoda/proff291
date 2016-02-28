@@ -22,11 +22,12 @@ public class MainSpring {
         String firstName=scan.nextLine();
         System.out.println("Enter Employee Last name");
         String lastName=scan.nextLine();
-        EmplService service=context.getBean("Service1",EmplServiceImpl.class);
-        System.out.println("Employee: "+firstName+" "+lastName+" salary:");
-        System.out.println(service.getSalaryByEmplName(firstName,lastName).toString());
+         EmplService service=context.getBean("Service1",EmplServiceImpl.class);
+         System.out.println("Employee: "+firstName+" "+lastName+" salary:");
+         System.out.println(service.getSalaryByEmplName(firstName,lastName).toString());
 
-        System.out.println("Enter Employee First name");
+      //  System.out.println("Enter Employee First name");
+       // System.out.println(service);
 
     }
 

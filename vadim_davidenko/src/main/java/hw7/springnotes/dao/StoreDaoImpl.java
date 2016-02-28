@@ -52,7 +52,8 @@ public class StoreDaoImpl implements StoreDao {
         Session session = factory.getCurrentSession();
         SQLQuery query = session.createSQLQuery(
                 "select * from NOTEBOOK n, STORE s " +
-                        "where n.NOTEBOOK_ID = s.NOTEBOOK_ID"
+                        "where n.NOTEBOOK_ID = s.NOTEBOOK_ID" +
+                        "and s.AMOUNT > 0"
         );
         query.addEntity(Store.class);
         return query.list();

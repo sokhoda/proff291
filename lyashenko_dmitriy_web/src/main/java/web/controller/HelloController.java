@@ -22,7 +22,9 @@ import java.util.List;
 @Controller
 @SessionAttributes("id")
 public class HelloController {
+
     public static final Logger log = Logger.getLogger(HelloController.class);
+
     @Autowired
     private EmployeeService service;
 
@@ -58,6 +60,14 @@ public class HelloController {
         return "hello " + name;
     }
 
+    @RequestMapping(value = "/employeeInf.html", method = RequestMethod.GET)
+    public @ResponseBody String employeeInf(@RequestParam("login") String name) {
+        log.info("/hello.html controller");
+        Employee rr = service.read(Long.valueOf(name));
+        String tmp = rr.toString();
+        return tmp + name;
+    }
+
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
     public String great(@RequestParam("login") String name, Model model, HttpSession session) {
         log.info("/great.html controller");
@@ -77,6 +87,7 @@ public class HelloController {
         return login + "[" + "pass" + "]";
     }
 
+
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index(Model model) {
         log.info("/index controller");
@@ -85,7 +96,7 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping(value = "/helloAngular", method = RequestMethod.GET)
+    @RequestMapping(value = "/angular", method = RequestMethod.GET)
     public String angular() {
         return "helloAngular";
     }
@@ -93,10 +104,5 @@ public class HelloController {
     @RequestMapping(value = "/angularModel", method = RequestMethod.GET)
     public String angularModel() {
         return "angularModel";
-    }
-
-    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
-    public String angularController() {
-        return "angularController";
     }
 }
