@@ -85,7 +85,7 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping(value = "/angular", method = RequestMethod.GET)
+    @RequestMapping(value = "/helloAngular", method = RequestMethod.GET)
     public String angular() {
         return "helloAngular";
     }
@@ -93,5 +93,10 @@ public class HelloController {
     @RequestMapping(value = "/angularModel", method = RequestMethod.GET)
     public String angularModel() {
         return "angularModel";
+    }
+
+    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
+    public String angularController() {
+        return "angularController";
     }
 }
