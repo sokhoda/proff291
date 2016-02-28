@@ -7,11 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.domain.Employee;
 import web.service.EmployeeService;
-
-import javax.servlet.http.HttpSession;
-import java.util.List;
-
 //import web.service.EmployeeService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +22,9 @@ import java.util.List;
 @Controller
 @SessionAttributes("id")
 public class HelloController {
+
     public static final Logger log = Logger.getLogger(HelloController.class);
+
     @Autowired
     private EmployeeService service;
 
@@ -44,17 +47,10 @@ public class HelloController {
         return new Employee(name + " from Server");
     }
 
-//    @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
-//    public String hello(@RequestParam("login") String name, Model model) {
-//        log.info("/hello.html controller");
-//        model.addAttribute("name", "hello " + name);
-//        return "index";
-//    }
-
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
     public String hello(@RequestParam("login") String name, Model model) {
         log.info("/hello.html controller");
-        model.addAttribute("name", service.findInfoaboutUser(name));
+        model.addAttribute("name", "hello " + name);
         return "index";
     }
 
@@ -62,6 +58,14 @@ public class HelloController {
     public @ResponseBody String helloBody(@RequestParam("login") String name) {
         log.info("/hello.html controller");
         return "hello " + name;
+    }
+
+    @RequestMapping(value = "/employeeInf.html", method = RequestMethod.GET)
+    public @ResponseBody String employeeInf(@RequestParam("login") String name) {
+        log.info("/hello.html controller");
+        Employee rr = service.read(Long.valueOf(name));
+        String tmp = rr.toString();
+        return tmp + name;
     }
 
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
@@ -82,6 +86,7 @@ public class HelloController {
 //        employeeService.findAll();
         return login + "[" + "pass" + "]";
     }
+
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index(Model model) {

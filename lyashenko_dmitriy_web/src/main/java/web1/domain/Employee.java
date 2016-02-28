@@ -1,4 +1,4 @@
-package web.domain;
+package web1.domain;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    private Long id;
+    private Integer id;
 
     @Column(name = "FIRST_NAME", length = 20)
     private String firstName;
@@ -27,8 +27,7 @@ public class Employee {
     private String email;
 
     @Column(name = "PHONE_NUMBER", length = 25)
-    @Convert(converter = MoneyConverter.class)
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "HIRE_DATE")
@@ -49,10 +48,10 @@ public class Employee {
     @JoinColumn(name = "MANAGER_ID")
     private Employee manager;
 
-//    @Column(name = "DEPARTMENT_ID")
-    @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID")
-    private Department department;
+    @Column(name = "DEPARTMENT_ID")
+//        @OneToOne
+//        @JoinColumn(name = "DEPARTMENT_ID")
+    private Long departmentId;
 
     public Employee() {
 
@@ -67,11 +66,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -99,11 +98,11 @@ public class Employee {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -147,8 +146,12 @@ public class Employee {
         this.jobId = jobId;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override

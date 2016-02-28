@@ -15,12 +15,22 @@ import java.util.Locale;
  * Date: 17.03.15
  */
 @Service
+
 public class EmployeeServiceImpl implements EmployeeService {
-    @Autowired
-    private EmployeeDao employeeDao;
+
+
 
     public EmployeeServiceImpl(){
         Locale.setDefault(Locale.ENGLISH);
+    }
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Override
+    @Transactional(readOnly = true)
+    public Employee read(Long id) {
+        return  employeeDao.read(id);
     }
 
     @Override
@@ -28,10 +38,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAll() {
         return employeeDao.findAll();
     }
-
-    @Transactional(readOnly = true)
-    public Employee findInfoaboutUser(String firstName){
-        return employeeDao.findAllaboutUser(firstName);
-    }
-
 }

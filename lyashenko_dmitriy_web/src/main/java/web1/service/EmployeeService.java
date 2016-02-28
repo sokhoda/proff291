@@ -1,4 +1,4 @@
-package web.service;
+package web1.service;
 
 import web.domain.Employee;
 
@@ -11,5 +11,4 @@ import java.util.List;
  */
 public interface EmployeeService {
     List<Employee> findAll();
-    Employee findInfoaboutUser(String firstName);
 }

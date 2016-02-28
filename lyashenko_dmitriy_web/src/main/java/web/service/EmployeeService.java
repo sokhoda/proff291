@@ -10,6 +10,6 @@ import java.util.List;
  * Date: 17.03.15
  */
 public interface EmployeeService {
+    Employee read(Long id);
     List<Employee> findAll();
-    Employee findInfoaboutUser(String firstName);
 }
