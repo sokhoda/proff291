@@ -12,10 +12,10 @@
 </head>
 <body onload="/*fun()*/">
   <h2 id="elh" onclick="ajaxic('Sestra')">Header</h2>
-  <form action="/employeeInf.html" onsubmit="return check()">
+  <form action="/hello.html" onsubmit="return check()">
         <input id="text" name="login" type="text" value="user name"/>
       <input type="submit" value="send"/>
   </form>
-  ${name}
+${name}
 </body>
 </html>

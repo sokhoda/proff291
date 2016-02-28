@@ -1,4 +1,4 @@
-package hw6.notes.view;
+package hw6.notes.service;
 
 import hw6.notes.util.HibernateUtil;
 import javafx.application.Application;
