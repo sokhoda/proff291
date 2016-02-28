@@ -7,22 +7,21 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:property-placeholder location="classpath:session15/conf.properties"/>
-    <context:component-scan base-package="session15"/>
+    <context:property-placeholder location="classpath:session16/conf.properties"/>
+    <context:component-scan base-package="session16"/>
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <!--<property name="driverClassName" value="${driver}"/>-->
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="driverClassName" value="${driver}"/>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
         <property name="username" value="hr"/>
         <property name="password" value="hr"/>
     </bean>
 
-    <bean id="factory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="sf" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>session15</value>
+                <value>session16</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -30,15 +29,9 @@
                 hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
                 hibernate.show_sql=true
                 hibernate.hbm2ddl.auto=update
-                hibernate.connection.pool_size=1
             </value>
         </property>
     </bean>
-
-    <!--<bean id="testDao" class="session15.TestDao">-->
-        <!--<property name="factory" ref="sf"/>-->
-    <!--</bean>-->
-
 </beans>
 
 
