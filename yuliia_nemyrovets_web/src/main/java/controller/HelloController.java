@@ -61,16 +61,15 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
-    public String hello(@RequestParam("login") String name, Model model) {
+    public int hello(@RequestParam("login") String name, Model model) {
         log.info("/hello.html controller");
         int i = (int) (Math.random() * 10);
-        String str=String.valueOf(i);
-        for(int j=0; j<i; j++){
-            model.addAttribute("name", "hello " + name);
-        }
 
 
-        return "index";
+        model.addAttribute("name", "hello " + name);
+
+
+        return i;
     }
 
     @RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
