@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * Created by Solyk on 08.02.2016.
  */
-public class Main extends Application{
+public class Menu extends Application{
 
     private Text directoryHarvesting = new Text("Directory Harvesting");
     private Button directoryHarvestingButton;
