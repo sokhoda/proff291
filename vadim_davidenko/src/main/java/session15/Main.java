@@ -19,11 +19,11 @@ public class Main {
         Locale.setDefault(Locale.ENGLISH);
         ApplicationContext cont = new ClassPathXmlApplicationContext("session15/context-db.xml");
 
-        SessionFactory sf = cont.getBean("sf", SessionFactory.class);
-        TestDao testDao = cont.getBean("testDao", TestDao.class);
+        //SessionFactory sf = cont.getBean("sf", SessionFactory.class);
+        TestDao testDao = cont.getBean("empDao", TestDao.class);
+        List<Employee> employees = testDao.findAll();
+        System.out.println(employees);
 
-        List<Employee> list = testDao.findAll();
-        System.out.println(list.toString());
     }
 
 

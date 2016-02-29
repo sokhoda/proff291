@@ -8,10 +8,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="NotebookServiceImpl" %>
 <%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="hw7.notes.dao.NotebookDao" %>
-<%@ page import="hw7.notes.domain.Notebook" %>
+<%@ page import="NotebookDao" %>
+<%@ page import="Notebook" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
 <script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>

@@ -33,9 +33,9 @@
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
         <module>igor_gonchar_web</module>
+        <module>igor_gonchar_spring</module>
         <module>vladymyr_danilov</module>
         <module>vladymyr_danilov_web</module>
-        <module>alexandr_khoda</module>
 
         <module>pavel_semerenko</module>
         <module>pavel_semerenko_web</module>
@@ -49,13 +49,13 @@
         <module>pavlo_mykolaienko_web</module>
 
         <module>vadim_davidenko</module>
+        <module>vadim_davidenko_web</module>
+        <module>vadim_davidenko_spring</module>
+
         <!--<module>vladymyr_danilov</module>-->
 
-        <module>vadim_davidenko_web</module>
         <module>yura_skulskiy</module>
         <module>yura_skulskiy_web</module>
-
-
 
         <module>olena_babenko_web</module>
         <module>alexandr_cherkassky_web</module>

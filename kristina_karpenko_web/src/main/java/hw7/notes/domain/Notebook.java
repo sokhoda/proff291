@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
-
 
 @Entity
 @Table(name = "NOTEBOOK")

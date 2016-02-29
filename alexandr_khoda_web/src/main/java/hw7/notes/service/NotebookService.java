@@ -1,8 +1,6 @@
 package hw7.notes.service;
 
 
-import hw7.notes.dao.MemoryDao;
-import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.*;
 import hw7.notes.exception.CPUException;
 import hw7.notes.exception.NotebookException;
@@ -10,7 +8,6 @@ import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
 import org.hibernate.HibernateException;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

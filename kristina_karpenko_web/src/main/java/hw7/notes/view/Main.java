@@ -6,8 +6,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.Date;
-
 /**
  * Created by Администратор on 17.02.2016.
  */
