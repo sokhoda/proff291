@@ -1,4 +1,6 @@
-package hw7.notes.domain;
+package hw7.springsnotes.domain;
+
+
 
 import javax.persistence.*;
 import java.sql.Date;

@@ -1,4 +1,6 @@
-package hw7.notes.domain;
+package hw7.springsnotes.domain;
+
+
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,19 +21,19 @@ public class Memory {
 
     @ManyToOne
     @JoinColumn(name = "VENDOR_ID")
-    private Vendor vendorMemory;
+    private hw7.springsnotes.domain.Vendor vendorMemory;
 
 
     @Column(name = "VOLUME")
     private Integer volume;
 
     @OneToMany(mappedBy = "memory", cascade = CascadeType.REFRESH)
-    private Set<Notebook> notebooks = new HashSet<>();
+    private Set<hw7.springsnotes.domain.Notebook> notebooks = new HashSet<>();
 
 
     public Memory (){}
 
-    public Memory( Vendor vendorMemory, Integer volume){
+    public Memory(hw7.springsnotes.domain.Vendor vendorMemory, Integer volume){
         this.vendorMemory = vendorMemory;
         this.volume = volume;
     }
@@ -44,11 +46,11 @@ public class Memory {
         this.id = id;
     }
 
-    public Vendor getVendorMemory() {
+    public hw7.springsnotes.domain.Vendor getVendorMemory() {
         return vendorMemory;
     }
 
-    public void setVendorMemory(Vendor vendorMemory) {
+    public void setVendorMemory(hw7.springsnotes.domain.Vendor vendorMemory) {
         this.vendorMemory = vendorMemory;
     }
 
@@ -60,11 +62,11 @@ public class Memory {
         this.volume = volume;
     }
 
-    public Set<Notebook> getNotebooks() {
+    public Set<hw7.springsnotes.domain.Notebook> getNotebooks() {
         return notebooks;
     }
 
-    public void setNotebooks(Set<Notebook> notebooks) {
+    public void setNotebooks(Set<hw7.springsnotes.domain.Notebook> notebooks) {
         this.notebooks = notebooks;
     }
 

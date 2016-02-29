@@ -1,4 +1,6 @@
-package hw7.notes.domain;
+package hw7.springsnotes.domain;
+
+
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,7 +20,7 @@ public class Store {
 
     @ManyToOne
     @JoinColumn(name = "NOTEBOOK_ID")
-    private Notebook notebook;
+    private hw7.springsnotes.domain.Notebook notebook;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
@@ -29,18 +31,18 @@ public class Store {
     private Double priseForOne;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.DETACH)
-    private Set<Sales> sales = new HashSet<>();
+    private Set<hw7.springsnotes.domain.Sales> sales = new HashSet<>();
 
     public Store(){}
 
-    public Store(Long id, Notebook notebook, Integer quantity, Double price){
+    public Store(Long id, hw7.springsnotes.domain.Notebook notebook, Integer quantity, Double price){
         this.id = id;
         this.notebook = notebook;
         this.quantity = quantity;
         this.price = price;
         this.priseForOne = price/quantity;
     }
-    public Store( Notebook notebook, Integer quantity, Double price){
+    public Store(hw7.springsnotes.domain.Notebook notebook, Integer quantity, Double price){
 
         this.notebook = notebook;
         this.quantity = quantity;
@@ -56,11 +58,11 @@ public class Store {
         this.id = id;
     }
 
-    public Notebook getNotebook() {
+    public hw7.springsnotes.domain.Notebook getNotebook() {
         return notebook;
     }
 
-    public void setNotebook(Notebook notebook) {
+    public void setNotebook(hw7.springsnotes.domain.Notebook notebook) {
         this.notebook = notebook;
     }
 
@@ -80,11 +82,11 @@ public class Store {
         this.price = price;
     }
 
-    public Set<Sales> getSales() {
+    public Set<hw7.springsnotes.domain.Sales> getSales() {
         return sales;
     }
 
-    public void setSales(Set<Sales> sales) {
+    public void setSales(Set<hw7.springsnotes.domain.Sales> sales) {
         this.sales = sales;
     }
 

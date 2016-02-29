@@ -1,26 +1,34 @@
-package hw7.notes.service;
-
-import hw7.notes.dao.*;
-import hw7.notes.domain.*;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+package hw7.springsnotes.service;
 
 
+
+import hw7.springsnotes.dao.*;
+import hw7.springsnotes.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by Admin on 17.02.2016.
  */
+
+@Service("NotebookService")
+@Transactional
 public class NotebookServiceImpl implements NotebookService {
 
+    @Autowired
     private CPUDao cpuDao;
+    @Autowired
     private MemoryDao memoryDao;
+    @Autowired
     private NotebookDao notebookDao;
+    @Autowired
     private SalesDao salesDao;
+    @Autowired
     private StoreDao storeDao;
+    @Autowired
     private VendorDao vendorDao;
 
 
@@ -38,14 +46,7 @@ public class NotebookServiceImpl implements NotebookService {
         this.vendorDao = new VendorDaoImpl();
 
     }
-    public static SessionFactory getSessionFactory() {
-        Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("resources.hw7.hw7/cfg.xml");
-        StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
-        ssrb.applySettings(cfg.getProperties());
-        StandardServiceRegistry ssr = ssrb.build();
-        return cfg.buildSessionFactory(ssr);
-    }
+
 
     @Override
     public Long receive(Long noteId, int amount, double price) {
@@ -96,17 +97,20 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksByPortion(int size) {
 
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksGtAmount(int amount) {
         return storeDao.getNotebooksGtAmount(amount);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksByCpuVendor(Vendor cpuVendor) {
         List<Notebook> allNotes = notebookDao.findAll();
         List<Notebook> allCpuVendor = new ArrayList<Notebook>();
@@ -120,17 +124,20 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksFromStore() {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map getNotebooksStorePresent() {
         Map<Vendor, Notebook> nnn = new HashMap<Vendor, Notebook>();
         return nnn;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map getSalesByDays() {
 
         return salesDao.getSalesByDays();
