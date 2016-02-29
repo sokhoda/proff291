@@ -25,7 +25,7 @@ import static hw7.notes.view.Servlet.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddNotebook")
+@WebServlet("/AddNotebook1")
 public class AddUpdateNotebook extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

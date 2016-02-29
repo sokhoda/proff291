@@ -1,13 +1,11 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Vendor;
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

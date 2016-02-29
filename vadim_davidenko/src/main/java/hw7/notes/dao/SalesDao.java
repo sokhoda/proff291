@@ -2,7 +2,6 @@ package hw7.notes.dao;
 
 import hw7.notes.domain.Sales;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

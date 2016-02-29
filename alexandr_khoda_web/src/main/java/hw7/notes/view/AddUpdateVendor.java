@@ -17,7 +17,7 @@ import static hw7.notes.view.Servlet.setMessageAttr;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddVen")
+@WebServlet("/AddVen1")
 public class AddUpdateVendor extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
