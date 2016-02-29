@@ -33,9 +33,6 @@ public class Client {
     @Column(name = "ADDRESS", length = 100)
     private String address;
 
-    @Column(name = "LAST_ORDER_DATE")
-    private Date lastOrderDate;
-
     @OneToMany(mappedBy = "client", cascade = CascadeType.REFRESH)
     private Set<Order> orders = new HashSet<Order>();
 
@@ -56,7 +53,6 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", lastOrderDate=" + lastOrderDate +
                 ", orders=" + orders +
                 '}';
     }
@@ -68,7 +64,7 @@ public class Client {
 
         Client client = (Client) o;
 
-        if (address != null ? !address.equals(client.address) : client.address != null) return false;
+        if (!address.equals(client.address)) return false;
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -81,7 +77,7 @@ public class Client {
         int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + address.hashCode();
         return result;
     }
 
@@ -131,21 +127,5 @@ public class Client {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
-    }
-
-    @Transient
-    public String getDateStr() {
-        if (lastOrderDate != null) {
-            return Utils.DATEFORMAT_COMMON.get().format(lastOrderDate);
-        }
-        return "";
-    }
-
-    public Date getLastOrderDate() {
-        return lastOrderDate;
-    }
-
-    public void setLastOrderDate(Date lastOrderDate) {
-        this.lastOrderDate = lastOrderDate;
     }
 }
