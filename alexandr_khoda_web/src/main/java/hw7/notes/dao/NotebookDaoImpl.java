@@ -166,7 +166,7 @@ public class NotebookDaoImpl implements NotebookDao {
     }
 
     @Override
-    public List getNotebookByPortion(int size, int cnt) throws PortionException, HibernateException {
+    public List getNotebookTypesByPortion(int size, int cnt) throws PortionException, HibernateException {
         if (size <= 0) {
             throw new PortionException("Negative portion size.");
         }
@@ -183,6 +183,8 @@ public class NotebookDaoImpl implements NotebookDao {
             session.close();
         }
     }
+
+
 
     //    @Override
 //    public boolean changePrice(Long id, double price) {

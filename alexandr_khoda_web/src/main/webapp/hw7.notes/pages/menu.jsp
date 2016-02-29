@@ -3,8 +3,8 @@
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
-<%@ page import="hw7.notes.service.NotebookService" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
+<%@ page import="hw7.NotebookService" %>
+<%@ page import="hw7.NotebookServiceImpl" %>
 <%@ page import="static hw7.notes.view.Servlet.getAttribArray" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
@@ -149,8 +149,21 @@
               </tr>
               <tr>
                   <td  class="col0">
+                      <input type="submit" name="listNtbTypesByPortion"
+                             value="12. List all Notebook types by Portion">
+                  </td>
+                  <td class="colA">
+                      <div class="cellIn">
+                          <label class="smallSign">Portion:</label>
+                          <input type="text" name="listNtbTypesByPortionPortion"
+                                 value="${defPortion}">
+                      </div>
+                  </td>
+              </tr>
+              <tr>
+                  <td  class="col0">
                       <input type="submit" name="listNtbByPortion"
-                             value="12. List all Notebooks in the Store by Portion">
+                             value="13. List all Notebooks in the Store by Portion">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -160,11 +173,10 @@
                       </div>
                   </td>
               </tr>
-
               <tr>
                   <td  class="col0">
                       <input type="submit" name="ByGtQuan"
-                             value="13. List all Notebooks, quant. >=">
+                             value="14. List all Notebooks, quant. >=">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -178,7 +190,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="ByCPUVen"
-                             value="14. List all Notebooks by CPU Vendor">
+                             value="15. List all Notebooks by CPU Vendor">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -191,19 +203,19 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNtbStore"
-                             value="15. List all Notebooks in the Store">
+                             value="16. List all Notebooks in the Store">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNtbStoreByVen"
-                             value="16. List all Notebooks in the Store by Vendor">
+                             value="17. List all Notebooks in the Store by Vendor">
                   </td>
               </tr>
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNoteByPriceManDateVendor"
-                             value="17. Get AVE Daily Sell Rate">
+                             value="18. Get AVE Daily Sell Rate">
                   </td>
               </tr>
 
@@ -212,7 +224,7 @@
                   <td  class="col0">
                       <%--<input type="submit" name="exit" class="but"--%>
                              <%--value=">10. Exit">--%>
-                      <button name="exit" onclick="self.close()" class="but">18.
+                      <button name="exit" onclick="self.close()" class="but">19.
                           Exit</button>
                   </td>
               </tr>

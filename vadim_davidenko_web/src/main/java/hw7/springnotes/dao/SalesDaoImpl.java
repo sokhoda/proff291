@@ -55,10 +55,11 @@ public class SalesDaoImpl implements SalesDao {
         SQLQuery query = session.createSQLQuery(
                 "select trunc(SALE_DATE), sum (AMOUNT) " +
                         "from SALES " +
-                        "group by trunc(SALE_DATE)"
+                        "group by trunc(SALE_DATE)" +
+                        "order by trunc(SALE_DATE) desc"
         );
         List<Object[]> results = query.list();
-        salesMap = new HashMap<Date, Integer>();
+        salesMap = new LinkedHashMap<Date, Integer>();
         for (Object[] obj : results) {
             salesMap.put((Date) obj[0], Integer.parseInt(obj[1].toString()));
         }

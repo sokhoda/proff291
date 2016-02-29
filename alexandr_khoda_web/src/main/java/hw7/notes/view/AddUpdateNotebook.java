@@ -73,7 +73,8 @@ public class AddUpdateNotebook extends HttpServlet {
                     cnt--;
                 }
 
-                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, cnt);
+                List notebookPortion = Menu.service.getNotebookTypesByPortion
+                        (sPortion, cnt);
                 req.setAttribute("cnt", cnt);
                 req.setAttribute("totPages", totPages);
                 req.setAttribute("notebookPortion", notebookPortion);
@@ -96,7 +97,8 @@ public class AddUpdateNotebook extends HttpServlet {
                 if (cnt < totPages) {
                     cnt++;
                 }
-                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, cnt);
+                List notebookPortion = Menu.service.getNotebookTypesByPortion
+                        (sPortion, cnt);
                 req.setAttribute("cnt", cnt);
                 req.setAttribute("totPages", totPages);
                 req.setAttribute("notebookPortion", notebookPortion);
@@ -230,24 +232,21 @@ public class AddUpdateNotebook extends HttpServlet {
         if (req.getParameter("delNotebook") != null) {
             try {
                 Long notebookId = Long.parseLong(req.getParameter("idVal"));
-                Notebook notebook = notebookDao.read(notebookId);
-                if (notebookDao.delete(notebook)) {
+
+                if (Menu.service.deleteNotebookType(notebookId)) {
                     setMessageAttr(req, "green", "Notebook type successfully deleted.");
                 }
                 else {
-                    setMessageAttr(req, "red", "Failed to delete Notebook type '" +
-                            notebook + "'.");
+                    setMessageAttr(req, "red", "Failed to delete Notebook type.");
                 }
 
-                List notebook1 = (List<Notebook>)notebookDao.findAll();
                 Integer sPortion = Integer.parseInt(req.getParameter("sPortion"));
                 String cntMark = req.getParameter("cntMark");
                 int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
 
-                Integer totPages = (notebook1.size() == 0 ? 1 :(int) Math.ceil
-                        (notebook1.size() / (double)sPortion));
+                Integer totPages = Menu.service.getNotebookTypesTotPages(sPortion);
                 cnt = (cnt > totPages ? totPages : cnt);
-                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, cnt);
+                List notebookPortion = Menu.service.getNotebookTypesByPortion(sPortion, cnt);
 
                 req.setAttribute("cnt", cnt);
                 req.setAttribute("totPages", totPages);

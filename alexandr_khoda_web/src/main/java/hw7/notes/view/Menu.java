@@ -154,14 +154,11 @@ public class Menu extends HttpServlet {
         }
         if (req.getParameter("updNtb") != null) {
             try {
-                List notebook = (List<Notebook>)notebookDao.findAll();
-                Integer sPortion = String2Integer((String)req.getParameter("updNtbPortion"));
-                if (sPortion == 0) {
-                    throw new PortionException("Portion size can not be ZERO.");
-                }
-                Integer totPages = (notebook.size() == 0 ? 1 :(int) Math.ceil
-                        (notebook.size() / (double)sPortion));
-                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, 1);
+                Integer sPortion = String2Integer(req.getParameter("updNtbPortion"));
+
+                Integer totPages = Menu.service.getNotebookTypesTotPages(sPortion);
+                List notebookPortion = Menu.service
+                        .getNotebookTypesByPortion(sPortion, 1);
                 req.setAttribute("cnt", 1);
                 req.setAttribute("totPages", totPages);
                 req.setAttribute("notebookPortion", notebookPortion);
@@ -174,21 +171,41 @@ public class Menu extends HttpServlet {
                 throw new ServletException(e.getMessage());
             }
         }
-        if (req.getParameter("listNtbByPortion") != null) {
+        if (req.getParameter("listNtbTypesByPortion") != null) {
             try {
-                List notebook = (List<Notebook>)notebookDao.findAll();
-                Integer sPortion = String2Integer((String)req.getParameter("listNtbByPortionPortion"));
-                if (sPortion == 0) {
-                    throw new PortionException("Portion size can not be ZERO.");
-                }
-                Integer totPages = (notebook.size() == 0 ? 1 :(int) Math.ceil
-                        (notebook.size() / (double)sPortion));
-                List notebookPortion = (List<Notebook>)notebookDao.getNotebookByPortion(sPortion, 1);
+
+                Integer sPortion = String2Integer((String)req.getParameter
+                        ("listNtbTypesByPortionPortion"));
+
+                Integer totPages = Menu.service.getNotebookTypesTotPages(sPortion);
+                List notebookPortion = Menu.service
+                        .getNotebookTypesByPortion(sPortion, 1);
                 req.setAttribute("cnt", 1);
                 req.setAttribute("totPages", totPages);
                 req.setAttribute("notebookPortion", notebookPortion);
                 req.setAttribute("sPortion", sPortion);
                 req.getRequestDispatcher("/hw7.notes/pages/updateNotebook.jsp")
+                        .forward(req, res);
+                return;
+            }
+            catch (Exception e) {
+                throw new ServletException(e.getMessage());
+            }
+        }
+
+        if (req.getParameter("listNtbByPortion") != null || req.getParameter("listNtbStore") != null) {
+            try {
+                Integer sPortion = (req.getParameter("listNtbStore") != null ?
+                    Integer.MAX_VALUE :
+                        String2Integer(req.getParameter("listNtbByPortionPortion")));
+                Integer totPages = Menu.service.getNotebookInStoreTotPages(sPortion);
+
+                List noteInStorePortion = Menu.service.getNotebooksByPortion(sPortion, 1);
+                req.setAttribute("cnt", 1);
+                req.setAttribute("totPages", totPages);
+                req.setAttribute("noteInStorePortion", noteInStorePortion);
+                req.setAttribute("sPortion", sPortion);
+                req.getRequestDispatcher("/hw7.notes/pages/updateStore.jsp")
                         .forward(req, res);
                 return;
             }

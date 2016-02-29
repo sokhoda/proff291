@@ -1,37 +1,24 @@
 <%--
   Created by IntelliJ IDEA.
   User: al1
-  Date: 21.11.15
+  Date: 28.11.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-    <head>
-        <title>Proff29</title>
-        <script>
-            console.log('Hello JS');
-        </script>
-        <script>
-            var vector = [1,2,3,4,5,6,7,8,9];
+<head>
+    <title>JavaScript</title>
 
-            var i,tmp;
-            for(i = 0; i < 3; i++){
-                tmp = vector[i];
-               vector[i] =  vector[vector.length - (i + 1)];
-                vector[vector.length -(i + 1)] = tmp;
+    <script type="text/javascript" src="/script/script.js"></script>
+</head>
+<body onload="/*fun()*/">
+  <h2 id="elh" onclick="ajaxic('Sestra')">Header</h2>
+  <form action="/employeeInf.html" onsubmit="return check()">
+        <input id="text" name="login" type="text" value="user name"/>
+      <input type="submit" value="send"/>
+  </form>
+  ${name}
+  <p><a href="/helloAngular">Angular Hello</a></p>
+  <p><a href="/angularController">Angular AJAX</a></p>
 
-            }
-            console.log(vector);
-
-
-        </script>
-        <script src="js/script.js" type="text/javascript">
-
-    </script>
-        <script src="js/Phone.js" type="text/javascript">
-
-        </script>
-    </head>
-    <body>
-        <h3>Hello proff29!!!</h3>
-    </body>
+</body>
 </html>

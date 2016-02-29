@@ -1,6 +1,6 @@
 package hw7.notes.dao;
 
-import hw7.notes.damain.Memory;
+import hw7.notes.domain.Memory;
 import hw7.notes.service.NotebookServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -86,7 +86,7 @@ public class MemoryDaoImpl implements MemoryDao {
     @Override
     public List findAll() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Memory");
+        Query query = session.createQuery("from hw7.notes.domain.Memory");
         session.close();
         sessionFactory.close();
         return query.list();

@@ -2,7 +2,8 @@ package hw7.notes.dao;
 
 
 
-import hw7.notes.damain.Notebook;
+import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Vendor;
 import hw7.notes.service.NotebookServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -88,9 +89,41 @@ public class NotebookDaoImpl implements NotebookDao {
     @Override
     public List findAll() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from Notebook");
+        Query query = session.createQuery("from hw7.notes.domain.Notebook");
         session.close();
         sessionFactory.close();
         return query.list();
+    }
+
+    @Override
+    public List getNotebooksByPortion(int size) {
+        return null;
+    }
+
+    @Override
+    public List getNotebooksGtAmount(int amount) {
+
+        return null;
+    }
+
+    @Override
+    public List getNotebooksByCpuVendor(Vendor cpuVendor) {
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("from hw7.notes.domain.Notebook n " +
+                "where n.cpu c c.vendor like " + cpuVendor);
+
+        session.close();
+        sessionFactory.close();
+        return query.list();
+    }
+
+    @Override
+    public List getNotebooksFromStore() {
+        return null;
+    }
+
+    @Override
+    public List getNotebooksStorePresent() {
+        return null;
     }
 }

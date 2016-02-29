@@ -5,8 +5,10 @@ import hw7.notes.dao.MemoryDao;
 import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.*;
 import hw7.notes.exception.CPUException;
+import hw7.notes.exception.NotebookException;
 import hw7.notes.exception.PortionException;
 import hw7.notes.exception.StoreException;
+import org.hibernate.HibernateException;
 
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,14 @@ public interface NotebookService {
     boolean updateNotebook(Notebook notebook);
     boolean removeFromStore(Store store, int amount)  throws StoreException;
 
-    List getNotebooksByPortion(int size, int cnt)throws PortionException;
+    boolean deleteNotebookType(Long noteId) throws NotebookException;
+    Integer getNotebookTypesTotPages(int size);
+    Integer getNotebookInStoreTotPages(int size) throws HibernateException;
+
+    List getNotebookTypesByPortion(int size, int cnt) throws
+            PortionException, HibernateException;
+    List getNotebooksByPortion(int size, int cnt) throws PortionException,
+            HibernateException;
     List getNotebooksGtAmount(int amount);
     List getNotebooksByCpuVendor(Vendor cpuVendor);
     List getNotebooksFromStore();

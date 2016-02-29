@@ -1,17 +1,14 @@
 package hw7.notes.dao;
 
-import hw7.notes.damain.CPU;
+import hw7.notes.domain.CPU;
 
 import hw7.notes.service.NotebookServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Created by Admin on 17.02.2016.
@@ -91,9 +88,9 @@ public class CPUDaoImpl implements CPUDao {
     }
 
     @Override
-    public java.util.List findAll() {
+    public List findAll() {
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from CPU");
+        Query query = session.createQuery("from hw7.notes.domain.CPU");
         session.close();
         sessionFactory.close();
         return query.list();

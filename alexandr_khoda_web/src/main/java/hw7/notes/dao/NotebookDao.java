@@ -20,7 +20,7 @@ public interface NotebookDao {
     boolean checkExistExceptId(Notebook ntb, Long ntbID) throws
             HibernateException;
     List findAll();
-    List getNotebookByPortion(int size, int cnt)throws PortionException,
+    List getNotebookTypesByPortion(int size, int cnt)throws PortionException,
             HibernateException;
 
 

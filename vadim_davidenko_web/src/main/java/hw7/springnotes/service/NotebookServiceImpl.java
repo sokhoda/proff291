@@ -104,6 +104,7 @@ public class NotebookServiceImpl implements NotebookService {
             Double newPrice = store.getPrice() / currentAmount * newAmount;
             store.setAmount(newAmount);
             store.setPrice(newPrice);
+
             return storeDao.update(store);
         }
         return false;
