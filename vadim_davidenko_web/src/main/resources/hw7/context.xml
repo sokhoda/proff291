@@ -41,7 +41,7 @@
 
     <tx:annotation-driven transaction-manager="txManager" />
 
-    <!--<bean id="notebookService" class="hw7.springnotes.service.NotebookServiceImpl">-->
+    <!--<bean id="notebookService" class="NotebookServiceImpl">-->
         <!--<property name="notebookDao" ref="notebookDao"/>-->
         <!--<property name="vendorDao" ref="vendorDao"/>-->
         <!--<property name="cpuDao" ref="cpuDao"/>-->

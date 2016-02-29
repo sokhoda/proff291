@@ -2,10 +2,8 @@ package hw7.notes.view;
 
 import hw7.notes.dao.MemoryDao;
 import hw7.notes.dao.VendorDao;
-import hw7.notes.domain.CPU;
 import hw7.notes.domain.Memory;
 import hw7.notes.domain.Vendor;
-import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
 
 import javax.servlet.ServletException;
@@ -16,14 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static hw7.notes.view.Servlet.String2Double;
 import static hw7.notes.view.Servlet.checkStringPar;
 import static hw7.notes.view.Servlet.setMessageAttr;
 
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddMem")
+@WebServlet("/AddMem1")
 public class AddUpdateMemory extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

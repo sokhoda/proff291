@@ -3,8 +3,8 @@
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="java.util.List" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
-<%@ page import="hw7.NotebookService" %>
-<%@ page import="hw7.NotebookServiceImpl" %>
+<%@ page import="hw7.notes.service.NotebookService" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="static hw7.notes.view.Servlet.getAttribArray" %>
 <%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>
 <script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>

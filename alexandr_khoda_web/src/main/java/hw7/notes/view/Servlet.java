@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +20,7 @@ import java.util.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/x")
+@WebServlet("/x1")
 public class Servlet extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

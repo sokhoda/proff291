@@ -122,7 +122,6 @@ public class StoreServlet extends HttpServlet {
             if (saleId != 0) {
                 noteService.removeFromStore(store, amountSale);
                 req.setAttribute("server_msg", Menu.SALE_STORE_MSG + String.valueOf(storeId));
-                noteService.removeFromStore(store, amountSale);
             } else {
                 req.setAttribute("server_msg", Menu.SALE_STORE_ERR_MSG + String.valueOf(storeId));
             }
