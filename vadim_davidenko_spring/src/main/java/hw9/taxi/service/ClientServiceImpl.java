@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Вадим on 28.02.2016.
@@ -26,7 +27,9 @@ public class ClientServiceImpl implements ClientService {
 
     private static int pageCounter = -1;
 
-    public ClientServiceImpl() {}
+    public ClientServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
+    }
 
     @SuppressWarnings("unchecked")
     public boolean createClient(String name, String surname, String phone, String address)

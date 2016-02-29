@@ -14,12 +14,14 @@
 
 <h2>TAXI Service</h2>
 
-<p><b><a href="orders.jsp">Orders list</a></b></p>
-<p><b><a href="order.jsp">Order management</a></b></p>
-<p><b><a href="clients.jsp">Clients list</a></b></p>
-<p><b><a href="registerClient.jsp">Client registration</a></b></p>
+<p><b><a href="/register">User registration</a></b></p>
+<p><b><a href="/registerClient">Client registration</a></b></p>
+<p><b><a href="/order">Order management</a></b></p>
+<p><b><a href="/orders">Orders list</a></b></p>
+<p><b><a href="/clients">Clients list</a></b></p>
+
 <br/>
-<p><a href="index.jsp">Logout</a></p>
+<p><a href="/">Logout</a></p>
 
 
 </body>
