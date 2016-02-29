@@ -1,6 +1,6 @@
-package hw7.springsnotes.service;
+package hw7.springnotes.service;
 
-import hw7.springsnotes.domain.*;
+import hw7.springnotes.domain.*;
 
 import java.util.List;
 import java.util.Map;

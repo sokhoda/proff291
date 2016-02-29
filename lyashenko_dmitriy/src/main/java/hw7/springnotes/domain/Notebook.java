@@ -1,4 +1,4 @@
-package hw7.springsnotes.domain;
+package hw7.springnotes.domain;
 
 
 

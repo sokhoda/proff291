@@ -1,4 +1,4 @@
-package hw7.springsnotes.dao;
+package hw7.springnotes.dao;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 
-import hw7.springsnotes.domain.Sales;
-import hw7.springsnotes.service.NotebookServiceImpl;
+import hw7.springnotes.domain.Sales;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -64,7 +62,7 @@ public class SalesDaoImpl implements SalesDao {
     @Override
     public List findAll() {
 
-        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springsnotes.domain.Sales");
+        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springnotes.domain.Sales");
 
         return query.list();
     }

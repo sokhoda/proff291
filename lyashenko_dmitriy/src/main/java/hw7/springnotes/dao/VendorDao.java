@@ -1,9 +1,9 @@
-package hw7.springsnotes.dao;
+package hw7.springnotes.dao;
 
 
 
 
-import hw7.springsnotes.domain.Vendor;
+import hw7.springnotes.domain.Vendor;
 
 import java.util.List;
 

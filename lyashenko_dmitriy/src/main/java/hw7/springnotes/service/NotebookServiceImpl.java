@@ -1,9 +1,9 @@
-package hw7.springsnotes.service;
+package hw7.springnotes.service;
 
 
 
-import hw7.springsnotes.dao.*;
-import hw7.springsnotes.domain.*;
+import hw7.springnotes.dao.*;
+import hw7.springnotes.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

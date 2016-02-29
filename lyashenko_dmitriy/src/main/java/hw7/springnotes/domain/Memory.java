@@ -1,4 +1,4 @@
-package hw7.springsnotes.domain;
+package hw7.springnotes.domain;
 
 
 
@@ -21,19 +21,19 @@ public class Memory {
 
     @ManyToOne
     @JoinColumn(name = "VENDOR_ID")
-    private hw7.springsnotes.domain.Vendor vendorMemory;
+    private Vendor vendorMemory;
 
 
     @Column(name = "VOLUME")
     private Integer volume;
 
     @OneToMany(mappedBy = "memory", cascade = CascadeType.REFRESH)
-    private Set<hw7.springsnotes.domain.Notebook> notebooks = new HashSet<>();
+    private Set<Notebook> notebooks = new HashSet<>();
 
 
     public Memory (){}
 
-    public Memory(hw7.springsnotes.domain.Vendor vendorMemory, Integer volume){
+    public Memory(Vendor vendorMemory, Integer volume){
         this.vendorMemory = vendorMemory;
         this.volume = volume;
     }
@@ -46,11 +46,11 @@ public class Memory {
         this.id = id;
     }
 
-    public hw7.springsnotes.domain.Vendor getVendorMemory() {
+    public Vendor getVendorMemory() {
         return vendorMemory;
     }
 
-    public void setVendorMemory(hw7.springsnotes.domain.Vendor vendorMemory) {
+    public void setVendorMemory(Vendor vendorMemory) {
         this.vendorMemory = vendorMemory;
     }
 
@@ -62,11 +62,11 @@ public class Memory {
         this.volume = volume;
     }
 
-    public Set<hw7.springsnotes.domain.Notebook> getNotebooks() {
+    public Set<Notebook> getNotebooks() {
         return notebooks;
     }
 
-    public void setNotebooks(Set<hw7.springsnotes.domain.Notebook> notebooks) {
+    public void setNotebooks(Set<Notebook> notebooks) {
         this.notebooks = notebooks;
     }
 

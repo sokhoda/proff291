@@ -1,6 +1,8 @@
-package hw7.springsnotes.dao;
+package hw7.springnotes.dao;
 
-import hw7.springsnotes.domain.CPU;
+
+
+import hw7.springnotes.domain.Notebook;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -13,44 +15,42 @@ import java.util.List;
  * Created by Admin on 17.02.2016.
  */
 @Repository
-public class CPUDaoImpl implements CPUDao {
+public class NotebookDaoImpl implements NotebookDao {
 
-    public CPUDaoImpl(){}
+    public NotebookDaoImpl(){}
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public Long create(CPU cpu) {
-
+    public Long create(Notebook notebook) {
         Long id = null;
-        id = (Long)sessionFactory.getCurrentSession().save(cpu);
-        return id;
+            id = (Long)sessionFactory.getCurrentSession().save(notebook);
+            return id;
 
     }
 
     @Override
-    public CPU read(Long id) {
-        return (CPU) sessionFactory.getCurrentSession().get(CPU.class, id);
-
-
+    public Notebook read(Long id) {
+            return (Notebook) sessionFactory.getCurrentSession().get(Notebook.class, id);
     }
 
     @Override
-    public boolean update(CPU cpu) {
+    public boolean update(Notebook notebook) {
+
         try {
-            sessionFactory.getCurrentSession().update(cpu);
+            sessionFactory.getCurrentSession().update(notebook);
             return true;
         } catch (HibernateException e){
             return false;
         }
-
     }
 
     @Override
-    public boolean delete(CPU cpu) {
+    public boolean delete(Notebook notebook) {
+
         try {
-            sessionFactory.getCurrentSession().delete(cpu);
+            sessionFactory.getCurrentSession().delete(notebook);
             return true;
         } catch (HibernateException e){
             return false;
@@ -59,7 +59,10 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public List findAll() {
-        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springsnotes.domain.CPU");
+
+        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springnotes.domain.Notebook");
+
         return query.list();
     }
+
 }

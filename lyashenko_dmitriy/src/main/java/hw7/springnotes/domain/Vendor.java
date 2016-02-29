@@ -1,6 +1,4 @@
-package hw7.springsnotes.domain;
-
-import hw7.springsnotes.dao.*;
+package hw7.springnotes.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;

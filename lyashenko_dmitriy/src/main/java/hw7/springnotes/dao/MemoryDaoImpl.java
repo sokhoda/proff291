@@ -1,7 +1,7 @@
-package hw7.springsnotes.dao;
+package hw7.springnotes.dao;
 
 
-import hw7.springsnotes.domain.Memory;
+import hw7.springnotes.domain.Memory;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -59,7 +59,7 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public List findAll() {
-        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springsnotes.domain.Memory");
+        Query query = sessionFactory.getCurrentSession().createQuery("from hw7.springnotes.domain.Memory");
         return query.list();
     }
 }
