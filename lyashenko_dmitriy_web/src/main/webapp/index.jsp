@@ -17,5 +17,8 @@
       <input type="submit" value="send"/>
   </form>
   ${name}
+  <p><a href="/helloAngular">Angular Hello</a></p>
+  <p><a href="/angularController">Angular AJAX</a></p>
+
 </body>
 </html>

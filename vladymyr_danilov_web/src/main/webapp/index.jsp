@@ -5,7 +5,7 @@
         <title></title>
     </head>
     <body>
-        <%--<script src="js/script.js" type="text/javascript"></script>--%>
+        <%--<script src="js/script1.js" type="text/javascript"></script>--%>
         <script>
             console.log('Hello!');
             var array = new Array(1,2,3,4,5,6,7,8,9);

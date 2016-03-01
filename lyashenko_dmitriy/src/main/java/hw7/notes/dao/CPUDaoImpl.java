@@ -17,10 +17,11 @@ public class CPUDaoImpl implements CPUDao {
 
     public CPUDaoImpl(){}
 
-    private SessionFactory sessionFactory = NotebookServiceImpl.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     @Override
     public Long create(CPU cpu) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Long id = null;
         Session session = sessionFactory.openSession();
         try{
@@ -40,6 +41,7 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public CPU read(Long id) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             return (CPU) session.get(CPU.class, id);
@@ -54,6 +56,7 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public boolean update(CPU cpu) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -72,6 +75,7 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public boolean delete(CPU cpu) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -89,6 +93,7 @@ public class CPUDaoImpl implements CPUDao {
 
     @Override
     public List findAll() {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from hw7.notes.domain.CPU");
         session.close();

@@ -19,7 +19,6 @@ vector[6] = new telephone("0631818181", 0);
 vector[7] = new telephone("0981425626", 78);
 
 
-
 function tableCreate() {
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
@@ -83,21 +82,17 @@ function createButtonDel() {
 function createButtonEdit() {
     var button = document.createElement('input');
     button.type = 'button';
-    button.style = '25%';
     button.value = 'Edit';
     button.id = 'Input';
     button.onclick = function () {
         btnEdit(this);
     }
-
     return button;
 }
 
 
 function btnEdit(value) {
     var row = value.parentNode.parentNode;
-
-
 
 
 }

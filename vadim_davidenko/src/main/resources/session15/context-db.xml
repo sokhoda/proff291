@@ -8,6 +8,7 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:property-placeholder location="classpath:session15/conf.properties"/>
+    <context:component-scan base-package="session15"/>
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <!--<property name="driverClassName" value="${driver}"/>-->
@@ -17,7 +18,7 @@
         <property name="password" value="hr"/>
     </bean>
 
-    <bean id="sf" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="factory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
@@ -34,9 +35,9 @@
         </property>
     </bean>
 
-    <bean id="testDao" class="session15.TestDao">
-        <property name="factory" ref="sf"/>
-    </bean>
+    <!--<bean id="testDao" class="session15.TestDao">-->
+        <!--<property name="factory" ref="sf"/>-->
+    <!--</bean>-->
 
 </beans>
 

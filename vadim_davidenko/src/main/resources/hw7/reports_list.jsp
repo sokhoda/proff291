@@ -1,10 +1,10 @@
-<%@ page import="hw7.springnotes.domain.Notebook" %>
+<%@ page import="Notebook" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.springnotes.domain.Store" %>
+<%@ page import="Store" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="static hw7.springnotes.util.Utils.DATEFORMAT_COMMON" %>
+<%@ page import="static Utils.DATEFORMAT_COMMON" %>
 <%--
   Created by IntelliJ IDEA.
   User: v.davidenko

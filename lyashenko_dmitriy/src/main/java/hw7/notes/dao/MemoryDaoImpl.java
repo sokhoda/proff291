@@ -16,10 +16,11 @@ public class MemoryDaoImpl implements MemoryDao {
 
     public MemoryDaoImpl(){}
 
-    private SessionFactory sessionFactory = NotebookServiceImpl.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     @Override
     public Long create(Memory memory) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Long id = null;
         Session session = sessionFactory.openSession();
         try{
@@ -29,6 +30,7 @@ public class MemoryDaoImpl implements MemoryDao {
             return id;
         } catch (HibernateException e){
             session.getTransaction().rollback();
+            e.printStackTrace();
             return null;
         } finally {
             session.close();
@@ -38,6 +40,7 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public Memory read(Long id) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             return (Memory) session.get(Memory.class, id);
@@ -51,6 +54,7 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public boolean update(Memory memory) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -68,6 +72,7 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public boolean delete(Memory memory) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -85,6 +90,7 @@ public class MemoryDaoImpl implements MemoryDao {
 
     @Override
     public List findAll() {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from hw7.notes.domain.Memory");
         session.close();

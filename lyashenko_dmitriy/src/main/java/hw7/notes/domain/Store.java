@@ -11,13 +11,13 @@ import java.util.Set;
 @Table(name = "STORE")
 public class Store {
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "STORE_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "STORE_SEQ",allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @Column(name = "NOTEBOOK_ID")
+    @JoinColumn(name = "NOTEBOOK_ID")
     private Notebook notebook;
 
     @Column(name = "QUANTITY")

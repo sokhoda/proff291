@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,8 +58,21 @@ public class HelloController {
     @RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
     public @ResponseBody String helloBody(@RequestParam("login") String name) {
         log.info("/hello.html controller");
-        return "hello " + name;
+//        int tmp = 0;
+//        tmp = (int)((Math.random() * 10) + 1);
+//        String string = "";
+//        for (int i = 0; i < tmp; i++){
+//            string += name;
+//        }
+        return name;
     }
+
+    @RequestMapping(value = "/helloBody2.html", method = RequestMethod.GET)
+    public @ResponseBody String helloBody2(@RequestParam("login")String  randonm) {
+        log.info("/hello.html controller");
+        return String.valueOf((int)((Math.random() * 10) + 1));
+    }
+
 
     @RequestMapping(value = "/employeeInf.html", method = RequestMethod.GET)
     public @ResponseBody String employeeInf(@RequestParam("login") String name) {
@@ -96,7 +110,9 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping(value = "/angular", method = RequestMethod.GET)
+
+
+    @RequestMapping(value = "/helloAngular", method = RequestMethod.GET)
     public String angular() {
         return "helloAngular";
     }
@@ -104,5 +120,10 @@ public class HelloController {
     @RequestMapping(value = "/angularModel", method = RequestMethod.GET)
     public String angularModel() {
         return "angularModel";
+    }
+
+    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
+    public String angularController() {
+        return "angularController";
     }
 }
