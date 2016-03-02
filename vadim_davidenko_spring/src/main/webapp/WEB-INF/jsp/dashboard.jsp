@@ -2,27 +2,57 @@
   Created by IntelliJ IDEA.
   User: Вадим
   Date: 28.02.2016
-  Time: 18:50
+  Time: 18:40
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<h2>TAXI Service</h2>
+<%@include file="header.jsp"%>
 
-<p><b><a href="/register">User registration</a></b></p>
-<p><b><a href="/registerClient">Client registration</a></b></p>
-<p><b><a href="/order">Order management</a></b></p>
-<p><b><a href="/orders">Orders list</a></b></p>
-<p><b><a href="/clients">Clients list</a></b></p>
+<table align="center" border="0" cellpadding="5" style="background-color: #d4ecff" width="500">
+    <tr>
+        <td><a href="/user/add">User registration</a></td>
+    </tr>
+    <tr><td><hr/></td></tr>
+    <tr>
+        <td><a href="/client/add">Client registration</a></td>
+    </tr>
+    <tr>
+        <td><a href="/clientsByPortion">Show clients by portion</a></td>
+    </tr>
+    <tr>
+        <td>
+            <a href="#" onclick="onShowClientsByGtSumClick()">Show clients ordered greater of sum:</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input id="sum" size="5"/>
+        </td>
+    </tr>
+    <tr>
+        <td><a href="/clientsByLastMonth">Show clients ordered in last month</a></td>
+    </tr>
+    <tr><td><hr/></td></tr>
+    <tr>
+        <td><a href="/order/add">Add new order</a></td>
+    </tr>
+    <tr>
+        <td>
+            <a href="#" onclick="onOrderEditClick()">Modify order</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;id:&nbsp;<input id="id" size="5"/>
+        </td>
+    </tr>
+    <tr>
+        <td><a href="/orders/ByPortion">Show orders by portion</a></td>
+    </tr>
+    <tr>
+        <td>
+            <a href="#" onclick="onShowOrdersOnSumClick()">Show orders on sum</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;<input id="sumFrom" size="5"/>
+            &nbsp;&nbsp;to:&nbsp;<input id="sumTo" size="5"/>
+        </td>
+    </tr>
+    <tr><td><hr/></td></tr>
+    <tr><td><a href="/">Logout</a></td></tr>
+</table>
 
-<br/>
-<p><a href="/">Logout</a></p>
+<%@include file="footer.jsp"%>
 
-
-</body>
-</html>

@@ -1,5 +1,6 @@
 package hw9.taxi.service;
 
+import hw9.taxi.domain.Order;
 import hw9.taxi.exception.OrderException;
 import hw9.taxi.domain.Client;
 
@@ -24,4 +25,6 @@ public interface OrderService {
     List showOrdersBetweenSumRange(int sumFrom, int sumTo);
 
     List showOrdersByPortion(int portionSize);
+
+    Order findOrderById(Long id);
 }

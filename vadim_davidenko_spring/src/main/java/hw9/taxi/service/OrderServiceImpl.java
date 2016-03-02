@@ -76,4 +76,9 @@ public class OrderServiceImpl implements OrderService {
         }
         return orderDao.findByPortion(pageCounter, Math.abs(portionSize));
     }
+
+    @Transactional (readOnly = true)
+    public Order findOrderById(Long id) {
+        return orderDao.read(id);
+    }
 }

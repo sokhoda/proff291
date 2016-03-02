@@ -70,4 +70,14 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> showClientsLastMonth() {
         return clientDao.findLastMonth();
     }
+
+    @Transactional (readOnly = true)
+    public Client findClientById(Long id) {
+        return clientDao.read(id);
+    }
+
+    @Transactional (readOnly = true)
+    public List findAllClients() {
+        return clientDao.findAll();
+    }
 }

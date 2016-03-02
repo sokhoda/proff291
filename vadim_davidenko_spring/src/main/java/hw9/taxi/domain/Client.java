@@ -1,6 +1,7 @@
 package hw9.taxi.domain;
 
 import hw9.taxi.util.Utils;
+import scala.runtime.StringFormat$;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,10 +34,7 @@ public class Client {
     @Column(name = "ADDRESS", length = 100)
     private String address;
 
-    @Column(name = "LAST_ORDER_DATE")
-    private Date lastOrderDate;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "client")
     private Set<Order> orders = new HashSet<Order>();
 
     public Client() {}
@@ -55,20 +53,15 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", lastOrderDate=" + lastOrderDate +
-                ", orders=" + orders +
-                '}';
+                ", address='" + address +
+                "'}";
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Client client = (Client) o;
-
-        if (address != null ? !address.equals(client.address) : client.address != null) return false;
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -81,7 +74,6 @@ public class Client {
         int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 
@@ -134,18 +126,7 @@ public class Client {
     }
 
     @Transient
-    public String getDateStr() {
-        if (lastOrderDate != null) {
-            return Utils.DATEFORMAT_COMMON.get().format(lastOrderDate);
-        }
-        return "";
-    }
-
-    public Date getLastOrderDate() {
-        return lastOrderDate;
-    }
-
-    public void setLastOrderDate(Date lastOrderDate) {
-        this.lastOrderDate = lastOrderDate;
+    public String  getFullName(){
+        return name + " " + surname;
     }
 }

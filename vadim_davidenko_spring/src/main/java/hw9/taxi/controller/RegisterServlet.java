@@ -1,14 +1,15 @@
 package hw9.taxi.controller;
 
+import hw9.taxi.domain.User;
 import hw9.taxi.service.AuthorizationService;
 import hw9.taxi.exception.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -17,18 +18,20 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 public class RegisterServlet {
-
     @Autowired
     private AuthorizationService service;
 
-    @RequestMapping(value = "/register.html", method = RequestMethod.GET)
-    public String userRegister(@RequestParam("login") String login,
-                               @RequestParam("idNumber") String idNumber,
-                               @RequestParam("password") String password,
-                               Model model) {
+    @RequestMapping(value = "/user/add")
+    public String orderAdd(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String userRegister(Model model, @ModelAttribute("user") User user, Errors errors) {
         String msg = "";
         try {
-            if (service.register(login, idNumber, password)) {
+            if (service.register(user.getLogin(), user.getIdNumber(), user.getPassword())) {
                 msg = "New user added successfully";
             }
         } catch (AuthenticationException e) {
@@ -37,6 +40,4 @@ public class RegisterServlet {
         model.addAttribute("msg", msg);
         return "register";
     }
-
-
 }
