@@ -11,13 +11,13 @@ import java.sql.Date;
 public class Sales {
 
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "SALES_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "SALES_SEQ",allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @Column(name = "STORE_ID")
+    @JoinColumn(name = "STORE_ID")
     private Store store;
 
     @Column(name = "SALES_DATE")

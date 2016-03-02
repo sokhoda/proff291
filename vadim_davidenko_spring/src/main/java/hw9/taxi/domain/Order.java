@@ -24,7 +24,7 @@ public class Order {
     @Column(name = "ORDER_DATE")
     private Date orderDate;
 
-    @Column(name = "AMOUNT")
+    @Column(name = "AMOUNT", columnDefinition = "DOUBLE(10, 2)")
     private Double amount;
 
     @Column(name = "ADDRESS_FROM", length = 100)

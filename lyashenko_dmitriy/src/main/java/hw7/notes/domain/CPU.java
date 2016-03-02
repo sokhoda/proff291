@@ -12,14 +12,14 @@ import java.util.Set;
 public class CPU {
 
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "CPU_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "CPU_SEQ",allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @Column(name = "VENDOR_ID")
-    private Vendor vendor;
+    @JoinColumn(name = "VENDOR_ID")
+    private Vendor vendorCPU;
 
     @Column(name = "FREQUENCY")
     private Double frequency;
@@ -33,7 +33,7 @@ public class CPU {
     public CPU(){}
 
     public CPU(Vendor vendor ,Double frequency, String model){
-        this.vendor = vendor;
+        this.vendorCPU = vendor;
         this.frequency = frequency;
         this.model = model;
     }
@@ -54,12 +54,12 @@ public class CPU {
         this.id = id;
     }
 
-    public Vendor getVendor() {
-        return vendor;
+    public Vendor getVendorCPU() {
+        return vendorCPU;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
+    public void setVendorCPU(Vendor vendor) {
+        this.vendorCPU = vendor;
     }
 
     public Double getFrequency() {
@@ -82,7 +82,7 @@ public class CPU {
     public String toString() {
         return "CPU{" +
                 "id=" + id +
-                ", vendor=" + vendor +
+                ", vendor=" + vendorCPU +
                 ", frequency=" + frequency +
                 ", model='" + model + '\'' +
                 '}';

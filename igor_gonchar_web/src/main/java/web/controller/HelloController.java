@@ -61,12 +61,14 @@ public class HelloController {
     @RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
     public @ResponseBody String helloBody(@RequestParam("login") String name) {
         log.info("/hello.html controller");
-        StringBuilder sb = new StringBuilder();
+        return "hello " + name;
+    }
+
+    @RequestMapping(value = "/randomNumber.html", method = RequestMethod.GET)
+    public @ResponseBody int getRandomNumber() {
+        log.info("/random.html controller");
         int temp = getRandom(10);
-        for (int i = 0; i < temp; i++) {
-            sb.append(name + " <br/>");
-        }
-        return sb.toString();
+        return temp;
     }
 
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
