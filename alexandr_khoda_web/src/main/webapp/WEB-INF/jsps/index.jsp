@@ -15,10 +15,12 @@
 <body onload="/*fun()*/">
 <h2 id="elh" onclick="ajaxic('Sestra')">Header</h2>
 <form action="/hello.html" onsubmit="return check()">
-    <input id="text" name="login" type="text" value="user name"/>
+    <input id="text" name="login" type="text" placeholder="user name"/>
     <input type="submit" value="send"/>
 </form>
 <p>${name}</p>
+
+
 <p><a href="/helloAngular">Angular Hello</a></p>
 <p><a href="/angularController">Angular AJAX</a></p>
 </body>

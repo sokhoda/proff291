@@ -64,7 +64,7 @@ public class HelloController {
     public @ResponseBody String helloBodyKHO(@RequestParam("login") String name) {
         log.info("/helloBodyKHO.html controller");
         Random rand = new Random();
-        return Integer.toString(rand.nextInt(10));
+        return Integer.toString(rand.nextInt(9) + 1);
     }
 
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
