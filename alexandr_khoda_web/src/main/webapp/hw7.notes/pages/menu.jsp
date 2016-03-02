@@ -26,13 +26,23 @@
         </style>
     </head>
     <body>
+    <%!
+        NotebookService service;
+        VendorDao vendorDao;
+        List<Vendor> vendor = null;
+    %>
+    <%
+        vendorDao = ((NotebookServiceImpl)Menu.service).getVendorDao();
+
+        vendor = (List<Vendor>)vendorDao.findAll();
+        request.setAttribute("vendor", vendor);
+    %>
     <c:set var="defPortion" value="5"/>
     <c:set var="defQuant" value="15"/>
 
     <form action="/MainNote" method="post">
 
-        <center><img id="MenuImg"
-                     src="/hw7.notes/img/laptop1.gif">
+        <center><img id="MenuImg" src="../img/laptop1.gif">
         </center>
         <h1 align="center">Welcome to the Computer Store</h1>
         <div>
@@ -140,8 +150,7 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="listNtbTypesByPortion"
-                             value="12. List all Notebook types by Portion"
-                             formaction="/getAllNtbTypesByPortion.html" formmethod="get">
+                             value="12. List all Notebook types by Portion">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
