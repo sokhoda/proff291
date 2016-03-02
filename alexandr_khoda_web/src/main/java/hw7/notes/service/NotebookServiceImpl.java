@@ -15,14 +15,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import static hw7.notes.view.Servlet.String2Integer;
-import static hw7.notes.view.Servlet.checkStringPar;
-import static hw7.notes.view.Servlet.setMessageAttr;
 
 /**
  * Created by s_okhoda on 09.02.2016.

@@ -9,10 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Admin on 17.02.2016.
@@ -26,10 +23,13 @@ public class NotebookServiceImpl implements NotebookService {
     private StoreDao storeDao;
     private VendorDao vendorDao;
 
-    private SessionFactory sessionFactory = getSessionFactory();
+
+
+
     public NotebookServiceImpl(){}
 
     public NotebookServiceImpl(String key){
+
         this.cpuDao = new CPUDaoImpl();
         this.memoryDao = new MemoryDaoImpl();
         this.notebookDao = new NotebookDaoImpl();
@@ -40,7 +40,7 @@ public class NotebookServiceImpl implements NotebookService {
     }
     public static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("resources.hw7.hw7.cfg.xml");
+        Configuration cfg = new Configuration().configure("resources.hw7.hw7/cfg.xml");
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder();
         ssrb.applySettings(cfg.getProperties());
         StandardServiceRegistry ssr = ssrb.build();
@@ -97,17 +97,26 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public List getNotebooksByPortion(int size) {
+
         return null;
     }
 
     @Override
     public List getNotebooksGtAmount(int amount) {
-        return null;
+        return storeDao.getNotebooksGtAmount(amount);
     }
 
     @Override
     public List getNotebooksByCpuVendor(Vendor cpuVendor) {
-        return null;
+        List<Notebook> allNotes = notebookDao.findAll();
+        List<Notebook> allCpuVendor = new ArrayList<Notebook>();
+
+        for (int i = 0; i < 0; i++){
+            if(allNotes.get(i).getCpu().getVendorCPU().getName().equalsIgnoreCase(cpuVendor.getName())){
+                allCpuVendor.add(allNotes.get(i));
+            }
+        }
+               return allCpuVendor;
     }
 
     @Override
@@ -116,13 +125,15 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
-    public List getNotebooksStorePresent() {
-        return null;
+    public Map getNotebooksStorePresent() {
+        Map<Vendor, Notebook> nnn = new HashMap<Vendor, Notebook>();
+        return nnn;
     }
 
     @Override
     public Map getSalesByDays() {
-        return null;
+
+        return salesDao.getSalesByDays();
     }
 
     public CPUDao getCpuDao() {

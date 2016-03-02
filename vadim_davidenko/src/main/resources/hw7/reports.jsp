@@ -1,4 +1,4 @@
-<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="Vendor" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
