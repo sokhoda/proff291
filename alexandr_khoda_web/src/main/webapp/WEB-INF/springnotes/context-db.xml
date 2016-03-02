@@ -10,22 +10,24 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:property-placeholder
-            location="classpath:springnotes1/conf.properties"/>
-    <context:component-scan base-package="hw7.springnotes"/>
 
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <context:property-placeholder
+            location="classpath:../webapp/WEB-INF/springnotes/conf.properties"/>
+
+    <context:component-scan base-package="springnotes"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}"/>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="username" value="hr"/>
-        <property name="password" value="hr"/>
+        <property name="username" value="notebooks"/>
+        <property name="password" value="notebooks"/>
     </bean>
 
-    <bean id="sf" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>hw7.springnotes</value>
+                <value>springnotes.dao</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -38,7 +40,7 @@
     </bean>
 
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sf" />
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <tx:annotation-driven transaction-manager="txManager" />

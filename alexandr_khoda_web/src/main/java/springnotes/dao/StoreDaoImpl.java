@@ -5,7 +5,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import springnotes.domain.Store;
 
 import java.util.List;
@@ -16,46 +18,26 @@ import java.util.List;
 @Repository("storeDao")
 public class StoreDaoImpl implements StoreDao {
     private static Logger log = Logger.getLogger(StoreDao.class);
+    @Autowired
     private SessionFactory factory;
 
-    public StoreDaoImpl(SessionFactory factory) {
-        this.factory = factory;
+    public StoreDaoImpl() {
     }
 
     @Override
     public Long create(Store store) throws HibernateException {
-        Session session = factory.openSession();
-        Long id = null;
-        try {
-            session.beginTransaction();
-            id = (Long) session.save(store);
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            throw new HibernateException(e.getMessage() + ", " + e.getCause()
-                    .getMessage());
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return (Long) session.save(store);
     }
 
     @Override
+    @Transactional (readOnly = true)
     public Store read(Long id) {
         if (id == null) {
             return null;
         }
-        Session session = factory.openSession();
-        Store store = null;
-        try {
-            store = (Store) session.get(Store.class, id);
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-        } finally {
-            session.close();
-        }
-        return store;
+        Session session = factory.getCurrentSession();
+        return (Store) session.get(Store.class, id);
     }
 
     @Override
@@ -63,20 +45,9 @@ public class StoreDaoImpl implements StoreDao {
         if (store == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(store);
-            session.getTransaction().commit();
-            return true;
-        }
-        catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        session.update(store);
+        return true;
     }
 
     @Override
@@ -84,34 +55,17 @@ public class StoreDaoImpl implements StoreDao {
         if (store == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(store);
-            session.getTransaction().commit();
-            return true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
-
+        Session session = factory.getCurrentSession();
+        session.delete(store);
+        return true;
     }
 
 
     @Override
+    @Transactional (readOnly = true)
     public List findAll() {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Store");
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Store");
+        return query.list();
     }
 }
