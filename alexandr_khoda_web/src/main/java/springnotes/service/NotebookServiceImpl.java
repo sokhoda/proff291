@@ -1,9 +1,9 @@
 package springnotes.service;
 
-import hw7.notes.exception.CPUException;
-import hw7.notes.exception.NotebookException;
-import hw7.notes.exception.PortionException;
-import hw7.notes.exception.StoreException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import springnotes.exception.*;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -22,28 +22,45 @@ import java.util.Map;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
+@Transactional
+@Service
 public class NotebookServiceImpl implements NotebookService {
+    private static Logger log = Logger.getLogger(NotebookService.class);
+
+    @Autowired
     private SessionFactory factory;
 
-    private static Logger log = Logger.getLogger(hw7.notes.service.NotebookServiceImpl.class);
+    @Autowired
     private NotebookDao noteDao;
+
+    @Autowired
     private StoreDao storeDao;
+
+    @Autowired
     private SalesDao salesDao;
+
+    @Autowired
     private VendorDao vendorDao;
+
+    @Autowired
     private CPUDao cpuDao;
+
+    @Autowired
     private MemoryDao memoryDao;
 
-
     public NotebookServiceImpl() {
-        factory = getSessionFactory();
-        this.noteDao = new NotebookDaoImpl(factory);
-        this.storeDao = new StoreDaoImpl(factory);
-        this.salesDao = new SalesDaoImpl(factory);
-        this.vendorDao = new VendorDaoImpl(factory);
-        this.cpuDao = new CPUDaoImpl(factory);
-        this.memoryDao = new MemoryDaoImpl(factory);
-
     }
+
+//    public NotebookServiceImpl() {
+//        factory = getSessionFactory();
+//        this.noteDao = new NotebookDaoImpl(factory);
+//        this.storeDao = new StoreDaoImpl(factory);
+//        this.salesDao = new SalesDaoImpl(factory);
+//        this.vendorDao = new VendorDaoImpl(factory);
+//        this.cpuDao = new CPUDaoImpl(factory);
+//        this.memoryDao = new MemoryDaoImpl(factory);
+//
+//    }
 
     @Override
     public Long receive(Long noteId, int amount, double price) throws StoreException {
@@ -127,6 +144,7 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer getNotebookTypesTotPages(int size) {
         List notebook = (List<Notebook>)noteDao.findAll();
         return  (notebook.size() == 0 ? 1 :(int) Math.ceil
@@ -134,6 +152,7 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer getNotebookInStoreTotPages(int size) throws HibernateException {
         Session session = factory.openSession();
         try{
@@ -152,12 +171,13 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebookTypesByPortion(int size, int cnt) throws
             PortionException, HibernateException{
         if (size == 0) {
             throw new PortionException("Portion size can not be ZERO.");
         }
-       return noteDao.getNotebookTypesByPortion(size, cnt);
+        return noteDao.getNotebookTypesByPortion(size, cnt);
     }
 
     private Query getNotebookInStoreQuery(Session session){
@@ -176,6 +196,7 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksByPortion(int size, int cnt) throws PortionException,
             HibernateException {
         if (size == 0) {
@@ -198,26 +219,31 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksGtAmount(int amount) {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksByCpuVendor(Vendor cpuVendor) {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksFromStore() {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getNotebooksStorePresent() {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map getSalesByDays() {
         return null;
     }

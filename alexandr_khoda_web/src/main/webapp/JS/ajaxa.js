@@ -3,16 +3,35 @@ var app = angular.module('myapp', []);
 	app.controller("HelloCtrl", function ($scope, $http) {
 
 		$scope.number = 5;
-		$scope.greeting = "";
-		$scope.vect = $scope.getNumber(num, val);
-
+		$scope.randInt = 0;
+		//$scope.greeting = "";
+		//$scope.vect = $scope.getNumber($scope.number, 'ee');
+        //
 		$scope.getNumber = function(num, val) {
-			var arr = new Array(num);
+			var arr = new Array();
 			for (var i = 0; i < num; i++) {
 				arr.push(val);
 			}
 			return arr;
-		}
+		};
+
+		$scope.getNumber3 = function() {
+			var arr = new Array();
+			for (var i = 0; i < $scope.randInt; i++) {
+				arr.push($scope.name);
+			}
+
+			return arr;
+		};
+
+		var getNumber4 = function() {
+			var arr = new Array();
+			for (var i = 0; i < $scope.randInt; i++) {
+				arr.push($scope.name);
+			}
+
+			return arr;
+		};
 
 		$scope.update = function() {
 
@@ -23,6 +42,7 @@ var app = angular.module('myapp', []);
 		responsePromise.success(
 			function(data, status, headers, config) {
 				$scope.randInt = data;
+				$scope.vector = getNumber4();
 			});
 		responsePromise.error(
 			function(data, status, headers, config) {

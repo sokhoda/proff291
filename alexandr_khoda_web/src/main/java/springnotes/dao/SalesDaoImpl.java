@@ -1,5 +1,7 @@
 package springnotes.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import springnotes.domain.Sales;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -16,46 +18,26 @@ import java.util.List;
 @Repository("salesDao")
 public class SalesDaoImpl implements SalesDao {
     private static Logger log = Logger.getLogger(SalesDao.class);
+    @Autowired
     private SessionFactory factory;
 
-    public SalesDaoImpl(SessionFactory factory) {
-        this.factory = factory;
+    public SalesDaoImpl() {
     }
 
     @Override
     public Long create(Sales sales) throws HibernateException {
-        Session session = factory.openSession();
-        Long id = null;
-        try {
-            session.beginTransaction();
-            id = (Long) session.save(sales);
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            throw new HibernateException(e.getMessage() + ", " + e.getCause()
-                    .getMessage());
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return (Long) session.save(sales);
     }
 
     @Override
+    @Transactional (readOnly = true)
     public Sales read(Long id) {
         if (id == null) {
             return null;
         }
-        Session session = factory.openSession();
-        Sales sales = null;
-        try {
-            sales = (Sales) session.get(Sales.class, id);
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-        } finally {
-            session.close();
-        }
-        return sales;
+        Session session = factory.getCurrentSession();
+        return (Sales) session.get(Sales.class, id);
     }
 
     @Override
@@ -63,20 +45,9 @@ public class SalesDaoImpl implements SalesDao {
         if (sales == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(sales);
-            session.getTransaction().commit();
-            return true;
-        }
-        catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        session.update(sales);
+        return true;
     }
 
     @Override
@@ -84,33 +55,16 @@ public class SalesDaoImpl implements SalesDao {
         if (sales == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(sales);
-            session.getTransaction().commit();
-            return true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
-
+        Session session = factory.getCurrentSession();
+        session.delete(sales);
+        return true;
     }
 
     @Override
+    @Transactional (readOnly = true)
     public List findAll() {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Sales");
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Sales");
+        return query.list();
     }
 }

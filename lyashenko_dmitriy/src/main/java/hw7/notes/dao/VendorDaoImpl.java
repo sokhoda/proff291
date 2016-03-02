@@ -17,10 +17,11 @@ public class VendorDaoImpl implements VendorDao {
 
     public VendorDaoImpl(){}
 
-    private SessionFactory sessionFactory = NotebookServiceImpl.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     @Override
     public Long create(Vendor vendor) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Long id = null;
         Session session = sessionFactory.openSession();
         try{
@@ -32,13 +33,17 @@ public class VendorDaoImpl implements VendorDao {
             session.getTransaction().rollback();
             return null;
         } finally {
+
             session.close();
-            sessionFactory.close();
+           sessionFactory.close();
+            System.out.println("Closed");
+
         }
-    }
+        }
 
     @Override
     public Vendor read(Long id) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             return (Vendor) session.get(Vendor.class, id);
@@ -52,6 +57,7 @@ public class VendorDaoImpl implements VendorDao {
 
     @Override
     public boolean update(Vendor vendor) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -69,6 +75,7 @@ public class VendorDaoImpl implements VendorDao {
 
     @Override
     public boolean delete(Vendor vendor) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -86,6 +93,7 @@ public class VendorDaoImpl implements VendorDao {
 
     @Override
     public List findAll() {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from hw7.notes.domain.Vendor");
         session.close();

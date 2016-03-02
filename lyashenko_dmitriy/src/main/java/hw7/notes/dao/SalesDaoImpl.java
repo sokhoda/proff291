@@ -19,10 +19,11 @@ public class SalesDaoImpl implements SalesDao {
 
     public  SalesDaoImpl (){}
 
-    private SessionFactory sessionFactory = NotebookServiceImpl.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     @Override
     public Long create(Sales sales) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Long id = null;
         Session session = sessionFactory.openSession();
         try{
@@ -41,6 +42,7 @@ public class SalesDaoImpl implements SalesDao {
 
     @Override
     public Sales read(Long id) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             return (Sales) session.get(Sales.class, id);
@@ -54,6 +56,7 @@ public class SalesDaoImpl implements SalesDao {
 
     @Override
     public boolean update(Sales sales) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -71,6 +74,7 @@ public class SalesDaoImpl implements SalesDao {
 
     @Override
     public boolean delete(Sales sales) {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -88,6 +92,7 @@ public class SalesDaoImpl implements SalesDao {
 
     @Override
     public List findAll() {
+        sessionFactory = NotebookServiceImpl.getSessionFactory();
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("from hw7.notes.domain.Sales");
         session.close();

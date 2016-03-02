@@ -15,9 +15,5 @@ public interface NotebookDao {
     boolean update(Notebook notebook);
     boolean delete(Notebook notebook);
     List findAll();
-    List getNotebooksByPortion(int size);
-    List getNotebooksGtAmount(int amount);
-    List getNotebooksByCpuVendor(Vendor cpuVendor);
-    List getNotebooksFromStore();
-    List getNotebooksStorePresent();
+
 }

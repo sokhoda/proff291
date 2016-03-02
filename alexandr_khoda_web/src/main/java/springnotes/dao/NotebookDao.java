@@ -1,7 +1,7 @@
 package springnotes.dao;
 
 
-import hw7.notes.exception.PortionException;
+import springnotes.exception.PortionException;
 import springnotes.domain.Notebook;
 import org.hibernate.HibernateException;
 

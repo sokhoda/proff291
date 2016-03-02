@@ -12,13 +12,13 @@ import java.util.Set;
 public class Memory {
 
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "MEMORY_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "MEMORY_SEQ",allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @Column(name = "VENDOR_ID")
+    @JoinColumn(name = "VENDOR_ID")
     private Vendor vendorMemory;
 
 
@@ -30,6 +30,7 @@ public class Memory {
 
 
     public Memory (){}
+
     public Memory( Vendor vendorMemory, Integer volume){
         this.vendorMemory = vendorMemory;
         this.volume = volume;

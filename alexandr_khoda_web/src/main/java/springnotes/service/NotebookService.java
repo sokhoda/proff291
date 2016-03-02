@@ -1,10 +1,7 @@
 package springnotes.service;
 
 
-import hw7.notes.exception.CPUException;
-import hw7.notes.exception.NotebookException;
-import hw7.notes.exception.PortionException;
-import hw7.notes.exception.StoreException;
+import springnotes.exception.*;
 import org.hibernate.HibernateException;
 import springnotes.domain.*;
 
