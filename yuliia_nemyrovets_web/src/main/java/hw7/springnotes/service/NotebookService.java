@@ -1,6 +1,6 @@
 package hw7.springnotes.service;
 
-import hw7.notes.domain.*;
+import hw7.springnotes.domain.*;
 
 import java.util.List;
 import java.util.Map;
@@ -8,13 +8,14 @@ import java.util.Map;
 /**
  * Created by Юлия on 19.02.2016.
  */
+
 public interface NotebookService {
 
-    Long receive(Long noteId, int amount, double price);
+       Long receive(Long noteId, int amount, double price);
 
     Long sale(Long storeId, int amount);
 
-    boolean updateCPU(CPU cpu);
+    boolean updateCpu(Cpu cpu);
 
     boolean updateMemory(Memory memory);
 

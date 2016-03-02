@@ -2,13 +2,15 @@ package hw7.springnotes.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Юлия on 19.02.2016.
  */
 @Entity
 @Table(name = "NOTEBOOKS")
-public class Notebook {
+public class Notebook  {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "SEQUENCE1",
             allocationSize = 1, initialValue = 1)
@@ -18,15 +20,15 @@ public class Notebook {
 
     @ManyToOne
     @JoinColumn(name = "VENDOR_ID")
-    private String vendor;
+    private Vendor vendor;
 
     @ManyToOne
     @JoinColumn (name = "CPU_ID")
-    private String  cpu;
+    private Cpu  cpu;
 
     @ManyToOne
     @JoinColumn(name = "MEMORY_ID")
-    private String memory;
+    private Memory memory;
 
     @Column(name = "MODEL")
     private String model;
@@ -37,30 +39,20 @@ public class Notebook {
     @Column(name = "PRICE")
     private double price;
 
-    @Column(name = "SERIAL")
-    private String serial;
 
-    @OneToOne(mappedBy = "NOTEBOOKS",cascade = CascadeType.DETACH)
-    private Store store;
+    @OneToMany(mappedBy = "NOTEBOOKS",cascade = CascadeType.DETACH)
+    private Set<Store> store=new HashSet<>();
 
     public Notebook() {
     }
 
-    public Notebook(long id, String vendor, String model, Date date, double price, String serial) {
-        this.id = id;
+    public Notebook(Vendor vendor, Cpu cpu, Memory memory, String model, double price) {
         this.vendor = vendor;
+        this.cpu = cpu;
+        this.memory = memory;
         this.model = model;
-        this.date = date;
+        date = new java.sql.Date(new java.util.Date().getTime());
         this.price = price;
-        this.serial = serial;
-    }
-
-    public String getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(String name) {
-        this.vendor = name;
     }
 
     public Long getId() {
@@ -69,6 +61,30 @@ public class Notebook {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public Cpu getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(Cpu cpu) {
+        this.cpu = cpu;
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public void setMemory(Memory memory) {
+        this.memory = memory;
     }
 
     public String getModel() {
@@ -95,63 +111,25 @@ public class Notebook {
         this.price = price;
     }
 
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public String getMemory() {
-        return memory;
-    }
-
-    public void setMemory(String memory) {
-        this.memory = memory;
-    }
-
-    public Store getStore() {
+    public Set<Store> getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Set<Store> store) {
         this.store = store;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Notebook ntb = (Notebook) o;
-
-        if (id != null ? !id.equals(ntb.id) : ntb.id != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
 
     @Override
     public String toString() {
         return "Notebook{" +
                 "id=" + id +
-                ", vendor='" + vendor + ", model='" + model + ", date='" + date + ", price='" + price + '\'' +
+                ", vendor=" + vendor +
+                ", cpu=" + cpu +
+                ", memory=" + memory +
+                ", model='" + model + '\'' +
+                ", date=" + date +
+                ", price=" + price +
+                ", store=" + store +
                 '}';
     }
-
-
 }

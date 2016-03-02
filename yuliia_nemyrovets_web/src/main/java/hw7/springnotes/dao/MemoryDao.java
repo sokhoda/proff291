@@ -1,6 +1,6 @@
 package hw7.springnotes.dao;
 
-import hw7.notes.domain.Memory;
+import hw7.springnotes.domain.Memory;
 
 import java.util.List;
 

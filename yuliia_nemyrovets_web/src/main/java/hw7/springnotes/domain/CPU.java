@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CPU")
-public class CPU {
+public class Cpu {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "CPU_SEQ",
             allocationSize = 1, initialValue = 1)
@@ -18,8 +18,8 @@ public class CPU {
     @Column(name = "CPU_ID")
     private Long id;
 
-    @Column(name = "VENDOR")
-    private String vendor;
+    @Column(name = "MODEL")
+    private String model;
 
     @Column(name = "FREQUENCY")
     private String frequency;
@@ -28,16 +28,20 @@ public class CPU {
     private String core;
 
 
-    @OneToMany(mappedBy = "CPU", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "CPU", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Notebook> notebooks = new HashSet<>();
 
-    public CPU() {
+    @ManyToOne
+    private Vendor vendor;
+
+    public Cpu() {
     }
 
-    public CPU(String vendor, String frequency, String core) {
-        this.vendor = vendor;
+    public Cpu(String model, String frequency, String core, Vendor vendor) {
+        this.model = model;
         this.frequency = frequency;
         this.core = core;
+        this.vendor=vendor;
     }
 
     public Long getId() {
@@ -48,12 +52,12 @@ public class CPU {
         this.id = id;
     }
 
-    public String getVendor() {
-        return vendor;
+    public String getModel() {
+        return model;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getFrequency() {
@@ -80,8 +84,22 @@ public class CPU {
         this.notebooks = notebooks;
     }
 
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
     @Override
     public String toString() {
-        return id + " " + vendor + " " + frequency + " " + core;
+        return "CPU{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", frequency='" + frequency + '\'' +
+                ", core='" + core + '\'' +
+                ", vendor=" + vendor +
+                '}';
     }
 }

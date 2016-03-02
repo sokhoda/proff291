@@ -17,19 +17,19 @@ public class Memory {
     @Column(name = "MEMORY_ID")
     private Long id;
 
-    @Column(name = "VENDOR")
-    private String vendor;
+    @ManyToOne
+    private Vendor vendor;
 
     @Column(name = "MEMORY_SIZE")
     private Long size;
 
-    @OneToMany(mappedBy = "MEMORY", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "MEMORY", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Notebook> notebooks = new HashSet<>();
 
     public Memory() {
     }
 
-    public Memory(String vendor, Long size) {
+    public Memory(Vendor vendor, Long size) {
         this.vendor = vendor;
         this.size = size;
     }
@@ -42,11 +42,11 @@ public class Memory {
         this.id = id;
     }
 
-    public String getVendor() {
+    public Vendor getVendor() {
         return vendor;
     }
 
-    public void setVendor(String vendor) {
+    public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 
@@ -68,6 +68,11 @@ public class Memory {
 
     @Override
     public String toString() {
-        return id+ " "+ vendor+ " "+ size;
+        return "Memory{" +
+                "id=" + id +
+                ", vendor=" + vendor +
+                ", size=" + size +
+                ", notebooks=" + notebooks +
+                '}';
     }
 }

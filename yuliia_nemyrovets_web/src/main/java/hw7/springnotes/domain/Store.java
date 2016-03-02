@@ -1,6 +1,8 @@
 package hw7.springnotes.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Юлия on 19.02.2016.
@@ -22,24 +24,20 @@ public class Store {
     @Column(name = "PRICE")
     private Double price;
 
-    @Column(name = "NOTEBOOK_ID")
+    @ManyToOne
+    @JoinColumn(name = "NOTEBOOK_ID")
     private Notebook notebook;
 
-    @OneToOne(mappedBy = "STORE", cascade = CascadeType.DETACH)
-    private Sales sales;
+    @OneToMany(mappedBy = "STORE", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Sales> sales = new HashSet<>();
 
     public Store() {
     }
 
-    public Store(Integer amount) {
+    public Store(Integer amount, Double price, Notebook notebook) {
         this.amount = amount;
-    }
-
-
-    public Store(Notebook notebook, Integer amount, Double price) {
-        this.amount = amount;
-        this.notebook = notebook;
         this.price = price;
+        this.notebook = notebook;
     }
 
     public Long getId() {
@@ -58,22 +56,6 @@ public class Store {
         this.amount = amount;
     }
 
-    public Notebook getNotebook() {
-        return notebook;
-    }
-
-    public void setNotebook(Notebook notebook) {
-        this.notebook = notebook;
-    }
-
-    public Sales getSales() {
-        return sales;
-    }
-
-    public void setSales(Sales sales) {
-        this.sales = sales;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -82,8 +64,19 @@ public class Store {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return id+" "+amount+" "+ price;
+    public Notebook getNotebook() {
+        return notebook;
+    }
+
+    public void setNotebook(Notebook notebook) {
+        this.notebook = notebook;
+    }
+
+    public Set<Sales> getSales() {
+        return sales;
+    }
+
+    public void setSales(Set<Sales> sales) {
+        this.sales = sales;
     }
 }

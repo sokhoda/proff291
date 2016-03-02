@@ -1,6 +1,6 @@
 package hw7.springnotes.dao;
 
-import hw7.notes.domain.Notebook;
+import hw7.springnotes.domain.Notebook;
 
 import java.util.List;
 

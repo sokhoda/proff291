@@ -21,8 +21,15 @@ public class Vendor {
     @Column(name = "VENDOR_NAME")
     private String name;
 
-    @OneToMany(mappedBy = "VENDOR", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "VENDOR", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Notebook> notebooks = new HashSet<>();
+
+    @OneToMany(mappedBy = "VENDOR", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Memory> memory = new HashSet<>();
+
+    @OneToMany(mappedBy = "VENDOR", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Cpu> cpu = new HashSet<>();
+
 
     public Vendor() {
     }
@@ -55,8 +62,19 @@ public class Vendor {
         this.notebooks = notebooks;
     }
 
-    @Override
-    public String toString() {
-        return id+" "+ name;
+    public Set<Memory> getMemory() {
+        return memory;
+    }
+
+    public void setMemory(Set<Memory> memory) {
+        this.memory = memory;
+    }
+
+    public Set<Cpu> getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(Set<Cpu> cpu) {
+        this.cpu = cpu;
     }
 }
