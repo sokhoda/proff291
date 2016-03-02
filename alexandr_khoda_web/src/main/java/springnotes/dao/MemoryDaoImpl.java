@@ -1,6 +1,7 @@
 package springnotes.dao;
 
-import hw7.notes.exception.PortionException;
+import org.springframework.transaction.annotation.Transactional;
+import springnotes.exception.PortionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import springnotes.domain.Memory;
 import org.apache.log4j.Logger;
@@ -21,44 +22,23 @@ public class MemoryDaoImpl implements MemoryDao {
     @Autowired
     private SessionFactory factory;
 
-    public MemoryDaoImpl(SessionFactory factory) {
-        this.factory = factory;
+    public MemoryDaoImpl() {
     }
 
     @Override
     public Long create(Memory memory) throws HibernateException {
-        Session session = factory.openSession();
-        Long id = null;
-        try {
-            session.beginTransaction();
-            id = (Long) session.save(memory);
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            throw new HibernateException(e.getMessage() + ", " + e.getCause()
-                    .getMessage());
-        } finally {
-            session.close();
-        }
-        return id;
+        Session session = factory.getCurrentSession();
+        return  (Long) session.save(memory);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Memory read(Long id) {
         if (id == null) {
             return null;
         }
-        Session session = factory.openSession();
-        Memory memory = null;
-        try {
-            memory = (Memory) session.get(Memory.class, id);
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-        } finally {
-            session.close();
-        }
-        return memory;
+        Session session = factory.getCurrentSession();
+        return  (Memory) session.get(Memory.class, id);
     }
 
     @Override
@@ -66,20 +46,9 @@ public class MemoryDaoImpl implements MemoryDao {
         if (memory == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(memory);
-            session.getTransaction().commit();
-            return true;
-        }
-        catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        session.update(memory);
+        return true;
     }
 
     @Override
@@ -87,92 +56,53 @@ public class MemoryDaoImpl implements MemoryDao {
         if (memory == null){
             return false;
         }
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(memory);
-            session.getTransaction().commit();
-            return true;
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
-
+        Session session = factory.getCurrentSession();
+        session.delete(memory);
+        return true;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean checkExist(Memory memory) throws HibernateException {
-        Session session = factory.openSession();
-        try{
-            Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
-                    " m.sizze = :sizze")
-                    .setParameter("vendorId", memory.getVendor().getId())
-                    .setParameter("sizze", memory.getSizze());
-            return (query.list().size() > 0 ? true : false);
-        }
-        catch (HibernateException e){
-            log.error("Transaction failed", e);
-            throw new HibernateException(e.getMessage());
-        }
-        finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
+                " m.sizze = :sizze")
+                .setParameter("vendorId", memory.getVendor().getId())
+                .setParameter("sizze", memory.getSizze());
+        return (query.list().size() > 0 ? true : false);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean checkExistExceptId(Memory memory, Long memoryID) throws HibernateException {
-        Session session = factory.openSession();
-        try{
-            Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
-                    " m.sizze = :sizze and m.id <> :memoryID")
-                    .setParameter("vendorId", memory.getVendor().getId())
-                    .setParameter("sizze", memory.getSizze())
-                    .setParameter("memoryID", memoryID);
-            return (query.list().size() > 0 ? true : false);
-        }
-        catch (HibernateException e){
-            log.error("Transaction failed", e);
-            throw new HibernateException(e.getMessage());
-        }
-        finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Memory m join m.vendor v where v.id = :vendorId and " +
+                " m.sizze = :sizze and m.id <> :memoryID")
+                .setParameter("vendorId", memory.getVendor().getId())
+                .setParameter("sizze", memory.getSizze())
+                .setParameter("memoryID", memoryID);
+        return (query.list().size() > 0 ? true : false);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List findAll() {
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Memory");
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            return null;
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Memory");
+        return query.list();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List getMemoryByPortion(int size, int cnt) throws
             PortionException, HibernateException {
         if (size <= 0) {
             throw new PortionException("Negative portion size.");
         }
-        Session session = factory.openSession();
-        try {
-            Query query = session.createQuery("from Memory");
-            query.setFirstResult((cnt - 1) * size);
-            query.setMaxResults(size);
-            return query.list();
-        } catch (HibernateException e) {
-            log.error("Transaction failed", e);
-            throw new HibernateException(e.getMessage());
-        } finally {
-            session.close();
-        }
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Memory");
+        query.setFirstResult((cnt - 1) * size);
+        query.setMaxResults(size);
+        return query.list();
     }
 }

@@ -1,8 +1,8 @@
 package springnotes.domain;
 
-import hw7.notes.domain.Memory;
-import hw7.notes.domain.Store;
-import hw7.notes.domain.Vendor;
+import springnotes.domain.Memory;
+import springnotes.domain.Store;
+import springnotes.domain.Vendor;
 
 import javax.persistence.*;
 import java.text.DateFormat;

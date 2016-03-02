@@ -16,20 +16,20 @@
 </head>
 <body>
 <div ng-controller="HelloCtrl">
-    Your name: <input type="text" ng-model="name">
+    Your name: <input type="text" ng-model="name" >
     <button ng-click="update()">update</button>
     <p>Model state: {{name}}</p>
     <p>{{greeting}}</p>
 
 <p>{{randInt}}<p>
-<p>{{vect}}<p>
-    <div ng-init="vector=getNumber(number, 'ff')">
+    <div>
         <ul>
-            <%--<li ng-repeat="el in people"> {{el.age}} </li>--%>
-            <li ng-repeat="el in vect"> {{el}}</li>
+            <li ng-repeat="el in vector track by $index"> {{$index + 1}}. {{el}}
+            </li>
         </ul>
     </div>
 
 </div>
+<p>{{vector}}<p>
 </body>
 </html>

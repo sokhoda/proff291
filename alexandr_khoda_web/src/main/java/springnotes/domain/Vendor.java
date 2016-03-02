@@ -1,6 +1,6 @@
 package springnotes.domain;
 
-import hw7.notes.domain.Memory;
+import springnotes.domain.Memory;
 
 import javax.persistence.*;
 import java.util.Set;
