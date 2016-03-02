@@ -1,31 +1,31 @@
 package hw9.taxi.dao;
 
-import hw9.taxi.domain.User;
+import hw9.taxi.domain.Client;
 
 import java.util.List;
 
 /**
- * Created by Solyk on 01.03.2016.
+ * Created by Solyk on 02.03.2016.
  */
-public class UserDaoImpl implements UserDao {
+public class ClientDaoImpl implements ClientDao {
 
     @Override
-    public Long create(User user) {
+    public Long create(Client client) {
         return null;
     }
 
     @Override
-    public User read(Long id) {
+    public Client read(Long id) {
         return null;
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean update(Client client) {
         return false;
     }
 
     @Override
-    public boolean delete(User user) {
+    public boolean delete(Client client) {
         return false;
     }
 

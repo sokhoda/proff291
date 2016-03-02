@@ -1,31 +1,30 @@
 package hw9.taxi.dao;
 
-import hw9.taxi.domain.User;
+import hw8.taxi.domain.Order;
 
 import java.util.List;
 
 /**
- * Created by Solyk on 01.03.2016.
+ * Created by Solyk on 02.03.2016.
  */
-public class UserDaoImpl implements UserDao {
-
+public class OrderDaoImpl implements OrderDao {
     @Override
-    public Long create(User user) {
+    public Long create(Order order) {
         return null;
     }
 
     @Override
-    public User read(Long id) {
+    public Order read(Long id) {
         return null;
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean update(Order order) {
         return false;
     }
 
     @Override
-    public boolean delete(User user) {
+    public boolean delete(Order order) {
         return false;
     }
 
