@@ -1,6 +1,6 @@
-<%@ page import="Store" %>
+<%@ page import="hw7.springnotes.domain.Store" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Notebook" %>
+<%@ page import="hw7.springnotes.domain.Notebook" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим

@@ -1,11 +1,9 @@
-package hw7.notes.domain;
+package hw7.springnotes.domain;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import static hw7.notes.util.Utils.DATEFORMAT_COMMON;
+import static hw7.springnotes.util.Utils.DATEFORMAT_COMMON;
 
 /**
  * Created by Вадим on 14.02.2016.

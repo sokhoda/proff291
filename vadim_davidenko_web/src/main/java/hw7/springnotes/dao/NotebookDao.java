@@ -1,8 +1,7 @@
-package hw7.notes.dao;
+package hw7.springnotes.dao;
 
-import hw7.notes.domain.CPU;
-import hw7.notes.domain.Notebook;
-import hw7.notes.domain.Vendor;
+import hw7.springnotes.domain.Notebook;
+import hw7.springnotes.domain.Vendor;
 
 import java.util.List;
 

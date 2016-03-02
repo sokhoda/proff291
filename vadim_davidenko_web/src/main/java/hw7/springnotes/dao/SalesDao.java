@@ -1,8 +1,7 @@
-package hw7.notes.dao;
+package hw7.springnotes.dao;
 
-import hw7.notes.domain.Sales;
+import hw7.springnotes.domain.Sales;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

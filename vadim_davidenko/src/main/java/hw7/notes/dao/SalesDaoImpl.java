@@ -2,7 +2,10 @@ package hw7.notes.dao;
 
 import hw7.notes.domain.Sales;
 import org.hibernate.*;
+import org.hibernate.engine.query.spi.sql.NativeSQLQueryReturn;
+import org.hibernate.engine.query.spi.sql.NativeSQLQueryScalarReturn;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
