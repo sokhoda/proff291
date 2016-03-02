@@ -46,6 +46,6 @@
 
 
 
-<script src="js/task2.js" type="text/javascript"></script>
+<script src="../../js/task2.js" type="text/javascript"></script>
 </body>
 </html>

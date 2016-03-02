@@ -1,4 +1,4 @@
-package web.domain;
+package domain;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    private Integer id;
+    private Long id;
 
     @Column(name = "FIRST_NAME", length = 20)
     private String firstName;
@@ -27,7 +27,8 @@ public class Employee {
     private String email;
 
     @Column(name = "PHONE_NUMBER", length = 25)
-    private String phoneNumber;
+    @Convert(converter = MoneyConverter.class)
+    private Long phoneNumber;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "HIRE_DATE")
@@ -46,12 +47,12 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "MANAGER_ID")
-    private Employee manager;
+    private domain.Employee manager;
 
-    @Column(name = "DEPARTMENT_ID")
-//        @OneToOne
-//        @JoinColumn(name = "DEPARTMENT_ID")
-    private Long departmentId;
+//    @Column(name = "DEPARTMENT_ID")
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
+    private Department department;
 
     public Employee() {
 
@@ -66,11 +67,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -98,11 +99,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -130,11 +131,11 @@ public class Employee {
         this.comissionPct = comissionPct;
     }
 
-    public Employee getManager() {
+    public domain.Employee getManager() {
         return manager;
     }
 
-    public void setManager(Employee manager) {
+    public void setManager(domain.Employee manager) {
         this.manager = manager;
     }
 
@@ -146,12 +147,8 @@ public class Employee {
         this.jobId = jobId;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
     @Override

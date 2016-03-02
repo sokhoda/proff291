@@ -20,7 +20,7 @@ import java.util.Locale;
 /**
  * Created by Сергей on 14.02.2016.
  */
-@WebServlet("/hiber")
+@WebServlet("/hiber123")
 public class Task3 extends HttpServlet {
     private static Logger log = Logger.getLogger(HiberProcessor.class);
     SessionFactory factory = getSessionFactory();
