@@ -6,14 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="static hw7.notes.view.Servlet.*" %>
-<%@ page import="hw7.notes.domain.CPU" %>
-<%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
-<%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="hw7.NotebookServiceImpl" %>
-<%@ page import="hw7.notes.domain.Vendor" %>
-<%@ page import="hw7.notes.dao.VendorDao" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="../JS/select.js" type="text/javascript">    </script>
 <script src="../JS/notebooks.js" type="text/javascript">    </script>
@@ -38,15 +30,20 @@
     }
 </script>
 
-<form action="/AddCpu" method="get">
+<form>
     <div style="display: inline-block">
-        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu"
+               formaction="/back2Menu.html" formmethod="get">
 
         <input type="submit" name="back" id="back" style="margin-left: 8em"
-               value="&longleftarrow;">
+               value="&longleftarrow;"
+               formaction="/cpu/back.html" formmethod="get">
+
         <label class="cntMark">${cnt} of ${totPages}</label>
         <input type="submit" name="forward" id="forward" class="but"
-               value="&longrightarrow;">
+               value="&longrightarrow;"
+               formaction="/cpu/forward.html" formmethod="get">
+
         <label id="message" class="cntMark"
                style="color:${messageColor == null ? 'brown' :messageColor};
                        text-align: center; width: auto" >${messageText}

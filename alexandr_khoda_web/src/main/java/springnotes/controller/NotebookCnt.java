@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ses17.domain.Employee;
 import springnotes.domain.Notebook;
 import springnotes.service.NotebookService;
 
@@ -23,8 +22,9 @@ import java.util.Random;
  */
 @Controller
 @SessionAttributes("id")
-public class MyController {
-    public static final Logger log = Logger.getLogger(MyController.class);
+@RequestMapping("notebook")
+public class NotebookCnt {
+    public static final Logger log = Logger.getLogger(NotebookCnt.class);
     @Autowired
     private NotebookService service;
 
@@ -46,16 +46,16 @@ public class MyController {
 
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public @ResponseBody Employee getString(@RequestParam String name, @RequestParam String pass) {
-//        return new Employee(name + " from Server");
-        return new Employee();
-    }
+//    @RequestMapping(value = "/get", method = RequestMethod.POST)
+//    public @ResponseBody Employee getString(@RequestParam String name, @RequestParam String pass) {
+////        return new Employee(name + " from Server");
+//        return new Employee();
+//    }
 
     @RequestMapping(value = "/getAllNtbTypesByPortion.html", method =
             RequestMethod.GET)
-    public String hello(@RequestParam("listNtbByPortionPortion") String
-                            sPortionPar, Model model) throws ServletException{
+    public String getAllNtbTypesByPortion(@RequestParam("listNtbByPortionPortion")
+                        String sPortionPar, Model model) throws ServletException{
         log.info("/getAllNtbTypesByPortion.html controller");
         try{
             Integer sPortion = String2Integer(sPortionPar);
@@ -71,17 +71,12 @@ public class MyController {
         }
     }
 
-    @RequestMapping(value = "/back2Menu.html", method = RequestMethod.GET)
-    public String back2Menu(Model model) throws ServletException{
-        log.info("/back2Menu.html controller");
-            return "menu";
-    }
 
-    @RequestMapping(value = "/backNotebookTypesByPortion.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/back.html", method = RequestMethod.GET)
     public String helloBody(@RequestParam("sPortion") String sPortionPar,
                             @RequestParam("cntMark") String cntMarkPar,
-                            Model model) {
-        log.info("/backNotebookTypesByPortion.html controller");
+                            Model model) throws ServletException{
+        log.info("/back.html controller");
         try {
             Integer sPortion = Integer.parseInt(sPortionPar);
             int cnt = Integer.parseInt(cntMarkPar.split(" of ")[0]);

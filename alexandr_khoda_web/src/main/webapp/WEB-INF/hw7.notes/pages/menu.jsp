@@ -88,7 +88,8 @@
               <tr>
                   <td  class="col0">
                       <input type="submit" name="updCPU"
-                             value="7. Update CPU">
+                             value="7. Update CPU"
+                             formaction="/cpu/update.html" formmethod="get">
                   </td>
                   <td class="colA">
                       <div class="cellIn">
@@ -141,7 +142,7 @@
                   <td  class="col0">
                       <input type="submit" name="listNtbTypesByPortion"
                              value="12. List all Notebook types by Portion"
-                             formaction="/getAllNtbTypesByPortion.html" formmethod="get">
+                             formaction="/notebook/getAllNtbTypesByPortion.html" formmethod="get">
                   </td>
                   <td class="colA">
                       <div class="cellIn">

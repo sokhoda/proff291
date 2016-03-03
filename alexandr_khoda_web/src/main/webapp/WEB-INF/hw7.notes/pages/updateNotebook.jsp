@@ -30,15 +30,20 @@
     }
 </script>
 
-<form action="/AddNotebook" method="get">
+<form>
     <div style="display: inline-block">
-        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu"
+               formaction="/back2Menu.html">
 
         <input type="submit" name="back" id="back" style="margin-left: 8em"
-               value="&longleftarrow;">
+               value="&longleftarrow;"
+        formaction="/notebook/back.html">
+
         <label class="cntMark">${cnt} of ${totPages}</label>
         <input type="submit" name="forward" id="forward" class="but"
-               value="&longrightarrow;">
+               value="&longrightarrow;"
+               formaction="/notebook/forward.html">
+
         <label id="message" class="cntMark"
                style="color:${messageColor};
                        text-align: center; width: auto" >${messageText}

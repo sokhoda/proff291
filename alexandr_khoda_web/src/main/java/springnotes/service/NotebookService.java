@@ -27,6 +27,9 @@ public interface NotebookService {
 
     List getNotebookTypesByPortion(int size, int cnt) throws
             PortionException, HibernateException;
+    List getCPUByPortion(int size, int cnt) throws PortionException,
+            HibernateException;
+
     List getNotebooksByPortion(int size, int cnt) throws PortionException,
             HibernateException;
     List getNotebooksGtAmount(int amount);
@@ -34,6 +37,9 @@ public interface NotebookService {
     List getNotebooksFromStore();
     List getNotebooksStorePresent();
     Map getSalesByDays();
+
+    List listCPUByPortion(int size, int cnt)throws PortionException;
+    Integer getCPUTotPages(int size);
 
 //    Long add(Notebook notebook);
 //    List findAll();
