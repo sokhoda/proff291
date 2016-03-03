@@ -25,8 +25,8 @@
             <c:forEach var="o" items="${orderList}">
                 <tr>
                     <td align="center">${o.id}</td>
-                    <td align="center">${o.Client.name} + " " + ${o.Client.surname}</td>
-                    <td align="center">${o.orderDate}</td>
+                    <td align="center">${o.client.fullName}</td>
+                    <td align="center">${o.orderDateStr}</td>
                     <td align="center">${o.amount}</td>
                     <td align="center">${o.addressFrom}</td>
                     <td align="center">${o.addressTo}</td>
@@ -37,13 +37,19 @@
 
     <tr style="background-color: #d4ecff">
         <td>
-            <input type="button" value="Prev" onclick="document.location='/reportByPortion/-1'" style="width: 80px"/>
+            <input type="button" id="prev" value="Prev" onclick="document.location='/orders/reportByPortion/-1'" style="width: 80px"/>
             &nbsp;&nbsp;&nbsp;
-            <input type="button" value="Next" onclick="document.location='/reportByPortion/1'" style="width: 80px"/>
+            <input type="button" id="next" value="Next" onclick="document.location='/orders/reportByPortion/1'" style="width: 80px"/>
+
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/dashboard"><input type="button" value="Back" style="width: 80px"/></a>
+            <input type="button" value="Back" onclick="document.location='/orders/reportBack'" style="width: 80px"/>
         </td>
     </tr>
 </table>
+
+<script>
+    document.getElementById("prev").hidden = !${paging};
+    document.getElementById("next").hidden = !${paging};
+</script>
 
 <%@include file="footer.jsp"%>

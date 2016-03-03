@@ -53,7 +53,7 @@ public class OrderDaoImpl implements OrderDao {
     @SuppressWarnings("unchecked")
     public List<Order> findByPortion(int page, int size) {
         Session session = factory.getCurrentSession();
-        Query query = session.createQuery("from hw9.taxi.domain.Client");
+        Query query = session.createQuery("from hw9.taxi.domain.Order");
         query.setFirstResult(page * size);
         query.setMaxResults(size);
         return (List<Order>)query.list();
@@ -62,11 +62,8 @@ public class OrderDaoImpl implements OrderDao {
     @SuppressWarnings("unchecked")
     public List<Order> findBetweenSumRange(int sumFrom, int sumTo) {
         Session session = factory.getCurrentSession();
-        SQLQuery query = session.createSQLQuery(
-                "select * from ORDERS o\n" +
-                        "where \n" +
-                        "o.AMOUNT >= :sumFrom and o.AMOUNT <= :sumTo"
-        );
+        String sql = "select * from ORDERS o where o.AMOUNT >= :sumFrom and o.AMOUNT <= :sumTo";
+        SQLQuery query = session.createSQLQuery(sql);
         query.addEntity(Order.class);
         query.setParameter("sumFrom", sumFrom);
         query.setParameter("sumTo", sumTo);

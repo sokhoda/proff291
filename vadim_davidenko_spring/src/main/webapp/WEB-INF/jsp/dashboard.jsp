@@ -19,7 +19,7 @@
         <td><a href="/client/add">Client registration</a></td>
     </tr>
     <tr>
-        <td><a href="/clientsByPortion">Show clients by portion</a></td>
+        <td><a href="/clients/ByPortion">Show clients by portion</a></td>
     </tr>
     <tr>
         <td>
@@ -28,7 +28,7 @@
         </td>
     </tr>
     <tr>
-        <td><a href="/clientsByLastMonth">Show clients ordered in last month</a></td>
+        <td><a href="/clients/ByLastMonth">Show clients ordered in last month</a></td>
     </tr>
     <tr><td><hr/></td></tr>
     <tr>

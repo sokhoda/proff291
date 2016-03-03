@@ -10,13 +10,16 @@
 
 <%@include file="header.jsp"%>
 
-<form:form modelAttribute="order" autocomplete="false" method="post" action="/order/save" id="orderForm">
+<form:form modelAttribute="order" autocomplete="false" method="post" action="/order/edit/save" id="orderForm">
     <form:errors path="*"/>
-    <form:hidden path="id"/>
 
     <table align="center" border="0" cellpadding="5" style="background-color: #d4ecff">
-        <tr><td colspan="2" align="center"><b>Order management</b></td></tr>
+        <tr><td colspan="2" align="center"><b>Modify order</b></td></tr>
         <tr><td colspan="2"><hr/></td></tr>
+        <tr>
+            <td align="right">Id:</td>
+            <td><form:input path="id" size="5" readonly="true"/></td>
+        </tr>
         <tr>
             <td align="right">Client:</td>
             <td>
@@ -41,7 +44,7 @@
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
             <td colspan="2" align="center">
-                <input type="button" value="Save" onclick="submitOrderForm()" style="width: 70px"/>
+                <input type="button" value="Modify" onclick="submitOrderForm()" style="width: 70px"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="/dashboard"><input type="button" value="Back" style="width: 70px"/></a>
             </td>

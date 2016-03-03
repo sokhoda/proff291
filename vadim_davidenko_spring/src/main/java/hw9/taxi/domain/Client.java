@@ -1,10 +1,6 @@
 package hw9.taxi.domain;
 
-import hw9.taxi.util.Utils;
-import scala.runtime.StringFormat$;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

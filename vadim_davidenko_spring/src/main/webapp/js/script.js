@@ -20,21 +20,21 @@ function onShowClientsByGtSumClick() {
         alert("Please, fill in Sum field with valid value!");
         return;
     }
-    document.location='/clients/' + sum;
+    document.location='/clients/onSum/?sum=' + sum;
 }
 
 function onShowOrdersOnSumClick() {
     var sumFrom = document.getElementById('sumFrom').value;
     if (!sumFrom.trim() || isNaN(+sumFrom)) {
-        alert("Please, fill in Sum field with valid value!");
+        alert("Please, fill in From field with valid value!");
         return;
     }
     var sumTo = document.getElementById('sumTo').value;
     if (!sumTo.trim() || isNaN(+sumTo)) {
-        alert("Please, fill in Sum field with valid value!");
+        alert("Please, fill in To field with valid value!");
         return;
     }
-    document.location='/orders/?sumFrom=' + sumFrom + '?sumTo=' + sumTo;
+    document.location='/orders/onSum/?sumFrom=' + sumFrom + '&sumTo=' + sumTo;
 }
 
 //////////////////////////////////////////////////////////////////

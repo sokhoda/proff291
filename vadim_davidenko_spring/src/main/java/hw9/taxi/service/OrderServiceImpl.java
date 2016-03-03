@@ -45,15 +45,9 @@ public class OrderServiceImpl implements OrderService {
         return false;
     }
 
-    public void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo) {
-        //Order order = orderDao.read(id);
-        Order order = new Order();
+    public void editOrder(Long id, Client client, Date orderDate, String amount, String addressFrom, String addressTo) {
+        Order order = new Order(client, orderDate, Double.parseDouble(amount), addressFrom, addressTo);
         order.setId(id);
-        order.setClient(client);
-        order.setAmount(Double.parseDouble(amount));
-        order.setAddressFrom(addressFrom);
-        order.setAddressTo(addressTo);
-
         orderDao.update(order);
     }
 

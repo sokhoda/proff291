@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 /**
- * Created by Вадим on 28.02.2016.
+ * Created by v.davidenko on 03.03.2016.
  */
 
 @Controller
@@ -20,18 +20,22 @@ public class OrderShowPortionServlet {
     @Autowired
     private OrderService orderService;
 
+    private final int PORTION_SIZE = 5;
+
     @RequestMapping(value = "/orders/ByPortion")
     public String showByPortion(Model model) {
-        List<Order> orders = (List<Order>) orderService.showOrdersByPortion(0);
+        List<Order> orders = (List<Order>) orderService.showOrdersByPortion(PORTION_SIZE);
         model.addAttribute("orderList", orders);
+        model.addAttribute("paging", true);
         return "orders";
     }
 
-    @RequestMapping(value = "/reportByPortion/{direction}")
-    public String reportPaging(Model model, @PathVariable Integer direction) {
-        final int PORTION_SIZE = 5;
+    @RequestMapping(value = "/orders/reportByPortion/{direction}")
+    public String reportPaging(Model model, @PathVariable int direction) {
         List<Order> orders = (List<Order>) orderService.showOrdersByPortion(PORTION_SIZE * direction);
         model.addAttribute("orderList", orders);
         return "orders";
     }
+
+
 }
