@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static springnotes.view.Servlet.String2Integer;
+
 /**
  * Created by s_okhoda on 09.02.2016.
  */
@@ -49,6 +51,7 @@ public class NotebookServiceImpl implements NotebookService {
     private MemoryDao memoryDao;
 
     public NotebookServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
     }
 
 //    public NotebookServiceImpl() {
@@ -88,12 +91,7 @@ public class NotebookServiceImpl implements NotebookService {
         }
         else {
             store.setQuantity(existingQuantity - amount);
-            if (storeDao.update(store)) {
-                return storeId;
-            }
-            else {
-                return null;
-            }
+            return (storeDao.update(store) ? storeId : null);
         }
     }
 
@@ -152,22 +150,20 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    public Integer getCPUTotPages(int size) {
+        List cpu = (List<CPU>)cpuDao.findAll();
+        return  (cpu.size() == 0 ? 1 :(int) Math.ceil
+                (cpu.size() / (double)size));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Integer getNotebookInStoreTotPages(int size) throws HibernateException {
-        Session session = factory.openSession();
-        try{
+        Session session = factory.getCurrentSession();
             Query query = getNotebookInStoreQuery(session);
             List list = query.list();
             return  (list.size() == 0 ? 1 :(int) Math.ceil
                     (list.size() / (double)size));
-        }
-        catch (HibernateException e){
-            log.error("Transaction failed", e);
-            throw new HibernateException(e.getMessage());
-        }
-        finally {
-            session.close();
-        }
     }
 
     @Override
@@ -180,6 +176,15 @@ public class NotebookServiceImpl implements NotebookService {
         return noteDao.getNotebookTypesByPortion(size, cnt);
     }
 
+    @Override
+    public List getCPUByPortion(int size, int cnt) throws PortionException, HibernateException {
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
+        }
+        return cpuDao.getCPUByPortion(size, cnt);
+    }
+
+    @Transactional(readOnly = true)
     private Query getNotebookInStoreQuery(Session session){
         return session.createQuery("select n.id, v.name, n.model, " +
                 "to_char(n.manDate, 'dd.mm.yyyy'), " +
@@ -202,20 +207,20 @@ public class NotebookServiceImpl implements NotebookService {
         if (size == 0) {
             throw new PortionException("Portion size can not be ZERO.");
         }
-        Session session = factory.openSession();
-        try{
-            Query query = getNotebookInStoreQuery(session);
-            query.setFirstResult((cnt - 1) * size);
-            query.setMaxResults(size);
-            return query.list();
+        Session session = factory.getCurrentSession();
+        Query query = getNotebookInStoreQuery(session);
+        query.setFirstResult((cnt - 1) * size);
+        query.setMaxResults(size);
+        return query.list();
+    }
+
+    @Override
+    public List listCPUByPortion(int size, int cnt) throws PortionException{
+        List cpu = (List<CPU>)cpuDao.findAll();
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
         }
-        catch (HibernateException e){
-            log.error("Transaction failed", e);
-            throw new HibernateException(e.getMessage());
-        }
-        finally {
-            session.close();
-        }
+        return (List<CPU>)cpuDao.getCPUByPortion(size, cnt);
     }
 
     @Override
@@ -302,63 +307,6 @@ public class NotebookServiceImpl implements NotebookService {
 
     public void setFactory(SessionFactory factory) {
         this.factory = factory;
-    }
-
-    //    @Override
-//    public Long add(Notebook notebook) throws HibernateException{
-//        return noteDao.create(notebook);
-//    }
-//
-//    @Override
-//    public List findAll() {
-//        return noteDao.findAll();
-//    }
-//
-//    @Override
-//    public boolean changePrice(Long id, double price) {
-//        return noteDao.changePrice(id, price);
-//    }
-//
-//    @Override
-//    public boolean changeSerialVendor(Long id, String serial, String vendor) {
-//        return noteDao.changeSerialVendor(id, serial, vendor);
-//    }
-//
-//    @Override
-//    public boolean delete(Long id) {
-//        return noteDao.delete(id);
-//    }
-//
-//    @Override
-//    public boolean deleteByModel(String model) {
-//        return noteDao.deleteByModel(model);
-//    }
-//
-//    @Override
-//    public List findByVendor(String vendor) {
-//        return noteDao.findByVendor(vendor);
-//    }
-//
-//    @Override
-//    public List findByPriceManufDate(Double price, Date date) {
-//        return noteDao.findByPriceManufDate(price, date);
-//    }
-//
-//    @Override
-//    public List findBetweenPriceLtDateByVendor(Double priceFrom, Double priceTo, Date date, String vendor) {
-//        return noteDao.findBetweenPriceLtDateByVendor(priceFrom, priceTo,
-//                date, vendor);
-//    }
-//
-    public SessionFactory getSessionFactory() {
-        Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg =
-                new Configuration().configure("hw7.notes/hibernate.cfg.xml");
-        StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
-        sb.applySettings(cfg.getProperties());
-        StandardServiceRegistry standardServiceRegistry = sb.build();
-
-        return cfg.buildSessionFactory(standardServiceRegistry);
     }
 
 

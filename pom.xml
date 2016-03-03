@@ -21,6 +21,7 @@
         <module>lidia_gaidukova_web</module>
         <module>alexandr_khoda</module>
         <module>alexandr_khoda_web</module>
+        <module>alexandr_khoda_spring</module>
         <module>dima_rutskiy</module>
         <module>sergey_kutsiy</module>
         <module>sergey_kutsiy_web</module>
@@ -34,7 +35,7 @@
         <module>olena_babenko</module>
         <module>igor_gonchar</module>
         <module>igor_gonchar_web</module>
-        <module>igor_gonchar_spring</module>
+        <module>igor_gonchar_spring2</module>
         <module>vladymyr_danilov</module>
         <module>vladymyr_danilov_web</module>
 

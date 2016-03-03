@@ -1,6 +1,6 @@
 package springnotes.domain;
 
-import hw7.notes.domain.Store;
+import springnotes.domain.Store;
 
 import javax.persistence.*;
 import java.text.DateFormat;

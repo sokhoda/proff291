@@ -1,6 +1,6 @@
 package springnotes.domain;
 
-import hw7.notes.domain.Sales;
+import springnotes.domain.Sales;
 
 import javax.persistence.*;
 import java.util.Set;
