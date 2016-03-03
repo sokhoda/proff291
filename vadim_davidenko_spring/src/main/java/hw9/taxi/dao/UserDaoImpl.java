@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
         Session session = factory.getCurrentSession();
-        return (List<User>)session.createQuery("from hw9.taxi.domain.Order").list();
+        return (List<User>)session.createQuery("from hw9.taxi.domain.User").list();
     }
 
     public User findByLogin(String login) {

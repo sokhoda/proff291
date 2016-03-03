@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Вадим on 28.02.2016.
@@ -26,7 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
     private static int pageCounter = -1;
 
-    public OrderServiceImpl() {}
+    public OrderServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
+    }
 
     @SuppressWarnings("unchecked")
     public boolean createOrder(Client client, Double amount, String addressFrom, String addressTo)
@@ -42,14 +45,9 @@ public class OrderServiceImpl implements OrderService {
         return false;
     }
 
-    public void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo) {
-//        Order order = new Order();
-//        order.setId(id);
-        Order order = orderDao.read(id);
-        order.setClient(client);
-        order.setAmount(Double.parseDouble(amount));
-        order.setAddressFrom(addressFrom);
-        order.setAddressTo(addressTo);
+    public void editOrder(Long id, Client client, Date orderDate, String amount, String addressFrom, String addressTo) {
+        Order order = new Order(client, orderDate, Double.parseDouble(amount), addressFrom, addressTo);
+        order.setId(id);
         orderDao.update(order);
     }
 
@@ -71,5 +69,10 @@ public class OrderServiceImpl implements OrderService {
             pageCounter++;
         }
         return orderDao.findByPortion(pageCounter, Math.abs(portionSize));
+    }
+
+    @Transactional (readOnly = true)
+    public Order findOrderById(Long id) {
+        return orderDao.read(id);
     }
 }

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static springnotes.view.Servlet.String2Integer;
+
 /**
  * Created by s_okhoda on 09.02.2016.
  */
@@ -148,6 +150,13 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
+    public Integer getCPUTotPages(int size) {
+        List cpu = (List<CPU>)cpuDao.findAll();
+        return  (cpu.size() == 0 ? 1 :(int) Math.ceil
+                (cpu.size() / (double)size));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Integer getNotebookInStoreTotPages(int size) throws HibernateException {
         Session session = factory.getCurrentSession();
@@ -165,6 +174,14 @@ public class NotebookServiceImpl implements NotebookService {
             throw new PortionException("Portion size can not be ZERO.");
         }
         return noteDao.getNotebookTypesByPortion(size, cnt);
+    }
+
+    @Override
+    public List getCPUByPortion(int size, int cnt) throws PortionException, HibernateException {
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
+        }
+        return cpuDao.getCPUByPortion(size, cnt);
     }
 
     @Transactional(readOnly = true)
@@ -195,6 +212,15 @@ public class NotebookServiceImpl implements NotebookService {
         query.setFirstResult((cnt - 1) * size);
         query.setMaxResults(size);
         return query.list();
+    }
+
+    @Override
+    public List listCPUByPortion(int size, int cnt) throws PortionException{
+        List cpu = (List<CPU>)cpuDao.findAll();
+        if (size == 0) {
+            throw new PortionException("Portion size can not be ZERO.");
+        }
+        return (List<CPU>)cpuDao.getCPUByPortion(size, cnt);
     }
 
     @Override

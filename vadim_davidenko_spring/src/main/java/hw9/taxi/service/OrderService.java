@@ -1,8 +1,10 @@
 package hw9.taxi.service;
 
+import hw9.taxi.domain.Order;
 import hw9.taxi.exception.OrderException;
 import hw9.taxi.domain.Client;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,9 +21,11 @@ public interface OrderService {
 
     boolean createOrder(Client client, Double amount, String addressFrom, String addressTo) throws OrderException;
 
-    void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo);
+    void editOrder(Long id, Client client, Date orderDate, String amount, String addressFrom, String addressTo);
 
     List showOrdersBetweenSumRange(int sumFrom, int sumTo);
 
     List showOrdersByPortion(int portionSize);
+
+    Order findOrderById(Long id);
 }

@@ -18,4 +18,12 @@
     <mvc:resources mapping="/**" location="/"/>
     <mvc:annotation-driven/>
 
+    <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/dashboard" view-name="dashboard"/>
+    <mvc:view-controller path="/register" view-name="register"/>
+    <mvc:view-controller path="/registerClient" view-name="registerClient"/>
+    <mvc:view-controller path="/order" view-name="order"/>
+    <mvc:view-controller path="/orders" view-name="orders"/>
+    <mvc:view-controller path="/clients" view-name="clients"/>
+
 </beans>

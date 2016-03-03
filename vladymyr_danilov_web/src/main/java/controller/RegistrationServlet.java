@@ -28,10 +28,10 @@ public class RegistrationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
 
-//        String login = parameterMap.get("login")[0].trim();
+        String login = parameterMap.get("login")[0].trim();
         String name = parameterMap.get("name")[0].trim();
-//        String surname = parameterMap.get("surname")[0].trim();
-//        String phone = parameterMap.get("phone")[0];
+        String surname = parameterMap.get("surname")[0].trim();
+        String phone = parameterMap.get("phone")[0];
         String password = parameterMap.get("password")[0].trim();
         String confirmPassword = parameterMap.get("confirmPassword")[0].trim();
 
