@@ -10,25 +10,25 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="web.dao"/>
-    <context:component-scan base-package="web.service"/>
-    <context:component-scan base-package="web.domain"/>
+    <context:component-scan base-package="hw9.taxi.dao"/>
+    <context:component-scan base-package="hw9.taxi.domain"/>
+    <context:component-scan base-package="hw9.taxi.service"/>
 
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="username" value="hr"/>
-        <property name="password" value="hr"/>
+        <property name="username" value="taxi"/>
+        <property name="password" value="taxi"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>web.dao</value>
-                <value>web.domain</value>
-                <value>web.service</value>
+                <value>hw9.taxi.dao</value>
+                <value>hw9.taxi.domain</value>
+                <value>hw9.taxi.service</value>
             </list>
         </property>
         <property name="hibernateProperties">
