@@ -1,8 +1,8 @@
-<%@ page import="Vendor" %>
+<%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="java.util.List" %>
-<%@ page import="CPU" %>
-<%@ page import="Memory" %>
-<%@ page import="Store" %>
+<%@ page import="hw7.notes.domain.CPU" %>
+<%@ page import="hw7.notes.domain.Memory" %>
+<%@ page import="hw7.notes.domain.Store" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим

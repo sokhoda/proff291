@@ -20,7 +20,7 @@
     <mvc:annotation-driven/>
 
     <bean id="str" class="java.lang.String">
-        <constructor-arg value="Hello"/>
+        <constructor-arg value="Hello KHO"/>
     </bean>
 
 </beans>

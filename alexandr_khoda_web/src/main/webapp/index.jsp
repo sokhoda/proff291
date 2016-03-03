@@ -5,8 +5,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
-<%@ page import="hw7.notes.dao.MemoryDao" %>
 <%@ page import="hw7.notes.service.NotebookService" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
 <%@ page import="java.util.Arrays" %>
@@ -37,7 +35,8 @@
     %>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addCPU.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/1.jsp").forward(request,response); %>--%>
-    <%request.getRequestDispatcher("hw7.notes/pages/menu.jsp").forward(request,response); %>
+    <jsp:forward page="menu.html" />
+    <%--<%request.getRequestDispatcher("../webapp/WEB-INF/hw7.notes/pages/menu.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addMemory.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("hw7.notes/pages/addVendor.jsp").forward(request,response); %>--%>
     <%--<%request.getRequestDispatcher("session14/pages/EmployeeLogin.jsp").forward(request,response); %>--%>

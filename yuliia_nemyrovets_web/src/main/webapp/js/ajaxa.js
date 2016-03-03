@@ -3,20 +3,23 @@ var app = angular.module('myapp', []);
 app.controller("HelloCtrl", function ($scope, $http) {
 
 	$scope.greeting = "";
-	$scope.vector=[];
+	//$scope.vector=[];
 
 	$scope.update = function() {
 
 		var note = $scope.name;
 
-		var responsePromise = $http.get('/helloBody.html?login=' + $scope.name);
+		var responsePromise = $http.get('/hello.html');
+
+		var tmp=data;
+		console.log(tmp);
 
 		responsePromise.success(
 			function(data, status, headers, config) {
 				$scope.greeting = data;
-				for(var i=0; i<data;i++){
-					$scope.vector.push(i);
-				}
+				//for(var i=0; i<5;i++){
+				//	$scope.vector.push(note);
+				//}
 
 			});
 		responsePromise.error(

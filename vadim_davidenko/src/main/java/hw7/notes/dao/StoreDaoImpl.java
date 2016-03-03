@@ -3,6 +3,7 @@ package hw7.notes.dao;
 import hw7.notes.domain.Store;
 import org.hibernate.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

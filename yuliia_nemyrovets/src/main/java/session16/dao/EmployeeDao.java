@@ -12,7 +12,7 @@ import java.util.List;
 public interface EmployeeDao {
     List findAllEmployee();
 
-    List findName(String name);
+    List findName(String firstName);
 
     // void create(Employee employee);
     Long create(Employee employee);
