@@ -1,33 +1,53 @@
 package hw9.taxi.domain;
 
+import javax.persistence.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by s_okhoda on 20.01.2016.
  */
+@Entity
+@Table(name = "CLIENTS")
 public class Client {
-    private int id;
-    private String name;
-    private String surname;
-    private String phone;
-    private String address;
-    private int totalOrderAmount;
-    private GregorianCalendar lastOrderDate;
+    @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "CLIENT_SEQ",
+            allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @Column(name = "ID")
+    private Long id;
 
-    public Client(int id, String name, String surname, String phone, String
-            address) {
-        this(id, name, surname, phone, address, 0, null);
+    private String name;
+
+    private String surname;
+
+    private String phone;
+
+    private String address;
+
+    private Double orderAmount;
+
+    private Date lastOrderDate;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Order> orders;
+
+    @Transient
+    SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
+
+    public Client(String name, String surname, String phone, String address) {
+        this(name, surname, phone, address, 0.0, null);
     }
 
-    public Client(int id, String name, String surname, String phone, String
-            address, int totalOrderAmount, GregorianCalendar lastOrderDate) {
-       this.id = id;
+    public Client(String name, String surname, String phone, String
+            address, Double orderAmount, Date lastOrderDate) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.address = address;
-        this.totalOrderAmount = totalOrderAmount;
+        this.orderAmount = orderAmount;
         this.lastOrderDate = lastOrderDate;
     }
 
@@ -36,10 +56,16 @@ public class Client {
     }
 
     @Override
-    public String toString(){
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-        return getName() + " " + getSurname() + ", " + getTotalOrderAmount()
-                + ", " + format1.format(getLastOrderDate().getTime()) + "\n";
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", orderAmount=" + orderAmount +
+                ", lastOrderDate=" + format1.format(lastOrderDate) +
+                '}';
     }
 
     public String getName() {
@@ -74,27 +100,27 @@ public class Client {
         this.address = address;
     }
 
-    public void setTotalOrderAmount(int totalOrderAmount) {
-        this.totalOrderAmount = totalOrderAmount;
-    }
-
-    public void setLastOrderDate(GregorianCalendar lastOrderDate) {
-        this.lastOrderDate = lastOrderDate;
-    }
-
-    public int getTotalOrderAmount() {
-        return totalOrderAmount;
-    }
-
-    public GregorianCalendar getLastOrderDate() {
+    public Date getLastOrderDate() {
         return lastOrderDate;
     }
 
-    public int getId() {
+    public void setLastOrderDate(Date lastOrderDate) {
+        this.lastOrderDate = lastOrderDate;
+    }
+
+    public Double getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(Double orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }
