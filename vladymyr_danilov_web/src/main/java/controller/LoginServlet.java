@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
         } else if ( !RegisterUser.getUsers().get("password")[0].equals(password) ) {
             message = "Wrong password!";
         } else {
-            address = "/index.jsp";
+            address = "/index1.jsp";
         }
 
         response.getWriter().print(hiber());
