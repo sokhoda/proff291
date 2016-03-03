@@ -1,7 +1,5 @@
 package hw9.taxi.domain;
 
-import hw7.springnotes.domain.Store;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
