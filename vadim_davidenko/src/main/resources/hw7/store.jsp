@@ -1,6 +1,6 @@
 <%@ page import="hw7.notes.domain.Store" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.Notebook" %>
+<%@ page import="hw7.notes.domain.Notebook" %>
 <%--
   Created by IntelliJ IDEA.
   User: Вадим

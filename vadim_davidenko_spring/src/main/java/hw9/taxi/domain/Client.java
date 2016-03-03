@@ -1,9 +1,6 @@
 package hw9.taxi.domain;
 
-import hw9.taxi.util.Utils;
-
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +30,7 @@ public class Client {
     @Column(name = "ADDRESS", length = 100)
     private String address;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "client")
     private Set<Order> orders = new HashSet<Order>();
 
     public Client() {}
@@ -52,19 +49,15 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", orders=" + orders +
-                '}';
+                ", address='" + address +
+                "'}";
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Client client = (Client) o;
-
-        if (!address.equals(client.address)) return false;
         if (!name.equals(client.name)) return false;
         if (!phone.equals(client.phone)) return false;
         if (!surname.equals(client.surname)) return false;
@@ -77,7 +70,6 @@ public class Client {
         int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + address.hashCode();
         return result;
     }
 
@@ -127,5 +119,10 @@ public class Client {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    @Transient
+    public String  getFullName(){
+        return name + " " + surname;
     }
 }

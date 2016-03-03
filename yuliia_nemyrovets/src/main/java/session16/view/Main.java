@@ -18,9 +18,9 @@ public class Main {
 
         ApplicationContext cont = new ClassPathXmlApplicationContext("session16/example.xml");
 
-        EmployeeService service = cont.getBean("serviceImpl", EmployeeService.class);
+        EmployeeService emp = cont.getBean("serviceImpl", EmployeeService.class);
 
-        System.out.println(service.findAll());
+        System.out.println(emp.findByName("Yuliia"));
 
     }
 }

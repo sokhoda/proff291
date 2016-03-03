@@ -1,10 +1,7 @@
 package springnotes.service;
 
 
-import hw7.notes.exception.CPUException;
-import hw7.notes.exception.NotebookException;
-import hw7.notes.exception.PortionException;
-import hw7.notes.exception.StoreException;
+import springnotes.exception.*;
 import org.hibernate.HibernateException;
 import springnotes.domain.*;
 
@@ -30,6 +27,9 @@ public interface NotebookService {
 
     List getNotebookTypesByPortion(int size, int cnt) throws
             PortionException, HibernateException;
+    List getCPUByPortion(int size, int cnt) throws PortionException,
+            HibernateException;
+
     List getNotebooksByPortion(int size, int cnt) throws PortionException,
             HibernateException;
     List getNotebooksGtAmount(int amount);
@@ -37,6 +37,9 @@ public interface NotebookService {
     List getNotebooksFromStore();
     List getNotebooksStorePresent();
     Map getSalesByDays();
+
+    List listCPUByPortion(int size, int cnt)throws PortionException;
+    Integer getCPUTotPages(int size);
 
 //    Long add(Notebook notebook);
 //    List findAll();

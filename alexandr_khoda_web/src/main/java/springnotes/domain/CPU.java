@@ -1,7 +1,7 @@
 package springnotes.domain;
 
-import hw7.notes.domain.Notebook;
-import hw7.notes.domain.Vendor;
+import springnotes.domain.Notebook;
+import springnotes.domain.Vendor;
 
 import javax.persistence.*;
 import java.util.Set;

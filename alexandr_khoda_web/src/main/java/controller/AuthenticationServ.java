@@ -42,12 +42,12 @@ public class AuthenticationServ extends HttpServlet {
 
         if (users.containsKey(login) && users.get(login).equals(pass)){
             req.getRequestDispatcher("/pages/menu.jsp").forward(req, res);
-//            req.getRequestDispatcher("indexKHO.jsp").forward(req, res);
+//            req.getRequestDispatcher("index.jsp").forward(req, res);
         }
         else{
             req.setAttribute("FailedAuth","Your Login and/or password are not" +
                     " correct. Please try once more.");
-            req.getRequestDispatcher("indexKHO.jsp").forward(req, res);
+            req.getRequestDispatcher("index.jsp").forward(req, res);
         }
 
     }

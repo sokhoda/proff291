@@ -19,9 +19,9 @@
     <button ng-click="update()">update</button>
     <p>Model state: {{name}}</p>
     <p>{{greeting}}</p>
-    <div ng-init="person={name; vector=[]">
+
                <ul>
-            <li ng-repeat="name in vector"> {{name}} </li>
+            <li ng-repeat="el in emps"> {{el.firstName}} </li>
         </ul>
    </div>
 </div>

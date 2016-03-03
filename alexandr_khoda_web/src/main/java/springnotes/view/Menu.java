@@ -3,7 +3,7 @@ package springnotes.view;
 import hw7.notes.dao.*;
 import hw7.notes.domain.CPU;
 import hw7.notes.domain.Memory;
-import hw7.notes.exception.PortionException;
+import springnotes.exception.PortionException;
 import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
 

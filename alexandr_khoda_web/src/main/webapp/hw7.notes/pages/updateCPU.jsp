@@ -15,14 +15,14 @@
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="hw7.notes.dao.VendorDao" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
-<script src="/hw7.notes/JS/select.js" type="text/javascript">    </script>
-<script src="/hw7.notes/JS/notebooks.js" type="text/javascript">    </script>
+<script src="../JS/select.js" type="text/javascript">    </script>
+<script src="../JS/notebooks.js" type="text/javascript">    </script>
 
 <html>
 <head>
     <title>Update CPU Type</title>
     <style>
-        <%@include file='/hw7.notes/css/updateCPU.css' %>
+        <%@include file='../css/updateCPU.css' %>
     </style>
     <center><h1>Update CPU Type</h1></center><br>
 </head>

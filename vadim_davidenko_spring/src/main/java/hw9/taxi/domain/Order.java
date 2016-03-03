@@ -94,14 +94,13 @@ public class Order {
     }
 
     @Transient
-    public String getDateStr() {
+    public String getOrderDateStr() {
         if (orderDate != null) {
             return Utils.DATEFORMAT_COMMON.get().format(orderDate);
         }
         return "";
     }
-
-    public Date getOrderDate() {
+     public Date getOrderDate() {
         return orderDate;
     }
 

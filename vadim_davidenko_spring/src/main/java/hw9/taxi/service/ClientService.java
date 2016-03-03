@@ -1,5 +1,6 @@
 package hw9.taxi.service;
 
+import hw9.taxi.domain.Client;
 import hw9.taxi.exception.ClientException;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface ClientService {
     List showClientsGtSum(int sum);
 
     List showClientsLastMonth();
+
+    Client findClientById(Long id);
+
+    List findAllClients();
 }

@@ -1,6 +1,6 @@
 package hw7.notes.dao;
 
-import hw7.notes.domain.Notebook;
+import hw7.springnotes.domain.Notebook;
 
 import java.util.List;
 
@@ -18,4 +18,6 @@ public interface NotebookDao {
     boolean delete(Notebook notebook);
 
     List findAll();
+
+
 }
