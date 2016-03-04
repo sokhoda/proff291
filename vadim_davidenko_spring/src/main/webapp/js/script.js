@@ -11,6 +11,7 @@ function onOrderEditClick() {
         alert("Please, fill in Id field with valid value!");
         return;
     }
+    document.getElementById("msg").innerHTML = '';
     document.location='/order/edit/' + id;
 }
 
@@ -54,11 +55,15 @@ function checkOrderFields(form) {
         alert("Please, fill in all fields with valid values!");
         return false;
     }
+    if(form.client == undefined) {
+        alert("Please, select a client!");
+        return false;
+    }
     return true;
 }
 
 //////////////////////////////////////////////////////////////////
-// User form
+// User/Login form
 
 function submitUserForm() {
     var form = document.getElementById("userForm");
@@ -74,6 +79,16 @@ function checkUserFields(form) {
         return false;
     }
     return true;
+}
+
+function submitLoginForm() {
+    var form = document.getElementById("loginForm");
+    if(!form.login.value.trim() || !form.password.value.trim()) {
+        alert("Please, fill in all fields!");
+        return;
+    }
+    document.getElementById("msg").innerHTML = '';
+    form.submit();
 }
 
 //////////////////////////////////////////////////////////////////

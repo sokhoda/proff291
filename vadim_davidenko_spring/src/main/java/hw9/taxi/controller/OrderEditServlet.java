@@ -33,8 +33,8 @@ public class OrderEditServlet {
     public String orderEdit(Model model, @PathVariable Long id) {
         Order order = orderService.findOrderById(id);
         if (order == null) {
-            order = new Order();
             model.addAttribute("msg", "No orders found!");
+            return "dashboard";
         }
         List<Client> clients = clientService.findAllClients();
         model.addAttribute("clients", clients);

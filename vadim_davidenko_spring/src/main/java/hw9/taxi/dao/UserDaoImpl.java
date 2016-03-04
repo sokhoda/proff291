@@ -55,4 +55,12 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("login", login);
         return (User) query.uniqueResult();
     }
+
+    public User findByLoginAndPassword(String login, String pass) {
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from hw9.taxi.domain.User u where u.login = :login and u.password = :password");
+        query.setParameter("login", login);
+        query.setParameter("password", pass);
+        return (User) query.uniqueResult();
+    }
 }

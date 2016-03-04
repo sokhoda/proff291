@@ -37,4 +37,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
         return false;
     }
+
+    public boolean isRegistered(String login, String pass) {
+        return (userDao.findByLoginAndPassword(login, pass) != null);
+    }
 }
