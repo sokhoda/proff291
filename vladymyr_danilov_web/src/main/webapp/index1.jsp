@@ -45,6 +45,7 @@
                 <td width="16.66%" align="CENTER"><h4>News</h4></td>
                 <td width="16.66%" align="CENTER"><h4>Contacts</h4></td>
                 <td WIDTH="16.66%" align="center"><h4>Support</h4></td>
+                <td width="16.66%" align="center"><a href="hw7.notes/menu.jsp"><h4>Menu</h4></a></td>
             </tr>
         </table>
         <table border="1" cellpadding="7" width="100%" align="center">

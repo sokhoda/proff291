@@ -8,7 +8,7 @@ var app = angular.module('myapp', []);
 
 		var note = $scope.name;
 
-		var responsePromise = $http.get('/helloBody.html?login=' + $scope.name);
+		var responsePromise = $http.get('/helloBody.html?login=' + note);
 
 		responsePromise.success(
 			function(data, status, headers, config) {

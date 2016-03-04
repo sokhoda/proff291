@@ -18,7 +18,7 @@ public class Order {
     public Order(){}
 
     public Order(Client client, String amount, String addressFrom, String addressTo){
-        int tempLong = hw8.taxi.service.OrderService.orders.size() + 1;
+        int tempLong = hw8.taxi.service.OrderServiceImpl.orders.size() + 1;
         long tmpFromInt = tempLong;
         this.id = tmpFromInt;
         this.client = client;
