@@ -38,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
         if (clientDao.findAll().contains(newClient)) {
             throw new ClientException("Client with such data already exists");
         } else {
-            if (!clientDao.create(newClient).equals(0L)) return true;
+            if (clientDao.create(newClient) != null) return true;
         }
         return false;
     }
