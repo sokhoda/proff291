@@ -7,15 +7,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Vendor" %>
-<%@ page import="Memory" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="CPUDao" %>
-<%@ page import="VendorDao" %>
-<%@ page import="NotebookServiceImpl" %>
 <%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="MemoryDao" %>
-<%@ page import="CPU" %>
+<%@ page import="hw7.notes.dao.CPUDao" %>
+<%@ page import="hw7.notes.domain.CPU" %>
+<%@ page import="hw7.notes.domain.Memory" %>
+<%@ page import="hw7.notes.domain.Vendor" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="hw7.notes.dao.MemoryDao" %>
+<%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page errorPage="../pages/generalErrorPage.jsp" %>
 <script src="../JS/select.js" type="text/javascript">    </script>
 <script src="../JS/notebooks.js" type="text/javascript">    </script>
@@ -49,7 +49,7 @@
     request.setAttribute("vendor", vendor);
 %>
 
-<form action="/AddNotebook" method="get">
+<form action="/AddNotebook1" method="get">
     <img src="../img/addLaptop1.jpg" align="left"
          style="margin-right: 20px">
 
