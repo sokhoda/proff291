@@ -55,7 +55,8 @@ function checkOrderFields(form) {
         alert("Please, fill in all fields with valid values!");
         return false;
     }
-    if(form.client == undefined) {
+    var clientId = document.getElementById("clientId");
+    if(!clientId.value) {
         alert("Please, select a client!");
         return false;
     }

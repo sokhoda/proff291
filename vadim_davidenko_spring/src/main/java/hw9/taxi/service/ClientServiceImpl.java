@@ -35,14 +35,16 @@ public class ClientServiceImpl implements ClientService {
     public boolean createClient(String name, String surname, String phone, String address)
             throws ClientException {
         Client newClient = new Client(name, surname, phone, address);
-        List<Client> clients = (List<Client>) clientDao.findAll();
-
-        if (clients.contains(newClient)) {
+        if (clientDao.findAll().contains(newClient)) {
             throw new ClientException("Client with such data already exists");
         } else {
             if (!clientDao.create(newClient).equals(0L)) return true;
         }
         return false;
+    }
+
+    public void updateClient(Client client) {
+        if (client != null) clientDao.update(client);
     }
 
     @Transactional (readOnly = true)

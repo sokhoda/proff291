@@ -36,7 +36,6 @@ public class OrderCreateServlet {
         List<Client> clients = clientService.findAllClients();
         model.addAttribute("clients", clients);
         model.addAttribute("order", new Order());
-
         return "orderAdd";
     }
 
@@ -46,6 +45,12 @@ public class OrderCreateServlet {
         try {
             if (orderService.createOrder(order.getClient(), order.getAmount(),
                     order.getAddressFrom(), order.getAddressTo())) {
+
+                Client client = clientService.findClientById(order.getClient().getId());
+                client.setLastOrderDate(new Date());
+                Double amount = (client.getAmount() != null) ? client.getAmount() + order.getAmount() : order.getAmount();
+                client.setAmount(amount);
+                clientService.updateClient(client);
                 msg = "New order added successfully";
             }
         } catch (OrderException e) {

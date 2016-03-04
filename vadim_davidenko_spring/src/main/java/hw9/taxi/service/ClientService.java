@@ -19,6 +19,8 @@ public interface ClientService {
 
     boolean createClient(String name, String surname, String phone, String address) throws ClientException;
 
+    void updateClient(Client client);
+
     List showClientsByPortion(int portionSize);
 
     List showClientsGtSum(int sum);

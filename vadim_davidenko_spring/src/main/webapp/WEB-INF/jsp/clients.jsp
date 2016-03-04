@@ -18,8 +18,10 @@
                 <th align="center" width="40px">Id</th>
                 <th align="center" width="150px">Name</th>
                 <th align="center" width="150px">Surname</th>
-                <th align="center" width="150px">Phone</th>
+                <th align="center" width="120px">Phone</th>
                 <th align="center" width="200px">Address</th>
+                <th align="center" width="110px">Last ordered</th>
+                <th align="center" width="110px">Sum of orders</th>
             </tr>
             <c:forEach var="c" items="${clientList}">
                 <tr>
@@ -28,6 +30,8 @@
                     <td align="center">${c.surname}</td>
                     <td align="center">${c.phone}</td>
                     <td align="center">${c.address}</td>
+                    <td align="center">${c.lastOrderDateStr}</td>
+                    <td align="center">${c.amount}</td>
                 </tr>
             </c:forEach>
         </table>
