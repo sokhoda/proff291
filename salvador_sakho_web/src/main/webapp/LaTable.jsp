@@ -21,18 +21,32 @@
             float: left;
         }
 
+        .border {
+            width: 10px;
+        }
+
     </style>
 
 </head>
 <body>
 
 <div class="main">
-    <div id="tablediv" class="col-50"></div>
-    <form action="controller.html">
-        <input type="text">
-        <input type="submit" value="send">
-    </form>
+    <%--  <div id="tablediv" class="col-50"></div>--%>
 
+    <form action="controller.html">
+
+
+        <input type="text" name="array">
+        <br>
+        <input type="submit" value="send">
+        <br>
+        <output type="text">${summ}</output>
+        <br>
+        <output type="text">${reverse}</output>
+        <br>
+        <output type="text">${rnd}</output>
+
+    </form>
 </div>
 </body>
 </html>

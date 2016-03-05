@@ -23,9 +23,15 @@ public class ServiceImpl implements Service {
         }
     }
     @Override
-    public String[] stringToArray(String string) {
-        String [] array = string.split("[ ]+");
-        return array;
+    public String[] stringToArray(String string) throws StringDataException {
+       boolean res =  validateString(string);
+        if(res) {
+            String[] array = string.split("[ ]+");
+            return array;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -48,10 +54,7 @@ public class ServiceImpl implements Service {
 
     @Override
     public String[] random(String[] strings) {
-        List<String> tepmArray = new ArrayList<String>();
-        for (int i = 0; i < strings.length; i++){
-            tepmArray.add(strings[i]);
-        }
+        String[] tempArray = new String[strings.length];
 
         return null;
     }
