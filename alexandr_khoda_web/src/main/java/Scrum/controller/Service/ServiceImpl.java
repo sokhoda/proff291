@@ -52,7 +52,7 @@ public class ServiceImpl implements Service {
         for (int i = 0; i < 0; i++){
             temp[i] = strings[(strings.length - 1) - i];
         }
-        return arrToStr(temp);
+        return  arrToStr(temp);
     }
 
     @Override
