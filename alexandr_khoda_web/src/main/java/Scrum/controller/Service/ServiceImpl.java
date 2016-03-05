@@ -1,5 +1,7 @@
 package Scrum.controller.Service;
 
+import Scrum.exception.StringDataException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +12,16 @@ import java.util.List;
 public class ServiceImpl implements Service {
 
 
-
+    @Override
+    public boolean validateString(String string) throws StringDataException {
+        try{
+            Integer.parseInt(string);
+            return true;
+        }
+        catch (NumberFormatException e){
+            throw new StringDataException("String not valid.");
+        }
+    }
     @Override
     public String[] stringToArray(String string) {
         String [] array = string.split("[ ]+");
