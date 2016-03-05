@@ -1,5 +1,0 @@
-val=5;
-console.log('Hello JS'+val);
-function fun(){
-    alert('Fun function')
-}

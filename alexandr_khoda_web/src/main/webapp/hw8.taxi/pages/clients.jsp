@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw8.taxi.domain.Client" %>
+<%@ page import="hw8.Client" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="hw8.taxi.service.ClientServiceImpl" %>
 <%@ page import="java.util.GregorianCalendar" %><%--

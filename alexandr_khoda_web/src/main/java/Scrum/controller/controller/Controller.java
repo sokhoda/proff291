@@ -19,11 +19,18 @@ public class Controller {
     @RequestMapping(value = "/estimations.html", method = RequestMethod.GET)
     public String hello(@RequestParam("sum") String sum, @RequestParam("reverse")  String reverse, @RequestParam("random") String rand, Model model) {
         log.info("/estimations.html controller");
-        model.addAttribute("sum" + sum);
-        model.addAttribute("reverse"+reverse);
-        model.addAttribute("random"+rand);
-
+        model.addAttribute("sum" ,sum);
+        model.addAttribute("reverse",reverse);
+        model.addAttribute("random",rand);
         return "index";
     }
+
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String index(Model model) {
+        log.info("/index Controller");
+        return "index";
+    }
+
+
 
 }
