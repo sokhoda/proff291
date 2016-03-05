@@ -12,10 +12,10 @@ import java.util.List;
 public class test {
 
 
-    public String reverse(String text){
+    public List<String> reverse(String text){
         List<String> list = Arrays.asList(text.split(" "));
-        Collections.shuffle(list);
-return null;
+        Collections.reverse(list);
+        return list;
     }
 
     public Integer sum (String text) {
