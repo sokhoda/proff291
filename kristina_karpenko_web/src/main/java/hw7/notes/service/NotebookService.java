@@ -17,7 +17,7 @@ public interface NotebookService {
     boolean updateVendor(Vendor vendor);
     boolean updateNotebook(Notebook notebook);
     boolean removeFromStore(Store store, int amount);
-    List getNotebooksByPortion(int size);
+    List getNotebooksByPortion(int page, int size);
     List getNotebooksGtAmount(int amount);
     List getNotebooksByCpuVendor(Vendor cpuVendor);
     List getNotebooksFromStore();

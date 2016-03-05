@@ -29,7 +29,7 @@ public class Sales {
     public Sales(Store store, Integer amount) {
         this.amount = amount;
         this.store = store;
-        date = new java.sql.Date(new java.util.Date().getTime());
+        date = new Date(new java.util.Date().getTime());
     }
 
     public void setId(Long id) {
