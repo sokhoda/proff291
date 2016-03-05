@@ -18,17 +18,17 @@
 
 
 <form action=/numberController" method="post">
-<input type="text" name="inp"><input>
+<input type="text" name="inp"/>
 <input type="submit" value="Submit"/>
 </form>
 
 <br>
 
-<div id="result1"> Expected Result 1</div>
+<div id="result1"> Expected Result 1 $(res1)</div>
 <br>
-<div id="result2"> Expected Result 2</div>
+<div id="result2"> Expected Result 2 $(res2)</div>
 <br>
-<div id="result3"> Expected Result 3</div>
+<div id="result3"> Expected Result 3 $(res3)</div>
 
 
 </body>
