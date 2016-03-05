@@ -20,8 +20,9 @@ public class Main {
         System.out.println("shuffle "+serv.shuffle(text));
 
         System.out.println("text "+ text);
-        System.out.println("shuffle "+serv.shuffle(text));
+        //System.out.println("shuffle "+serv.(text));
 
+        
         System.out.println("text "+ text);
         System.out.println("shuffle "+serv.shuffle(text));
 
