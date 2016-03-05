@@ -5,6 +5,7 @@ import Scrum.exception.StringDataException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Solyk on 05.03.2016.
@@ -35,36 +36,53 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public Integer sum(String[] strings) {
+    public String sum(String[] strings) {
         int tmp = 0;
         for (int i = 0; i < strings.length; i++ ){
             tmp += Integer.valueOf(strings[i]);
         }
-        return tmp;
+        String tt = "";
+        tt += tmp;
+        return tt;
     }
 
     @Override
-    public String[] revers(String[] strings) {
+    public String revers(String[] strings) {
         String[] temp = new String[strings.length];
         for (int i = 0; i < 0; i++){
             temp[i] = strings[(strings.length - 1) - i];
         }
-        return temp;
+        return  arrToStr(temp);
     }
 
     @Override
-    public String[] random(String[] strings) {
-        String[] tempArray = new String[strings.length];
+    public String random(String[] strings) {
 
-        return null;
+            Random rnd = new Random();
+            for (int i = strings.length - 1; i > 0; i--) {
+                int index = rnd.nextInt(i + 1);
+                String a = strings[index];
+                strings[index] = strings[i];
+                strings[i] = a;
+
+        }
+         return arrToStr(strings);
     }
 
     @Override
     public String arrToStr(String[] str) {
         String string="";
        for(int i =0; i<str.length;i++){
-           string = string+ str[i]+" ";
+           if(i==str.length-1)
+           {
+               string = string+ str[i];
+
+           }else {
+               string = string + str[i] + " ";
+           }
        }
        return string;
     }
+
+
 }
