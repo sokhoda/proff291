@@ -3,6 +3,8 @@ package scrum.service;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -22,5 +24,14 @@ public class ScrumServiceImpl implements ScrumService {
         }
 
         return array;
+    }
+
+    public Integer sum (List<Integer> array) {
+        int sum = 0;
+
+        for (int i = 0; i < array.size(); i++) {
+            sum += array.get(i);
+        }
+        return sum;
     }
 }
