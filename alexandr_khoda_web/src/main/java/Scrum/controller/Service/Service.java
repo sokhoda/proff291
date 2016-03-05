@@ -9,4 +9,5 @@ public interface Service {
     String revers(String[] strings);
     String random(String[] strings);
     String ArrToStr(String[] str);
+
 }
