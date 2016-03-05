@@ -31,6 +31,7 @@ public class test {
 
     public static void main(String[] args) {
         test t = new test();
-        System.out.println(t.sum("1 2 3"));
+        System.out.println(t.reverse("1 2 3"));
+        System.out.println(t.reverse("1 2 3"));
     }
 }

@@ -22,7 +22,6 @@ public class ScrumServiceImpl implements ScrumService {
                return null;
            }
         }
-
         return array;
     }
 
@@ -47,6 +46,4 @@ public class ScrumServiceImpl implements ScrumService {
         Collections.shuffle(array);
         return array;
     }
-
-
 }
