@@ -21,7 +21,7 @@ public class ScrumServiceImpl implements ScrumService {
     }
 
     @Override
-    public List<Integer> stringToArray(String string) {
+    public List<Integer> StringToArray(String string) {
         List<Integer> array = new ArrayList<>();
         String[] items = string.split(" ");
 

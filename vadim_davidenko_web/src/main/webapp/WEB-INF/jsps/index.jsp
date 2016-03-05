@@ -24,11 +24,12 @@
 
 <br>
 
-<div id="result1"> Expected Result 1 $res1)</div>
+${error};
+<div id="result1"> Expected Result 1: ${res1}</div>
 <br>
-<div id="result2"> Expected Result 2 $(res2)</div>
+<div id="result2"> Expected Result 2: ${res2}</div>
 <br>
-<div id="result3"> Expected Result 3 $(res3)</div>
+<div id="result3"> Expected Result 3: ${res3}</div>
 
 
 </body>
