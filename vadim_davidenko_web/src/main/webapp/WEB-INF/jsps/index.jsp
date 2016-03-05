@@ -18,9 +18,10 @@
 
 
 <form action=/numberController" method="post">
-<input name="inp"><input>
+<input type="text" name="inp"><input>
 <input type="submit" value="Submit"/>
 </form>
+
 <br>
 
 <div id="result1"> Expected Result 1</div>
