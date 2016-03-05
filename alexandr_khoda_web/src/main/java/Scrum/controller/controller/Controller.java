@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * Created by s_okhoda on 05.03.2016.
  */
 @org.springframework.stereotype.Controller
-@SessionAttributes("controller")
 public class Controller {
     public static final Logger log = Logger.getLogger(Controller.class);
 
@@ -23,7 +22,7 @@ public class Controller {
         model.addAttribute("sum" + sum);
         model.addAttribute("reverse"+reverse);
         model.addAttribute("random"+rand);
-//
+
         return "index";
     }
 

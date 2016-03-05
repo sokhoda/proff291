@@ -14,7 +14,7 @@ import java.util.List;
 public class VendorDaoImpl implements VendorDao {
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
-
+    public VendorDaoImpl(){}
     public VendorDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
     }

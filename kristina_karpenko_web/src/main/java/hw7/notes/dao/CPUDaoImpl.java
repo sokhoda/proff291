@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class CPUDaoImpl implements CPUDao {
 
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
-
+    public CPUDaoImpl(){}
     public CPUDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
     }
