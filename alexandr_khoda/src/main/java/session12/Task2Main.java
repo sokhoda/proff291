@@ -19,7 +19,7 @@ public class Task2Main {
 //        System.out.println("Введите pass пользователя:");
 //        String pass = scan.nextLine();
 
-//        List<Object[]> users = dao.findUserExceptThis(login, pass);
+//        List<Object[]> users = web.dao.findUserExceptThis(login, pass);
 //
 //
 //        for (int i = 0; i < users.size(); i++) {
