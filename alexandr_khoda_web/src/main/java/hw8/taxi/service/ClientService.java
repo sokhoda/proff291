@@ -1,11 +1,8 @@
 package hw8.taxi.service;
 
-import hw8.taxi.domain.Client;
+import hw8.Client;
 import hw8.taxi.exception.ClientException;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

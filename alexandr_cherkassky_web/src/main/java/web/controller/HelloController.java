@@ -100,4 +100,9 @@ public class HelloController {
     public String angularModel() {
         return "angularModel";
     }
+
+    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
+    public String angularController() {
+        return "angularController";
+    }
 }

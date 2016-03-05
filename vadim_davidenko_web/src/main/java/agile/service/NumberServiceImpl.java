@@ -16,33 +16,23 @@ public class NumberServiceImpl implements NumberService {
 
     NumberServiceImpl() {}
 
-    public Double calculateSum(String str) throws NumberFormatException {
-        List<String> list = stringToList(str);
-        Double sum = 0.0;
-        for (String s : list) {
-            sum += Double.parseDouble(s);
-        }
-        return sum;
+    public Double calculateSum(String str) {
+        String[] numbers = str.split(" ");
+        List<String> list = new ArrayList<String>(Arrays.asList(numbers));
+
+
+        return null;
     }
 
     public String reverse(String str) {
-        List<String> list = stringToList(str);
-        Collections.reverse(list);
-        return listToString(list);
+
+        return null;
     }
 
     public String shuffle(String str) {
-        List<String> list = stringToList(str);
-        Collections.shuffle(list);
-        return listToString(list);
-    }
-
-    private List<String> stringToList(String str) {
         String[] numbers = str.split(" ");
-        return new ArrayList<String>(Arrays.asList(numbers));
-    }
-
-    private String listToString(List<String> list) {
+        List<String> list = new ArrayList<String>(Arrays.asList(numbers));
+        Collections.shuffle(list);
         StringBuilder sb = new StringBuilder("");
         for (String s : list) {
             sb.append(s);
@@ -50,4 +40,5 @@ public class NumberServiceImpl implements NumberService {
         }
         return sb.toString().trim();
     }
+
 }
