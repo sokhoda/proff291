@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -100,7 +101,26 @@ public class NotebookDaoImpl implements NotebookDao {
         Query query = session.createQuery("from Notebook");
         return query.list();
     }
+   /*  @Override
+     public List<Notebook> findByModel(String model) {
+         List<Notebook> list = new ArrayList<Notebook>();
+         Session session = factory.openSession();
+         Query query = null;
+         try {
+             query = session.createQuery("FROM Notebook nb WHERE nb.model = :model");
+             query.setParameter("model", model);
 
+             List results = query.list();
+             for(Object res : results) {
+                 list.add((Notebook)res);
+             }
+         } catch (HibernateException e) {
+             e.printStackTrace();
+         } finally {
+             session.close();
+         }
+         return list;
+     }*/
      @Override
      public List findByModel(String model) {
 

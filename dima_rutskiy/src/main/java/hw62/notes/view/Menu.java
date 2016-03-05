@@ -64,6 +64,7 @@ import java.util.Scanner;
                      break;
                  case DELETE_BY_MODEL:
                      deleteByModel();
+                     break;
                  case SHOW_BY_VENDOR:
                      showByVendor();
                      break;
