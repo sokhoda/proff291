@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean createOrder(Client client, Double amount, String addressFrom, String addressTo)
             throws OrderException {
         Order newOrder = new Order(client, new Date(), amount, addressFrom, addressTo);
-        if (orderDao.create(newOrder).equals(0L)) {
+        if (orderDao.create(newOrder) == null) {
             throw new OrderException("Order was not added!");
         }
         return true;

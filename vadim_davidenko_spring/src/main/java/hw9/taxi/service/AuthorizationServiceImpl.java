@@ -33,7 +33,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             throw new AuthenticationException("User with such login already exists");
         } else {
             User newUser = new User(login, id, pass);
-            if (!userDao.create(newUser).equals(0L)) return true;
+            if (userDao.create(newUser) != null) return true;
         }
         return false;
     }
