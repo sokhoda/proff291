@@ -37,12 +37,12 @@ public class ScrumServiceImpl implements ScrumService {
     }
 
     @Override
-    public List<String> reverse(List<Integer> arrayt) {
+    public List<Integer> reverse(List<Integer> arrayt) {
         return null;
     }
 
     @Override
-    public List<String> random(List<Integer> array) {
+    public List<Integer> random(List<Integer> array) {
         return null;
     }
 
