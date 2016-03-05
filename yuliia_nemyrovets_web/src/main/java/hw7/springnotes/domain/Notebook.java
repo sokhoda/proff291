@@ -27,7 +27,7 @@
 //    private Cpu  cpu;
 //
 //    @ManyToOne
-//    @JoinColumn(name = "MEMORY_ID")
+////    @JoinColumn(name = "MEMORY_ID")
 //    private Memory memory;
 //
 //    @Column(name = "MODEL")
