@@ -10,13 +10,17 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="dataContext.xml"/>
+    <import resource="context-db.xml"/>
     <import resource="mvc-dispatcher-servlet.xml"/>
     <!--<import resource="security.xml"/>-->
 
-    <context:component-scan base-package="agile"/>
+    <context:component-scan base-package="springnotes"/>
 
     <mvc:resources mapping="/**" location="/"/>
     <mvc:annotation-driven/>
+
+    <bean id="str" class="java.lang.String">
+        <constructor-arg value="Hello KHO"/>
+    </bean>
 
 </beans>

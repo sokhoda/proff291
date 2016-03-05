@@ -12,7 +12,7 @@
 
 
 
-<script src="JS/phone.js" type="text/javascript">    </script>
+<script src="../../../JS/phone.js" type="text/javascript">    </script>
 <%--<script src="JS/alexEx.js" type="text/javascript">    </script>--%>
 
 <%!
