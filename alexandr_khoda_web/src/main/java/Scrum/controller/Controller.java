@@ -18,9 +18,9 @@ public class Controller {
 
 
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
-    public String hello(@RequestParam("first") String sum, @RequestParam("second")  String reverse, @RequestParam("third") String rand, Model model) {
+    public String hello(@RequestParam("sum") String sum, @RequestParam("reverse")  String reverse, @RequestParam("random") String rand, Model model) {
         log.info("/hello.html controller");
-        model.addAttribute("sum" + sum+"/n"+"reverse"+reverse+"random"+rand);
+        model.addAttribute("sum" + sum+"/n"+"reverse"+reverse+"/n"+"random"+rand);
         return "index";
     }
 
