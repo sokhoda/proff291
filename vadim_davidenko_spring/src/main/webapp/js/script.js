@@ -68,18 +68,36 @@ function checkOrderFields(form) {
 
 function submitUserForm() {
     var form = document.getElementById("userForm");
-    if(checkUserFields(form)) {
+    var result = checkUserFields();
+    if(!result) {
         document.getElementById("msg").innerHTML = '';
         form.submit();
+    } else {
+        alert(result);
     }
 }
 
-function checkUserFields(form) {
-    if(!form.login.value.trim() || !form.idNumber.value.trim() || !form.password.value.trim()) {
-        alert("Please, fill in all fields with valid values!");
-        return false;
-    }
-    return true;
+function checkUserFields() {
+    var form = document.getElementById("userForm");
+    var err = '';
+    var login = form.login.value;
+    var number = form.idNumber.value;
+    var password = form.password.value;
+    var confirmPassword = form.confirmPassword.value;
+
+    if(login.length < 4) err += 'Login should be 4 symbols at least!\n';
+    if(login.search(/\\s/) != -1) err += 'Login should not contain spaces!\n';
+
+    if(number.length != 10) err += 'ID Number should be 10 digits length!\n';
+    if(isNaN(+number)) err += 'ID Number should contain digits only!\n';
+
+    if(password.length < 8) err += 'Password should be 8 symbols at least!\n';
+    if(password.search(/\\s/) != -1) err += 'Password should not contain spaces!\n';
+    if(password.search(/[A-Z]/) == -1 || password.search(/[a-z]/) == -1 || password.search(/[0-9]/) == -1)
+        err += 'Password should contain lower, upper case letters and digits!\n';
+    if(confirmPassword != password) err += 'Confirmed password does not match with password!\n';
+
+    return err;
 }
 
 function submitLoginForm() {
