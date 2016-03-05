@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ScrumServiceImpl implements ScrumService {
     @Override
-    public List<Integer> StringToArray(String string) {
+    public List<Integer> stringToArray(String string) {
         List<Integer> array = new ArrayList<>();
         String[] items = string.split(" ");
 
