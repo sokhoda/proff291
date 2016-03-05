@@ -20,7 +20,7 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>session15.domain.session15.dao</value>
+                <value>session15.domain.session15.web.dao</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -31,7 +31,7 @@
             </value>
         </property>
     </bean>
-    <bean id="dao" class= "session15.domain.session15.dao.EmployeeDaoIml">
+    <bean id="web.dao" class= "session15.domain.session15.web.dao.EmployeeDaoIml">
         <constructor-arg ref="sf"/>
 
     </bean>
