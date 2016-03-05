@@ -64,7 +64,7 @@ public class ServiceImpl implements Service {
                 strings[i] = a;
 
         }
-         return ArrToStr(strings);
+         return arrToStr(strings);
     }
 
     @Override
