@@ -1,7 +1,6 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.CPU;
-import hw7.notes.domain.Vendor;
 import hw7.notes.exception.PortionException;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;

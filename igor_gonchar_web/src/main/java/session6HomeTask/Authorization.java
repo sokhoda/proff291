@@ -28,7 +28,7 @@ public class Authorization extends HttpServlet {
         String login = parameterMap.get("login")[0];
         String password = parameterMap.get("password")[0];
 
-        String pageAddress = "/index.jsp";
+        String pageAddress = "/index1.jsp";
         String message = authorizResult(login, password);
         if (message.equals("You are successfully validated")) {
             pageAddress = "/dashboard.jsp";

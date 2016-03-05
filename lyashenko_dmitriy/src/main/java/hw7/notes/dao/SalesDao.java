@@ -1,6 +1,8 @@
 package hw7.notes.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import hw7.notes.domain.Sales;
 
 /**
@@ -12,4 +14,5 @@ public interface SalesDao {
     boolean update(Sales sales);
     boolean delete(Sales sales);
     List findAll();
+    Map getSalesByDays();
 }

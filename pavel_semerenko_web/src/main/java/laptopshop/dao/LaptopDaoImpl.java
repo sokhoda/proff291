@@ -49,6 +49,6 @@ public class LaptopDaoImpl implements LaptopDao {
     @Override
     public List<Laptop> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return (List<Laptop>) session.createQuery("FROM Laptop").list();
+        return (List<Laptop>) session.createQuery("FROM laptopshop.domain.Laptop").list();
     }
 }

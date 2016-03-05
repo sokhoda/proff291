@@ -14,13 +14,13 @@ import java.util.Set;
 public class Notebook {
 
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "NOTEBOOK_SEQ")
+    @SequenceGenerator(name = "sequence", sequenceName = "NOTEBOOK_SEQ", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @Column(name = "VENDOR_ID")
+    @JoinColumn(name = "VENDOR_ID")
     private Vendor vendor;
 
     @Column(name = "MODEL")
@@ -30,11 +30,11 @@ public class Notebook {
     private Date manufactoreDate;
 
     @ManyToOne
-    @Column(name = "CPU_ID")
+    @JoinColumn(name = "CPU_ID")
     private CPU cpu;
 
     @ManyToOne
-    @Column(name = "MEMORY_ID")
+    @JoinColumn(name = "MEMORY_ID")
     private Memory memory;
 
     @OneToMany(mappedBy = "notebook", cascade = CascadeType.REFRESH)
