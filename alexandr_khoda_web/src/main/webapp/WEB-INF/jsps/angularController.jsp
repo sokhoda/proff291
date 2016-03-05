@@ -21,6 +21,7 @@
     <p>Model state: {{name}}</p>
     <p>{{greeting}}</p>
 
+
 <p>{{randInt}}<p>
     <div>
         <ul>
