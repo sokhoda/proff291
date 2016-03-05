@@ -26,6 +26,7 @@ public class ScrumServiceImpl implements ScrumService {
         return array;
     }
 
+    @Override
     public Integer sum (List<Integer> array) {
         int sum = 0;
 
@@ -33,6 +34,16 @@ public class ScrumServiceImpl implements ScrumService {
             sum += array.get(i);
         }
         return sum;
+    }
+
+    @Override
+    public List<String> reverse(List<Integer> arrayt) {
+        return null;
+    }
+
+    @Override
+    public List<String> random(List<Integer> array) {
+        return null;
     }
 
 

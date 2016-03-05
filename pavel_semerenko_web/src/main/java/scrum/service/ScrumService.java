@@ -6,6 +6,6 @@ public interface ScrumService {
     List<Integer> StringToArray(String string);
     String arrayToString(List<Integer> array);
     Integer sum(List<Integer> array);
-    List<String> reverse(String text);
-    List<String> random(String text);
+    List<String> reverse(List<Integer> array);
+    List<String> random(List<Integer> array);
 }
