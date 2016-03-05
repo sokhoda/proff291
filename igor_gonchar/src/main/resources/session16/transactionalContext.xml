@@ -23,7 +23,7 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>session16.dao</value>
+                <value>session16.web.dao</value>
                 <value>session16.service</value>
                 <value>session16.domain</value>
                 <value>session16.view</value>
