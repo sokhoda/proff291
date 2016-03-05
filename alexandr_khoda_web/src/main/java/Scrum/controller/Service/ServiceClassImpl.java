@@ -1,38 +1,32 @@
 package Scrum.controller.Service;
 
-import Scrum.exception.StringDataException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import Scrum.controller.Service.ServiceClass;
+import Scrum.exception.StringDataException;
+import org.springframework.stereotype.Service;
+
 import java.util.Random;
 
 /**
  * Created by Solyk on 05.03.2016.
  */
-public class ServiceImpl implements Service {
+@Service
+public class ServiceClassImpl implements ServiceClass {
 
 
-    @Override
-    public boolean validateString(String string) throws StringDataException {
-        try{
-            Integer.parseInt(string);
-            return true;
-        }
-        catch (NumberFormatException e){
-            throw new StringDataException("String not valid.");
-        }
-    }
     @Override
     public String[] stringToArray(String string) throws StringDataException {
-       boolean res =  validateString(string);
-        if(res) {
             String[] array = string.split("[ ]+");
+            for (int i = 0; i < array.length; i++) {
+                try{
+                    Integer.parseInt(string);
+                }
+                catch (NumberFormatException e){
+                    throw new StringDataException("String not valid.");
+                }
+            }
+
             return array;
-        }
-        else {
-            return null;
-        }
     }
 
     @Override

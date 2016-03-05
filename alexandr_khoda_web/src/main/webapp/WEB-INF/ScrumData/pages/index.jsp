@@ -42,7 +42,7 @@
 
     <label for="inputData">Input Data:</label>
     <input  type="text" name="inputData" value="" placeholder="<data>"
-            id="inputData"><br>
+            id="inputData" style="width: 200px;"><br>
 
     <input  type="submit" style="width: 4em" value="Send"> <br>
 
