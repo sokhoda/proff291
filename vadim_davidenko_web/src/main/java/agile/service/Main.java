@@ -15,6 +15,13 @@ public class Main {
 
         NumberService serv=new NumberServiceImpl();
         String text=("1 2 3 4 5");
+
+        System.out.println("text "+ text);
+        System.out.println("shuffle "+serv.shuffle(text));
+
+        System.out.println("text "+ text);
+        System.out.println("shuffle "+serv.shuffle(text));
+
         System.out.println("text "+ text);
         System.out.println("shuffle "+serv.shuffle(text));
 
