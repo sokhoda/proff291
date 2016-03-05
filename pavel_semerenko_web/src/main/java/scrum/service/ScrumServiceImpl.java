@@ -9,6 +9,16 @@ import java.util.List;
 @Service
 public class ScrumServiceImpl implements ScrumService {
     @Override
+    public String arrayToString(List<Integer> array) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for ( Integer item : array ) {
+            stringBuffer.append(item);
+        }
+
+        return stringBuffer.toString();
+    }
+
+    @Override
     public List<Integer> stringToArray(String string) {
         List<Integer> array = new ArrayList<>();
         String[] items = string.split(" ");
