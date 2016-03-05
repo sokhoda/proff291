@@ -14,7 +14,7 @@ public class ScrumServiceImpl implements ScrumService {
     public String arrayToString(List<Integer> array) {
         StringBuffer stringBuffer = new StringBuffer();
         for ( Integer item : array ) {
-            stringBuffer.append(item);
+            stringBuffer.append(item + " ");
         }
 
         return stringBuffer.toString();
