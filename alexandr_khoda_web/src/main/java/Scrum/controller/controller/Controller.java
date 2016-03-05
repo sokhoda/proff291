@@ -23,7 +23,7 @@ public class Controller {
         model.addAttribute("sum" + sum);
         model.addAttribute("reverse"+reverse);
         model.addAttribute("random"+rand);
-
+//
         return "index";
     }
 
