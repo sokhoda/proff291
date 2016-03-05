@@ -23,7 +23,7 @@
         <property name="dataSource" ref="myDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>hw7.dao</value>
+                <value>hw7.web.dao</value>
                 <value>hw7.service</value>
                 <value>hw7.domain</value>
                 <value>hw7.view</value>
