@@ -23,7 +23,7 @@ import java.util.Map;
  * User: al1
  * Date: 17.01.16
  */
-@WebServlet("/formEmployee")
+@WebServlet("/formEmploy")
 public class Processor extends HttpServlet {
     private static Logger log = Logger.getLogger(Processor.class);
     SessionFactory factory;
@@ -81,7 +81,7 @@ public class Processor extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("name", "al1");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("index1.jsp").forward(request, response);
 
         response.getWriter().print("Hello servlet");
     }

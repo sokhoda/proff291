@@ -40,7 +40,7 @@ public class auth extends HttpServlet {
         } else {
             System.out.println("Пароль неправильный");
             response.getWriter().println("Введите корректный логин/пароль ");
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+            request.getRequestDispatcher("oldindex.jsp").forward(request,response);
         }
     }
 
