@@ -28,7 +28,7 @@ public class session17 {
 
 
     public static void main(String[] args) {
-        String o = "1 3 4 5 6 7";
+        String o = "1 3 4 5 6 7 0";
         System.out.println(sum(o));
         System.out.println(revers(o));
     }
