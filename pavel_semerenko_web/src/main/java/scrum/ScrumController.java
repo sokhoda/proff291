@@ -26,7 +26,7 @@ public class ScrumController {
     public String hello(@RequestParam("numbers") String number, Model model) {
         List<Integer> numbers = scrumServiceImpl.StringToArray(number);
 
-        if(numbers != null) {//scrumServiceImpl.arrayToString()
+        if(numbers != null) {
             model.addAttribute("sum", scrumServiceImpl.sum(numbers) + "");
             model.addAttribute("reverse", scrumServiceImpl.arrayToString(scrumServiceImpl.reverse(numbers)));
             model.addAttribute("random", scrumServiceImpl.arrayToString(scrumServiceImpl.random(numbers)));
