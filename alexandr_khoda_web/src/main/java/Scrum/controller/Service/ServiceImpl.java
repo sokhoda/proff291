@@ -73,10 +73,10 @@ public class ServiceImpl implements Service {
        for(int i =0; i<str.length;i++){
            if(i==str.length-1)
            {
-               string = string+ str[i];
+               string += str[i];
 
            }else {
-               string = string + str[i] + " ";
+               string += str[i] + " ";
            }
        }
        return string;
