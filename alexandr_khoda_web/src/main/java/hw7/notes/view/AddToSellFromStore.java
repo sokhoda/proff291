@@ -1,7 +1,6 @@
 package hw7.notes.view;
 
 import hw7.notes.dao.*;
-import hw7.notes.domain.*;
 import hw7.notes.service.NotebookServiceImpl;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import static hw7.notes.view.Servlet.*;
@@ -18,7 +16,7 @@ import static hw7.notes.view.Servlet.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddSellStore")
+@WebServlet("/AddSellStore1")
 public class AddToSellFromStore extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

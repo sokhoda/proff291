@@ -25,33 +25,6 @@ public class Employee {
     @Column(name = "EMAIL", length = 25)
     private String email;
 
-    @Column(name = "PHONE_NUMBER", length = 25)
-    @Convert(converter = MoneyConverter.class)
-    private Long phoneNumber;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "HIRE_DATE")
-    private Date hireDate;
-
-    //    @ManyToOne
-//    @JoinColumn(name = "JOB_ID")
-    @Column(name = "JOB_ID")
-    private String jobId;
-
-    @Column(name = "SALARY")
-    private Integer salary;
-
-    @Column(name = "COMMISSION_PCT")
-    private Integer comissionPct;
-
-    @ManyToOne
-    @JoinColumn(name = "MANAGER_ID")
-    private Employee manager;
-
-    //    @Column(name = "DEPARTMENT_ID")
-    @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID")
-    private Department department;
 
     public Employee() {
 
@@ -98,65 +71,10 @@ public class Employee {
         this.email = email;
     }
 
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Date getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
-    }
-
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
-    }
-
-    public Integer getComissionPct() {
-        return comissionPct;
-    }
-
-    public void setComissionPct(Integer comissionPct) {
-        this.comissionPct = comissionPct;
-    }
-
-    public Employee getManager() {
-        return manager;
-    }
-
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
-
-    public String getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", email=" + email
-                + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate
-                + ", salary=" + salary + ", comissionPct="
-                + comissionPct +
-                "]";
+        return "Employee [id=" + id + ", firstName=" + firstName+"]";
+
     }
 }

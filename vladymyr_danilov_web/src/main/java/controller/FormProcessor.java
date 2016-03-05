@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/form")
+@WebServlet("/formPrev")
 public class FormProcessor extends HttpServlet {
     private Map<String, String> users;
 

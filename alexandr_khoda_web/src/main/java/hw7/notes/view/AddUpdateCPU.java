@@ -4,7 +4,6 @@ import hw7.notes.dao.CPUDao;
 import hw7.notes.dao.VendorDao;
 import hw7.notes.domain.CPU;
 import hw7.notes.domain.Vendor;
-import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
 
 import javax.servlet.ServletException;
@@ -20,7 +19,7 @@ import static hw7.notes.view.Servlet.*;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet("/AddCpu")
+@WebServlet("/AddCpu1")
 public class AddUpdateCPU extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

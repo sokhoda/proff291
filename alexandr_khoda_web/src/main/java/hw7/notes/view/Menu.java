@@ -7,11 +7,6 @@ import hw7.notes.domain.Notebook;
 import hw7.notes.exception.PortionException;
 import hw7.notes.service.NotebookService;
 import hw7.notes.service.NotebookServiceImpl;
-import org.hibernate.HibernateException;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,9 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static hw7.notes.view.Servlet.String2Integer;
@@ -29,7 +21,7 @@ import static hw7.notes.view.Servlet.String2Integer;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet(name = "HW7Menu", value = "/MainNote")
+@WebServlet(name = "HW7Menu", value = "/MainNote1")
 public class Menu extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";

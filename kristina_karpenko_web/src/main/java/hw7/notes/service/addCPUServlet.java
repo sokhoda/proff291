@@ -7,8 +7,6 @@ import hw7.notes.dao.VendorDaoImpl;
 import hw7.notes.domain.CPU;
 import hw7.notes.domain.Vendor;
 import hw7.notes.util.HibernateUtil;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Администратор on 17.02.2016.

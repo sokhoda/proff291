@@ -45,7 +45,7 @@
         </tr>
     </form>
     <tr>
-        <td colspan="2"><a href="index.jsp">
+        <td colspan="2"><a href="index1.jsp">
             <button style="width:100%">Back Home</button>
         </a></td>
     </tr>

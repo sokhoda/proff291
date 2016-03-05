@@ -160,7 +160,7 @@ public class Employee {
                 + ", lastName=" + lastName + ", email=" + email
                 + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate
                 + ", salary=" + salary + ", comissionPct="
-                + comissionPct + ", manager=\n" + manager + ",\n " +
+                + comissionPct  +
                 "]";
     }
 
