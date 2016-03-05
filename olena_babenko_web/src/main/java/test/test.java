@@ -1,7 +1,7 @@
-package scrum;
+package test;
 
 /**
  * Created by lenchi on 05.03.16.
  */
-public class ttt {
+public class test {
 }
