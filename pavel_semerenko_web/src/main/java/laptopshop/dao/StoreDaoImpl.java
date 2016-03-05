@@ -49,6 +49,6 @@ public class StoreDaoImpl implements StoreDao {
     @Override
     public List<Store> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return (List<Store>) session.createQuery("FROM Store").list();
+        return (List<Store>) session.createQuery("FROM laptopshop.domain.Store").list();
     }
 }

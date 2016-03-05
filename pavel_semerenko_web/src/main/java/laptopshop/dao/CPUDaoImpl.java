@@ -57,6 +57,6 @@ public class CPUDaoImpl implements CPUDao {
     @Override
     public List<CPU> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return (List<CPU>) session.createQuery("FROM CPU").list();
+        return (List<CPU>) session.createQuery("FROM laptopshop.domain.CPU").list();
     }
 }

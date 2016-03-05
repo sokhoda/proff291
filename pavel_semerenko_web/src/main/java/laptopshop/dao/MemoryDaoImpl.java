@@ -49,6 +49,6 @@ public class MemoryDaoImpl implements MemoryDao {
     @Override
     public List<Memory> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return (List<Memory>) session.createQuery("FROM Memory").list();
+        return (List<Memory>) session.createQuery("FROM laptopshop.domain.Memory").list();
     }
 }

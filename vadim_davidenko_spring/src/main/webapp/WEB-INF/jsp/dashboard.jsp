@@ -38,6 +38,7 @@
         <td>
             <a href="#" onclick="onOrderEditClick()">Modify order</a>
             &nbsp;&nbsp;&nbsp;&nbsp;id:&nbsp;<input id="id" size="5"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span id="msg" style="color: red">${msg}</span>
         </td>
     </tr>
     <tr>

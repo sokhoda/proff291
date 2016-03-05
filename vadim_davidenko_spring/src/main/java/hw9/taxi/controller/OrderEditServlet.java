@@ -33,8 +33,8 @@ public class OrderEditServlet {
     public String orderEdit(Model model, @PathVariable Long id) {
         Order order = orderService.findOrderById(id);
         if (order == null) {
-            order = new Order();
             model.addAttribute("msg", "No orders found!");
+            return "dashboard";
         }
         List<Client> clients = clientService.findAllClients();
         model.addAttribute("clients", clients);
@@ -46,9 +46,15 @@ public class OrderEditServlet {
     @RequestMapping(value = "/order/edit/save", method = RequestMethod.POST)
     public String orderSave(Model model, @ModelAttribute("order") Order order, Errors errors){
         Date orderDate = orderService.findOrderById(order.getId()).getOrderDate();
+        Double amount = orderService.findOrderById(order.getId()).getAmount();
         Client client = clientService.findClientById(order.getClient().getId());
+
         orderService.editOrder(order.getId(), client, orderDate, String.valueOf(order.getAmount()),
                 order.getAddressFrom(), order.getAddressTo());
+
+        Double newAmount = client.getAmount() - amount + order.getAmount();
+        client.setAmount(newAmount);
+        clientService.updateClient(client);
         String msg = "Order data saved successfully";
 
         List<Client> clients = clientService.findAllClients();

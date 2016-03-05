@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td align="right">Password:</td>
-            <td><form:input path="password" size="20" maxlength="20"/></td>
+            <td><form:input type="password" path="password" size="20" maxlength="20"/></td>
         </tr>
         <tr>
             <td align="right">Confirm:</td>

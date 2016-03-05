@@ -31,18 +31,13 @@ public class OrderServiceImpl implements OrderService {
         Locale.setDefault(Locale.ENGLISH);
     }
 
-    @SuppressWarnings("unchecked")
     public boolean createOrder(Client client, Double amount, String addressFrom, String addressTo)
             throws OrderException {
         Order newOrder = new Order(client, new Date(), amount, addressFrom, addressTo);
-        List<Order> orders = (List<Order>) orderDao.findAll();
-
-        if (orders.contains(newOrder)) {
-            throw new OrderException("Order with such data already exists");
-        } else {
-            if (!orderDao.create(newOrder).equals(0L)) return true;
+        if (orderDao.create(newOrder) == null) {
+            throw new OrderException("Order was not added!");
         }
-        return false;
+        return true;
     }
 
     public void editOrder(Long id, Client client, Date orderDate, String amount, String addressFrom, String addressTo) {

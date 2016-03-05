@@ -49,6 +49,6 @@ public class VendorDaoImpl implements VendorDao {
     @Override
     public List<Vendor> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return (List<Vendor>) session.createQuery("FROM Vendor").list();
+        return (List<Vendor>) session.createQuery("FROM laptopshop.domain.Vendor").list();
     }
 }
