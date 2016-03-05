@@ -1,51 +1,44 @@
 package hw9.taxi.domain;
 
+import javax.persistence.*;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
  * Created by s_okhoda on 23.01.2016.
  */
+@Entity
+@Table(name = "ORDERS")
 public class Order {
     //дата, клиент, сумма, адрес подачи, адрес назначения)
-    private int id;
-    private GregorianCalendar date;
-    private int clientID;
-    private String OrderAmount;
+    @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "ORDER_SEQ",
+            allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @Column(name = "ID")
+    private Long id;
+
+    private Date date;
+
+    private Double orderAmount;
+
     private String addressPickup;
+
     private String addressGetOut;
 
-    public Order(int id, GregorianCalendar date, int clientID, String
-            orderAmount, String addressPickup, String addressGetOut) {
-        this.id = id;
+    @ManyToOne
+    @JoinColumn( name = "CLIENT_ID")
+    private Client client;
+
+    public Order(Date date, Double orderAmount, String addressPickup, String
+            addressGetOut) {
         this.date = date;
-        this.clientID = clientID;
-        OrderAmount = orderAmount;
+        this.orderAmount = orderAmount;
         this.addressPickup = addressPickup;
         this.addressGetOut = addressGetOut;
     }
 
-    public GregorianCalendar getDate() {
-        return date;
-    }
-
-    public void setDate(GregorianCalendar date) {
-        this.date = date;
-    }
-
-    public int getClientID() {
-        return clientID;
-    }
-
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
-    }
-
-    public String getOrderAmount() {
-        return OrderAmount;
-    }
-
-    public void setOrderAmount(String orderAmount) {
-        OrderAmount = orderAmount;
+    public Order() {
     }
 
     public String getAddressPickup() {
@@ -64,11 +57,35 @@ public class Order {
         this.addressGetOut = addressGetOut;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Double getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(Double orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

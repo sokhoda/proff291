@@ -18,4 +18,6 @@ import hw9.taxi.exception.AuthenticationException;
 public interface AuthorizationService {
 
     boolean register(String login, String id, String pass) throws AuthenticationException;
+
+    boolean isRegistered(String login, String pass);
 }

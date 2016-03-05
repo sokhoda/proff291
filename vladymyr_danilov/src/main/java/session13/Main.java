@@ -38,8 +38,8 @@ public class Main {
             Employer employer9 = new Employer(91);
             Employer employer10 = new Employer(101);
 
-            Company company1 = new Company("GlobalLogic", 4000000);
-            Company company2 = new Company("Luxsoft", 1000000);
+            Company company1 = new Company("GlobalLogic", 4000000L);
+            Company company2 = new Company("Luxsoft", 1000000L);
 
             company1.setEmployers(employer1);
             company1.setEmployers(employer2);

@@ -46,13 +46,21 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
         Session session = factory.getCurrentSession();
-        return (List<User>)session.createQuery("from hw9.taxi.domain.Order").list();
+        return (List<User>)session.createQuery("from hw9.taxi.domain.User").list();
     }
 
     public User findByLogin(String login) {
         Session session = factory.getCurrentSession();
         Query query = session.createQuery("from hw9.taxi.domain.User u where u.login = :login");
         query.setParameter("login", login);
+        return (User) query.uniqueResult();
+    }
+
+    public User findByLoginAndPassword(String login, String pass) {
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from hw9.taxi.domain.User u where u.login = :login and u.password = :password");
+        query.setParameter("login", login);
+        query.setParameter("password", pass);
         return (User) query.uniqueResult();
     }
 }

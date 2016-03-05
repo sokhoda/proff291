@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Вадим on 28.02.2016.
@@ -26,30 +27,22 @@ public class OrderServiceImpl implements OrderService {
 
     private static int pageCounter = -1;
 
-    public OrderServiceImpl() {}
+    public OrderServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
+    }
 
-    @SuppressWarnings("unchecked")
     public boolean createOrder(Client client, Double amount, String addressFrom, String addressTo)
             throws OrderException {
         Order newOrder = new Order(client, new Date(), amount, addressFrom, addressTo);
-        List<Order> orders = (List<Order>) orderDao.findAll();
-
-        if (orders.contains(newOrder)) {
-            throw new OrderException("Order with such data already exists");
-        } else {
-            if (!orderDao.create(newOrder).equals(0L)) return true;
+        if (orderDao.create(newOrder) == null) {
+            throw new OrderException("Order was not added!");
         }
-        return false;
+        return true;
     }
 
-    public void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo) {
-//        Order order = new Order();
-//        order.setId(id);
-        Order order = orderDao.read(id);
-        order.setClient(client);
-        order.setAmount(Double.parseDouble(amount));
-        order.setAddressFrom(addressFrom);
-        order.setAddressTo(addressTo);
+    public void editOrder(Long id, Client client, Date orderDate, String amount, String addressFrom, String addressTo) {
+        Order order = new Order(client, orderDate, Double.parseDouble(amount), addressFrom, addressTo);
+        order.setId(id);
         orderDao.update(order);
     }
 
@@ -71,5 +64,10 @@ public class OrderServiceImpl implements OrderService {
             pageCounter++;
         }
         return orderDao.findByPortion(pageCounter, Math.abs(portionSize));
+    }
+
+    @Transactional (readOnly = true)
+    public Order findOrderById(Long id) {
+        return orderDao.read(id);
     }
 }

@@ -62,21 +62,20 @@ public class ClientDaoImpl implements ClientDao {
     @SuppressWarnings("unchecked")
     public List<Client> findGtSum(int sum) {
         Session session = factory.getCurrentSession();
-        SQLQuery query = session.createSQLQuery(
-                "select * from CLIENTS c\n" +
-                        "where :sum < (\n" +
-                        "select sum(o.AMOUNT) from ORDERS o " +
-                        "where o.CLIENT_ID = c.ID\n" +
-                        ")"
-        );
+        //String sql = "select * from CLIENTS c where :gtSum < (select sum(o.AMOUNT) from ORDERS o where o.CLIENT_ID = c.CLIENT_ID)";
+        String sql = "select * from CLIENTS c where c.AMOUNT > :gtSum";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.setParameter("gtSum", sum);
         query.addEntity(Client.class);
-        query.setParameter("sum", sum);
         return (List<Client>)query.list();
     }
 
     @SuppressWarnings("unchecked")
     public List<Client> findLastMonth() {
-
-        return null;
+        Session session = factory.getCurrentSession();
+        String sql = "select * from CLIENTS c where c.LAST_ORDER_DATE between trunc(sysdate, 'mm') and SYSDATE";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(Client.class);
+        return (List<Client>)query.list();
     }
 }

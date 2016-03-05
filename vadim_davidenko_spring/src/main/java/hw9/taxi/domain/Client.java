@@ -33,7 +33,13 @@ public class Client {
     @Column(name = "ADDRESS", length = 100)
     private String address;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REFRESH)
+    @Column(name = "LAST_ORDER_DATE")
+    private Date lastOrderDate;
+
+    @Column(name = "AMOUNT", columnDefinition = "NUMBER(10, 2) DEFAULT 0")
+    private Double amount;
+
+    @OneToMany(mappedBy = "client")
     private Set<Order> orders = new HashSet<Order>();
 
     public Client() {}
@@ -48,36 +54,36 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", orders=" + orders +
+                ", lastOrderDate=" + lastOrderDate +
+                ", amount=" + amount +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Client)) return false;
 
         Client client = (Client) o;
 
-        if (!address.equals(client.address)) return false;
-        if (!name.equals(client.name)) return false;
-        if (!phone.equals(client.phone)) return false;
-        if (!surname.equals(client.surname)) return false;
+        if (address != null ? !address.equalsIgnoreCase(client.address) : client.address != null) return false;
+        if (name != null ? !name.equalsIgnoreCase(client.name) : client.name != null) return false;
+        if (phone != null ? !phone.equalsIgnoreCase(client.phone) : client.phone != null) return false;
+        if (surname != null ? !surname.equalsIgnoreCase(client.surname) : client.surname != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + surname.hashCode();
-        result = 31 * result + phone.hashCode();
-        result = 31 * result + address.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 
@@ -127,5 +133,34 @@ public class Client {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    @Transient
+    public String getLastOrderDateStr() {
+        if (lastOrderDate != null) {
+            return Utils.DATEFORMAT_COMMON.get().format(lastOrderDate);
+        }
+        return "";
+    }
+
+    public Date getLastOrderDate() {
+        return lastOrderDate;
+    }
+
+    public void setLastOrderDate(Date lastOrderDate) {
+        this.lastOrderDate = lastOrderDate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    @Transient
+    public String  getFullName(){
+        return name + " " + surname;
     }
 }

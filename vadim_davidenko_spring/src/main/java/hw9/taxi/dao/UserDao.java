@@ -20,4 +20,6 @@ public interface UserDao {
     List findAll();
 
     User findByLogin(String login);
+
+    User findByLoginAndPassword(String login, String pass);
 }

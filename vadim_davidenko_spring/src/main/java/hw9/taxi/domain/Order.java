@@ -24,7 +24,7 @@ public class Order {
     @Column(name = "ORDER_DATE")
     private Date orderDate;
 
-    @Column(name = "AMOUNT", columnDefinition = "DOUBLE(10, 2)")
+    @Column(name = "AMOUNT", columnDefinition = "NUMBER(10, 2) DEFAULT 0")
     private Double amount;
 
     @Column(name = "ADDRESS_FROM", length = 100)
@@ -50,26 +50,26 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Order)) return false;
 
         Order order = (Order) o;
 
-        if (!addressFrom.equals(order.addressFrom)) return false;
-        if (!addressTo.equals(order.addressTo)) return false;
-        if (!amount.equals(order.amount)) return false;
-        if (!client.equals(order.client)) return false;
-        if (!orderDate.equals(order.orderDate)) return false;
+        if (addressFrom != null ? !addressFrom.equalsIgnoreCase(order.addressFrom) : order.addressFrom != null) return false;
+        if (addressTo != null ? !addressTo.equalsIgnoreCase(order.addressTo) : order.addressTo != null) return false;
+        if (amount != null ? !amount.equals(order.amount) : order.amount != null) return false;
+        if (client != null ? !client.equals(order.client) : order.client != null) return false;
+        if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = orderDate.hashCode();
-        result = 31 * result + amount.hashCode();
-        result = 31 * result + addressFrom.hashCode();
-        result = 31 * result + addressTo.hashCode();
-        result = 31 * result + client.hashCode();
+        int result = orderDate != null ? orderDate.hashCode() : 0;
+        result = 31 * result + (amount != null ? amount.hashCode() : 0);
+        result = 31 * result + (addressFrom != null ? addressFrom.hashCode() : 0);
+        result = 31 * result + (addressTo != null ? addressTo.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
         return result;
     }
 
@@ -94,14 +94,13 @@ public class Order {
     }
 
     @Transient
-    public String getDateStr() {
+    public String getOrderDateStr() {
         if (orderDate != null) {
             return Utils.DATEFORMAT_COMMON.get().format(orderDate);
         }
         return "";
     }
-
-    public Date getOrderDate() {
+     public Date getOrderDate() {
         return orderDate;
     }
 

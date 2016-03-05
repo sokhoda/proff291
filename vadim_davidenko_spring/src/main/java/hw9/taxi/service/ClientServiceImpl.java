@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Вадим on 28.02.2016.
@@ -26,20 +27,24 @@ public class ClientServiceImpl implements ClientService {
 
     private static int pageCounter = -1;
 
-    public ClientServiceImpl() {}
+    public ClientServiceImpl() {
+        Locale.setDefault(Locale.ENGLISH);
+    }
 
     @SuppressWarnings("unchecked")
     public boolean createClient(String name, String surname, String phone, String address)
             throws ClientException {
         Client newClient = new Client(name, surname, phone, address);
-        List<Client> clients = (List<Client>) clientDao.findAll();
-
-        if (clients.contains(newClient)) {
+        if (clientDao.findAll().contains(newClient)) {
             throw new ClientException("Client with such data already exists");
         } else {
-            if (!clientDao.create(newClient).equals(0L)) return true;
+            if (clientDao.create(newClient) != null) return true;
         }
         return false;
+    }
+
+    public void updateClient(Client client) {
+        if (client != null) clientDao.update(client);
     }
 
     @Transactional (readOnly = true)
@@ -66,5 +71,15 @@ public class ClientServiceImpl implements ClientService {
     @SuppressWarnings("unchecked")
     public List<Client> showClientsLastMonth() {
         return clientDao.findLastMonth();
+    }
+
+    @Transactional (readOnly = true)
+    public Client findClientById(Long id) {
+        return clientDao.read(id);
+    }
+
+    @Transactional (readOnly = true)
+    public List findAllClients() {
+        return clientDao.findAll();
     }
 }
