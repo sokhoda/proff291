@@ -231,7 +231,7 @@ public class PokerTable extends Application {
         toss.setText("Toss");
         toss.setLayoutX(670.0D);
         toss.setLayoutY(450.0D);
-        final Button start = new Button();
+        final Button start = new Button(); // клавиша старта игры. Появляется после жеребьевки.
         start.minHeight(200.0D);
         start.minWidth(100.0D);
         start.maxHeight(200.0D);
