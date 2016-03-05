@@ -32,12 +32,14 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public Integer sum(String[] strings) {
+    public String sum(String[] strings) {
         int tmp = 0;
         for (int i = 0; i < strings.length; i++ ){
             tmp += Integer.valueOf(strings[i]);
         }
-        return tmp;
+        String tt = "";
+        tt += tmp;
+        return tt;
     }
 
     @Override
