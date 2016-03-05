@@ -17,8 +17,7 @@ public class NumberServiceImpl implements NumberService {
     NumberServiceImpl() {}
 
     public Double calculateSum(String str) {
-        String[] numbers = str.split(" ");
-        List<String> list = new ArrayList<String>(Arrays.asList(numbers));
+
 
 
         return null;

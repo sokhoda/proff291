@@ -1,7 +1,6 @@
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
-//var _ = require('lodash');
 var R = require('ramda');
 
 var handle = {}
