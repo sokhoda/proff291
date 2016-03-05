@@ -1,16 +1,18 @@
-package web.controller;
+package session17.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.domain.Employee;
-import web.service.EmployeeService;
-//import web.service.EmployeeService;
+import session17.domain.Employee;
+import session17.service.EmployeeService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Random;
+
+//import web.service.EmployeeService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +41,7 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public @ResponseBody Employee getString(@RequestParam String name, @RequestParam String pass) {
+    public @ResponseBody Employee getString(@RequestParam String name, @RequestParam String pass) {//сразу в браузер
         return new Employee(name + " from Server");
     }
 
@@ -55,7 +57,13 @@ public class HelloController {
         log.info("/hello.html controller");
         return "hello " + name;
     }
-
+//@RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
+//public
+//@ResponseBody
+//String helloBody(@RequestParam("login") String name) {
+//    log.info("/hello.html controller");
+//    return "hello " + name;
+//}
     @RequestMapping(value = "/great.html", method = RequestMethod.GET)
     public String great(@RequestParam("login") String name, Model model, HttpSession session) {
         log.info("/great.html controller");
@@ -82,19 +90,18 @@ public class HelloController {
         System.out.println(str);
         return "index";
     }
-
     @RequestMapping(value = "/helloAngular", method = RequestMethod.GET)
     public String angular() {
         return "helloAngular";
     }
 
+    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
+        public String angularController() {
+        return "angularController";
+    }
+
     @RequestMapping(value = "/angularModel", method = RequestMethod.GET)
     public String angularModel() {
         return "angularModel";
-    }
-
-    @RequestMapping(value = "/angularController", method = RequestMethod.GET)
-    public String angularController() {
-        return "angularController";
     }
 }

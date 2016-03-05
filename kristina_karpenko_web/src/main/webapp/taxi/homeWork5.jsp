@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <!--<link rel="stylesheet" type="text/css" href="table.css">-->
-    <script src="../js/phone.js" type="text/javascript"></script>
+    <script src="../js/old/phone.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 </head>
 <body>

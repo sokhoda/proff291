@@ -8,5 +8,6 @@ public interface Service {
     Integer sum(String[] strings);
     String revers(String[] strings);
     String random(String[] strings);
+    String ArrToStr(String[] str);
 
 }

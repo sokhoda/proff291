@@ -20,7 +20,7 @@ import java.util.Map;
 public class SalesDaoImpl implements SalesDao {
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
-
+    public SalesDaoImpl(){}
     public SalesDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
     }
@@ -139,9 +139,3 @@ public class SalesDaoImpl implements SalesDao {
         return null;
     }
 }
-//select new map( max(bodyWeight) as max, min(bodyWeight) as min, count(*) as n ) from Cat cat
-
-//    select id, name from Account
-//for(Object[] row : rs) {
-//        map.put(row[0], row[1]);
-//        }
