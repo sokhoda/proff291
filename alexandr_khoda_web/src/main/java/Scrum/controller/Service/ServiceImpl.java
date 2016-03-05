@@ -23,4 +23,13 @@ public class ServiceImpl implements Service {
     public String random(String[] strings) {
         return null;
     }
+
+    @Override
+    public String ArrToStr(String[] str) {
+        String string="";
+       for(int i =0; i<str.length;i++){
+           string = string+ str[i]+" ";
+       }
+       return string;
+    }
 }
