@@ -2,6 +2,9 @@ package Scrum.controller.Service;
 
 import Scrum.exception.StringDataException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Solyk on 05.03.2016.
@@ -51,7 +54,16 @@ public class ServiceImpl implements Service {
 
     @Override
     public String random(String[] strings) {
-        return null;
+
+            Random rnd = new Random();
+            for (int i = strings.length - 1; i > 0; i--) {
+                int index = rnd.nextInt(i + 1);
+                String a = strings[index];
+                strings[index] = strings[i];
+                strings[i] = a;
+
+        }
+         return arrToStr(strings);
     }
 
     @Override
