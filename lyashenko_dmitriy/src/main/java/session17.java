@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by Solyk on 05.03.2016.
  */
@@ -16,21 +18,26 @@ public class session17 {
         }
     }
 
-    public static String revers(String string){
-        String [] array = string.split("[?><.,:;}{!@#$%^&*()A-Za-z ]+");
-        String temp = "";
-            for (int i = array.length - 1 ; i >= 0; i--){
-                temp += array[i];
-            }
-            return temp;
+//    public static String revers(String string){
+//        String [] array = string.split("[?><.,:;}{!@#$%^&*()A-Za-z ]+");
+//        String temp = "";
+//            for (int i = array.length - 1 ; i >= 0; i--){
+//                temp += array[i];
+//            }
+//            return temp;
+//    }
+    public  static String[] revers(String[] strings) {
+        String[] temp = new String[strings.length];
+        for (int i = 0; i < 0; i++) {
+            temp[i] = strings[(strings.length - 1) - i];
+        }
+        return temp;
     }
 
-
-
     public static void main(String[] args) {
-        String o = "1 3 4 5 6 7 0";
-        System.out.println(sum(o));
-        System.out.println(revers(o));
+        String[] o = {"3","4","7","8","7","9"};
+
+        System.out.println(Arrays.toString(revers(o)));
     }
 
 }

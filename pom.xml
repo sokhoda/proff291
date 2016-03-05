@@ -26,6 +26,7 @@
         <module>dima_rutskiy</module>
         <module>sergey_kutsiy</module>
         <module>sergey_kutsiy_web</module>
+        <module>olena_babenko</module>
 
 
         <module>andrey_kallko</module>
@@ -33,7 +34,7 @@
 
         <!--<module>andrey_kallko</module>-->
 
-        <module>olena_babenko</module>
+
         <module>igor_gonchar</module>
         <module>igor_gonchar_web</module>
         <module>igor_gonchar_spring_final</module>
@@ -124,7 +125,7 @@
         export PATH=$PATH:/home/hw5.users/install/apache-maven-3.2.1/bin
 
         3) Set up java
-        set JAVA_HOME=E:\Program Files (x86)\Java\jdk1.8.0_60
+        set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_45
 
         4) Check if maven set up
         mvn -version
@@ -138,7 +139,6 @@
 -->
 
         <!-- ORACLE JDBC driver -->
-
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>

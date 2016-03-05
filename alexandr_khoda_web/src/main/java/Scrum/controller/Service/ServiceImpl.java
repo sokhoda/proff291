@@ -1,5 +1,7 @@
 package Scrum.controller.Service;
 
+import Scrum.exception.StringDataException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,11 +11,28 @@ import java.util.Random;
  * Created by Solyk on 05.03.2016.
  */
 public class ServiceImpl implements Service {
-    @Override
-    public String[] stringToArray(String string) {
 
-        String [] array = string.split("[ ]+");
-        return array;
+
+    @Override
+    public boolean validateString(String string) throws StringDataException {
+        try{
+            Integer.parseInt(string);
+            return true;
+        }
+        catch (NumberFormatException e){
+            throw new StringDataException("String not valid.");
+        }
+    }
+    @Override
+    public String[] stringToArray(String string) throws StringDataException {
+       boolean res =  validateString(string);
+        if(res) {
+            String[] array = string.split("[ ]+");
+            return array;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -26,10 +45,10 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public String revers(String[] strings) {
-        String temp = "";
-        for (int i = strings.length - 1 ; i >= 0; i--){
-            temp += strings[i] + " ";
+    public String[] revers(String[] strings) {
+        String[] temp = new String[strings.length];
+        for (int i = 0; i < 0; i++){
+            temp[i] = strings[(strings.length - 1) - i];
         }
         return temp;
     }
@@ -49,7 +68,7 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public String ArrToStr(String[] str) {
+    public String arrToStr(String[] str) {
         String string="";
        for(int i =0; i<str.length;i++){
            string = string+ str[i]+" ";
