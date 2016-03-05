@@ -6,7 +6,7 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
-            <value>/WEB-INF/hw7.notes/pages/</value>
+            <value>/WEB-INF/ScrumData/pages/</value>
         </property>
         <property name="suffix">
             <value>.jsp</value>
