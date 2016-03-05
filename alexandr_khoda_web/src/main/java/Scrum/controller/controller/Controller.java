@@ -26,4 +26,12 @@ public class Controller {
         return "index";
     }
 
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String index(Model model) {
+        log.info("/index Controller");
+        return "index";
+    }
+
+
+
 }

@@ -52,6 +52,13 @@ public class HelloController {
         return "index";
     }
 
+    @RequestMapping(value = "/Ex.html", method = RequestMethod.GET)
+
+
+        public String Ex() {
+            return "angularModel";
+}
+
     @RequestMapping(value = "/helloBody.html", method = RequestMethod.GET)
     public @ResponseBody String helloBody(@RequestParam("login") String name) {
         log.info("/hello.html controller");
