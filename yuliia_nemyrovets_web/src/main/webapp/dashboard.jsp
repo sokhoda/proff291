@@ -32,15 +32,15 @@
 
 
     <tr>
-        <a href="registeredClient.jsp">
+        <a href="jsp/Menu.jsp">
             <form>
-                <p><input type="button" value=" Register yourself" style="width: 300px; height: 50px " class="b1"></p>
-            </form>
+        <p><input type="button" value=" Register yourself" style="width: 300px; height: 50px " class="b1"></p>
+    </form>
         </a></td>
     </tr>
 
     <tr>
-        <a href="order.jsp">
+        <a href="jsp/order.jsp">
             <form>
                 <p><input type="button" value=" Make an Order " style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -48,7 +48,7 @@
     </tr>
 
     <tr>
-        <a href="order.jsp">
+        <a href="jsp/order.jsp">
             <form>
                 <p><input type="button" value=" Order Correction" style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -56,7 +56,7 @@
     </tr>
 
     <tr>
-        <a href="orders.jsp">
+        <a href="jsp/orders.jsp">
             <form>
                 <p><input type="button" value=" Show list of orders" style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -64,7 +64,7 @@
     </tr>
 
     <tr>
-        <a href="orders.jsp">
+        <a href="jsp/orders.jsp">
             <form>
                 <p><input type="button" value=" Show list of orders on sum" style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -72,7 +72,7 @@
     </tr>
 
     <tr>
-        <a href="clients.jsp">
+        <a href="jsp/clients.jsp">
             <form>
                 <p><input type="button" value="Show all clients" style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -80,7 +80,7 @@
     </tr>
 
     <tr>
-        <a href="clients.jsp">
+        <a href="jsp/clients.jsp">
             <form>
                 <p><input type="button" value=" Show all clients making the order this month" style="width: 300px; height: 50px " class="b1"></p>
             </form>
@@ -89,7 +89,7 @@
 
 
     <tr>
-        <a href="clients.jsp">
+        <a href="jsp/clients.jsp">
             <form>
                 <p><input type="button" value=" Show list of orders who run on sum"style="width: 300px; height: 50px " class="b1"></p>
             </form>

@@ -21,13 +21,9 @@ public class FileEx {
         try {
             channel = Files.newByteChannel(file);
             ByteBuffer buffer = ByteBuffer.allocate(20);
-            int readed;
-            while((readed = channel.read(buffer)) > 0) {
 
+            while((int)channel.read(buffer) > 0) {
                 System.out.println(new String(buffer.array()));
-
-
-                // print data from buffer
             }
         } catch (Exception e) {
             e.printStackTrace();

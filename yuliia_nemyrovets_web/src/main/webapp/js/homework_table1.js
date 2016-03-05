@@ -19,56 +19,43 @@ vector[6] = new telephone("0631818181", 0);
 vector[7] = new telephone("0981425626", 78);
 
 
-/*
- function createTable() {
- var table='<table border="1" align="center"> <tr>';
- table+='<th> Telephone Number</th><th>Balance</th></tr>'
- for(var i=0; i<=vector.length-1; i++){
-
- table +='<tr><td>'+vector[i].number+'</td><td>'+vector[i].balance+'</td></tr>';
-
- }
- table += '<table>';
- document.write(table);
-
- }*/
-
 function tableCreate() {
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
     tbl.id = 'Table';
     tbl.setAttribute('border', '1');
     tbl.setAttribute('align', 'center');
+    tbl.setAttribute('style', '25%')
     var tbdy = document.createElement('tbody');
 
 
     for (var i = 0; i < vector.length; i++) {
         var tr = document.createElement('tr');
 
-        tr.id = 'trr';
+
         for (var j = 0; j < 4; j++) {
+            var td = document.createElement('td');
             if (j < 1) {
-                var td = document.createElement('td');
+
                 td.appendChild(document.createTextNode(vector[i].number));
-                tr.appendChild(td)
-                ;
+                tr.appendChild(td);
             }
             if (j === 1) {
-                var td = document.createElement('td');
+
                 td.appendChild(document.createTextNode(vector[i].balance));
                 tr.appendChild(td);
 
 
             }
             if (j === 2) {
-                var td = document.createElement('td');
+
                 td.appendChild(createButtonDel());
                 tr.appendChild(td);
 
 
             }
             if (j === 3) {
-                var td = document.createElement('td');
+
                 td.appendChild(createButtonEdit());
                 tr.appendChild(td);
 
@@ -85,6 +72,7 @@ function createButtonDel() {
     button.type = 'button';
     button.value = 'Delete';
     button.id = 'remove';
+    button.style = '25%';
     button.onclick = function () {
         btnDel(this);
     }
@@ -99,16 +87,12 @@ function createButtonEdit() {
     button.onclick = function () {
         btnEdit(this);
     }
-
     return button;
 }
 
 
 function btnEdit(value) {
     var row = value.parentNode.parentNode;
-    row.innerHTML='';
-
-
 
 
 }
@@ -120,6 +104,5 @@ function btnDel(obj) {
 
 
 }
-
 
 

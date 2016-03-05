@@ -9,7 +9,7 @@ public class OrderException extends  Exception{
     }
 
     public String getMessage(){
-        return "OrderException: " + super.getMessage();
+        return "PortionException: " + super.getMessage();
     }
 
 }

@@ -16,7 +16,7 @@
 </div>
 <br>
 <button name="tableCreate" onclick="createTable()">Create Table</button>
-<a href="index.jsp">
+<a href="index1.jsp">
 
     <button name="backWelcomePage">Back To Home</button>
 </a>

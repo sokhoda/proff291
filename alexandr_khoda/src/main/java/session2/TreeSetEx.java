@@ -37,7 +37,7 @@ public class TreeSetEx {
 
     public static void main(String[] args) {
 
-        //TreeSet<User> users = new TreeSet<User>(new LoginAsComparator());
+        //TreeSet<User> hw5.users = new TreeSet<User>(new LoginAsComparator());
         TreeSetEx tr1 = new TreeSetEx();
 
         tr1.addUser("1", "1111");

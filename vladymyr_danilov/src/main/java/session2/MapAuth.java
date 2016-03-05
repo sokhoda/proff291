@@ -31,7 +31,7 @@ public class MapAuth {
             }
         }
         return false;
-//        return users.containsKey(login) && users.get(login).equals(pass);
+//        return hw5.users.containsKey(login) && hw5.users.get(login).equals(pass);
     }
 
     public void setUsers(Map<String, String> users) {

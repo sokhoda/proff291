@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.util.*;
 
 /**
@@ -38,7 +37,7 @@ public class ClientServlet extends HttpServlet {
 
         if (req.getParameter("back") != null){
             clientServiceImpl.getClientService().setLastPrintedClientInx(-1);
-            req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, res);
+            req.getRequestDispatcher("/hw8.taxi/pages/dashboard.jsp").forward(req, res);
         }
         if (req.getParameter("authenticate") != null){
             Map<String, String []> paramMap = req.getParameterMap();
@@ -47,12 +46,14 @@ public class ClientServlet extends HttpServlet {
             String pass = paramMap.get("pass")[0];
 
             if (users.containsKey(login) && users.get(login).equals(pass)){
-                req.getRequestDispatcher("/pages/dashboard.jsp").forward(req, res);
+                req.getRequestDispatcher("/hw8.taxi/pages/dashboard.jsp").forward
+                        (req, res);
             }
             else{
                 req.setAttribute("FailedAuth","Your Login and/or password are not" +
                         " correct. Please try once more.");
-                req.getRequestDispatcher("index.jsp").forward(req, res);
+                req.getRequestDispatcher("/hw8.taxi/pages/loginTaxi.jsp")
+                        .forward(req, res);
             }
         }
         try {
@@ -71,7 +72,7 @@ public class ClientServlet extends HttpServlet {
         catch (ClientException e) {
             req.setAttribute("FailedRegistration", e.getMessage());
         }
-        req.getRequestDispatcher("/pages/registerClient.jsp").forward(req, res);
+        req.getRequestDispatcher("/hw8.taxi/pages/registerClient.jsp").forward(req, res);
     }
 
     private Integer checkIntValue(HttpServletRequest req, HttpServletResponse res,
@@ -108,7 +109,7 @@ public class ClientServlet extends HttpServlet {
         req.setAttribute("clientServiceImpl", clientServiceImpl);
 
         if (req.getParameter("selAct").equals("createClient")){
-            req.getRequestDispatcher("/pages/registerClient.jsp").forward(req,res);
+            req.getRequestDispatcher("/hw8.taxi/pages/registerClient.jsp").forward(req,res);
             return;
         }
 
@@ -131,7 +132,8 @@ public class ClientServlet extends HttpServlet {
 
         if (clientList != null) {
             req.setAttribute("clientList", clientList);
-            req.getRequestDispatcher("/pages/clients.jsp").forward(req,res);
+            req.getRequestDispatcher("/hw8.taxi/pages/clients.jsp").forward
+                    (req,res);
         }
         else {
             res.getWriter().println("Error: clientList is NULL");

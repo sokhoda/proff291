@@ -51,22 +51,19 @@
                 <br>
                 <form action="/registration" method="post">
                     <table border="0" width="30%" align="center">
-                        <tr>
-                            <td width="50%">Login:</td>
-                            <td width="50%"><input type="text" name="login" /></td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td width="50%">Login:</td>--%>
+                            <%--<td width="50%"><input type="text" name="login" /></td>--%>
+                        <%--</tr>--%>
                         <tr>
                             <td width="50%">Name:</td>
                             <td width="50%"><input type="text" name="name" /></td>
                         </tr>
-                        <tr>
-                            <td width="50%">Surname:</td>
-                            <td width="50%"><input type="text" name="surname" /></td>
-                        </tr>
-                        <tr>
-                            <td width="50%">Phone:</td>
-                            <td width="50%"><input type="tel" name="phone" /></td>
-                        </tr>
+                        <%--<tr>--%>
+                            <%--<td width="50%">Surname:</td>--%>
+                            <%--<td width="50%"><input type="text" name="surname" /></td>--%>
+                        <%--</tr>--%>
+                        <%--              --%>
                         <tr>
                             <td width="50%">Password:</td>
                             <td width="50%"><input type="password" name="password" /></td>
@@ -80,18 +77,7 @@
                             <td width="50%"><a href="login.jsp">Login</a></td>
                         </tr>
                     </table>
-
-                    <%--Name:             <input type="text" name="name" /><br>--%>
-                    <%--Surname:          <input type="text" name="surname"/><br>--%>
-                    <%--Phone:            <input type="tel" name="number"/><br>--%>
-                    <%--Password:         <input type="password" name="password"><br>--%>
-                    <%--Confirm Password: <input type="password" name="confirmPassword"><br>--%>
-                    <%--<input type="submit" value="Registration"/>--%>
-                    <%--<a href="login.jsp">Login</a>--%>
                 </form>
-
-
-                <%--<div style="clear: both"></div>--%>
                 <p>
                     ${message}
                 </p>

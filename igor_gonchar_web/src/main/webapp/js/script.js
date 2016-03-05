@@ -53,3 +53,43 @@ function createTree(el, tabs) {
  document.write(doc.nodeType);
  document.write(doc.tagName);
  document.write(doc.childNodes);*/
+
+var functionFun = function() {
+    //alert(vaz);
+    //alert('Fun function ' + arguments.length);
+    var vaz = 4;
+    //var obj = [];
+
+    var obj = {
+        field : 1,
+        field2 : 'поле',
+        du : function () {
+            alert(this.field + this.field2 + this.id);
+        }
+    };
+    obj['id'] = 1;
+    function Class() {
+        this.field = 12;
+        this.method = function() {
+            this.field = 45;
+            return this.field;
+        };
+        this.toString = function() {
+            return 2;
+        }
+    }
+
+    var obj = new Class();
+    //alert(obj.field + obj.method());
+
+    var vector = new Array(3);
+
+    //var sub = Object.create(obj);
+    var sub = {};
+    sub.__proto__ = obj;
+
+
+    alert(obj + sub);
+
+
+};
