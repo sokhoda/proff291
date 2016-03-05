@@ -23,9 +23,6 @@ public class NumbersController {
     @Autowired
     private NumberService numberService;
 
-    @Autowired
-    private String str;
-
     @RequestMapping(value = "/numberController", method = RequestMethod.POST)
     public String passwordDataConfirm(@RequestParam("inp") String inp, Model model) {
         if (inputValidation(inp)) {
