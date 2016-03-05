@@ -27,6 +27,8 @@
 <form action="/showNotebooksServlet" method="get">
 
     Все ноутбуки  <br/> <input type="submit" name="all" value="Show"  > <br/><br>
+    Ноутбуки по <input type="text" name="am"> штук.
+    <input type="submit" name="byAm" value="Show"  > <br/><br>
 
     Ноутбуки, количество которых больше:   <input type="text" name="amount">
     <input type="submit" name="byAmount" value="Show"  > <br/><br>
