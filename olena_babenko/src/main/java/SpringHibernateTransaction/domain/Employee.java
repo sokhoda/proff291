@@ -1,4 +1,4 @@
-package SpringHibernateXML;
+package SpringHibernateTransaction.domain;
 
 import javax.persistence.*;
 import java.util.Date;

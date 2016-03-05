@@ -1,5 +1,7 @@
-package SpringHibernateXML;
+package SpringHibernateTransaction.dao;
 
+import SpringHibernateAnnotation.Employee;
+import SpringHibernateAnnotation.EmployeeDao;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

@@ -8,7 +8,7 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:property-placeholder location="classpath:session16/conf.properties"/>
-    <context:component-scan base-package="SpringHibernateXML"/>
+    <context:component-scan base-package="SpringHibernateAnnotation"/>
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}"/>

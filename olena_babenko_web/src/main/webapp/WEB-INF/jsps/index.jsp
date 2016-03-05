@@ -19,5 +19,6 @@
 <p>${name}</p>
 <p><a href="/helloAngular">Angular Hello</a></p>
 <p><a href="/angularController">Angular AJAX</a></p>
+<p><a href="/Task">Task</a></p>
 </body>
 </html>

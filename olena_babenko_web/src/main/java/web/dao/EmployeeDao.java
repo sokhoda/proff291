@@ -1,4 +1,6 @@
-package SpringHibernateXML;
+package web.dao;
+
+import web.domain.Employee;
 
 import java.util.List;
 
@@ -9,4 +11,5 @@ import java.util.List;
  */
 public interface EmployeeDao {
     List<Employee> findAll();
+    Employee getEmployeeByFirstName(String firstName);
 }

@@ -1,4 +1,4 @@
-package SpringHibernateXML;
+package SpringHibernateAnnotation;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

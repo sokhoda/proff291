@@ -28,7 +28,7 @@ public class Registration extends HttpServlet {
         String pass = request.getParameter("UserPass");
 
         if (userProcessing.Registration(login, pass)) {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("index_session17.jsp").forward(request, response);
         } else {
             response.getWriter().print("Registration is failed!\nUser with login " + login + " already exists.\nTry again!");
         }
