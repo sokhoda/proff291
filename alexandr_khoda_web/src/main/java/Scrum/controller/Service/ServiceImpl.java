@@ -71,8 +71,16 @@ public class ServiceImpl implements Service {
     public String arrToStr(String[] str) {
         String string="";
        for(int i =0; i<str.length;i++){
-           string = string+ str[i]+" ";
+           if(i==str.length-1)
+           {
+               string = string+ str[i];
+
+           }else {
+               string = string + str[i] + " ";
+           }
        }
        return string;
     }
+
+
 }

@@ -1,8 +1,7 @@
-package hw8.taxi.domain.action;
+package hw8.action;
 
-import hw8.taxi.domain.Client;
+import hw8.Client;
 import hw8.taxi.exception.ClientException;
-import hw8.taxi.service.ClientService;
 import hw8.taxi.service.ClientServiceImpl;
 
 import javax.servlet.ServletException;
