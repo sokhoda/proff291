@@ -23,23 +23,25 @@ public class NotebookServiceImpl implements NotebookService {
     private StoreDao storeDao;
     private SalesDao salesDao;
 
+    public NotebookServiceImpl() {
+    }
 
     public NotebookServiceImpl(NotebookDao notebookDao) {
         this.notebookDao = notebookDao;
     }
 
-    public NotebookServiceImpl(StoreDao storeDao) {
-        this.storeDao = storeDao;
-    }
-
     public NotebookServiceImpl(SalesDao salesDao) {
         this.salesDao = salesDao;
+    }
+    public NotebookServiceImpl(StoreDao storeDao) {
+        this.storeDao = storeDao;
     }
 
 
     @Override
     public Long receive(Long noteId, int amount, double price) {
-        return null;
+        Store store = notebookDao.receive(noteId,amount,price);
+        return store.getId();
     }
 
     @Override
@@ -114,12 +116,10 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
-    public List getNotebooksByPortion(int size) {
+    public List getNotebooksByPortion(int page,int size) {
+         List<Notebook> list = notebookDao.findAll(page,size);
+         return list;
 
-//        List<Notebook> list = notebookDao.findAll(size, from);
-//        from = size;
-//        return list;
-        return  null;
     }
 
     @Override

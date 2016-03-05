@@ -6,7 +6,8 @@ package Scrum.controller.Service;
 public interface Service {
     String[] stringToArray(String string);
     Integer sum(String[] strings);
-    String revers(String[] strings);
-    String random(String[] strings);
+    String[] revers(String[] strings);
+    String[] random(String[] strings);
+    String arrToStr(String[] str);
 
 }
