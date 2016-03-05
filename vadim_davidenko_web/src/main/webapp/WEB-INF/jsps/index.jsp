@@ -17,9 +17,11 @@
 <body>
 
 
-
-<input form="/numberController" name="inp"><input>
+<form action=/numberController" method="post">
+<input type="text" name="inp"><input>
 <input type="submit" value="Submit"/>
+</form>
+
 <br>
 
 <div id="result1"> Expected Result 1</div>
