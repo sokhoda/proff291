@@ -10,36 +10,46 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:component-scan base-package="laptopshop"/>
 
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!--<context:property-placeholder-->
+            <!--location="classpath: ../webapp/WEB-INF/springnotes/conf.properties"/>-->
+
+    <context:component-scan base-package="springnotes"/>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
         <property name="username" value="notebooks"/>
         <property name="password" value="notebooks"/>
     </bean>
 
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>laptopshop.domain</value>
+                <value>springnotes.domain</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
                 hibernate.show_sql=true
-                hibernate.hbm2ddl.auto=create
+                hibernate.hbm2ddl.auto=update
             </value>
         </property>
     </bean>
 
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="mySessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <tx:annotation-driven transaction-manager="txManager" />
+
+
+    <!--<bean id="emplDao" class="session15.dao.EmployeeDaoImpl">-->
+        <!--<constructor-arg ref="sf"/>-->
+    <!--</bean>-->
+
 </beans>
 
 
