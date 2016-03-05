@@ -25,18 +25,18 @@ public class NumbersController {
 
     @RequestMapping(value = "/numberController", method = RequestMethod.POST)
     public String passwordDataConfirm(@RequestParam("inp") String inp, Model model) {
-        if (inputValidation(inp)) {
-            Double result = numberService.calculateSum(inp);
-            String result1 = result.toString();
+        if (true/*inputValidation(inp)*/) {
+            String result1 = String.valueOf(numberService.calculateSum(inp));
             String result2 = numberService.reverse(inp);
             String result3 = numberService.shuffle(inp);
 
             model.addAttribute("res1", result1);
             model.addAttribute("res2", result2);
             model.addAttribute("res3", result3);
+            model.addAttribute("inp", inp);
             return "index";
         }
-        model.addAttribute("res1", "Incorrect data entered");
+        model.addAttribute("error", "Incorrect data entered");
         return "index";
     }
 

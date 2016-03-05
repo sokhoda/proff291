@@ -17,8 +17,8 @@
 <body>
 
 
-<form action=/numberController" method="post">
-<input type="text" name="inp"/>
+<form action="/numberController" method="post">
+<input type="text" name="inp" value="${inp}"/>
 <input type="submit" value="Submit"/>
 </form>
 
