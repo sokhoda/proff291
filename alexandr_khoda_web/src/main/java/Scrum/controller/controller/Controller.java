@@ -1,4 +1,4 @@
-package Scrum.controller;
+package Scrum.controller.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
