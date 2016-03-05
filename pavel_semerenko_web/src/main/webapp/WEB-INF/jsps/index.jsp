@@ -12,7 +12,7 @@
 </head>
 <body>
     <form action="/calc" method="get">
-        <input id="numbers" type="text"/><br />
+        <input id="numbers" name="numbers" type="text"/><br />
         <input id="send" type="submit" value="send" /><br />
     </form>
     Sum: ${sum} <br />

@@ -1,4 +1,4 @@
-package hw8.taxi.domain;
+package hw8;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
