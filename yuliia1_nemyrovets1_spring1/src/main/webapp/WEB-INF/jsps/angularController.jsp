@@ -9,28 +9,21 @@
 <html ng-app="myapp">
 <head>
     <title>Hello AngularJS</title>
-    <script src="../../JS/angular.js"></script>
-    <%--<script src="../../JS/controller.js"></script>--%>
-    <script src="../../JS/ajaxa.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/ajaxa.js"></script>
     <%--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>--%>
 </head>
 <body>
 <div ng-controller="HelloCtrl">
-    Your name: <input type="text" ng-model="name" >
+    Your name: <input ng-model="name">
     <button ng-click="update()">update</button>
     <p>Model state: {{name}}</p>
     <p>{{greeting}}</p>
 
-
-<p>{{randInt}}<p>
-    <div>
-        <ul>
-            <li ng-repeat="el in vector track by $index"> {{$index + 1}}. {{el}}
-            </li>
+               <ul>
+            <li ng-repeat="el in emps"> {{el.firstName}} </li>
         </ul>
-    </div>
-
+   </div>
 </div>
-<p>{{vector}}<p>
 </body>
 </html>
