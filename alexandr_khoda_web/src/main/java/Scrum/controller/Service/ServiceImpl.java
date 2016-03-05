@@ -3,14 +3,12 @@ package Scrum.controller.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Solyk on 05.03.2016.
  */
 public class ServiceImpl implements Service {
-
-
-
     @Override
     public String[] stringToArray(String string) {
 
@@ -38,12 +36,16 @@ public class ServiceImpl implements Service {
 
     @Override
     public String random(String[] strings) {
-        List<String> tepmArray = new ArrayList<String>();
-        for (int i = 0; i < strings.length; i++){
-            tepmArray.add(strings[i]);
-        }
 
-        return null;
+            Random rnd = new Random();
+            for (int i = strings.length - 1; i > 0; i--) {
+                int index = rnd.nextInt(i + 1);
+                String a = strings[index];
+                strings[index] = strings[i];
+                strings[i] = a;
+
+        }
+         return ArrToStr(strings);
     }
 
     @Override
