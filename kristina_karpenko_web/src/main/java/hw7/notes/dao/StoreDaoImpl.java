@@ -16,7 +16,7 @@ import java.util.List;
 public class StoreDaoImpl implements StoreDao {
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
-
+    public StoreDaoImpl(){}
     public StoreDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
     }

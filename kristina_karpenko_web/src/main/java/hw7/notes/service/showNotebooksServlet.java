@@ -20,12 +20,12 @@ import java.io.IOException;
 @WebServlet("/showNotebooksServlet")
 public class showNotebooksServlet extends HttpServlet {
 
-    private static SessionFactory factory;
-    Session session = null;
-    NotebookDao notebookDao;
-    NotebookService notebookService;
-    VendorDao vendorDao;
-    SalesDao salesDao;
+    private  SessionFactory factory;
+    private Session session = null;
+    private NotebookDao notebookDao;
+    private NotebookService notebookService;
+    private VendorDao vendorDao;
+    private SalesDao salesDao;
 
     @Override
     public void init() throws ServletException {
@@ -40,6 +40,8 @@ public class showNotebooksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String all = req.getParameter("all");
+        String byAm = req.getParameter("byAm");
+        String amStr = req.getParameter("am");
         String byAmount = req.getParameter("byAmount");
         String amountStr = req.getParameter("amount");
         String cpuVendor = req.getParameter("cpuVendor");
@@ -48,22 +50,28 @@ public class showNotebooksServlet extends HttpServlet {
         String sales = req.getParameter("sales");
 
         if (all != null) {
-       //   resp.getWriter().print(Formater.getString(notebookService.getNotebooksFromStore()));
-           resp.getWriter().print(notebookDao.findAll());
+            //   resp.getWriter().print(Formater.getString(notebookService.getNotebooksFromStore()));
+            resp.getWriter().print(notebookDao.findAll());
         }
+        if (byAm != null) {
+            int am = Integer.parseInt(amStr);
 
+            req.setAttribute("size",Formater.getString(notebookService.getNotebooksGtAmount(am)));
+         //     resp.getWriter().print(Formater.getString(notebookService.getNotebooksGtAmount(am)));
+           req.getRequestDispatcher("findBYPortion.jsp").forward(req, resp);
+        }
         if (byAmount != null) {
             int amount = Integer.parseInt(amountStr);
             resp.getWriter().print(Formater.getString(notebookService.getNotebooksGtAmount(amount)));
         }
-        if(byCpuVendor != null){
+        if (byCpuVendor != null) {
             Vendor vendor = vendorDao.findVendorByName(cpuVendor);
-            resp.getWriter().print(Formater.getString(notebookService.getNotebooksByCpuVendor(vendor) ));
+            resp.getWriter().print(Formater.getString(notebookService.getNotebooksByCpuVendor(vendor)));
         }
-        if(byOrderVendor != null){
-            resp.getWriter().print(Formater.getString(notebookService.getNotebooksStorePresent() ));
+        if (byOrderVendor != null) {
+            resp.getWriter().print(Formater.getString(notebookService.getNotebooksStorePresent()));
         }
-        if(sales != null){
+        if (sales != null) {
             notebookService = new NotebookServiceImpl(salesDao);
             resp.getWriter().print(notebookService.getSalesByDays());
         }
