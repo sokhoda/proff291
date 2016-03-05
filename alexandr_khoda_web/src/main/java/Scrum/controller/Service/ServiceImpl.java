@@ -1,6 +1,10 @@
 package Scrum.controller.Service;
 
 import Scrum.exception.StringDataException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -67,13 +71,13 @@ public class ServiceImpl implements Service {
 
     @Override
     public String arrToStr(String[] str) {
-        String string = "";
-       for(int i = 0; i < str.length; i++){
-           if(i == str.length - 1)
+        String string="";
+       for(int i =0; i<str.length;i++){
+           if(i==str.length-1)
            {
-               string = string + str[i];
+               string = string+ str[i];
 
-           } else {
+           }else {
                string = string + str[i] + " ";
            }
        }
