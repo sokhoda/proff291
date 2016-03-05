@@ -20,5 +20,7 @@ public class ScrumServiceImpl implements ScrumService {
                return null;
            }
         }
+
+        return array;
     }
 }
