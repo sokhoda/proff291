@@ -1,4 +1,4 @@
-package Scrum.controller;
+package Scrum.controller.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,13 @@ public class Controller {
     public static final Logger log = Logger.getLogger(Controller.class);
 
 
-    @RequestMapping(value = "/Estimations.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/estimations.html", method = RequestMethod.GET)
     public String hello(@RequestParam("sum") String sum, @RequestParam("reverse")  String reverse, @RequestParam("random") String rand, Model model) {
-        log.info("/hello.html controller");
+        log.info("/estimations.html controller");
         model.addAttribute("sum" + sum);
         model.addAttribute("reverse"+reverse);
         model.addAttribute("random"+rand);
-
+//
         return "index";
     }
 
