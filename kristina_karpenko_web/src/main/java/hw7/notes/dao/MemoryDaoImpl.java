@@ -7,18 +7,19 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Администратор on 15.02.2016.
- */
-public class MemoryDaoImpl implements MemoryDao {
+ */public class MemoryDaoImpl implements MemoryDao {
 
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
-
+    public MemoryDaoImpl(){}
     public MemoryDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
     }

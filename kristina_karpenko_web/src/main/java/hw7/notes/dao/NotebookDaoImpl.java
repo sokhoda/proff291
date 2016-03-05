@@ -1,6 +1,7 @@
 package hw7.notes.dao;
 
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Store;
 import hw7.notes.domain.Vendor;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -8,16 +9,20 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Администратор on 15.02.2016.
  */
+
 public class NotebookDaoImpl implements NotebookDao {
 
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(NotebookDaoImpl.class);
+
+    public NotebookDaoImpl(){}
 
     public NotebookDaoImpl(SessionFactory sessionFactory) {
         factory = sessionFactory;
@@ -113,21 +118,14 @@ public class NotebookDaoImpl implements NotebookDao {
         return null;
     }
 
-    public List findAll(int size, int from) {
+    public List findAll(int page, int size) {
         Session session = factory.openSession();
-        Query query = null;
         try {
-            query = session.createQuery("from Notebook");
-            List<Object[]> list = query.list();
-            //System.out.println(Arrays.toString(list.get(0)));
-            //System.out.println(Arrays.toString(list.get(1)));
-            List count;
-            for (int i = from; (count = query.list()).size() != 0; i = +size) {
-                query.setFirstResult(i);
-                query.setMaxResults(size);
-                System.out.println(count);
-            }
-
+            List<Notebook> list = session.createQuery("from Notebook")
+                    .setFirstResult(page*size)
+                    . setMaxResults(size)
+                    .list();
+            return list;
         } catch (HibernateException e) {
             log.error("Open session failed", e);
             if (session != null) {
@@ -140,7 +138,7 @@ public class NotebookDaoImpl implements NotebookDao {
             factory.close();
         }
         log.info(session);
-        return query.list();
+        return null;
     }
 
 
@@ -176,7 +174,7 @@ public class NotebookDaoImpl implements NotebookDao {
         Session session = factory.openSession();
         try {
             List<Object[]> result  = session.createQuery("from Store s join s.notebook n where s.amount > :amount ")
-                 .setParameter("amount", amount).list();
+                    .setParameter("amount", amount).list();
 
             if (result != null) {
                 for (Object n : result) {
@@ -230,6 +228,27 @@ public class NotebookDaoImpl implements NotebookDao {
             }
 
             return list;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Store receive(Long noteId, int amount, double price) {
+        Store store = null;
+        Session session = factory.openSession();
+        try {
+            List<Store> result  = session.createQuery("select s from Store s join s.notebook n where n.id= :noteId and s.amount= :amount and s.price = :price ")
+                    .setParameter("noteId",noteId) .setParameter("amount",amount).setParameter("price", price)
+                    .list();
+
+            for (Store note : result) {
+                store = note;
+            }
+            return store;
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
