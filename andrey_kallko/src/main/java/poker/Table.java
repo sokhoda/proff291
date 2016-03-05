@@ -1,4 +1,6 @@
-package poker;/**
+package poker;
+
+/**
  * Created by tri___ton on 04.01.16.
  */
 
@@ -26,18 +28,15 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import scala.Int;
 
 
-import javax.swing.text.AttributeSet;
 import java.io.*;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 
 public class Table extends Application {
-    Stage plane = new Stage();
+    private Stage plane = new Stage();
     private Text nextTime = new Text();  //счетчик до следующего уровня
     private Countdown level = new Countdown(6); // класс поток обратный таймер в минутах
     private Preflop preflop = new Preflop(); // класс поток раздача префлоп
@@ -45,53 +44,54 @@ public class Table extends Application {
     private Turn turn = new Turn();
     private River river = new River();
     private NewHand newHand = new NewHand(); // класс поток начало новой руки. Сброс графики к началу.
-    Cash cash = new Cash(); // класс работы с фишками
-    Deck deck = new Deck(); // класс работы c колодой
-    Analysis analysis=new Analysis(); // класс работы для анализа и принятия решения компьютером
-    ImageView myCard1 = new ImageView(); // картинка моя карта1
-    ImageView myCard2 = new ImageView(); // картинка моя карта2
-    ImageView compCard1 = new ImageView(); // картинка комп карта1
-    ImageView compCard2 = new ImageView(); // картинка комп карта2
-    ImageView button = new ImageView(); // картинка кнопка диллера
-    Text blind = new Text("10/20"); // текст текущий уровень блайндов
-    Text nextLevel = new Text("15/30"); // текст следующий уровень блайндов
-    TextField betSize = new TextField(); // текстовое поле для определения уровня бета
-    int dealerY=240; // y-координата кнопки диллера
-    Text showMyBet = new Text(); // текст размер моей ставки в этом раунде
-    Text showCompBet = new Text(); // текст размер ставки компьютера в этом раунде;
-    Text showMyStackValue = new Text(); // текст размер моего стека
-    Text showCompStackValue = new Text(); //текст размер стека компьютера
-    TextField showBank = new TextField();
-    Group gPlane = new Group(); // группа картинок для графики стола
-    ImageView flop1 = new ImageView(); // картинка первоя карты флопа
-    ImageView flop2 = new ImageView(); // картинка второй карты флопа
-    ImageView flop3 = new ImageView(); // картинка третьей карты флопа
-    ImageView showturn = new ImageView(); // картинка карты терна
-    ImageView showriver = new ImageView(); // картинка карты ривера
+    private Cash cash = new Cash(); // класс работы с фишками
+    private Deck deck = new Deck(); // класс работы c колодой
+    private Analysis analysis=new Analysis(); // класс работы для анализа и принятия решения компьютером
+    private ImageView myCard1 = new ImageView(); // картинка моя карта1
+    private ImageView myCard2 = new ImageView(); // картинка моя карта2
+    private ImageView compCard1 = new ImageView(); // картинка комп карта1
+    private ImageView compCard2 = new ImageView(); // картинка комп карта2
+    private ImageView button = new ImageView(); // картинка кнопка диллера
+    private Text blind = new Text("10/20"); // текст текущий уровень блайндов
+    private Text nextLevel = new Text("15/30"); // текст следующий уровень блайндов
+    private TextField betSize = new TextField(); // текстовое поле для определения уровня бета
+    private int dealerY=240; // y-координата кнопки диллера
+    private Text showMyBet = new Text(); // текст размер моей ставки в этом раунде
+    private Text showCompBet = new Text(); // текст размер ставки компьютера в этом раунде;
+    private Text showMyStackValue = new Text(); // текст размер моего стека
+    private Text showCompStackValue = new Text(); //текст размер стека компьютера
+    private TextField showBank = new TextField();
+    private Group gPlane = new Group(); // группа картинок для графики стола
+    private ImageView flop1 = new ImageView(); // картинка первоя карты флопа
+    private ImageView flop2 = new ImageView(); // картинка второй карты флопа
+    private ImageView flop3 = new ImageView(); // картинка третьей карты флопа
+    private ImageView showturn = new ImageView(); // картинка карты терна
+    private ImageView showriver = new ImageView(); // картинка карты ривера
 
-    Button act5 = new Button();//кнопка next
-    Button act1 = new Button();//кнопка пасс
-    Button blindCall = new Button(); // кнопка чек/колл
-    Button act3 = new Button();// кнопка бет/рейз
-    Button act4 = new Button();// кнопка оллин
+    private Button act5 = new Button();//кнопка next
+    private Button act1 = new Button();//кнопка пасс
+    private Button blindCall = new Button(); // кнопка чек/колл
+    private Button act3 = new Button();// кнопка бет/рейз
+    private Button act4 = new Button();// кнопка оллин
 
 
     // Переменные для окна предзапуска игры.
-    Text dirStatus = new Text();
-    String mainPath = new String(); // путь к основной папке, в которой хранятся профайлы игроков и архивы игры
-    String altPath = "";  // если основной папки нет комп предложит создать ее по этому адресу
-    Stage preStage = new Stage();
-    boolean finded=true; //техническая для поиска возможной дирректории
+    private Text dirStatus = new Text();
+    private String mainPath = new String(); // путь к основной папке, в которой хранятся профайлы игроков и архивы игры
+    private String altPath = "";  // если основной папки нет комп предложит создать ее по этому адресу
+    private Stage preStage = new Stage();
+    private boolean finded=true; //техническая для поиска возможной дирректории
 
 
-    ArrayList <String> handLog = new ArrayList<>();// запись истории руки.
+    private ArrayList <String> handLog = new ArrayList<>();// запись истории руки.
 
-    Human opp=null;
-    String nameOfUser;
+    private Human opp=null;
+    private String nameOfUser;
 
-    Text showTempText = new Text(); //временное поле текст стратегия игры компа и другие тестовые данные
-    String phase = "blin";// возможные значения blin, pref, flop, turn, rive;
-    boolean step=true;
+
+    private Text showTempText = new Text(); //временное поле текст стратегия игры компа и другие тестовые данные
+    private String phase = "blin";// возможные значения blin, pref, flop, turn, rive;
+    private boolean step=true;
 
 
 
@@ -130,7 +130,48 @@ public class Table extends Application {
 
         boolean dec=true;
 
+        // Ктото сыграл ОЛЛИН. Проход всех стадий
+
+        if ((subLast.equals(subPreLast))&&(cash.myStack*cash.compStack==0)&&(dec)) {
+            dec=false;
+
+            String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(3) + ".jpg";
+            String temp2 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(4) + ".jpg";
+            Image preflop1 = new Image(temp1, 100.0, 200.0, true, true);
+            Image preflop2 = new Image(temp2, 100.0, 200.0, true, true);
+            compCard1.setImage(preflop1);
+            compCard2.setImage(preflop2);
+
+            System.out.print("Сыгран оллин.");
+          if (phase.equals("pref")) {
+                System.out.println(" на этапе " + phase);
+                flop.run();
+                return;
+           }
+
+            if (phase.equals("flop")) {
+                System.out.println(" на этапе флоп");
+                turn.run();
+                return;
+            }
+
+            if (phase.equals("turn")) {
+                System.out.println(" на этапе терн");
+                river.run();
+                return;
+            }
+
+            if (phase.equals("rive")) {
+                System.out.println(" на этапе ривер");
+                analysis.handEnd();
+                return;
+            }
+
+
+        }
+
         // торги на этом етапе закончены.  Dве последние ставки равны и сделаны на текузей стадии. Переход к следуюзей стадии
+
 
         if(((subLast.equals(subPreLast))&&(phase.equals(stad)))&&(dec)) {
 
@@ -229,6 +270,7 @@ public class Table extends Application {
         }
 
         // Устранение лисчнего цчек на флопе
+
 
 
 
@@ -352,7 +394,7 @@ public class Table extends Application {
         showCompStackValue.setLayoutX(290);
         showCompStackValue.setLayoutY(40);
 
-        Button toss = new Button();// клавиша жеребьевки первого хода. Исчезает после первого использования
+        final Button toss = new Button();// клавиша жеребьевки первого хода. Исчезает после первого использования
         toss.minHeight(200);
         toss.minWidth(100);
         toss.maxHeight(200);
@@ -363,7 +405,7 @@ public class Table extends Application {
         toss.setLayoutY(450);
 
 
-        Button start = new Button(); // клавиша старта игры. Появляется после жеребьевки.
+        final Button start = new Button(); // клавиша старта игры. Появляется после жеребьевки.
         start.minHeight(200);
         start.minWidth(100);
         start.maxHeight(200);
@@ -522,18 +564,30 @@ public class Table extends Application {
                 showTempText.setText("Человек сыграл ПАС");
                 betSize.setText("");// сброс текстового поля размера рейза
                 cash.pot = cash.pot + cash.myBet+cash.compBet;
+                showCompBet.setText(""+cash.pot);
                 cash.compStack=cash.compStack+cash.pot;
                 cash.pot=0;
                 cash.myBet=0;
                 cash.compBet=0;
-                showCompStackValue.setText(""+cash.compStack);
+                //showCompStackValue.setText(""+cash.compStack);
                 showBank.setText("0");
                 showMyBet.setText("0");
-                showCompBet.setText("0");
+                //showCompBet.setText("0");
                 String toLog = "huma" + phase+"0";
                 handLog.add(toLog);
                 System.out.println("Итоговая история руки ");
                 System.out.println(handLog.toString());
+
+//                act1.setVisible(false);
+//                blindCall.setVisible(false);
+//                act4.setVisible(false);
+//                act3.setVisible(false);
+//                betSize.setVisible(false);
+//                act5.setVisible(true);
+//                reBuildOpp();
+//
+//                newHand.run();
+
                 analysis.handEnd();
 
 
@@ -673,18 +727,18 @@ public class Table extends Application {
     public void preloader() throws IOException {
 
 
-        Group preGroup = new Group();
+        final Group preGroup = new Group();
 
 
         File [] root = File.listRoots();
-        Path startPath = root[0].toPath(); // определение корневого каталога
+        final Path startPath = root[0].toPath(); // определение корневого каталога
 
 
         dirStatus.setText("Нажмите для начала поиска нужной папки.");
         dirStatus.setLayoutX(70);
         dirStatus.setLayoutY(50);
 
-        Button dirFind = new Button("Serch");
+        final Button dirFind = new Button("Search");
         dirFind.setLayoutX(180);
         dirFind.setLayoutY(150);
 
@@ -692,16 +746,16 @@ public class Table extends Application {
         preGroup.getChildren().add(dirFind);
 
 
-        TextField propPath = new TextField();
+        final TextField propPath = new TextField();
         propPath.setLayoutX(30);
         propPath.setLayoutY(30);
         propPath.setMinWidth(250);
 
-        Button close = new Button("Close");
+        final Button close = new Button("Close");
         close.setLayoutX(90);
         close.setLayoutY(150);
 
-        Button makeDir = new Button("Создать");
+        final Button makeDir = new Button("Create");
         makeDir.setLayoutX(310);
         makeDir.setLayoutY(30);
 
@@ -720,10 +774,10 @@ public class Table extends Application {
                 dirStatus.setVisible(true);
 
                 mainPath="";
-                PrintFiles pf = new PrintFiles();
+                final PrintFiles pf = new PrintFiles();
                 dirStatus.setText("                     Поиск начался....");
 
-                ProgressBar bar = new ProgressBar();
+                final ProgressBar bar = new ProgressBar();
                 bar.setVisible(true);
                 bar.setLayoutX(50);
                 bar.setLayoutY(100);
@@ -759,7 +813,7 @@ public class Table extends Application {
 
                             newGroup.getChildren().add(propPath);
                             propPath.setText(altPath);
-                            dirFind.setText("Ресарт.");
+                            dirFind.setText("Рестарт.");
                             dirFind.setDisable(true);
                             newGroup.getChildren().add(makeDir);
                             newGroup.getChildren().add(close);
@@ -810,7 +864,7 @@ public class Table extends Application {
             @Override
             public void handle(MouseEvent event) {
                 dirFind.setDisable(false);
-                propPath.setText(propPath.getText()+"/HUpoker");
+                propPath.setText(propPath.getText()+File.separator+"HUpoker");
                 new File(propPath.getText()).mkdirs();
 
                 File check = new File(propPath.getText());
@@ -833,16 +887,16 @@ public class Table extends Application {
         System.out.println("Переходим к выбору игрока!");
 
 
-        Stage userStage = new Stage();
+        final Stage userStage = new Stage();
         Group userGroup = new Group();
 
-        ArrayList<String> findedUsers = new ArrayList<>();
-        ObservableList users = FXCollections.observableArrayList(findedUsers);
+        final ArrayList<String> findedUsers = new ArrayList<>();
+        final ObservableList users = FXCollections.observableArrayList(findedUsers);
 
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                File serchDir = new File(mainPath+"/User");
+                File serchDir = new File(mainPath+File.separator+"User");
                 File [] temp = serchDir.listFiles();
                 int i=0;
                 int size = temp.length;
@@ -870,7 +924,7 @@ public class Table extends Application {
         anonce.setLayoutX(30);
         anonce.setLayoutY(250);
 
-        TextField newName = new TextField("Введите имя нового игрока");
+        final TextField newName = new TextField("Введите имя нового игрока");
         newName.setLayoutX(30);
         newName.setLayoutY(260);
         newName.setMinWidth(260);
@@ -890,7 +944,7 @@ public class Table extends Application {
         anonce1.setLayoutY(20);
 
 
-        ComboBox userList = new ComboBox(users);
+        final ComboBox userList = new ComboBox(users);
         userList.setLayoutX(30);
         userList.setLayoutY(30);
         userList.setMinWidth(260);
@@ -923,7 +977,7 @@ public class Table extends Application {
                     return;
                 } else {
 
-                    File user = new File (mainPath+"/User/"+ userList.getValue());
+                    File user = new File (mainPath+File.separator+"User"+File.separator+ userList.getValue());
                     nameOfUser=(String) userList.getValue();
                     try{
                         FileInputStream fis = new FileInputStream(user);
@@ -955,7 +1009,7 @@ public class Table extends Application {
                     return;
                 } else
                 {
-                    File newUser = new File(mainPath+"/User/"+nameOfUser);
+                    File newUser = new File(mainPath+File.separator+"User"+File.separator+nameOfUser);
                     try {
                         newUser.createNewFile();
 
@@ -1012,9 +1066,16 @@ public class Table extends Application {
         deck.shuffleDeck();
         int myToss = deck.getCard(1);
         String stringMyToss = "file:/Users/elenabugercuk/Documents/workspace/img/"+myToss+".jpg";
+        //////String stringMyToss = String.valueOf((getClass().getResource(File.separator+myToss+".jpg")));
         int compToss = deck.getCard(2);
         String stringCompToss = "file:/Users/elenabugercuk/Documents/workspace/img/"+compToss+".jpg";
+        ///////String stringCompToss = String.valueOf((getClass().getResource(File.separator+compToss+".jpg")));
+
         Image imageMyToss = new Image(stringMyToss, 100.0, 200.0, true, true);
+
+        //////Image imageCompToss = new Image(String.valueOf((getClass().getResource("/HUP1/img/"+compToss+".jpg"))), 100, 200, true, true);
+
+
         Image imageCompToss = new Image(stringCompToss, 100.0, 200.0, true, true);
         myCard1.setImage(imageMyToss);
         compCard1.setImage(imageCompToss);
@@ -1079,6 +1140,7 @@ public class Table extends Application {
 
             int intRiver = deck.getCard(9);
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intRiver+".jpg";
+            /////            String temp1 = String.valueOf((getClass().getResource(+File.separator++intRiver+".jpg")));
             Image iRiver = new Image(temp1, 100.0, 200.0, true, true);
             showriver.setImage(iRiver);
             phase="rive";
@@ -1110,6 +1172,7 @@ public class Table extends Application {
 
             int intTurn = deck.getCard(8);
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intTurn+".jpg";
+            //////            String temp1 = String.valueOf((getClass().getResource(File.separator+intTurn+".jpg")));
             Image iTurn = new Image(temp1, 100.0, 200.0, true, true);
             showturn.setImage(iTurn);
             phase="turn";
@@ -1128,12 +1191,14 @@ public class Table extends Application {
 
         public void run (){
             analysis.compStrategy=null;
-            cash.pot=cash.compBet+cash.myBet;
+            cash.pot=cash.pot+cash.compBet+cash.myBet;
             cash.myBet=0;
             cash.compBet=0;
             showBank.setText(""+cash.pot);
             showMyBet.setText("0");
             showCompBet.setText("0");
+
+            System.out.println("!!!!!!!!!!!!!Cash.pot= " + cash.pot);
 
             //System.out.println("Posle flopa bank=" + cash.pot+ " mojstek="+cash.myStack + "compst=" + cash.compStack +" " + cash.myBet + " " + cash.compBet);
 
@@ -1144,6 +1209,12 @@ public class Table extends Application {
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/"+intFlop1+".jpg";
             String temp2= "file:/Users/elenabugercuk/Documents/workspace/img/"+intFlop2+".jpg";
             String temp3= "file:/Users/elenabugercuk/Documents/workspace/img/"+intFlop3+".jpg";
+
+///////            String temp1 = String.valueOf((getClass().getResource(File.separator+intFlop1+".jpg")));
+///////            String temp2= String.valueOf((getClass().getResource(File.separator+intFlop2+".jpg")));
+///////            String temp3= String.valueOf((getClass().getResource(File.separator+intFlop3+".jpg")));
+
+
             Image iFlop1 = new Image(temp1, 100.0, 200.0, true, true);
             Image iFlop2 = new Image(temp2, 100.0, 200.0, true, true);
             Image iFlop3 = new Image(temp3, 100.0, 200.0, true, true);
@@ -1182,6 +1253,8 @@ public class Table extends Application {
             handLog.clear();// очистка истории
             analysis.compStrategy=null; //обнуление остатков стратегии
             Image back = new Image("file:/Users/elenabugercuk/Documents/workspace/img/backside.jpg", 100, 200, true, true);
+            ////////            Image back = new Image(String.valueOf((getClass().getResource(File.separator+"backside.jpg"))), 100, 200, true, true);
+
             flop1.setImage(back);
             flop2.setImage(back);
             flop3.setImage(back);
@@ -1231,6 +1304,10 @@ public class Table extends Application {
             System.out.println(my1 + " " + my2);
             String temp1 = "file:/Users/elenabugercuk/Documents/workspace/img/" + my1 + ".jpg";
             String temp2 = "file:/Users/elenabugercuk/Documents/workspace/img/" + my2 + ".jpg";
+
+            ////String temp1 = String.valueOf((getClass().getResource(File.separator))) + my1 + ".jpg";
+            ////String temp2 = String.valueOf((getClass().getResource(File.separator))) + my2 + ".jpg";
+
             Image preflop1 = new Image(temp1, 100.0, 200.0, true, true);
             Image preflop2 = new Image(temp2, 100.0, 200.0, true, true);
             myCard1.setImage(preflop1);
@@ -1238,6 +1315,13 @@ public class Table extends Application {
             System.out.print("В методе preflop.run Меняем стадию " + phase + "на ");
             phase="pref";
             System.out.println(phase);
+
+            String temp11 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(3) + ".jpg"; // временный показ карт компьютера
+            String temp22 = "file:/Users/elenabugercuk/Documents/workspace/img/" + deck.getCard(4) + ".jpg";
+            Image preflop11 = new Image(temp11, 100.0, 200.0, true, true);
+            Image preflop22 = new Image(temp22, 100.0, 200.0, true, true);
+            compCard1.setImage(preflop11);
+            compCard2.setImage(preflop22);
             superBrain();
 
             Thread.currentThread().interrupt();
@@ -1394,6 +1478,18 @@ public class Table extends Application {
         public void shuffleDeck(){
             int i=0;
             Integer transit=0;
+
+
+//            this.setCard(1, 101);
+//            this.setCard(2, 102);
+//            this.setCard(3, 412); // Тестовый блок для имитации конкретной раздачи
+//            this.setCard(4, 201);
+//            this.setCard(5, 106);
+//            this.setCard(6, 105);
+//            this.setCard(7, 312);
+//            this.setCard(8, 107);
+//            this.setCard(9, 404);
+
             while (i<10000){
                 int firstCard= (int) (Math.random()*52);
                 int secondCard = (int) (Math.random()*52);
@@ -1537,13 +1633,25 @@ public class Table extends Application {
             System.out.println(handLog.toString());
 
             cash.pot=cash.pot+cash.myBet+cash.compBet;
+            showMyBet.setText(""+cash.pot);
+            showCompBet.setText("0");
             cash.myStack=cash.myStack+cash.pot;
             cash.myBet=0;
             cash.compBet=0;
             cash.pot=0;
-            showMyStackValue.setText(""+cash.myStack);
+            //showMyStackValue.setText(""+cash.myStack);
             showBank.setText("0");
 
+
+//            act1.setVisible(false);
+//            blindCall.setVisible(false);
+//            act4.setVisible(false);
+//            act3.setVisible(false);
+//            betSize.setVisible(false);
+//            act5.setVisible(true);
+//            reBuildOpp();
+
+          //  newHand.run();
             analysis.handEnd();
 
         }
@@ -1553,13 +1661,38 @@ public class Table extends Application {
             compAgressor=true;
             int delta=0;
             if (cash.pot==0){
+                delta=(int) ((cash.myBet-cash.compBet)*2.7);
+                System.out.println("Comp Raise na preflope!!!!");
+
+            }
+            if ((cash.pot==0)&& ((cash.myBet+cash.compBet)<2*cash.bigBlind)){
                 // Этап префлоп
+                System.out.println("This is first raise on preflop");
                 delta=3*cash.blind[level]-cash.compBet;
 
             } else {
-                // После флопа
-                delta=cash.pot/2-cash.compBet;
+
+                if(delta==0) {
+
+                    System.out.println("Comp Raise after flop");
+                    // После флопа
+                    delta = (cash.pot + cash.myBet + cash.compBet) / 2; //стандартная ставкс пол банка. Мы ее рандомизируем в пределах 0.8 1,4
+
+                    int random = (int) (Math.random() * 7);
+                    random = 14 - random;
+                    delta = (delta * 10) / random;
+                    if (delta >= cash.compStack / 2) {
+                        delta = cash.compStack;
+                    }
+
+                    if (delta >= cash.myStack) {
+                        delta = cash.myStack;
+                    }
+                    System.out.println(" Comp budet raisit " + delta);
+                }
             }
+
+
             cash.compBet=cash.compBet+delta;
             cash.compStack=cash.compStack-delta;
             showCompStackValue.setText(""+cash.compStack);
@@ -1571,8 +1704,29 @@ public class Table extends Application {
 
         }
 
+        public void compAllin(){
+            int betSize;
+            if (cash.myBet+cash.myStack>cash.compBet+cash.compStack) {
+                betSize=cash.compStack;
+            } else {
+                betSize=cash.myStack;
+            }
+
+            cash.compBet=cash.compBet+cash.compStack;
+            cash.compStack=0;
+            showCompStackValue.setText("0");
+            showCompBet.setText(""+cash.compBet);
+
+            String toLog = "comp" + phase + cash.compBet;
+            handLog.add(toLog);
+            System.out.println(handLog.toString());
+            superBrain();
+
+        }
+
         public void humanWin (){
 
+            System.out.println("Человек победил пот=" + cash.pot + " bet=" + cash.myBet + " stek=" +cash.myStack);
             cash.pot=cash.pot+cash.myBet+cash.compBet;
             cash.myBet=0;
             cash.compBet=0;
@@ -1587,6 +1741,7 @@ public class Table extends Application {
 
         public void compWin(){
 
+            System.out.println("Comp победил пот=" + cash.pot + " bet=" + cash.compBet+ " stek=" +cash.compStack);
             cash.pot=cash.pot+cash.myBet+cash.compBet;
             cash.myBet=0;
             cash.compBet=0;
@@ -1636,7 +1791,7 @@ public class Table extends Application {
             }
 
             int minBet=bigBlind;
-            if (cash.compDealer==false) {
+            if ((cash.compDealer==false)&&(phase=="pref")) {
                 System.out.println("Увеличиваем размер минбет");
                 minBet=(int) bigBlind+bigBlind/2;
             }
@@ -1669,7 +1824,7 @@ public class Table extends Application {
              if((cash.myStack+cash.myBet)>(cash.compStack+cash.compBet)) {    //oпределение минимального стека, чтобы бет не мог быть больше
                  maxBet=cash.compStack+cash.compBet;
              } else {
-                 maxBet=cash.myStack+cash.myBet;
+                 maxBet=cash.myStack;
              }
 
             System.out.println("Max bet=" + maxBet);
@@ -1952,7 +2107,7 @@ public class Table extends Application {
             i=0;
             while (i<7) {
                 flash[i]=nabor[i]/100;
-                if (flash[i]==1){flash[i]=14;}
+              //  if (flash[i]==1){flash[i]=14;}
                 i++;
             }
             int s=0;
@@ -1968,6 +2123,8 @@ public class Table extends Application {
                 if (flash[i]==4) {s++;}
                 i++;
             }
+
+            System.out.println("трeф "+ c + " бубн "+ d + " черв "+ h + " пик " + s);
 
             if ((c>4)||(d>4)||(h>4)||(s>4)) {
                 System.out.println("Найден флеш!!!");
@@ -1990,6 +2147,11 @@ public class Table extends Application {
                 }
 
                 System.out.println("Flash" + Arrays.toString(checkFlash));
+
+                if (checkFlash[1] ==1) {
+                    checkFlash[1]=0;
+                    checkFlash[14]=1;
+                }
 
                 i=14;
                 int k=1;
@@ -2317,28 +2479,34 @@ public class Table extends Application {
             if ((chance>=5180)&&(chance<5900)) {
                 desition="Играю колл колл.       ";
                 analysis.compStrategy[0][0]=1;
-                analysis.compStrategy[1][0]=2;
+                analysis.compStrategy[1][0]=1;
+                analysis.compStrategy[2][0]=1;
+                analysis.compStrategy[2][1]=1;
                 executor();
                 //cash.compChecCall();
             }
             if ((chance>=5900)&&(chance<6300)) {
                 desition="Играю бет разумный колл.        ";
-                analysis.compStrategy[0][0]=4;
-                analysis.compStrategy[0][1]=2;
-                analysis.compStrategy[1][0]=4;
-                analysis.compStrategy[1][1]=2;
-                analysis.compStrategy[2][0]=2;
+                analysis.compStrategy[0][0]=2;
+                analysis.compStrategy[0][1]=1;
+                analysis.compStrategy[1][0]=2;
+                analysis.compStrategy[1][1]=1;
+                analysis.compStrategy[2][0]=1;
+                analysis.compStrategy[2][1]=1;
+                analysis.compStrategy[3][0]=0; //пограничный  пасс на префлопе
                 executor();
                 //cash.compRaise();
             }
             if ((chance>=6300)&&(chance<6600)) {
                 desition="Играю бет большой колл.         ";
-                analysis.compStrategy[0][0]=4;
-                analysis.compStrategy[0][1]=3;
-                analysis.compStrategy[1][0]=4;
-                analysis.compStrategy[1][1]=3;
+                analysis.compStrategy[0][0]=2;
+                analysis.compStrategy[0][1]=1;
+                analysis.compStrategy[1][0]=2;
+                analysis.compStrategy[1][1]=1;
                 analysis.compStrategy[2][0]=2;
-                analysis.compStrategy[3][0]=2;
+                analysis.compStrategy[2][1]=1;
+                analysis.compStrategy[3][0]=3;
+                analysis.compStrategy[4][0]=1;
 
 
                 executor();
@@ -2346,17 +2514,17 @@ public class Table extends Application {
             }
             if ((chance>=6600)) {
                 desition="Играю бет оллин.           ";
-                analysis.compStrategy[0][0]=4;
-                analysis.compStrategy[0][1]=7;
-                analysis.compStrategy[0][2]=8;
-                analysis.compStrategy[1][0]=4;
-                analysis.compStrategy[1][1]=7;
-                analysis.compStrategy[1][2]=8;
-                analysis.compStrategy[2][0]=5;
-                analysis.compStrategy[2][1]=7;
-                analysis.compStrategy[2][2]=8;
-                analysis.compStrategy[3][0]=8;
-                analysis.compStrategy[4][0]=6;
+                analysis.compStrategy[0][0]=2;
+                analysis.compStrategy[0][1]=2;
+                analysis.compStrategy[0][2]=3;
+                analysis.compStrategy[1][0]=2;
+                analysis.compStrategy[1][1]=2;
+                analysis.compStrategy[1][2]=3;
+                analysis.compStrategy[2][0]=2;
+                analysis.compStrategy[2][1]=3;
+                analysis.compStrategy[3][0]=2;
+                analysis.compStrategy[3][1]=3;
+                analysis.compStrategy[4][0]=1;
 
                 executor();
                 //cash.compRaise();
@@ -2374,6 +2542,8 @@ public class Table extends Application {
             int action=0;
             int size=handLog.size();
             int i=0;
+            String choise;
+
             while (i<size){
                 if (handLog.get(i).substring(4,8).equals(phase)){
                     action++;
@@ -2385,32 +2555,63 @@ public class Table extends Application {
 
             if (action==0) {
                 string=0;
+                choise="Comp First";
 
             } else {
 
                 string=4;
+                choise="Allin";
 
-                if (cash.myBet==0) {
+                if ((cash.myBet==0)||((phase.equals("pref")&&(cash.myBet<=cash.bigBlind)))){
                     string=1;
+                    choise="Check";
+
                 }
 
-                if (cash.myBet>1.3*(cash.pot+cash.compBet)){
+                if ((cash.compBet<=2*cash.bigBlind)&&(cash.myBet>=cash.bigBlind*5)) {
                     string=3;
+                    choise="OverBet";
                 }
 
-                if (cash.myBet<5*cash.bigBlind){
+                if ((cash.myBet<5*cash.bigBlind)||((cash.myBet>(cash.compBet+cash.pot)*1.5)&&(cash.compBet>2*cash.bigBlind))){
                     string=2;
+                    choise="normalBet";
                 }
 
 
             }
 
 
-            System.out.println("На этом етапе сделано ходов " + action);
+            System.out.println("На этом етапе сделано ходов " + action + " " + choise);
 
             System.out.println("Мой выбор в матрице стратегий [" + string+ "] [" + action/2 +"] =" + compStrategy[string] [(action/2)]);
 
-            System.out.println("Пока втполняется чек колл");
+            int move = compStrategy[string] [(action/2)];
+            if (move==0) {
+                System.out.println("Executor choice = pass");
+                cash.compPass();
+                return;
+            }
+
+            if (move==1) {
+                System.out.println("Executor choice = check/call");
+                cash.compChecCall();
+                return;
+            }
+
+            if (move==2) {
+                System.out.println("Executor choice = bet/raise");
+                cash.compRaise();
+                return;
+            }
+
+//            if (move==3) {
+//                System.out.println("Executor choice = Allin");
+//                cash.compAllin();
+//                return;
+//            }
+
+            System.out.println("Executor не знает что делать!!!! Я бы пошел ОЛЛИН");
             cash.compChecCall();
 
 
@@ -2460,14 +2661,15 @@ public class Table extends Application {
             act5.setVisible(true);
 
 
-
-            int [] humaComb=new int[6];
-            humaComb=analysis.WinCombination(deck.getCard(1), deck.getCard(2));
-            int [] compComb = new int[6];
-            compComb=analysis.WinCombination(deck.getCard(3),deck.getCard(4));
-            System.out.println("Человек " + Arrays.toString(humaComb));
-            System.out.println("Компьютер " + Arrays.toString(compComb));
-            whoWin(humaComb, compComb);
+            if (cash.pot>0) {
+                int[] humaComb = new int[6];
+                humaComb = analysis.WinCombination(deck.getCard(1), deck.getCard(2));
+                int[] compComb = new int[6];
+                compComb = analysis.WinCombination(deck.getCard(3), deck.getCard(4));
+                System.out.println("Человек " + Arrays.toString(humaComb));
+                System.out.println("Компьютер " + Arrays.toString(compComb));
+                whoWin(humaComb, compComb);
+            }
             reBuildOpp();
 
             act5.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -2499,7 +2701,7 @@ public class Table extends Application {
 
 
         try {
-            File oppFile = new File(mainPath+"/User/"+nameOfUser);
+            File oppFile = new File(mainPath+File.separator+"User"+File.separator+nameOfUser);
             FileOutputStream fis = new FileOutputStream(oppFile);
             ObjectOutputStream oos = new ObjectOutputStream(fis);
             oos.writeObject(opp);
