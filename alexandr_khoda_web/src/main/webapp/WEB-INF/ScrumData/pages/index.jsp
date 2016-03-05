@@ -27,7 +27,7 @@
 <c:set var="defPortion" value="5"/>
 <c:set var="defQuant" value="15"/>
 
-<form action="/estimation.html" method="get">
+<form action="/estimations.html" method="get">
 
     <center><img id="MenuImg"
                  src="../../../img/Ubahn.jpg">
@@ -40,16 +40,17 @@
 
     </div>
 
-    <label for="data">Input Data:</label>
-    <input  type="text" value="" placeholder="<data>" id="data"><br>
+    <label for="inputData">Input Data:</label>
+    <input  type="text" name="inputData" value="" placeholder="<data>"
+            id="inputData"><br>
 
-    <input  type="submit" value="Send"> <br>
+    <input  type="submit" style="width: 4em" value="Send"> <br>
 
-    <label>sum: ${sum}</label>
+    <label>sum: ${sum}</label><br>
 
-    <label>reverse: ${reverse}</label>
+    <label>reverse: ${reverse}</label><br>
 
-    <label>random: ${random}</label>
+    <label>random: ${random}</label><br>
 
     <label id="message" style="width: 100%; color:${messageColor == null ? 'brown' : messageColor};
             text-align: center; font-size:x-large">${messageText}
