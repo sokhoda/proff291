@@ -30,7 +30,7 @@
 <form action="/estimation.html" method="get">
 
     <center><img id="MenuImg"
-                 src="/hw7.notes/img/laptop1.gif">
+                 src="../../../img/Ubahn.jpg">
     </center>
     <h1 align="center">Welcome to String Processor App</h1>
     <div>
@@ -42,6 +42,8 @@
 
     <label for="data">Input Data:</label>
     <input  type="text" value="" placeholder="<data>" id="data"><br>
+
+    <input  type="submit" value="Send"> <br>
 
     <label>sum: ${sum}</label>
 
