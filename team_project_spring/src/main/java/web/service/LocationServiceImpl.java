@@ -1,9 +1,9 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.Location;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.LocationDao;
+import web.domain.Location;
 
 import java.util.List;
 
