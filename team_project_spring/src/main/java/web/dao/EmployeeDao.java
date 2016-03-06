@@ -20,4 +20,6 @@ public interface EmployeeDao {
     boolean delete(Employee employee);
 
     List<Employee> findAll();
+
+    List<Employee> findByPortion(int page, int portionSize);
 }

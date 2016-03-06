@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> findAll() {
         Session session = factory.getCurrentSession();
-        return (List<Employee>) session.createQuery("from Employee").list();
+        return session.createQuery("from Employee").list();
         // return session.createCriteria(Employee.class).list();
     }
+
+    @Override
+    public List<Employee> findByPortion(int numPage, int portionSize) {
+        Session session = factory.getCurrentSession();
+        Query query = session.createQuery("from Employee");
+        query.setFirstResult(portionSize*numPage);
+        query.setMaxResults(portionSize);
+        return query.list();
+    }
+
 }
