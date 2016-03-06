@@ -2,7 +2,6 @@ package web.domain;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "LOCATIONS")
 @SequenceGenerator(name = "sequence", sequenceName = "LOCATION_SEQ")
