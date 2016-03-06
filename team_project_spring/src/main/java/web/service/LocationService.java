@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface LocationService {
     List<Location> findAll();
+    List showLocationByPortion(int portionSize);
 }
