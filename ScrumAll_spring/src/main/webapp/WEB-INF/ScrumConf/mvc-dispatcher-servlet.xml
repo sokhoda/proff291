@@ -5,8 +5,12 @@
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="prefix">
+            <value>/WEB-INF/TaskScrum01/pages/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
     </bean>
 
 
