@@ -9,6 +9,4 @@ public interface NumberService {
     String reverse(String numbers);
 
     String shuffle(String numbers);
-
-
 }
