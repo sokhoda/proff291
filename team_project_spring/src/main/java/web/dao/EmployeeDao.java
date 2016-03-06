@@ -10,5 +10,14 @@ import java.util.List;
  * Date: 3/16/15
  */
 public interface EmployeeDao {
+
+    Long create(Employee employee);
+
+    Employee read(Long id);
+
+    boolean update(Employee employee);
+
+    boolean delete(Employee employee);
+
     List<Employee> findAll();
 }
