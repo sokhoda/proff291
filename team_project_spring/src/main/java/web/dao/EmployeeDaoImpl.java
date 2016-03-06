@@ -48,8 +48,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public List<Employee> findAll() {
         Session session = factory.getCurrentSession();
-         return session.createCriteria(Employee.class).list();
-    //    return session.createQuery("from Employee").list();
-
+        return (List<Employee>) session.createQuery("from Employee").list();
+        // return session.createCriteria(Employee.class).list();
     }
 }
