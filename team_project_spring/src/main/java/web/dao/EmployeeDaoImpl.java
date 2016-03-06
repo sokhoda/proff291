@@ -20,9 +20,35 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private SessionFactory factory;
 
     @Override
+    public Long create(Employee employee) {
+        Session session = factory.getCurrentSession();
+        return (Long) session.save(employee);
+    }
+
+    @Override
+    public Employee read(Long id) {
+        Session session = factory.getCurrentSession();
+        return (Employee) session.get(Employee.class, id);
+    }
+
+    @Override
+    public boolean update(Employee employee) {
+        Session session = factory.getCurrentSession();
+        session.update(employee);
+        return true;
+    }
+
+    @Override
+    public boolean delete(Employee employee) {
+        Session session = factory.getCurrentSession();
+        session.delete(employee);
+        return true;
+    }
+
+    @Override
     public List<Employee> findAll() {
         Session session = factory.getCurrentSession();
-        return session.createCriteria(Employee.class).list();
-        //return new ArrayList<Employee>(Arrays.asList(new Employee("Petro"), new Employee("Sidor")));
+        return (List<Employee>) session.createQuery("from Employee").list();
+        // return session.createCriteria(Employee.class).list();
     }
 }
