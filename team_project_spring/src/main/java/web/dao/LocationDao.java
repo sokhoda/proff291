@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface LocationDao {
     List<Location> findAll();
+    List findByPortion(int page, int size);
 }
