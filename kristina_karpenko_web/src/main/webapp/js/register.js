@@ -26,7 +26,7 @@ app.controller("reg", function ($scope, $http) {
 
         //var note = $scope.login;
 
-        var responsePromise = $http.post('/register.html?login=' +$scope.login+ $scope.idNumber+$scope.pas);
+        var responsePromise = $http.post('/register.html?login=' +$scope.login+ +$scope.idNumber+$scope.pas);
         //var responsePromise = $http.post
         responsePromise.success(
             function (data, status, headers, config) {

@@ -1,6 +1,6 @@
 package hw8.action;
 
-import hw8.Client;
+import hw8.taxi.domain.Client;
 import hw8.taxi.exception.ClientException;
 import hw8.taxi.service.ClientServiceImpl;
 

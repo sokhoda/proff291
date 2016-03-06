@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("id")
 public class RegisterServlet {
     public static final Logger log = Logger.getLogger(RegisterServlet.class);
     @Autowired
@@ -20,7 +19,7 @@ public class RegisterServlet {
     @Autowired
     private String str;
 
-    @RequestMapping(value = "/register.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registrationUser(@RequestParam("login") String login, @RequestParam("idNumber") String idNumber,
                                    @RequestParam("pas") String password, Model model) {
 
@@ -30,9 +29,9 @@ public class RegisterServlet {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
-        System.out.println(str);
+     // model.addAttribute()
 
-        return "r";
+        return "index";
     }
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
     public String hello(@RequestParam("login") String name, Model model) {

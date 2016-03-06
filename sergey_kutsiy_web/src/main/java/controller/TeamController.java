@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by Сергей on 05.03.2016.
  */
@@ -24,15 +26,24 @@ public class TeamController {
         String summ="null";
         String reverse="null";
         String rnd="null";
+        if (arr==null) {
+            summ="ivalid input";
+            rnd="ivalid input";
+            reverse="ivalid input";
+        }
 
-        Service srv = new Servise ();
-        summ = srv;
+        Services srv = new Services();
+
+
+        summ = srv.Sum((srv.StrToArr(arr))).toString();                ;
+        reverse = srv.ArrToStr(srv.reverseArray(srv.StrToArr(arr)));
+        rnd = srv.ArrToStr(srv.randomArray(srv.StrToArr(arr)));
+
         model.addAttribute("summ", summ);
         model.addAttribute("reverse", reverse);
         model.addAttribute("rnd", rnd);
 
-
-        return "LaTable";
+        return "index";
     }
 
 

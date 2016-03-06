@@ -22,7 +22,7 @@ public class RegisterServlet {
     @Autowired
     private String str;
 
-    @RequestMapping(value = "/register.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registrationUser(@RequestParam("login") String login, @RequestParam("idNumber") String idNumber,
                                    @RequestParam("pas") String password, Model model) {
 
@@ -35,6 +35,13 @@ public class RegisterServlet {
         System.out.println(str);
 
         return "r";
+    }
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String index(Model model) {
+        log.info("/index controller");
+        model.addAttribute("name", "al1");
+        System.out.println(str);
+        return "index";
     }
     @RequestMapping(value = "/hello.html", method = RequestMethod.GET)
     public String hello(@RequestParam("login") String name, Model model) {
