@@ -15,51 +15,48 @@ import java.util.List;
  * Created by Юлия on 22.02.2016.
  */
 
-@Repository
+@Repository("service")
 public class EmployeeDaoImpl implements EmployeeDao {
+
+    private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
+
+    @Autowired
+    private SessionFactory factory;
+
     public EmployeeDaoImpl() {
 
     }
 
-    private static Logger log = Logger.getLogger(EmployeeDaoImpl.class);
-
-    @Autowired(required = true)
-    private SessionFactory factory;
-
-
-
     @Override
     public List findAllEmployee() {
-//        Session session = factory.getCurrentSession();
-//        try {
-//            String name = "";
-//            Query query = session.createQuery("select firstName from Employee");
-//            return query.list();
-//        } catch (Exception e) {
-//            log.error("Transaction is being failed");
-//            return null;
-//        } finally {
-//            session.close();
-//
-//        }
-        return null;
+        Session session = factory.getCurrentSession();
+        try {
+            String name = "";
+            Query query = session.createQuery(" from Employee");
+            return query.list();
+        } catch (Exception e) {
+            log.error("Transaction is being failed");
+            return null;
+        } finally {
+            session.close();
+
+        }
     }
 
     @Override
-    public List findName(String firstName) {
-//        Session session = factory.getCurrentSession();
-//        try {
-//            Query query = session.createQuery("select e.firstName from Employee e where e.name=:name ");
-//           query.setParameter("name", name);
-//            return query.list();
-//        } catch (Exception e) {
-//            log.error("Transaction is being failed");
-//            return null;
-//        } finally {
-//            session.close();
-//
-//        }
-        return(List)factory.getCurrentSession().createQuery(" from Employee e where e. firstName=:name ").setParameter("name",firstName).list();
+    public List findName(String name) {
+        Session session = factory.getCurrentSession();
+        try {
+            Query query = session.createQuery("select salary from Employee e where e.lastName=:NAME ");
+            query.setParameter("NAME", name);
+            return query.list();
+        } catch (Exception e) {
+            log.error("Transaction is being failed");
+            return null;
+        } finally {
+            session.close();
+
+        }
     }
 
     @Override
@@ -69,8 +66,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee read(Long id) {
-        return (Employee) factory.getCurrentSession().get(Employee.class, id);
-
+        return null;
     }
 
     @Override

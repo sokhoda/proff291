@@ -33,55 +33,55 @@ hw7.notes.domain.Sales
 Принять на склад партию ноутбуков (id ноутбука, количество, цена)
 Продать указанное количество ноутбуков со склада(id склада, количество)
 
-dao
-hw7.notes.dao.NotebookDao
+web.dao
+hw7.notes.web.dao.NotebookDao
 Long create(Notebook notebook)
 Notebook read(Long id)
 boolean update(Notebook notebook)
 boolean delete(Notebook notebook)
 List findAll()
 
-hw7.notes.dao.VendorDao
+hw7.notes.web.dao.VendorDao
 Long create(Vendor vendor)
 Vendor read(Long id)
 boolean update(Vendor vendor)
 boolean delete(Vendor vendor)
 List findAll()
 
-hw7.notes.dao.CPUDao
+hw7.notes.web.dao.CPUDao
 Long create(CPU cpu)
 CPU read(Long id)
 boolean update(CPU cpu)
 boolean delete(CPU cpu)
 List findAll()
 
-hw7.notes.dao.MemoryDao
+hw7.notes.web.dao.MemoryDao
 Long create(Memory memory)
 Memory read(Long id)
 boolean update(Memory memory)
 boolean delete(Memory memory)
 List findAll()
 
-hw7.notes.dao.StoreDao
+hw7.notes.web.dao.StoreDao
 Long create(Store store)
 Store read(Long id)
 boolean update(Store store)
 boolean delete(Store store)
 List findAll()
 
-hw7.notes.dao.SalesDao
+hw7.notes.web.dao.SalesDao
 Long create(Sales sales)
 Sales read(Long ig)
 boolean update(Sales sales)
 boolean delete(Sales sales)
 List findAll()
 
-hw7.notes.dao.NotebookDaoImpl
-hw7.notes.dao.VendorDaoImpl
-hw7.notes.dao.CPUDaoImpl
-hw7.notes.dao.MemoryDaoImpl
-hw7.notes.dao.StoreDaoImpl
-hw7.notes.dao.SalesDaoImpl
+hw7.notes.web.dao.NotebookDaoImpl
+hw7.notes.web.dao.VendorDaoImpl
+hw7.notes.web.dao.CPUDaoImpl
+hw7.notes.web.dao.MemoryDaoImpl
+hw7.notes.web.dao.StoreDaoImpl
+hw7.notes.web.dao.SalesDaoImpl
 
 service
 hw7.notes.service.NotebookService

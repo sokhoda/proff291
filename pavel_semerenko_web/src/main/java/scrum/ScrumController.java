@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import scrum.service.ScrumServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //import web.service.EmployeeService;
@@ -26,15 +25,20 @@ public class ScrumController {
     public String hello(@RequestParam("numbers") String number, Model model) {
         List<Integer> numbers = scrumServiceImpl.StringToArray(number);
 
-        if(number != null) {//scrumServiceImpl.arrayToString()
-            model.addAttribute("sum", "SDS");
-            model.addAttribute("reverse", "SDS");
-            model.addAttribute("random", "SDS");
+        if(numbers != null) {
+            model.addAttribute("sum", scrumServiceImpl.sum(numbers) + "");
+            model.addAttribute("reverse", scrumServiceImpl.arrayToString(scrumServiceImpl.reverse(numbers)));
+            model.addAttribute("random", scrumServiceImpl.arrayToString(scrumServiceImpl.random(numbers)));
         } else {
             model.addAttribute("sum", "NOT POSSIBLE");
             model.addAttribute("reverse", "NOT POSSIBLE");
             model.addAttribute("random", "NOT POSSIBLE");
         }
+        return "index";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String main() {
         return "index";
     }
 }

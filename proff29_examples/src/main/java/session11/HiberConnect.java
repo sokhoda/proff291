@@ -21,7 +21,7 @@ public class HiberConnect {
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
+        Configuration cfg = new Configuration().configure("Session11/hibernate.cfg.xml");
         StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
         sb.applySettings(cfg.getProperties());
         StandardServiceRegistry standardServiceRegistry = sb.build();
@@ -61,7 +61,7 @@ public class HiberConnect {
 
     private static SessionFactory getSessionFactory() {
         Locale.setDefault(Locale.ENGLISH);
-        Configuration cfg = new Configuration().configure("session11/hibernate.cfg.xml");
+        Configuration cfg = new Configuration().configure("Session11/hibernate.cfg.xml");
         StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
         sb.applySettings(cfg.getProperties());
         StandardServiceRegistry standardServiceRegistry = sb.build();
