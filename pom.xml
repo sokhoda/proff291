@@ -31,6 +31,7 @@
 
         <module>andrey_kallko</module>
         <module>dima_rutskiy_web</module>
+        <module>ScrumAll_spring</module>
 
         <!--<module>andrey_kallko</module>-->
 
@@ -67,6 +68,7 @@
 
         <module>olena_babenko_web</module>
         <module>alexandr_cherkassky_web</module>
+        <module>team_project_spring</module>
     </modules>
 
     <properties>

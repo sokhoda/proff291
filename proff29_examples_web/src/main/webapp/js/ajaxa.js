@@ -2,7 +2,7 @@ var app = angular.module('myapp', []);
 
 	app.controller("HelloCtrl", function ($scope, $http) {
 
-	$scope.greeting = "";
+	$scope.greeting = 'Hello';
 
 	$scope.update = function() {
 

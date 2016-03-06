@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("id")
 public class RegisterServlet {
     public static final Logger log = Logger.getLogger(RegisterServlet.class);
     @Autowired

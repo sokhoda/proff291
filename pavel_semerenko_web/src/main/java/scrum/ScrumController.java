@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import scrum.service.ScrumServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //import web.service.EmployeeService;
