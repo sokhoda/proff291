@@ -11,5 +11,12 @@
 
 
     <artifactId>kristina_karpenko</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>proff29</groupId>
+            <artifactId>kristina_karpenko</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

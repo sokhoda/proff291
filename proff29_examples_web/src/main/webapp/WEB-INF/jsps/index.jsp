@@ -8,7 +8,7 @@
 <head>
     <title>JavaScript</title>
 
-    <script type="text/javascript" src="/script/script.js"></script>
+    <script type="text/javascript" src="/script/script1.js"></script>
 </head>
 <body onload="/*fun()*/">
   <h2 id="elh" onclick="ajaxic('Sestra')">Header</h2>

@@ -2,6 +2,7 @@ package hw7.notes.dao;
 
 
 import hw7.notes.domain.Notebook;
+import hw7.notes.domain.Store;
 import hw7.notes.domain.Vendor;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface NotebookDao {
 
     List findAll();
 
-    List findAll(int size, int from);
+    List findAll(int page, int size);
 
     Notebook findNotebookByParam(String vendor, String model, String modelCPU, String vendMemory, String sizeMemory);
 
@@ -30,4 +31,6 @@ public interface NotebookDao {
     List findNotebooksByCpuVendor(Vendor cpuVendor);
 
     List getNotebooksFromStore();
+
+    Store receive(Long noteId, int amount, double price);
 }

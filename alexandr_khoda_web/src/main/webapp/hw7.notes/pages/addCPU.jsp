@@ -8,11 +8,11 @@
 <%@ page import="static hw7.notes.view.Servlet.*" %>
 <%@ page import="hw7.notes.domain.CPU" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.dao.CPUDao" %>
+<%@ page import="hw7.notes.web.dao.CPUDao" %>
 <%@ page import="hw7.notes.view.Menu" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
-<%@ page import="hw7.notes.dao.VendorDao" %>
+<%@ page import="hw7.notes.web.dao.VendorDao" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="../JS/select.js" type="text/javascript">    </script>
 <script src="../JS/notebooks.js" type="text/javascript">    </script>

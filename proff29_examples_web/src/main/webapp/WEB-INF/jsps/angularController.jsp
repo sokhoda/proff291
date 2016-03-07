@@ -15,10 +15,10 @@
 </head>
 <body>
 <div ng-controller="HelloCtrl">
-    Your name: <input ng-model="name">
+    Your name: <input type="text" ng-model="name">
     <button ng-click="update()">update</button>
     <p>Model state: {{name}}</p>
-    <p>{{greeting}}</p>
+    <p style ="color:red">{{greeting}}</p>
 
     <ul>
         <li ng-repeat="el in emps"> {{el.firstName}} </li>

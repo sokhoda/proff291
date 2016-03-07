@@ -18,7 +18,7 @@ public class Main {
         //  Phone phone2=cont.getBean("phone2",Phone.class);
       //  Company company=cont.getBean("company", Company.class);
 
-        EmployeeDao employeeDao=cont.getBean("dao",EmployeeDaoIml.class);
+        EmployeeDao employeeDao=cont.getBean("web.dao",EmployeeDaoIml.class);
 //        Ditector director =cont.getBean("director", Ditector.class);
 //        Car car=cont.getBean("car", Car.class);
         System.out.println(employeeDao.findAllEmployee());

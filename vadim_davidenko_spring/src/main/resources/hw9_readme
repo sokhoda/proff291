@@ -47,20 +47,20 @@ register.jsp - форма регистрации
 - вывести всех клиентов наездивших на сумму больше указанной
 - вывести всех клиентов, делавших заказы за последний месяц
 
-hw9.taxi.domain.Client
-hw9.taxi.service.ClientService
+hw9.Client
+hw9.ClientService
 boolean createClient(String name, String surname, String phone, String address) throws OrderException
 List showClientsByPortion(int portionSize)
 List showClientsGtSum(int sum)
 List showClientsLastMonth()
-hw9.taxi.service.ClientServiceImpl
+hw9.ClientServiceImpl
 hw9.taxi.dao.ClientDao
 hw9.taxi.dao.ClientDaoImpl
 hw9.taxi.controller.CreateClientServlet
 hw9.taxi.controller.PortionClientServlet
 hw9.taxi.controller.SumClientServlet
 hw9.taxi.controller.MonthClientServlet
-hw9.taxi.exception.ClientException
+hw9.ClientException
 webapp
 index.jsp
 dashboard.jsp - страница со списком функций (доступна после аутентификации)
@@ -77,19 +77,19 @@ clients.jsp - список клиентов
 - вывести список заказов на сумму в указанном диапазоне
 - вывести список всех заказов порциями по 5 штук
 
-hw8.taxi.domain.Order
-hw8.taxi.domain.Client
-hw8.taxi.service.OrderService
+hw8.Order
+hw8.Client
+hw8.OrderService
 boolean createOrder(Client client, Double amount, String addressFrom, String addressTo) throws OrderException
 void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo)
-hw9.taxi.service.OrderServiceImpl
+hw9.OrderServiceImpl
 hw9.taxi.dao.OrderDao
 hw9.taxi.dao.OrderDaoImpl
 hw9.taxi.controller.OrderCreateServlet
 hw9.taxi.controller.OrderEditServlet
 hw9.taxi.controller.OrderShowServlet
 hw9.taxi.controller.OrderShowPortionServlet
-hw9.taxi.exception.OrderException
+hw9.OrderException
 webapp
 index.jsp
 dashboard.jsp - страница со списком функций

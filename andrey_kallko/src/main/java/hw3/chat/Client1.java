@@ -70,7 +70,7 @@ public class Client1 extends Application {
         port.setLayoutY(33);
 
 
-        TextField adresPort = new TextField();
+        final TextField adresPort = new TextField();
         adresPort.setLayoutX(260);
         adresPort.setLayoutY(15);
         adresPort.setMaxWidth(70);
@@ -88,7 +88,7 @@ public class Client1 extends Application {
         chatTitle.setLayoutX(11);
         chatTitle.setLayoutY(65);
 
-        TextArea chat = new TextArea();
+        final TextArea chat = new TextArea();
         chat.setLayoutX(10);
         chat.setLayoutY(70);
         chat.setMinHeight(250);
@@ -99,7 +99,7 @@ public class Client1 extends Application {
         //chat.setAlignment(Pos.BOTTOM_LEFT);
 
 
-        TextField message = new TextField();
+        final TextField message = new TextField();
         message.setLayoutX(10);
         message.setLayoutY(330);
         message.setMinWidth(340);
