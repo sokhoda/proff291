@@ -11,6 +11,7 @@ public interface ClientService {
     boolean updateClient(Client client);
     boolean removeClient(Client client);
     Long createClient(Client client);
+    Client getClientById(Long id);
     List getAllClients();
     Client getClientByNameAndPhone(String name, String phone);
 }
