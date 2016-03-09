@@ -21,11 +21,13 @@ public class ChoiceController {
     private ClientService clientService;
 
     @RequestMapping(value = "/choiceSelector", method = RequestMethod.POST, params = {"addButton"})
-    public String addChoice(@RequestParam("addOption") String option, @RequestParam String addButton) {
+    public String addChoice(@RequestParam("addOption") String option, @RequestParam String addButton, Model model) {
 
         if (option.equals("client")) {
             return "addClient";
         }
+        List<Client> clientList = clientService.getAllClients();
+        model.addAttribute("clientList", clientList);
         return "addOrder";
     }
 

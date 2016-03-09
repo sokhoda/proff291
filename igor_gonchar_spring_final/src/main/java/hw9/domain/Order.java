@@ -27,7 +27,7 @@ public class Order {
     private Client client;
 
     @Column(name = "AMOUNTS")
-    private double amount;
+    private Double amount;
 
     @Column(name = "ADDRES_FROM")
     private String addressFrom;
