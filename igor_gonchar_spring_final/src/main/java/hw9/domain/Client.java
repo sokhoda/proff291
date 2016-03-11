@@ -63,7 +63,7 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", address='" + address + '\'' +
-                ", date=" + lastOrderDate +
+                ", lastOrderDate=" + lastOrderDate +
                 '}';
     }
 

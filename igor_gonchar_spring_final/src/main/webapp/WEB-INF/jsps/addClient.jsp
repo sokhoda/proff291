@@ -26,7 +26,7 @@ Enter First Name: <br/>
     <input id="clientPhone" type="text" name="clientPhone"> <br/>
     Enter Address: <br/>
     <input id="clientAddress" type="text" name="clientAddress"> <br/>
-    <input type="button" onclick="clientDataValidation()" value="Add Client"/>
+    <input id="addClientButton" type="button" onclick="clientDataValidation()" value="Add Client"/>
 </form>
 <a href="/choicePage">
     <button>Back</button>

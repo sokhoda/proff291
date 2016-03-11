@@ -1,7 +1,9 @@
 package hw9.controller;
 
 import hw9.domain.Client;
+import hw9.domain.Order;
 import hw9.service.ClientService;
+import hw9.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class ChoiceController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/choiceSelector", method = RequestMethod.POST, params = {"addButton"})
     public String addChoice(@RequestParam("addOption") String option, @RequestParam String addButton, Model model) {
@@ -48,9 +53,21 @@ public class ChoiceController {
         String res = "";
 
         if (option.equals("client")) {
-            res = "client show";
+            List<Client> clientList = clientService.getAllClients();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < clientList.size(); i++) {
+                sb.append(clientList.get(i).toString());
+                sb.append("<br/>");
+            }
+            res = sb.toString();
         } else {
-            res = "order show";
+            List<Order> orderList = orderService.getAllOrders();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < orderList.size(); i++) {
+                sb.append(orderList.get(i).toString());
+                sb.append("<br/>");
+            }
+            res = sb.toString();
         }
 
         model.addAttribute("choice_res", res);

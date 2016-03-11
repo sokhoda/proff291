@@ -52,7 +52,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", date=" + date +
-                ", client=" + client +
+                ", client=" + client.getName() + " " + client.getSurname() +
                 ", amount=" + amount +
                 ", addressFrom='" + addressFrom + '\'' +
                 ", addressTo='" + addressTo + '\'' +

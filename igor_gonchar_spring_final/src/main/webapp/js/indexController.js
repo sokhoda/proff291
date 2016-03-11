@@ -4,8 +4,8 @@
 var doc = document;
 
 function emptyValidation() {
-    var login = doc.getElementById("indexLoginField").value;
-    var password = doc.getElementById("indexPasswordField").value;
+    var login = doc.getElementById('inputLogin').value;
+    var password = doc.getElementById('inputPassword').value;
 
     if (login == null || login == "" || password == null || password == "") {
         alert('Please fill all mandatory fields');
@@ -17,7 +17,12 @@ function emptyValidation() {
 function loginFormValidation(){
 var notEmpty = emptyValidation();
     if(notEmpty){
-        var form = doc.getElementById("loginForm");
+        var form = doc.getElementById('loginForm');
         form.submit();
     }
+}
+
+function validateUserEmail() {
+    var email = $('#inputEmail').val()
+    alert(email)
 }
