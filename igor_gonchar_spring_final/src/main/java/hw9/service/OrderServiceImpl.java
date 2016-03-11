@@ -6,6 +6,7 @@ import hw9.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,24 +26,33 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Long createUser(Order order) {
+    @Transactional
+    public Long createOrder(Order order) {
         if(order == null) return null;
         return orderDao.create(order);
     }
 
     @Override
-    public boolean updateUser(Order order) {
+    @Transactional
+    public boolean updateOrder(Order order) {
         return orderDao.update(order);
     }
 
     @Override
-    public boolean removeUser(Order order) {
+    @Transactional
+    public boolean removeOrder(Order order) {
         if(order == null) return false;
         return orderDao.delete(order);
     }
+    @Override
+    @Transactional(readOnly = true)
+    public Order getOrderByFromToAddress(String addressFrom, String addressTo){
+       return orderDao.findByAddressFromAndTo(addressFrom, addressTo);
+    }
 
     @Override
-    public List getAllUsers() {
+    @Transactional(readOnly = true)
+    public List getAllOrders() {
         return orderDao.findAll();
     }
 }

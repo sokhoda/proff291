@@ -31,14 +31,28 @@
         } %>
     </select>
     <br/>
-    <input type="button" onclick="editClientValidation()" value="Edit Client"/>
+
+    <input id="editClientName" type="text" name="clientName"> <br/>
+    Edit Last Name: <br/>
+    <input id="editClientSurname" type="text" name="clientSurname"> <br/>
+    Edit Phone Number: <br/>
+    <input id="editClientPhone" type="text" name="clientPhone"> <br/>
+    Edit Address: <br/>
+    <input id="editClientAddress" type="text" name="clientAddress"> <br/>
+
+    <input name="editButton" type="submit" value="Edit"/>
+    <input name="deleteButton" type="submit" value="Delete"/>
+
+   <%-- <input name="editButton" type="button" onclick="editClientValidation()" value="Edit Client"/>
+    <input name="deleteButton" type="button" onclick="deleteConfirmation()" value="Delete Client"/>--%>
+
 </form>
 
 <a href="/choicePage">
     <button>Back</button>
 </a>
 <hr>
-${reg_result}
+${edit_result}
 
 </body>
 </html>

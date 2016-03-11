@@ -18,7 +18,7 @@
 
 <h3>Add Client:</h3>
 Enter First Name: <br/>
-<form id ="addClientForm" action="/addClient" method="post">
+<form id="addClientForm" action="/addClient" method="post">
     <input id="clientName" type="text" name="clientName"> <br/>
     Enter Last Name: <br/>
     <input id="clientSurname" type="text" name="clientSurname"> <br/>
@@ -26,11 +26,17 @@ Enter First Name: <br/>
     <input id="clientPhone" type="text" name="clientPhone"> <br/>
     Enter Address: <br/>
     <input id="clientAddress" type="text" name="clientAddress"> <br/>
-    <input type="button" onclick="clientDataValidation()" value="Add Client"/>
+    <input id="addClientButton" type="button" onclick="clientDataValidation()" value="Add Client"/>
 </form>
 <a href="/choicePage">
     <button>Back</button>
 </a>
+<hr>
+<form id="massAddClientForm" action="/addMassClient" method="post">
+    Enter path of the file:<br/>
+    <input id="addClientFilePath" type="text" name="addClientPath"> <br/>
+    <input type="button" onclick="clientPathDataValidation()" value="Add All Clients"/>
+</form>
 <hr>
 ${reg_result}
 

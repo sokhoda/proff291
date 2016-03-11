@@ -27,7 +27,7 @@ public class Order {
     private Client client;
 
     @Column(name = "AMOUNTS")
-    private double amount;
+    private Double amount;
 
     @Column(name = "ADDRES_FROM")
     private String addressFrom;
@@ -52,7 +52,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", date=" + date +
-                ", client=" + client +
+                ", client=" + client.getName() + " " + client.getSurname() +
                 ", amount=" + amount +
                 ", addressFrom='" + addressFrom + '\'' +
                 ", addressTo='" + addressTo + '\'' +
