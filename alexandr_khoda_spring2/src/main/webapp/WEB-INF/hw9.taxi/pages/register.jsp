@@ -42,13 +42,14 @@
                                       ng-click="back2Login()">
             <input type="submit"  value="Register" ng-click="doRegister()" >
 
-        </div>
+
         <br>
         <br>
-        <label id="message" style="width: 100%; margin-top:10%;
-                color:${messageColor}; text-align: center; font-size:x-large">${messageText}
+        <label id="message" ng-style="{'width': '100%', 'margin-top': '10%',
+                'color': messageColor, 'text-align' : 'center', 'font-size' : 'x-large'}">
+            {{messageText}}
         </label>
-        ${randInt}
+        </div>
     </form>
     </body>
 </html>

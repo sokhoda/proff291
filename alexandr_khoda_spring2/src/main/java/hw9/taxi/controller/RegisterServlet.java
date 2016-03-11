@@ -19,7 +19,7 @@ import javax.servlet.ServletException;
 @SessionAttributes("id")
 public class RegisterServlet {
     public static final Logger log = Logger.getLogger(RegisterServlet.class);
-
+    private static final int delimSymb = 20;
     @Autowired
     private AuthorizationService authorizationService;
 
@@ -37,21 +37,25 @@ public class RegisterServlet {
     }
 
     @RequestMapping(value = "/doRegister.html", method = RequestMethod.GET)
-    public @ResponseBody String doRegister(@RequestParam ("login") String login,
+    public @ResponseBody String  doRegister(@RequestParam ("login") String
+                                                        login,
                                          @RequestParam ("identifier") String identifier,
                                          @RequestParam ("pass") String pass,
-                                         Model model) throws ServletException {
+                                         Model model)  {
         log.info("RegisterServlet /doRegister.html controller");
         try {
             if (authorizationService.register(login, identifier, pass)) {
-                return "User '" + login + ", " + identifier + "' successfully created.";
+                return "User '" + login + ", " + identifier + "' " +
+                        "successfully created." + Character.toString((char)(delimSymb)) +
+                        "green";
             }
             else {
                 throw new AuthenticationException("Failed to register user.");
             }
         }
         catch (Exception e){
-            throw new ServletException(e.getMessage());
+            return e.getMessage()  + Character.toString((char)(delimSymb)) +
+                    "red";
         }
     }
 

@@ -46,12 +46,15 @@ var app = angular.module('myapp', []);
 		responsePromise.success(
 			function(data, status, headers, config) {
 				$scope.messageColor = 'green';
+				data.split()
+				//alert('data=' + data);
 				$scope.messageText = data;
 			});
 
+
 		responsePromise.error(
 			function(data, status, headers, config) {
-				alert('AJAX failed!');
+				alert('AJAX failed!'+ data +' \n ' + status);
 			});
 
 
