@@ -45,11 +45,14 @@
 
         <br>
         <br>
+
+
         <label id="message" ng-style="{'width': '100%', 'margin-top': '10%',
-                'color': messageColor, 'text-align' : 'center', 'font-size' : 'x-large'}">
-            {{messageText}}
+                'color': message.mColor, 'text-align' : 'center', 'font-size' : 'x-large'}">
+            {{message.mText}}
         </label>
         </div>
+
     </form>
     </body>
 </html>

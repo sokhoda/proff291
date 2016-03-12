@@ -1,5 +1,6 @@
 package hw9.taxi.controller;
 
+import hw9.taxi.domain.MessageResult;
 import hw9.taxi.exception.AuthenticationException;
 import hw9.taxi.service.AuthorizationService;
 import org.apache.log4j.Logger;
@@ -7,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.ServletException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +21,7 @@ import javax.servlet.ServletException;
  * Date: 3/16/15
  */
 @Controller
+@EnableWebMvc
 @SessionAttributes("id")
 public class RegisterServlet {
     public static final Logger log = Logger.getLogger(RegisterServlet.class);
@@ -36,26 +42,38 @@ public class RegisterServlet {
         return "register";
     }
 
-    @RequestMapping(value = "/doRegister.html", method = RequestMethod.GET)
-    public @ResponseBody String  doRegister(@RequestParam ("login") String
+    @RequestMapping(value = "/testJson.json", method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody
+    MessageResult testJson(Model model)  {
+        log.info("RegisterServlet /testJson.html controller");
+
+                return new MessageResult("User '" + "fff" + ", " + "id22" +
+                        "' successfully created.", "green");
+    }
+
+
+    @RequestMapping(value = "/doRegister.json", method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody
+    MessageResult doRegister(@RequestParam ("login") String
                                                         login,
-                                         @RequestParam ("identifier") String identifier,
-                                         @RequestParam ("pass") String pass,
-                                         Model model)  {
+                             @RequestParam ("identifier") String identifier,
+                             @RequestParam ("pass") String pass,
+                             Model model)  {
         log.info("RegisterServlet /doRegister.html controller");
         try {
+
             if (authorizationService.register(login, identifier, pass)) {
-                return "User '" + login + ", " + identifier + "' " +
-                        "successfully created." + Character.toString((char)(delimSymb)) +
-                        "green";
+                return new MessageResult("User '" + login + ", " + identifier +
+                        "' successfully created.", "green");
             }
             else {
                 throw new AuthenticationException("Failed to register user.");
             }
         }
         catch (Exception e){
-            return e.getMessage()  + Character.toString((char)(delimSymb)) +
-                    "red";
+            return  new MessageResult(e.getMessage(), "red");
         }
     }
 

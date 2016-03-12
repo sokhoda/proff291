@@ -40,21 +40,20 @@ var app = angular.module('myapp', []);
 		$scope.doRegister = function() {
 
 		$scope.greeting = $scope.name;
-		var responsePromise = $http.get('/doRegister.html?login=' + $scope.login +
+		var responsePromise = $http.get('/doRegister.json?login=' + $scope.login +
 			'&identifier=' + $scope.identifier + '&pass=' + $scope.pass);
 
 		responsePromise.success(
 			function(data, status, headers, config) {
-				$scope.messageColor = 'green';
-				data.split()
+				$scope.message = data;
+				//$scope.messageColor = data.messageC
 				//alert('data=' + data);
-				$scope.messageText = data;
 			});
 
 
 		responsePromise.error(
 			function(data, status, headers, config) {
-				alert('AJAX failed!'+ data +' \n ' + status);
+				alert('AJAX failed!\n' +data + '\nstatus=' + status);
 			});
 
 

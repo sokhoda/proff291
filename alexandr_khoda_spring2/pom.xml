@@ -11,4 +11,12 @@
 
     <artifactId>alexandr_khoda_spring2</artifactId>
     <packaging>war</packaging>
+
+    <!--<dependencies>-->
+        <!--<dependency>-->
+            <!--<groupId>org.codehaus.jackson</groupId>-->
+            <!--<artifactId>jackson-mapper-asl</artifactId>-->
+            <!--<version>${jackson.version}</version>-->
+        <!--</dependency>-->
+    <!--</dependencies>-->
 </project>
