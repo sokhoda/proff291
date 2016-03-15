@@ -3,10 +3,10 @@
  */
 var doc = document;
 
-function clientDataValidation(){
+function clientDataValidation() {
     var emptyVal = emptyFieldsValidation();
 
-    if(emptyVal){
+    if (emptyVal) {
         var form = doc.getElementById("addClientForm");
         form.submit();
     }
@@ -25,6 +25,24 @@ function emptyFieldsValidation() {
     return true;
 }
 
-function editClientValidation(){
+function editClientValidation() {
 
+}
+
+function deleteConfirmation() {
+    var conf = confirm('Are you sure you want to delete?');
+    if (conf) {
+        var form = doc.getElementById("editClientForm");
+        form.submit();
+    }
+}
+
+function clientPathDataValidation() {
+    var name = doc.getElementById("addClientFilePath").value;
+    if (name == null || name == "") {
+        alert('Please fill all mandatory fields');
+    } else {
+        var form = doc.getElementById("massAddClientForm");
+        form.submit();
+    }
 }

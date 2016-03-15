@@ -7,15 +7,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Vendor" %>
-<%@ page import="Memory" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="CPUDao" %>
-<%@ page import="VendorDao" %>
-<%@ page import="NotebookServiceImpl" %>
-<%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="MemoryDao" %>
-<%@ page import="CPU" %>
+<%@ page import="springnotes.view.Menu" %>
+<%@ page import="springnotes.dao.CPUDao" %>
+<%@ page import="springnotes.domain.CPU" %>
+<%@ page import="springnotes.domain.Memory" %>
+<%@ page import="springnotes.dao.VendorDao" %>
+<%@ page import="springnotes.domain.Vendor" %>
+<%@ page import="springnotes.dao.MemoryDao" %>
+<%@ page import="springnotes.service.NotebookServiceImpl" %>
 <%@ page errorPage="../pages/generalErrorPage.jsp" %>
 <script src="../JS/select.js" type="text/javascript">    </script>
 <script src="../JS/notebooks.js" type="text/javascript">    </script>

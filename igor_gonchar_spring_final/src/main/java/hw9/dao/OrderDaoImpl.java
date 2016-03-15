@@ -51,6 +51,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public Order findByAddressFromAndTo(String addressFrom, String addressTo) {
+        Session session = mySessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM hw9.domain.Order o WHERE o.addressFrom =:addressFrom AND o.addressTo =:addressTo");
+        query.setString ("addressFrom", addressFrom);
+        query.setString ("addressTo", addressTo);
+        return (Order) query.uniqueResult();
+    }
+
+    @Override
     public List findAll() {
         Session session = mySessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM hw9.domain.Order o");

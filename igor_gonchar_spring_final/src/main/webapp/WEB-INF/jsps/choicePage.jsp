@@ -9,17 +9,21 @@
 <html>
 <head>
     <title>Taxi Order Page</title>
-    <link rel="shortcut icon" href="http://webtun.com/uploads/posts/2011-11/1320833133_logo.png"/>
+
+    <script src="js/angular.js"></script>
+    <script src="js/choiceTableController.js"></script>
+
+
 </head>
 <body>
-<h1 align="center">${login_result}, you was authorized!</h1>
+<h1 id="choicePageHeader" align="center">${login_result}, you was authorized!</h1>
 <hr width="500">
 
 <div align="center">
     <form id="generalForm" action="/choiceSelector" method="post">
-        <input type="radio" value="client" name="addOption" checked> Client <br/>
-        <input type="radio" value="order" name="addOption"> Order <br/>
-        <input name="addButton" type="submit" value="Add"/>
+        <input id="clientRB" type="radio" value="client" name="addOption" checked> Client <br/>
+        <input id="orderRB" type="radio" value="order" name="addOption"> Order <br/>
+        <input id="choicePageAddButton" name="addButton" type="submit" value="Add"/>
         <input name="editButton" type="submit" value="Edit"/>
         <input name="showButton" type="submit" value="Show All"/>
     </form>

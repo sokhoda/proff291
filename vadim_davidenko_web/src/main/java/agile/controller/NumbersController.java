@@ -25,7 +25,7 @@ public class NumbersController {
 
     @RequestMapping(value = "/numberController", method = RequestMethod.POST)
     public String passwordDataConfirm(@RequestParam("inp") String inp, Model model) {
-        if (true/*inputValidation(inp)*/) {
+        if (inputValidation(inp)) {
             String result1 = String.valueOf(numberService.calculateSum(inp));
             String result2 = numberService.reverse(inp);
             String result3 = numberService.shuffle(inp);
@@ -37,12 +37,13 @@ public class NumbersController {
             return "index";
         }
         model.addAttribute("error", "Incorrect data entered");
+        model.addAttribute("inp", inp);
         return "index";
     }
 
     private boolean inputValidation(String input) {
         Pattern p = Pattern.compile("\\D+");
-        Matcher m = p.matcher(input);
+        Matcher m = p.matcher(input.replace(" ", ""));
         if (m.find()) {
             return false;
         }

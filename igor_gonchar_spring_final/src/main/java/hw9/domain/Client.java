@@ -28,14 +28,17 @@ public class Client {
     @Column(name = "SURNAME")
     private String surname;
 
-    @Column(name = "TELEPHONE")
+    @Column(name = "TELEPHONE", unique = true)
     private String telephone;
 
     @Column(name = "ADDRESS")
     private String address;
 
+    @Column(name = "ORDERS_AMOUNT")
+    private Double ordersAmount;
+
     @Column(name = "LAST_ORDER")
-    private Date date;
+    private Date lastOrderDate;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders = new HashSet<>();
@@ -45,11 +48,11 @@ public class Client {
     }
 
     public Client(String name, String surname, String telephone, String address) {
+        this.ordersAmount = 0.00;
         this.name = name;
         this.surname = surname;
         this.telephone = telephone;
         this.address = address;
-        this.orders = orders;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", address='" + address + '\'' +
-                ", date=" + date +
+                ", lastOrderDate=" + lastOrderDate +
                 '}';
     }
 
@@ -104,12 +107,12 @@ public class Client {
         this.address = address;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getLastOrderDate() {
+        return lastOrderDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setLastOrderDate(Date lastOrderDate) {
+        this.lastOrderDate = lastOrderDate;
     }
 
     public Set<Order> getOrders() {
@@ -118,5 +121,17 @@ public class Client {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public double getOrdersAmount() {
+        return ordersAmount;
+    }
+
+    public void setOrdersAmount(double ordersAmount) {
+        this.ordersAmount = ordersAmount;
+    }
+
+    public void updateOrdersAmount(double ordersAmount) {
+        this.ordersAmount += ordersAmount;
     }
 }
