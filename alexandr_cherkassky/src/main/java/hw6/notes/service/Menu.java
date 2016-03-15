@@ -14,6 +14,7 @@ import java.util.Scanner;
  * Created by Пк2 on 13.02.2016.
  */
 public class Menu {
+
     private NotebookService service;
     private Scanner scanner;
 

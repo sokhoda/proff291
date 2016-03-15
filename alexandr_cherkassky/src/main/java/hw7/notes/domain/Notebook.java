@@ -17,19 +17,21 @@ public class Notebook {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="vendor_name")
+    @JoinColumn(name="VENDOR NAME")
     private Vendor noteVendor;
 
-    @Column(name="model")
+    @Column(name="NOTE MODEL")
     private String model;
 
     @Column(name="manuf_date")
     private Date manufDate;
 
     @ManyToOne
+    @JoinColumn(name="NOTE CPU")
     private CPU noteCPU;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name="NOTE MEMORY")
     private Memory noteMemory;
 
     @Column(name="vendor")
@@ -49,9 +51,9 @@ public class Notebook {
         this.model=model;
         this.manufDate=manufDate;
         this.noteCPU=cpu;
-        this.cpuName=cpu.getCpuName();
+        this.cpuName=cpu.getCPUModel();
         this.noteMemory=memory;
-        this.memoryName=memory.getMemoryName();
+
 
     }
 

@@ -13,27 +13,64 @@ import java.util.Set;
 @Table(name="CPU")
 public class CPU {
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "KHO_NOTES_SEQ",
+    @SequenceGenerator(name = "sequence", sequenceName = "CPU seq",
             allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private int id;
 
-    @Column(name="cpu_name")
-    private String cpuName;
+    @Column(name="CPU MODEL")
+    private String cpuModel;
+
+    @Column(name="CPU FREQUENCY")
+    private Double cpuFreq;
+
+    @ManyToOne
+    @JoinColumn(name="VENDOR NAME", referencedColumnName = "NAME")
+    private Vendor thisVendor;
 
     @OneToMany
-    private Set<Notebook> thisCPUNotes=new HashSet<>();
+    //@JoinColumn(name="NOTE MODEL")
+    private Set<Notebook> thisCPUNotes;
 
     private CPU(){}
-    private CPU(String cpuName){
-        this.cpuName=cpuName;
+    private CPU(String cpuModel, Double frequency){
+        this.cpuModel=cpuModel;
+        this.cpuFreq=frequency;
+        this.thisCPUNotes=new HashSet<Notebook>();
     }
 
-    public String getCpuName() {
-        return cpuName;
+
+    public String getCPUModel() {
+        return cpuModel;
     }
 
-    public void setCpuName(String cpuName) {
-        this.cpuName = cpuName;
+    public Double getCpuFreq() {
+        return cpuFreq;
     }
+
+    public Vendor getThisVendor() {
+        return thisVendor;
+    }
+
+    public Set<Notebook> getThisCPUNotes() {
+        return thisCPUNotes;
+    }
+
+
+    public void setCPUModel(String model) {
+        this.cpuModel = model;
+    }
+
+    public void setCpuFreq(Double cpuFreq) {
+        this.cpuFreq = cpuFreq;
+    }
+
+    public void setThisVendor(Vendor thisVendor) {
+        this.thisVendor = thisVendor;
+    }
+
+    public void addNotebook(Notebook note){
+        this.thisCPUNotes.add(note);
+    }
+
 }
