@@ -2,8 +2,8 @@
 <html ng-app="app">
 <head>
     <title>Hello AngularJS</title>
-    <script src="js/angular.js"></script>
-    <script src="js/register.js"></script>
+    <script src="../../js/angular.js"></script>
+    <script src="../../js/register.js"></script>
     <%--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>--%>
 </head>
 <body>
@@ -12,7 +12,7 @@
     <%--<button ng-click="update()">update</button>--%>
     <br/>{{errorLog}}
     <p>Model state: {{login}}</p>
-
+${invalid}
     Id number: <input ng-model="idNumber" ng-blur="idBlur()" ng-focus="idFocus()">
 
 

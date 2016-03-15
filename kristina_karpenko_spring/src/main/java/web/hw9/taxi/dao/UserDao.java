@@ -14,4 +14,5 @@ public interface UserDao {
     boolean delete(User user);
     List findAll();
     boolean isLogin(String login);
+    boolean isUser(String login,String pass);
 }
