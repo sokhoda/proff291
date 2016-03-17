@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by Пк2 on 20.02.2016.
  */
-public class VendorDAOImpl implements VendorDAO {
+public class VendorDaoImpl implements VendorDao {
     private SessionFactory factory=null;
 
-    public VendorDAOImpl(){};
-    public VendorDAOImpl(SessionFactory factory){
+    public VendorDaoImpl(){};
+    public VendorDaoImpl(SessionFactory factory){
         this.factory=factory;
     }
 
