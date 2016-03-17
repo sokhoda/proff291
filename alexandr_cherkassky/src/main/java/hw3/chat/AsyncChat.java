@@ -37,14 +37,14 @@ public class AsyncChat extends Application {
     private String tmpe = "";
 
     private SocketChannel socketChannel;
-    private ServerSocketChannel serverSocketChannel;
-    private SocketChannel socketChannelServ;
+    private ServerSocketChannel channel;
+    private SocketChannel serv;
 
     Thread client;
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("MyChat");
+        stage.setTitle("Chat");
         stage.getIcons().add(new Image("23.gif"));
         stage.resizableProperty().set(false);
         stage.setScene(createScean());
@@ -66,7 +66,7 @@ public class AsyncChat extends Application {
     private Scene createScean() {
 
         HBox first = new HBox();
-        first.setPrefSize(400, 30);
+        first.setPrefSize(400, 40);
         first.setAlignment(Pos.CENTER);
 
         HBox second = new HBox();
@@ -119,7 +119,7 @@ public class AsyncChat extends Application {
 
         grid.setAlignment(Pos.CENTER);
         grid.setBackground(new Background(
-                new BackgroundImage(new Image("Chrysanthemum.jpg"), null, null, BackgroundPosition.CENTER,
+                new BackgroundImage(new Image("images1.jpg"), null, null, BackgroundPosition.CENTER,
                         new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true))));
 
         grid.addRow(0, first);
@@ -134,65 +134,47 @@ public class AsyncChat extends Application {
     public void process() {
 
         if(client != null){
-
             client.interrupt();
-
         }
 
         client = new Thread() {
 
             @Override
             public void run() {
-
                 try {
-
-                    serverSocketChannel = ServerSocketChannel.open();
-                    serverSocketChannel.socket().bind(new InetSocketAddress(getServerIPdAdress().getText(),
+                    channel = ServerSocketChannel.open();
+                    channel.socket().bind(new InetSocketAddress(getServerIPdAdress().getText(),
                             Integer.parseInt(getMyPort().getText())));
-
                 } catch (NumberFormatException | IOException e) {
                     try {
-
-                        serverSocketChannel.close();
-                    } catch (IOException e1) {
-
-                        e1.printStackTrace();
+                        channel.close();
+                    } catch (IOException a) {
+                        a.printStackTrace();
                     }
-
-
                 }
-
                 while (true) {
-
                     try {
-
-                        socketChannelServ = serverSocketChannel.accept();
-
+                        serv = channel.accept();
                     } catch (NotYetBoundException | IOException | NullPointerException e) {
                         try {
-
-                            socketChannelServ.close();
-                            serverSocketChannel.socket().close();
-                            serverSocketChannel.close();
-
-                            if (socketChannelServ.isConnected() == false) {
-                                getMessageWindow().appendText("LostConnection!!!" + "\n");
-
+                            serv.close();
+                            channel.socket().close();
+                            channel.close();
+                            if (serv.isConnected() == false) {
+                                getMessageWindow().appendText("Connection lost!" + "\n");
                             }
-
                             break;
 
                         } catch (IOException | NullPointerException e1) {
-
                             e1.printStackTrace();
                         }
 
                     }
-                    if (socketChannelServ != null) {
+                    if (serv != null) {
 
                         handlerMasseages();
 
-                    } else if (socketChannelServ == null) {
+                    } else if (serv == null) {
 
                         break;
                     }
@@ -215,8 +197,8 @@ public class AsyncChat extends Application {
                     new InetSocketAddress(getServerIPdAdress().getText(), Integer.parseInt(getServerPort().getText())));
 
         } catch (NumberFormatException | IOException e1) {
-            getMessageWindow().appendText("NoConnection!!!" + "\n");
-            System.out.println("NoConnection!!!");
+            getMessageWindow().appendText("Connection does not exsists" + "\n");
+            System.out.println("Connection does not exsists");
             return;
         }
 
@@ -249,7 +231,7 @@ public class AsyncChat extends Application {
         ByteBuffer bufferIn = ByteBuffer.allocate(50);
 
         try {
-            socketChannelServ.read(bufferIn);
+            serv.read(bufferIn);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -259,7 +241,7 @@ public class AsyncChat extends Application {
         bufferIn.clear();
 
         try {
-            socketChannelServ.close();
+            serv.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

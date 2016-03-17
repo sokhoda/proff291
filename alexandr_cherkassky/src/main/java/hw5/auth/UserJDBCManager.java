@@ -43,7 +43,7 @@ public class UserJDBCManager {
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println(" Failed");
             e.printStackTrace();
             return 0;
         } finally {
@@ -68,11 +68,11 @@ public class UserJDBCManager {
             ResultSet resultSet =  statement.executeQuery(usersFinedAll);
 
             while(resultSet.next()) {
-                String resultOfQuery = resultSet.getLong("ID") + " " + resultSet.getString("LOGINS") + " " + resultSet.getString("PASSWORDS") + " " + resultSet.getString("DATES_REGISTRATION");
-                tmpList.add(resultOfQuery);
+                String resOfQuery = resultSet.getLong("ID") + " " + resultSet.getString("LOGINS") + " " + resultSet.getString("PASSWORDS") + " " + resultSet.getString("DATES_REGISTRATION");
+                tmpList.add(resOfQuery);
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println("Conn Failed");
             e.printStackTrace();
             return null;
         } finally {
@@ -102,11 +102,11 @@ public class UserJDBCManager {
 
             } else{
 
-                System.out.println("Не верный логин или пароль");
+                System.out.println("Неверный логин или пароль");
                 return null;
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println("Con Failed");
             e.printStackTrace();
             return null;
         } finally {

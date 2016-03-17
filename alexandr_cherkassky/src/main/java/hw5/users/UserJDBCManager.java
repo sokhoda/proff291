@@ -21,7 +21,7 @@ public class UserJDBCManager {
     }
 
     public int create(User user){
-        long idLong = 0;
+        long idlong = 0;
         connection = null;
 
         String usersID = "SELECT ID FROM USERS WHERE LOGINS LIKE " + "'" + user.getLogin() + "'";
@@ -38,12 +38,12 @@ public class UserJDBCManager {
             ResultSet resultSet =  statement.executeQuery(usersID);
 
             if (resultSet.next()) {
-                idLong = resultSet.getLong("ID");
-                user.setId(idLong);
+                idlong = resultSet.getLong("ID");
+                user.setId(idlong);
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println("Failed");
             e.printStackTrace();
             return 0;
         } finally {
@@ -55,7 +55,7 @@ public class UserJDBCManager {
                 }
             }
         }
-        return (int)idLong;
+        return (int)idlong;
     }
     public List findAll(){
         List<String> tmpList = new ArrayList<String>();
@@ -72,7 +72,7 @@ public class UserJDBCManager {
                 tmpList.add(resultOfQuery);
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println(" Failed");
             e.printStackTrace();
             return null;
         } finally {
@@ -102,11 +102,11 @@ public class UserJDBCManager {
 
             } else{
 
-                System.out.println("Не верный логин или пароль");
+                System.out.println("Неверный логин или пароль");
                 return null;
             }
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
+            System.out.println(" Failed");
             e.printStackTrace();
             return null;
         } finally {

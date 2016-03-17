@@ -73,7 +73,7 @@ public class MainWindow extends Application {
 
         mainWhindow = new TextArea();
 
-        createUser = new Button("CreatUser");
+        createUser = new Button("CreateUser");
         createUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -84,13 +84,13 @@ public class MainWindow extends Application {
                         mainWhindow.appendText(tmpForVisible + "\n");
                     }
                 } else{
-                    mainWhindow.appendText("Пароль не подтвержден \n");
+                    mainWhindow.appendText("passvord error \n");
                     return;
                 }
             }
         });
 
-        autintification = new Button("Autintifivation");
+        autintification = new Button("Autintificate");
         autintification.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -102,12 +102,12 @@ public class MainWindow extends Application {
 
                         }
                     } else {
-                        mainWhindow.appendText("Не Верный Пороль или Логин \n");
+                        mainWhindow.appendText("Not valid login or pass \n");
                         return;
                     }
                 }
                 else{
-                    mainWhindow.appendText("Введите Логин И парол \n");
+                    mainWhindow.appendText("Enter login and Pass \n");
                 }
             }
         });
