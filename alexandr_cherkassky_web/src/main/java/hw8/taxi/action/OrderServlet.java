@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * Created by Пк2 on 27.02.2016.
+ *
  */
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
@@ -33,6 +34,10 @@ public class OrderServlet extends HttpServlet {
     public void init(){
         this.clientService=new ClientServiceImpl();
         this.orderService=new OrderServiceImpl();
+    }
+
+    public void doGet(HttpServletRequest req, HttpServletResponse resp){
+        System.out.println("GET method");
     }
 
     @Override
