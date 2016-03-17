@@ -27,7 +27,7 @@ public class Memory {
     @JoinColumn(name="MEM VENDOR",referencedColumnName = "name")
     private Vendor memVendor;
 
-    @OneToMany
+    @OneToMany(mappedBy="noteMemory", cascade = CascadeType.ALL)
     private Set<Notebook> thisMemoryNotes;
 
     public Memory(){}
@@ -55,5 +55,15 @@ public class Memory {
 
     public void addNote(Notebook note){
         this.thisMemoryNotes.add(note);
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "id=" + id +
+                ", memModel='" + memModel + '\'' +
+                ", memSize=" + memSize +
+                ", memVendor=" + memVendor.getVendorName() +
+                '}';
     }
 }

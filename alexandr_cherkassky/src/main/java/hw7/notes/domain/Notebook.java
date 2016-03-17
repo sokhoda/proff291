@@ -2,6 +2,8 @@ package hw7.notes.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Пк2 on 20.02.2016.
@@ -17,7 +19,7 @@ public class Notebook {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="VENDOR NAME")
+    @JoinColumn(name="VENDOR ID")
     private Vendor noteVendor;
 
     @Column(name="NOTE MODEL")
@@ -30,9 +32,13 @@ public class Notebook {
     @JoinColumn(name="NOTE CPU")
     private CPU noteCPU;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="NOTE MEMORY")
     private Memory noteMemory;
+
+    @OneToMany(mappedBy="note",cascade = CascadeType.ALL)
+    private Set<Store> stores=new HashSet<>();
+
 
     @Column(name="vendor")
     private String vendName;
@@ -57,6 +63,83 @@ public class Notebook {
 
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getModel() {
+        return model;
+    }
 
+    public Date getManufDate() {
+        return manufDate;
+    }
+
+    public CPU getNoteCPU() {
+        return noteCPU;
+    }
+
+    public Memory getNoteMemory() {
+        return noteMemory;
+    }
+
+    public String getVendName() {
+        return vendName;
+    }
+
+    public String getCpuName() {
+        return cpuName;
+    }
+
+    public String getMemoryName() {
+        return memoryName;
+    }
+
+    public Vendor getNoteVendor() {
+        return noteVendor;
+    }
+
+    public void setNoteVendor(Vendor noteVendor) {
+        this.noteVendor = noteVendor;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setManufDate(Date manufDate) {
+        this.manufDate = manufDate;
+    }
+
+    public void setNoteCPU(CPU noteCPU) {
+        this.noteCPU = noteCPU;
+    }
+
+    public void setNoteMemory(Memory noteMemory) {
+        this.noteMemory = noteMemory;
+    }
+
+    public void setVendName(String vendName) {
+        this.vendName = vendName;
+    }
+
+    public void setCpuName(String cpuName) {
+        this.cpuName = cpuName;
+    }
+
+    public void setMemoryName(String memoryName) {
+        this.memoryName = memoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Notebook{" +
+                "id=" + id +
+                ", noteVendor=" + noteVendor.getVendorName() +
+                ", model='" + model + '\'' +
+                ", manufDate=" + manufDate +
+                ", noteCPU=" + noteCPU.getCPUModel() +
+                ", noteMemory=" + noteMemory.getMemModel() +
+                '}';
+    }
 }

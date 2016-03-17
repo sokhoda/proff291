@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ClientServiceImpl implements ClientService {
     private int startIndx=0;
-    private List<Client> clients;
+    private static List<Client> clients;
 
     public ClientServiceImpl() {
         clients = new ArrayList<Client>();
@@ -55,6 +55,8 @@ public class ClientServiceImpl implements ClientService {
                         clientsByPortion.add(clients.get(startIndx + i));
                     }
                 }
+            } else {
+                return null;
             }
             return clientsByPortion;
         }
@@ -72,13 +74,6 @@ public class ClientServiceImpl implements ClientService {
                     clientsBySum.add(client);
                 }
             }
-            //        while(index<clients.size()){
-//            Client tmp=clients.get(index);
-//            if(tmp.getOrderCost()>=sum){
-//                clientsBySum.add(tmp);
-//            }
-//            index++;
-//        }
             if(clientsBySum.isEmpty()){
                 return null;
             } else {
@@ -107,7 +102,16 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-
+    @Override
+    public ArrayList<Client> showAllClients() {
+        ArrayList<Client> clientsList=new ArrayList<>();
+        if(!clients.isEmpty()){
+            for(int i=0; i<clients.size(); i++){
+                clientsList.add(clients.get(i));
+            }
+        }
+        return clientsList;
+    }
 
 
 }

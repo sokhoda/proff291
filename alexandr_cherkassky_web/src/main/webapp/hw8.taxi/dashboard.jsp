@@ -92,6 +92,98 @@
             <td>
                 <fieldSet>
                     <legend> Orders </legend>
+                    <!--Create new Order-->
+                    <form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <span>
+                                            Register order
+                                    </span>
+                                </td>
+                                <td>
+                                    <button name="Button" value="showOrderCreationForm" type="submit"
+                                            formaction="/order" formmethod="post">Show</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    <!--Edit order-->
+                    <form>
+                        <table>
+                            <tr>
+                                <td>
+                                     <table>
+                                         <tr>
+                                             <td>
+                                                 <span>
+                                                     Edit order whit id
+                                                 </span>
+                                             </td>
+                                             <td>
+                                                 <input name="orderId" type="text/">
+                                             </td>
+                                         </tr>
+                                     </table>
+                                </td>
+                                <td>
+                                    <button name="Button" value="EditOrder" type="submit"
+                                            formaction="/order" formmethod="post" > Edit </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    <!--Show orders by order cost-->
+                    <form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                            <span>
+                                                Show orders by cost
+                                                from to
+                                            </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input name="OrdersByCostFrom" type="text"/>
+                                            </td>
+                                            <td>
+                                                <input name="OrdersByCostTo" type="text"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                                <td>
+                                    <button name="Button" value="showOrdersByCost" type="SUBMIT"
+                                            formaction="/order" formmethod="post">Show</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                    <!--Show orders by portion-->
+                    <form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <span>
+                                        Show orders by portion 10
+                                    </span>
+                                </td>
+                                <td>
+                                    <button name="Button" value="showOrderByPortion" type="submit"
+                                            formaction="/order" formmethod="post">Show</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
 
 
                 </fieldSet>

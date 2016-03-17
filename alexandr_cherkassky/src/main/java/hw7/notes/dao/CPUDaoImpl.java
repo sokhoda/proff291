@@ -1,6 +1,6 @@
 package hw7.notes.dao;
 
-import hw7.notes.domain.Vendor;
+import hw7.notes.domain.CPU;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,24 +8,22 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 /**
- * Created by Пк2 on 20.02.2016.
+ * Created by Пк2 on 17.03.2016.
  */
-public class VendorDAOImpl implements VendorDAO {
+public class CPUDaoImpl implements CPUDao {
     private SessionFactory factory=null;
-
-    public VendorDAOImpl(){};
-    public VendorDAOImpl(SessionFactory factory){
+    public CPUDaoImpl(){};
+    public CPUDaoImpl(SessionFactory factory){
         this.factory=factory;
     }
 
-
     @Override
-    public Long create(Vendor vendor) {
+    public Long create(CPU cpu) {
         Long id=null;
         Session session=factory.openSession();
         try{
             session.beginTransaction();
-            id=(Long)session.save(vendor);
+            id=(Long)session.save(cpu);
             session.getTransaction().commit();
             return id;
         } catch(Exception e){
@@ -34,32 +32,31 @@ public class VendorDAOImpl implements VendorDAO {
         } finally {
             session.close();
         }
-
     }
 
     @Override
-    public Vendor read(Long id) {
-        Vendor aVendor=null;
+    public CPU read(Long id) {
+        CPU aCPU=null;
         Session session=factory.openSession();
         try{
             session.beginTransaction();
-            aVendor =(Vendor)session.get(Vendor.class,id);
+            aCPU =(CPU)session.get(CPU.class,id);
             session.getTransaction().commit();
-            return aVendor;
+            return aCPU;
         } catch(Exception e){
             session.getTransaction().rollback();
-            return aVendor;
+            return aCPU;
         } finally {
             session.close();
         }
     }
 
     @Override
-    public boolean update(Vendor vendor) {
+    public boolean update(CPU cpu) {
         Session session=factory.openSession();
         try{
             session.beginTransaction();
-            session.update(vendor);
+            session.update(cpu);
             session.getTransaction().commit();
             return true;
         } catch(Exception e){
@@ -71,11 +68,11 @@ public class VendorDAOImpl implements VendorDAO {
     }
 
     @Override
-    public boolean delete(Vendor vendor) {
+    public boolean delete(CPU cpu) {
         Session session=factory.openSession();
         try{
             session.beginTransaction();
-            session.delete(vendor);
+            session.delete(cpu);
             session.getTransaction().commit();
             return true;
         } catch(Exception e){
@@ -91,7 +88,7 @@ public class VendorDAOImpl implements VendorDAO {
         Session session=factory.openSession();
         try{
             session.beginTransaction();
-            Query aQuerry=session.createQuery("from Vendor");
+            Query aQuerry=session.createQuery("from CPU");
             session.getTransaction().commit();
             return aQuerry.list();
         } catch(Exception e){
@@ -100,6 +97,5 @@ public class VendorDAOImpl implements VendorDAO {
         } finally {
             session.close();
         }
-
     }
 }

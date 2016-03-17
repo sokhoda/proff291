@@ -28,7 +28,7 @@ public class CPU {
     @JoinColumn(name="VENDOR NAME", referencedColumnName = "NAME")
     private Vendor thisVendor;
 
-    @OneToMany
+    @OneToMany(mappedBy="noteCPU",cascade = CascadeType.ALL)
     //@JoinColumn(name="NOTE MODEL")
     private Set<Notebook> thisCPUNotes;
 
@@ -73,4 +73,13 @@ public class CPU {
         this.thisCPUNotes.add(note);
     }
 
+    @Override
+    public String toString() {
+        return "CPU{" +
+                "id=" + id +
+                ", cpuModel='" + cpuModel + '\'' +
+                ", cpuFreq=" + cpuFreq +
+                ", thisVendor=" + thisVendor.getVendorName() +
+                '}';
+    }
 }
