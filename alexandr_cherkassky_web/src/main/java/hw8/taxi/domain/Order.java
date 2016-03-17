@@ -10,6 +10,14 @@ public class Order {
     private String adressFrom;
     private String adressTo;
 
+    public Order(){
+        this.id = null;
+        this.client = null;
+        this.orderCost =null;
+        this.adressFrom = null;
+        this.adressTo = null;
+    }
+
     public Order(Long id, Client client, String amount, String adressFrom, String adressTo) {
         this.id = id;
         this.client = client;

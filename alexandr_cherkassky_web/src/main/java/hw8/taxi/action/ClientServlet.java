@@ -30,6 +30,10 @@ public class ClientServlet extends HttpServlet {
         service=new ClientServiceImpl();
         adminLoginPassvord.put("admin", "admin");
     }
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp){
+        System.out.println("GET method");
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

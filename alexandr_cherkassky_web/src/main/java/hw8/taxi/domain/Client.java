@@ -17,6 +17,15 @@ public class Client  {
     private Integer clientId;
     private static Integer id=1;
 
+    public Client(){
+        this.name=null;
+        this.surname=null;
+        this.phone=null;
+        this.address=null;
+        this.orderCost=null;
+        this.lastOrderDate=null;
+    }
+
     public Client(String name, String surname, String phone, String address){
         this.name=name;
         this.surname=surname;
