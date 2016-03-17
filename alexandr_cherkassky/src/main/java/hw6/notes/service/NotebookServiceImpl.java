@@ -14,6 +14,8 @@ import java.util.ListIterator;
 public class NotebookServiceImpl implements NotebookService  {
 
     private NotebookDao noteDao=null;
+
+    public NotebookServiceImpl(){};
     public NotebookServiceImpl(NotebookDao noteDao){
         this.noteDao=noteDao;
     }
