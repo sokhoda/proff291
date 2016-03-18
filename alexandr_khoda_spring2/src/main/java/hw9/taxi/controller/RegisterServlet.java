@@ -56,12 +56,11 @@ public class RegisterServlet {
     @RequestMapping(value = "/doRegister.json", method = RequestMethod.GET,
             produces = "application/json")
     public @ResponseBody
-    MessageResult doRegister(@RequestParam ("login") String
-                                                        login,
+    MessageResult doRegister(@RequestParam ("login") String login,
                              @RequestParam ("identifier") String identifier,
                              @RequestParam ("pass") String pass,
                              Model model)  {
-        log.info("RegisterServlet /doRegister.html controller");
+        log.info("RegisterServlet /doRegister.json controller");
         try {
 
             if (authorizationService.register(login, identifier, pass)) {

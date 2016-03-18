@@ -9,7 +9,7 @@
 <script src="../../../js/angular.js"></script>
 <script src="../../../js/registerAjax.js"></script>
 
-<html ng-app="myapp">
+<html ng-app="regJSP">
 <html>
     <head>
         <title>Registration Form</title>
@@ -19,7 +19,8 @@
     </head>
 
     <body>
-    <form>
+    <%--action="/testJson.json">--%>
+    <form >
         <img <%--height="100px" width="100px" --%>
                 src="../../../img/newUser.jpg" align="left"
                 style="margin-right: 20px">
@@ -42,17 +43,12 @@
                                       ng-click="back2Login()">
             <input type="submit"  value="Register" ng-click="doRegister()" >
 
-
-        <br>
-        <br>
-
-
+        <br><br>
         <label id="message" ng-style="{'width': '100%', 'margin-top': '10%',
-                'color': message.mColor, 'text-align' : 'center', 'font-size' : 'x-large'}">
-            {{message.mText}}
+            'color': message.mcolor, 'text-align' : 'center', 'font-size' : 'x-large'}">
+            {{message.mtext}}
         </label>
         </div>
-
     </form>
     </body>
 </html>
