@@ -23,7 +23,7 @@ public class Notebook {
     private Date manufactureDate;
     @Column(name = "PRICE")
     private double price;
-
+    public Notebook(){}
     public Notebook(String serial, String vendor, String model, Date manufactureDate, double price) {
         this.serial = serial;
         this.vendor = vendor;
