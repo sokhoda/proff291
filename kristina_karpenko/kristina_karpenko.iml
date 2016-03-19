@@ -69,10 +69,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: xpp3:xpp3:1.1.4c" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.json:json:20080701" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.4.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
   </component>
 </module>
