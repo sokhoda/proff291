@@ -44,10 +44,12 @@
             <input type="submit"  value="Register" ng-click="doRegister()" >
 
         <br><br>
-        <label id="message" ng-style="{'width': '100%', 'margin-top': '10%',
+        <label id="message"
+               ng-style="{'width': '100%', 'margin-top': '10%',
             'color': message.mcolor, 'text-align' : 'center', 'font-size' : 'x-large'}">
             {{message.mtext}}
         </label>
+
         </div>
     </form>
     </body>

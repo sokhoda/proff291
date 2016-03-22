@@ -53,13 +53,19 @@ var app = angular.module('regJSP', []);
 				});
 
 		};
+
 		$scope.doRegister = function() {
+
 		console.log($scope.login);
 
+		if (typeof ($scope.login) == 'undefined' || $scope.login == '') {
+			$scope.message =  { "mcolor" : "red", "mtext": "Login can not" +
+            " have ZERO length."};
+			return;
+		}
 		$scope.greeting = $scope.name;
 		var responsePromise = $http.get('/doRegister.json?login=' + $scope.login +
 			'&identifier=' + $scope.identifier + '&pass=' + $scope.pass);
-
 
 		responsePromise.success(
 			function(data, status, headers, config) {
