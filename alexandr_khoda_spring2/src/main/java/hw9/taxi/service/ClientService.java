@@ -13,7 +13,8 @@ public interface ClientService {
     boolean createClient(String name, String surname, String phone, String
             address) throws ClientException;
     Client read(Long id);
-    List showClientsByPortion(int portionSize);
+    Integer getClientsTotPages(int size) throws ClientException;
+    List showClientsByPortion(int portionSize, int cnt) throws ClientException;
     List showClientsGtSum(int sum);
     List showClientsLastMonth();
 

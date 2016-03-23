@@ -10,9 +10,8 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-
-    <!--<context:property-placeholder-->
-            <!--location="classpath: ../webapp/WEB-INF/springnotes/conf.properties"/>-->
+    <context:property-placeholder
+        location="classpath:../springnotes_prop/conf.properties"/>
 
     <context:component-scan base-package="springnotes"/>
 

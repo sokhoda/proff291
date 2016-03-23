@@ -8,51 +8,52 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html ng-app="regJSP">
     <head>
         <title>Registration Form</title>
         <style>
-            <%@include file='/hw8.taxi/css/registerClient.css' %>
+            <%@include file='../css/addNotebook.css' %>
         </style>
     </head>
 
     <body>
-    <form action="/taxi" method="post">
+    <form>
         <img <%--height="100px" width="100px" --%>
                 src="../../img/newUser.jpg" align="left"
                 style="margin-right: 20px">
-        <label for="name">Имя: </label>
-        <input  type="text" placeholder="Надія" name="name" id="name"><br>
+        <label for="name">NAME: </label>
+        <input  type="text" name="name" id="name" ng-model="name"><br>
 
-        <label for="surname">Фамилия: </label>
-        <input  type="text" placeholder="Міцненька" name="surname" id="surname"><br>
+        <label for="surname">SURNAME:</label>
+        <input  type="text" name="surname" id="surname" ng-model="surname"><br>
 
-        <label for="phone">Телефон: </label>
-        <input  type="text" placeholder="+38 097 111 22 33" name="phone" id="phone"><br>
+        <label for="phone">PHONE:</label>
+        <input  type="text" name="phone" id="phone" ng-model="phone"><br>
 
-        <label for="address">Адрес: </label>
-        <input  type="text" placeholder="25, I. Franka Str, app. 7, 03051 Kyiv"
-                name="address" id="address">
+        <label for="address">ADDRESS:</label>
+        <input  type="text" name="address" id="address" ng-model="address"><br>
         <br>
-        <br>
-        <input  type="submit" name="back" value="Назад в главное меню"
-                style="margin-left: 5%;">
-        <input  type="submit" name="register" value="Зарегистрировать"
-                style="margin: 40px" >
-        <br>
-        <%
-            if (request.getAttribute("FailedRegistration") != null){
-        %>
-                <label class="regMessage" style="color:red;">${FailedRegistration}</label>
-        <%
-            }
-            if (request.getAttribute("SuccessfulRegistration") != null){
-        %>
-                <label class="regMessage" style="color:blue;">${SuccessfulRegistration}</label>
-        <%
-            }
-        %>
+        <div ng-controller="regClientCtrl">
+            <input type="submit" value="&longleftarrow; to Dash"
+                   ng-click="back2dashboard()">
+            <input type="submit"  value="Register"
+                   ng-click="doRegisterClient()">
+
+            <br><br>
+            <label id="message"
+                   ng-style="{'width': '100%', 'margin-top': '10%',
+            'color': message.mcolor, 'text-align' : 'center', 'font-size' : 'x-large'}">
+                {{message.mtext}}
+            </label>
+
+        </div>
 
     </form>
     </body>
 </html>
+
+<script type="text/javascript">
+
+
+
+</script>
