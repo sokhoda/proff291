@@ -18,19 +18,25 @@ public class Client {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "NAME")
     private String name;
 
+    @Column(name = "SURNAME")
     private String surname;
 
+    @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "ADDRESS")
     private String address;
 
+    @Column(name = "ORDER_AMOUNT")
     private Double orderAmount;
 
+    @Column(name = "LAST_ORDER_DATE")
     private Date lastOrderDate;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client")//, fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @Transient
@@ -62,8 +68,9 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", orderAmount=" + orderAmount +
-                ", lastOrderDate=" + format1.format(lastOrderDate) +
+                ", orderAmount=" + Double.toString(orderAmount) +
+                ", lastOrderDate=" + (lastOrderDate == null ? "null" :
+                format1.format(lastOrderDate)) +
                 '}';
     }
 

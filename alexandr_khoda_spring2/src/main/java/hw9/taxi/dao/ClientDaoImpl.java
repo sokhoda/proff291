@@ -66,6 +66,7 @@ public class ClientDaoImpl implements ClientDao {
     @Transactional(readOnly = true)
     public boolean checkExist(Client client) throws HibernateException {
         Session session = factory.getCurrentSession();
+
         Query query = session.createQuery("from Client c where c.name = :name and " +
                 "c.surname = :surname and c.phone = :phone")
                 .setParameter("name", client.getName())

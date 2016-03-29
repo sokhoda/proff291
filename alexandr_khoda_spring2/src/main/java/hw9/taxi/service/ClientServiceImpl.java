@@ -3,6 +3,8 @@ package hw9.taxi.service;
 import hw9.taxi.dao.ClientDao;
 import hw9.taxi.domain.Client;
 import hw9.taxi.exception.ClientException;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,25 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public List showClientsByPortion(int portionSize) {
-        return null;
+    public Integer getClientsTotPages(int portionSize)  throws ClientException {
+        if (portionSize <= 0) {
+            throw new ClientException("Negative portion size.");
+        }
+        List clients = (List<Client>)clientDao.findAll();
+        return  (clients.size() == 0 ? 1 :(int) Math.ceil
+                (clients.size() / (double)portionSize));
+    }
+
+    @Override
+    public List showClientsByPortion(int portionSize, int cnt) throws ClientException {
+        if (portionSize <= 0) {
+            throw new ClientException("Negative portion size.");
+        }
+        Session session = factory.getCurrentSession();
+            Query query = session.createQuery("from Client");
+            query.setFirstResult((cnt - 1) * portionSize);
+            query.setMaxResults(portionSize);
+            return query.list();
     }
 
     @Override

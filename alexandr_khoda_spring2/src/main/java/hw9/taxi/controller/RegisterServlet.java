@@ -26,6 +26,7 @@ import java.util.List;
 public class RegisterServlet {
     public static final Logger log = Logger.getLogger(RegisterServlet.class);
     private static final int delimSymb = 20;
+
     @Autowired
     private AuthorizationService authorizationService;
 
@@ -34,6 +35,39 @@ public class RegisterServlet {
         log.info("RegisterServlet /back2Menu.html controller");
         return "dashboard";
     }
+
+
+
+//    @RequestMapping(value = "/client.html", method = RequestMethod.GET)
+//    public String back2Menu(Model model) throws ServletException{
+//        public String back2Menu(Model model) throws ServletException{
+//            log.info("RegisterServlet /back2Menu.html controller");
+//    try {
+//        Integer sPortion = Integer.parseInt(req.getParameter("sPortion"));
+//        String cntMark = req.getParameter("cntMark");
+//        int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
+//        int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
+//
+//        if (cnt > 1) {
+//            cnt--;
+//        }
+//
+//        List notebookPortion = Menu.service.getNotebookTypesByPortion
+//                (sPortion, cnt);
+//        req.setAttribute("cnt", cnt);
+//        req.setAttribute("totPages", totPages);
+//        req.setAttribute("notebookPortion", notebookPortion);
+//        req.setAttribute("sPortion", sPortion);
+//        req.getRequestDispatcher("/hw7.notes/pages/updateNotebook.jsp")
+//                .forward(req, res);
+//        return;
+//    }
+//    catch (Exception e) {
+//        throw new ServletException(e.getMessage());
+//    }
+//
+//            return "dashboard";
+//        }
 
 
     @RequestMapping(value = "/register.html", method = RequestMethod.GET)
@@ -62,7 +96,6 @@ public class RegisterServlet {
                              Model model)  {
         log.info("RegisterServlet /doRegister.json controller");
         try {
-
             if (authorizationService.register(login, identifier, pass)) {
                 return new MessageResult("User '" + login + ", " + identifier +
                         "' successfully created.", "green");
@@ -93,6 +126,11 @@ public class RegisterServlet {
         catch (Exception e) {
             throw new ServletException(e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/dashboard.html", method = RequestMethod.GET)
+    public String dashboard() {
+        return "dashboard";
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})

@@ -2,10 +2,9 @@
 <%@ page import="hw7.notes.view.Menu" %>
 <%@ page import="hw7.notes.domain.Vendor" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.web.dao.VendorDao" %>
+<%@ page import="hw7.notes.dao.VendorDao" %>
 <%@ page import="hw7.notes.service.NotebookService" %>
 <%@ page import="hw7.notes.service.NotebookServiceImpl" %>
-<%@ page import="static hw7.notes.view.Servlet.getAttribArray" %>
 <%--<%@ page errorPage="../pages/generalErrorPage.jsp" %>--%>
 <script src="../JS/select.js" type="text/javascript">    </script>
 <script src="../JS/notebooks.js" type="text/javascript">    </script>

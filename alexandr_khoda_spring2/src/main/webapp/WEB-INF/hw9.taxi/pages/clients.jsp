@@ -1,125 +1,108 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="java.util.List" %>
-<%@ page import="hw8.taxi.domain.Client" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="hw8.taxi.service.ClientServiceImpl" %>
-<%@ page import="java.util.GregorianCalendar" %><%--
+<%--
   Created by IntelliJ IDEA.
-  User: s_okhoda
-  Date: 20.01.2016
-  Time: 21:03
-  To change this template use File | Settings | File Templates.
+  User: al1
+  Date: 21.11.15
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<script src="../../../js/registerAjax.js"></script>
+<%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
+
+<html ng-app="listEntitiesJSP">
 <head>
-    <title>Requested List of Clients</title>
+    <title>Client List</title>
     <style>
-        <%@include file='/hw8.taxi/css/clients.css' %>
+        <%@include file='../css/list.css' %>
     </style>
+    <center><h1>Client List</h1></center><br>
 </head>
 <body>
 
-<form action="/taxi" method="post">
-    <button type="submit" name="back">Назад в Главное меню</button>
-    <a href="/hw8.taxi/pages/registerClient.jsp"><button type="submit">Новый клиент</button></a>
+<%--String vendorInputText = getAttribValue(request, "nameA");--%>
 
-    <table border="2">
-        <thead>
-        <%  if (request.getAttribute("quantity") != null) {
-                quantity = (int) request.getAttribute("quantity");
-                header = "Список всех клиентов блоками по " + quantity +
-                        " человек";
-            }
-            if (request.getAttribute("showClientsGtSum") != null) {
-                orderSum = (int) request.getAttribute("showClientsGtSum");
-                header = "Список всех клиентов, наездивших на сумму больше "
-                        + orderSum + " грн.";
-            }
-            if (request.getAttribute("showClientsLastMonth") != null) {
-                header = "Список всех клиентов, делавших заказы за последний месяц";
-            }
-        %>
-            <tr>
-               <th colspan="100%"><h1><%=header%></h1></th>
-            </tr>
-            <tr>
-                <th><h3>Пор.№</h3></th>
-                <th><h3>Имя</h3></th>
-                <th><h3>Фамилия</h3></th>
-                <th><h3>Телефон</h3></th>
-                <th><h3>Адрес</h3></th>
-                <th><h3>Общая сумма заказов, грн.</h3></th>
-                <th><h3>Дата последнего заказа</h3></th>
-            </tr>
-        </thead>
+<script type="text/javascript">
+    function onUpdate(id){
+        var hid = document.getElementById('idVal');
+        hid.value = (id == null ? 0 : id);
+        this.form.submit();
+    }
+</script>
 
-        <tbody>
-            <%!
-                int lastOutInx = 0;
-                int counter;
-                List<Client> list;
-                ClientServiceImpl clientServiceImpl;
-                String header="";
-                int quantity;
-                int orderSum;
-
-                private String checkDate(GregorianCalendar gc){
-                    SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
-                    if (gc == null) {
-                        return "null";
-                    }
-                    else {
-                        return format1.format(gc.getTime());
-                    }
-                }
-
-            %>
-            <%
-                clientServiceImpl = (ClientServiceImpl)request.getAttribute("clientServiceImpl");
-
-                if (request.getAttribute("quantity") != null) {
-                    if (quantity != (int)request.getAttribute("quantity")){
-                        clientServiceImpl.getClientService().setLastPrintedClientInx(-1);
-                    }
-
-                    counter =
-                            clientServiceImpl.getClientService().getLastPrintedClientInx() + 1;
-                    list =
-                            clientServiceImpl.getClientService().showClientsByPortion(quantity);
-                    lastOutInx = clientServiceImpl.getClientService().getLastPrintedClientInx();
-
-                    if (lastOutInx ==
-                            clientServiceImpl.getClientService().getClients().size() - 1){
-                        clientServiceImpl.getClientService().setLastPrintedClientInx(counter - 1);
-                    }
-                }
-                else {
-                    list = (List) request.getAttribute("clientList");
-                    counter = 0;
-                    clientServiceImpl.getClientService().setLastPrintedClientInx(-1);
-                }
-                for (int i = 0; i < list.size(); i++) {
-            %>
-                    <tr>
-                        <td class="shrink"><%= Integer.toString(i + 1 + counter)
-                                + "."%></td>
-                        <td align="left"><%= list.get(i).getName()%></td>
-                        <td align="left"><%= list.get(i).getSurname()%></td>
-                        <td><%= list.get(i).getPhone()%></td>
-                        <td align="left"><%= list.get(i).getAddress()%></td>
-                        <td><%=list.get(i).getTotalOrderAmount()%></td>
-                        <td><%=checkDate(list.get(i).getLastOrderDate())%></td>
-                    </tr>
-            <%
-                }
-            %>
-        </tbody>
-        <tfoot>
-            <td colspan="100%" align="center">
-                &copy;<%=clientServiceImpl.getClientService().getFooter()%></td>
-        </tfoot>
-    </table>
+  <div style="display: inline-block">
+<form action="/back2Menu.html" method="get">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Dash">
 </form>
+<form action="/back2Menu.html" method="get">
+        <input type="submit" name="back" id="back" style="margin-left: 8em"
+               value="&longleftarrow;">
+</form>
+<form action="/back2Menu.html" method="get">
+        <label class="cntMark">{{cnt}} of {{totPages}}</label>
+        <input type="submit" name="forward" id="forward" class="but"
+               value="&longrightarrow;">
+</form>
+
+        <label id="message" class="cntMark"
+               style="color:${messageColor};
+                       text-align: center; width: auto" >${messageText}
+        </label>
+
+        <input type="hidden" name="cntMark" value="${cnt} of ${totPages}">
+        <input type="hidden" name="sPortion" value="${sPortion}">
+        <input type="hidden" name="idVal" id="idVal" value="">
+    </div>
+
+
+    <table>
+        <thead>
+        <tr>
+            <%--<th class="shrink"><h3>ID</h3></th>--%>
+            <th><h3>ID</h3></th>
+            <th><h3>Name</h3></th>
+            <th><h3>Surname</h3></th>
+            <th><h3>Phone</h3></th>
+            <th><h3>Address</h3></th>
+            <th><h3>Last Order Date</h3></th>
+            <th><h3>Order Amount</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="cl" items="${clientList}" varStatus="count">
+
+            <tr>
+                <td class="shrink">${cl.id}</td>
+                <td align="left">${cl.name}</td>
+                <td align="left">${cl.surname}</td>
+                <td align="left">${cl.phone}</td>
+                <td align="left">${cl.address}</td>
+                <td align="left">
+                    <fmt:formatDate value="${cl.lastOrderDate}"
+                                    pattern="dd.MM.yyyy" />
+                </td>
+                <td align="left">${cl.orderAmount}</td>
+                <td><button id="butUpdate" name="updClient2"
+                            onclick="onUpdate(${cl.id})">Update</button>
+                </td>
+                <td><button id="butDelete" name="delClient"
+                            onclick="onUpdate(${cl.id})">Delete</button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <c:if test="${cnt == totPages}">
+        <script type="text/javascript">
+            document.getElementById("forward").disabled = true;
+        </script>
+    </c:if>
+    <c:if test="${cnt == 1}">
+        <script type="text/javascript">
+            document.getElementById("back").disabled = true;
+        </script>
+    </c:if>
+</form>
+
 </body>
 </html>

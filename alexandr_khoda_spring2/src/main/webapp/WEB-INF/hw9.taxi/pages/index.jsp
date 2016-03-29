@@ -10,7 +10,7 @@
 
 <script src="../../../js/taxi.js" type="text/javascript">    </script>
 
-
+<jsp:forward page="dashboard.jsp" />
 <html>
     <head>
         <title>Welcome to TAXI order management service</title>

@@ -21,7 +21,7 @@ import static hw7.notes.view.Servlet.String2Integer;
 /**
  * Created by s_okhoda on 09.02.2016.
  */
-@WebServlet(name = "HW7Menu", value = "/MainNote1")
+@WebServlet(name = "HW7Menu", value = "/MainNote")
 public class Menu extends HttpServlet {
     public static final String NameSurname = " All rights reserved, Alexandr " +
             "Khodakovskyi, Kyiv 2016";
