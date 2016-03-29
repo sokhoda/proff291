@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository("userDao")
-@Repository
+@Repository("userDao")
 public class UserDaoImpl implements UserDao  {
+
     @Autowired(required = true)
     private SessionFactory factory;
     private static Logger log = Logger.getLogger(UserDaoImpl.class);
@@ -49,14 +49,23 @@ public class UserDaoImpl implements UserDao  {
 
     @Override
     public List findAll() {
-        return (List<User>)getSession().createQuery("from hw9.taxi.domain.User u");
+        return (List<User>)getSession().createQuery("from web.hw9.taxi.domain.User u");
     }
 
     @Override
     public boolean isLogin(String login) {
         if(getSession().createQuery("from User u where u.login= :login").setParameter("login",login).uniqueResult()==null){
-            return false;//если с таким логином нет в базе
+            return true;//если с таким логином нет в базе
         }
-        return true;
+        return false;
+    }
+
+    @Override
+    public boolean isUser(String login, String pass) {
+        if(getSession().createQuery("from User u where u.login= :login and u.password = :pass")
+                .setParameter("login",login).setParameter("pass",pass).uniqueResult()!=null){
+            return true;//если с таким логином есть  в базе
+        }
+        return false;
     }
 }

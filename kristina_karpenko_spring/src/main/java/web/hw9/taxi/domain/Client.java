@@ -2,10 +2,10 @@ package web.hw9.taxi.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Created by Администратор on 01.03.2016.
- */
+
 @Entity
 @Table(name = "CLIENTS")
 public class Client {
@@ -25,21 +25,36 @@ public class Client {
     @Column(name = "ADDRESS")
     private String address;
 
+    @Column(name = "PHONE")
+    private String phone;
+
     @Column(name = "SUM")
     private double sum;
 
     @Column(name = "LAST_ORDER")
     private Date lastOrder;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Order> orders = new HashSet<>();
+
     public Client() {
     }
 
-    public Client(String name, String surName, String address, double sum) {
+    public Client(String name, String surName, String address, String phone) {
         this.name = name;
         this.surName = surName;
         this.address = address;
-        this.sum = sum;
+        this.phone = phone;
+        this.sum = 0;
         lastOrder = new Date();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -88,6 +103,18 @@ public class Client {
 
     public void setLastOrder(Date lastOrder) {
         this.lastOrder = lastOrder;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void plusSum(double sum){
+        this.sum += sum;
     }
 
     @Override

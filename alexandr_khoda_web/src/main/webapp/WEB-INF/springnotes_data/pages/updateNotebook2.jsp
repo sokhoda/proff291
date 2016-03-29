@@ -8,14 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static hw7.notes.view.Servlet.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hw7.notes.view.Menu" %>
-<%@ page import="NotebookServiceImpl" %>
-<%@ page import="Vendor" %>
-<%@ page import="VendorDao" %>
-<%@ page import="CPUDao" %>
-<%@ page import="CPU" %>
-<%@ page import="Memory" %>
-<%@ page import="MemoryDao" %>
+<%@ page import="springnotes.view.Menu" %>
+<%@ page import="springnotes.service.NotebookServiceImpl" %>
+<%@ page import="springnotes.domain.Vendor" %>
+<%@ page import="springnotes.dao.VendorDao" %>
+<%@ page import="springnotes.dao.CPUDao" %>
+<%@ page import="springnotes.domain.CPU" %>
+<%@ page import="springnotes.domain.Memory" %>
+<%@ page import="springnotes.dao.MemoryDao" %>
 <%@ page import="java.util.Date" %>
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 <script src="../JS/select.js" type="text/javascript">    </script>

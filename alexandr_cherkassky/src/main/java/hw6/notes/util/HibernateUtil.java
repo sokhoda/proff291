@@ -11,6 +11,8 @@ package hw6.notes.util;
  * Created by Пк2 on 11.02.2016.
  */
 public class HibernateUtil {
+
+
     public SessionFactory makeFactory() {
         Locale.setDefault(Locale.ENGLISH);
         Configuration cfg = new Configuration().configure("hw6/hibernate.cfg.xml");

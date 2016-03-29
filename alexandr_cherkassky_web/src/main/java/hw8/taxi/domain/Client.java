@@ -14,6 +14,17 @@ public class Client  {
     private String address;
     private Double orderCost=0.0;
     private GregorianCalendar lastOrderDate;
+    private Integer clientId;
+    private static Integer id=1;
+
+    public Client(){
+        this.name=null;
+        this.surname=null;
+        this.phone=null;
+        this.address=null;
+        this.orderCost=null;
+        this.lastOrderDate=null;
+    }
 
     public Client(String name, String surname, String phone, String address){
         this.name=name;
@@ -22,6 +33,8 @@ public class Client  {
         this.address=address;
         this.orderCost=0.0;
         this.lastOrderDate=null;
+        this.clientId=Integer.valueOf(id.intValue());
+        id=id+1;
     }
 
     public  void setName(String name){
@@ -72,9 +85,14 @@ public class Client  {
         return lastOrderDate;
     }
 
+    public int getClientId(){
+        return clientId.intValue();
+    }
+
     @Override
     public String toString() {
         return "Client{" +
+                "id"+clientId+
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +

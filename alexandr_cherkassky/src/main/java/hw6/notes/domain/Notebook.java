@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
  */
 @Entity
 @Table(name="Notebook")
+
 public class Notebook {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "KHO_NOTES_SEQ",

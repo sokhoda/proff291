@@ -17,25 +17,53 @@ public class Memory {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private int id;
 
-    @Column(name="memory_name")
-    private String memoryName;
+    @Column
+    private String memModel;
+
+    @Column(name="MEMORY SIZE")
+    private Double memSize;
 
     @ManyToOne
-    private Set<Vendor> vendor=new HashSet<>();
+    @JoinColumn(name="MEM VENDOR",referencedColumnName = "name")
+    private Vendor memVendor;
 
-    @OneToMany
-    private Set<Notebook> thisMemoryNotes=new HashSet<>();
+    @OneToMany(mappedBy="noteMemory", cascade = CascadeType.ALL)
+    private Set<Notebook> thisMemoryNotes;
 
     public Memory(){}
-    public Memory(String memoruName){
-        this.memoryName=memoruName;
+    public Memory(String memModel,Double size){
+        this.memModel=memModel;
+        this.memSize=size;
+        this.thisMemoryNotes=new HashSet<>();
     }
 
-    public String getMemoryName() {
-        return memoryName;
+    public String getMemModel() {
+        return memModel;
     }
 
-    public void setMemoryName(String memoryName) {
-        this.memoryName = memoryName;
+    public Double getMemSize() {
+        return memSize;
+    }
+
+    public Vendor getMemVendor() {
+        return memVendor;
+    }
+
+    public Set<Notebook> getThisMemoryNotes() {
+        return thisMemoryNotes;
+    }
+
+    public void addNote(Notebook note){
+        this.thisMemoryNotes.add(note);
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "id=" + id +
+                ", memModel='" + memModel + '\'' +
+                ", memSize=" + memSize +
+                ", memVendor=" + memVendor.getVendorName() +
+                '}';
     }
 }

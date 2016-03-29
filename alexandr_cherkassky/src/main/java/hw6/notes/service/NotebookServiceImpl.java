@@ -12,7 +12,10 @@ import java.util.ListIterator;
  * Created by Пк2 on 11.02.2016.
  */
 public class NotebookServiceImpl implements NotebookService  {
+
     private NotebookDao noteDao=null;
+
+    public NotebookServiceImpl(){};
     public NotebookServiceImpl(NotebookDao noteDao){
         this.noteDao=noteDao;
     }

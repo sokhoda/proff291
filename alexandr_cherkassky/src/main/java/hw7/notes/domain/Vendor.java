@@ -20,19 +20,40 @@ public class Vendor {
     @Column(name="name")
     private String vendorName;
 
-    @OneToMany()
+    @OneToMany
     private Set<Notebook> thisVendorNotes=new HashSet<>();
+
+    @OneToMany (mappedBy = "thisVendor")
+    private Set<CPU> thisVendorCpu;
 
     public Vendor(){}
     public Vendor(String vendorName){
         this.vendorName=vendorName;
+        this.thisVendorCpu=new HashSet<>();
+        this.thisVendorNotes=new HashSet<>();
     }
 
     public String getVendorName() {
         return vendorName;
     }
 
+    public Set<Notebook> getThisVendorNotes() {
+        return thisVendorNotes;
+    }
+
+    public Set<CPU> getThisVendorCpu() {
+        return thisVendorCpu;
+    }
+
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
+    }
+
+    public void addCPU(CPU cpu){
+        this.thisVendorCpu.add(cpu);
+    }
+
+    public void addNote(Notebook note){
+        this.thisVendorNotes.add(note);
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
  * Created by Пк2 on 11.02.2016.
  */
 public interface NotebookService {
+
     public  Long add(Notebook notebook);
     public List findAll();
     public boolean delete(Long id);

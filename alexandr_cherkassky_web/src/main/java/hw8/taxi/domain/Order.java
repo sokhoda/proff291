@@ -4,13 +4,21 @@ package hw8.taxi.domain;
  * Created by Пк2 on 27.02.2016.
  */
 public class Order {
-    private long id;
+    private Long id;
     private Client client;
     private Double orderCost;
     private String adressFrom;
     private String adressTo;
 
-    public Order(long id, Client client, String amount, String adressFrom, String adressTo) {
+    public Order(){
+        this.id = null;
+        this.client = null;
+        this.orderCost =null;
+        this.adressFrom = null;
+        this.adressTo = null;
+    }
+
+    public Order(Long id, Client client, String amount, String adressFrom, String adressTo) {
         this.id = id;
         this.client = client;
         this.orderCost =Double.parseDouble(amount);
@@ -22,7 +30,7 @@ public class Order {
         return client;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -38,7 +46,7 @@ public class Order {
         return adressTo;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,5 +78,10 @@ public class Order {
                     this.getAdressTo().contains(another.getAdressTo())) return true;
         }
         return false;
+    }
+
+    public String toString(){
+        String str="OrderId:"+this.id+" Order cost:"+this.orderCost;
+        return str;
     }
 }

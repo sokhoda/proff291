@@ -47,6 +47,12 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     @Transactional(readOnly = true)
+    public Client getClientById(Long id) {
+        return clientDao.read(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List getAllClients() {
         return clientDao.findAll();
     }

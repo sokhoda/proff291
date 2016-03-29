@@ -1,5 +1,6 @@
 package hw8.taxi.service;
 
+import hw8.taxi.domain.Order;
 import hw8.taxi.exception.OrderException;
 import hw8.taxi.domain.Client;
 
@@ -13,4 +14,7 @@ public interface OrderService {
     void editOrder(Long id, Client client, String amount, String addressFrom, String addressTo);
     List showOrders(Long from, Long to);
     List showOrdersByPortion();
+    Order findOrderById(Long id);
+    List<Order> getOrders();
+
 }

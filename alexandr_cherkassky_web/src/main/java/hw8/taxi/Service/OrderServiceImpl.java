@@ -4,14 +4,15 @@ import hw8.taxi.domain.Client;
 import hw8.taxi.domain.Order;
 import hw8.taxi.exception.OrderException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Пк2 on 27.02.2016.
  */
 public class OrderServiceImpl implements OrderService{
-    private List<Order> orders;
+    private static List<Order> orders;
+    private int startInd=0;
+    private int portionSize=10;
 
 
 
@@ -67,7 +68,25 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List showOrdersByPortion() {
-        return null;
+        List<Order> orders = new ArrayList<>();
+        int left=this.orders.size()-startInd;
+        if(left>0){
+            if(left>=portionSize) {
+                for (int i = startInd; i < portionSize; i++) {
+                    orders.add(this.orders.get(i));
+                }
+                startInd=startInd+portionSize;
+            }else{
+                for (int i = startInd; i<left; i++) {
+                    orders.add(this.orders.get(i));
+
+                }
+                startInd=startInd+left;
+            }
+        } else{
+            startInd=0;
+        }
+        return orders;
     }
 
 
@@ -78,10 +97,18 @@ public class OrderServiceImpl implements OrderService{
         return false;
     }
 
-    private Order findOrderById(Long id){
-        for(Order anOrder:orders){
-            if(anOrder.getId()==id) return anOrder;
+    public Order findOrderById(Long id){
+        for(int i=0; i<orders.size();i++){
+            Order order=orders.get(i);
+            if(order.getId().longValue()==id.longValue()){
+                return order;
+            }
         }
         return null;
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        return orders;
     }
 }

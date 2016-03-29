@@ -12,5 +12,6 @@ public interface OrderDao {
     boolean update(Order order);
     boolean delete(Order order);
     Order read(Long id);
+    Order findByAddressFromAndTo(String addressFrom, String addressTo);
     List findAll();
 }

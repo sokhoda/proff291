@@ -3,30 +3,30 @@ var app = angular.module('app', []);
 app.controller("reg", function ($scope, $http) {
 
     $scope.greeting = "";
-    $scope.idNumber = 0;
-    $scope.login="lo";
-    $scope.pas="pas";
-    $scope.update = function () {
-
-        var note = $scope.login;
-
-        var responsePromise = $http.get('/helloBody.html?login=' + $scope.login);
-
-        responsePromise.success(
-            function (data, status, headers, config) {
-                $scope.greeting = "erffdfderr";
-            });
-        responsePromise.error(
-            function (data, status, headers, config) {
-                alert('AJAX failed!');
-            });
-    }
+    //$scope.idNumber = 0;
+    //$scope.login="";
+    //$scope.pas="pas";
+    //$scope.update = function () {
+    //
+    //    var note = $scope.login;
+    //
+    //    var responsePromise = $http.get('/helloBody.html?login=' + $scope.login);
+    //
+    //    responsePromise.success(
+    //        function (data, status, headers, config) {
+    //            $scope.greeting = "erffdfderr";
+    //        });
+    //    responsePromise.error(
+    //        function (data, status, headers, config) {
+    //            alert('AJAX failed!');
+    //        });
+    //}
     //==================register====================
     $scope.register = function () {
 
         //var note = $scope.login;
 
-        var responsePromise = $http.post('/register.html?login=' +$scope.login+ $scope.idNumber+$scope.pas);
+        var responsePromise = $http.post('/register.html?login=' +$scope.login+ '?idNumber='+$scope.idNumber+'?pas='+$scope.pas);
         //var responsePromise = $http.post
         responsePromise.success(
             function (data, status, headers, config) {
@@ -37,18 +37,30 @@ app.controller("reg", function ($scope, $http) {
                 alert('AJAX failed!');
             });
     }
-    //=================================================
+    //===================login==============================
     $scope.logBlur = function () {
 
-        if ($scope.login.length < 4) {
+        if ($scope.login.length < 4) {{
             $scope.errorLog = "Login must be longer 4 sign";
         }
+
         for (var i = 0; i < $scope.login.length; i++) {
             if ($scope.login[i] == " ") {
                 $scope.errorLog = "Login must not have space";
             }
-        }
-    }
+        }}
+        else{
+            var responsePromise = $http.get('/islogin.html?login=' +$scope.login);
+            responsePromise.success(
+                function (data, status, headers, config) {
+                    $scope.greeting = data;
+                });
+            responsePromise.error(
+                function (data, status, headers, config) {
+                    alert('AJAX failed!');
+                });
+        }}
+
     $scope.logFocus = function () {
         $scope.errorId = "";
     }
