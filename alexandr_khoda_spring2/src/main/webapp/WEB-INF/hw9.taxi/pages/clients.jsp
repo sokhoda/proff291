@@ -29,9 +29,9 @@
     }
 </script>
 
-    <div style="display: inline-block">
+  <div style="display: inline-block">
 <form action="/back2Menu.html" method="get">
-        <input type="submit" name="back2Menu" value="&longleftarrow; to Menu">
+        <input type="submit" name="back2Menu" value="&longleftarrow; to Dash">
 </form>
 <form action="/back2Menu.html" method="get">
         <input type="submit" name="back" id="back" style="margin-left: 8em"
@@ -59,30 +59,33 @@
         <tr>
             <%--<th class="shrink"><h3>ID</h3></th>--%>
             <th><h3>ID</h3></th>
-            <th><h3>Vendor</h3></th>
-            <th><h3>Model</h3></th>
-            <th><h3>Date of Manuf.</h3></th>
-            <th><h3>CPU</h3></th>
-            <th><h3>Memory</h3></th>
+            <th><h3>Name</h3></th>
+            <th><h3>Surname</h3></th>
+            <th><h3>Phone</h3></th>
+            <th><h3>Address</h3></th>
+            <th><h3>Last Order Date</h3></th>
+            <th><h3>Order Amount</h3></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="n" items="${notebookPortion}" varStatus="count">
+        <c:forEach var="cl" items="${clientList}" varStatus="count">
 
             <tr>
-                <td class="shrink">${n.id}</td>
-                <td align="left">${n.vendor}</td>
-                <td align="left">${n.model}</td>
+                <td class="shrink">${cl.id}</td>
+                <td align="left">${cl.name}</td>
+                <td align="left">${cl.surname}</td>
+                <td align="left">${cl.phone}</td>
+                <td align="left">${cl.address}</td>
                 <td align="left">
-                    <fmt:formatDate value="${n.manDate}" pattern="dd.MM.yyyy" />
+                    <fmt:formatDate value="${cl.lastOrderDate}"
+                                    pattern="dd.MM.yyyy" />
                 </td>
-                <td align="left">${n.cpu}</td>
-                <td align="left">${n.memory}</td>
-                <td><button id="butUpdate" name="updNotebook2"
-                            onclick="onUpdate(${n.id})">Update</button>
+                <td align="left">${cl.orderAmount}</td>
+                <td><button id="butUpdate" name="updClient2"
+                            onclick="onUpdate(${cl.id})">Update</button>
                 </td>
-                <td><button id="butDelete" name="delNotebook"
-                            onclick="onUpdate(${n.id})">Delete</button>
+                <td><button id="butDelete" name="delClient"
+                            onclick="onUpdate(${cl.id})">Delete</button>
                 </td>
             </tr>
         </c:forEach>

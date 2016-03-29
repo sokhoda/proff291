@@ -8,7 +8,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="../../../js/angular.js"></script>
+<script src="../../../js/registerAjax.js"></script>
+
 <html ng-app="regJSP">
+<html>
     <head>
         <title>Registration Form</title>
         <style>
@@ -35,7 +39,8 @@
         <br>
         <div ng-controller="regClientCtrl">
             <input type="submit" value="&longleftarrow; to Dash"
-                   ng-click="back2dashboard()">
+                   ng-click="back2dashboard();">
+
             <input type="submit"  value="Register"
                    ng-click="doRegisterClient()">
 
@@ -51,9 +56,3 @@
     </form>
     </body>
 </html>
-
-<script type="text/javascript">
-
-
-
-</script>

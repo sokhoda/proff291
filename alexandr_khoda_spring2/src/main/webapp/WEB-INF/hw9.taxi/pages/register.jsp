@@ -41,7 +41,7 @@
         <div ng-controller="RegisterCtrl">
             <input type="submit" value="&longleftarrow; to Login"
                                       ng-click="back2Login()">
-            <input type="submit"  value="Register" ng-click="doRegister()" >
+            <input type="submit" value="Register" ng-click="doRegister()" >
 
         <br><br>
         <label id="message"

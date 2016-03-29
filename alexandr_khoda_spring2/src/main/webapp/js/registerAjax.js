@@ -10,11 +10,18 @@ app.controller("regClientCtrl", function ($scope, $window, $http) {
 
     $scope.back2dashboard = function() {
         $window.location.href = '/back2Menu.html';
-        //console.log('back2login AJAX');
+        //console.log('back2Menu.html');
     };
 
     var setScopeMessage = function(value) {
         $scope.message =  { "mcolor" : "red", "mtext": value};
+    };
+
+    var undefinedAddressChange = function() {
+        if (typeof ($scope.address) == 'undefined' ) {
+            $scope.address = '';
+        }
+
     };
 
     var emptyCheck = function(value, name) {
@@ -73,7 +80,6 @@ app.controller("regClientCtrl", function ($scope, $window, $http) {
 
     $scope.doRegisterClient = function() {
 
-        //console.log('\'' + $scope.login + '\'');
 
         if (!nameCheck($scope.name, 'Name')) {
             return;
@@ -84,8 +90,11 @@ app.controller("regClientCtrl", function ($scope, $window, $http) {
         if (!phoneCheck($scope.phone, 'Phone', 10)) {
             return;
         }
+        console.log('\'' + $scope.name + '\', \'' + $scope.surname + '\''+ '\', \'' + $scope.address + '\'');
 
+        undefinedAddressChange();
 
+        console.log('\'' + $scope.name + '\', \'' + $scope.surname + '\''+ '\', \'' + $scope.address + '\'');
          var responsePromise = $http.get('/createClient.json?name=' + $scope.name +
             '&surname=' + $scope.surname + '&phone=' + $scope.phone + '&address=' + $scope.address);
 
