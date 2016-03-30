@@ -29,22 +29,106 @@ public class PortionClientServlet {
 
     @RequestMapping(value = "/showClientsByPortion.html", method = RequestMethod.GET)
     public String showClientsByPortion(
-                               @RequestParam ("listClientsByPortionPortion") String portionSize,
-                                      Model model) throws ServletException{
+            @RequestParam("listClientsByPortionPortion") String sPortion,
+            Model model) throws ServletException {
         log.info("/showClientsByPortion.html PortionClientServlet");
         try {
-           Integer  sPortion = String2Integer(portionSize);
-           Integer totPages = clientService.getClientsTotPages(sPortion);
-           List clientList =  clientService.showClientsByPortion(sPortion, 1);
+            Integer sPortionC = String2Integer(sPortion);
+            Integer totPagesC = clientService.getClientsTotPages(sPortionC);
+            List clientList = clientService.showClientsByPortion(sPortionC, 1);
 
             model.addAttribute("cnt", 1);
-            model.addAttribute("totPages", totPages);
+            model.addAttribute("totPages", totPagesC);
             model.addAttribute("clientList", clientList);
-            model.addAttribute("sPortion", sPortion);
+            model.addAttribute("sPortion", sPortionC);
             return "clients";
         }
         catch (Exception e) {
             throw new ServletException(e.getMessage());
         }
     }
+
+    @RequestMapping(value = "/showNextClientPortion.html", method =
+            RequestMethod.POST)
+    public String showNextClientPortion(
+            @RequestParam("portionSize") String sPortion,
+            @RequestParam("cnt") String cnt,
+            @RequestParam("totPages") String totPages,
+            Model model) throws ServletException {
+        log.info("/showNextClientPortion.html PortionClientServlet");
+        try {
+            Integer sPortionC = String2Integer(sPortion);
+            int cntC = Integer.parseInt(cnt);
+            int totPagesC = Integer.parseInt(totPages);
+            if (cntC < totPagesC) {
+                cntC++;
+            }
+            List clientList = clientService.showClientsByPortion(sPortionC,
+                    cntC);
+
+            model.addAttribute("cnt", cntC);
+            model.addAttribute("totPages", totPagesC);
+            model.addAttribute("clientList", clientList);
+            model.addAttribute("sPortion", sPortionC);
+            return "clients";
+        }
+        catch (Exception e) {
+            throw new ServletException(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/showPreviousClientPortion.html", method =
+            RequestMethod.POST)
+    public String showPreviousClientPortion(
+            @RequestParam("portionSize") String sPortion,
+            @RequestParam("cnt") String cnt,
+            @RequestParam("totPages") String totPages,
+            Model model) throws ServletException {
+        log.info("/showPreviousClientPortion.html PortionClientServlet");
+        try {
+            Integer sPortionC = String2Integer(sPortion);
+            int cntC = Integer.parseInt(cnt);
+            int totPagesC = Integer.parseInt(totPages);
+            if (cntC > 1) {
+                cntC--;
+            }
+            List clientList = clientService.showClientsByPortion(sPortionC, cntC);
+
+            model.addAttribute("cnt", cntC);
+            model.addAttribute("totPages", totPagesC);
+            model.addAttribute("clientList", clientList);
+            model.addAttribute("sPortion", sPortionC);
+            return "clients";
+        }
+        catch (Exception e) {
+            throw new ServletException(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/showCurrentClientPortion.html", method =
+            RequestMethod.GET)
+    public String showCurrentClientPortion(
+            @RequestParam("portionSize") String sPortion,
+            @RequestParam("cnt") String cnt,
+            @RequestParam("totPages") String totPages,
+            Model model) throws ServletException {
+        log.info("/showCurrentClientPortion.html PortionClientServlet");
+        try {
+            Integer sPortionC = String2Integer(sPortion);
+            int cntC = Integer.parseInt(cnt);
+            int totPagesC = Integer.parseInt(totPages);
+            List clientList = clientService.showClientsByPortion(sPortionC,
+                    cntC);
+
+            model.addAttribute("cnt", cntC);
+            model.addAttribute("totPages", totPagesC);
+            model.addAttribute("clientList", clientList);
+            model.addAttribute("sPortion", sPortionC);
+            return "clients";
+        }
+        catch (Exception e) {
+            throw new ServletException(e.getMessage());
+        }
+    }
+
 }

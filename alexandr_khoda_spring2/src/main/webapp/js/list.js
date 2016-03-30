@@ -1,3 +1,21 @@
+//$(document).ready(function (cnt, totPages) {
+//    alert('cnt == totPages');
+//    if (cnt == totPages){
+//        $("#nextInput").css('visibility','hidden');
+//    }
+//    if (cnt == 1){
+//        $("#previousInput").hide();
+//    }
+//});
+function disableButtons(cnt, totPages) {
+    if (cnt == totPages) {
+        $("#nextInput").css('visibility', 'hidden');
+    }
+    if (cnt == 1) {
+        $("#previousInput").css('visibility','hidden');
+    }
+}
+
 var app = angular.module('listEntitiesJSP', []);
 
 	app.controller("listEntitiesCtrl", function ($scope, $window, $http) {

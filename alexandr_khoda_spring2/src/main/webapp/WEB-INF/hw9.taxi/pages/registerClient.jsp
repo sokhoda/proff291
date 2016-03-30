@@ -1,6 +1,4 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Calendar" %>
-<%@ page import="java.util.GregorianCalendar" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: s_okhoda
   Date: 20.01.2016

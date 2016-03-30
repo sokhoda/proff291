@@ -43,6 +43,26 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public boolean updateClient(Long id, String name, String surname, String
+            phone, String address) throws ClientException {
+        Session session = factory.getCurrentSession();
+        Client client = new Client(name, surname, phone, address);
+        if (clientDao.checkExistExceptId(client, id)){
+            throw new ClientException("Client \n" + client + "\n exists in DB" +
+                    ".");
+        }
+        else {
+            Client client1 = clientDao.read(id);
+            client1.setName(name);
+            client1.setSurname(surname);
+            client1.setPhone(phone);
+            client1.setAddress(address);
+            clientDao.update(client1);
+            return true;
+        }
+    }
+
+    @Override
     public Client read(Long id) {
         return clientDao.read(id);
     }

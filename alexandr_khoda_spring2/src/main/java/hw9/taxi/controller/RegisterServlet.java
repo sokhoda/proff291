@@ -36,40 +36,6 @@ public class RegisterServlet {
         return "dashboard";
     }
 
-
-
-//    @RequestMapping(value = "/client.html", method = RequestMethod.GET)
-//    public String back2Menu(Model model) throws ServletException{
-//        public String back2Menu(Model model) throws ServletException{
-//            log.info("RegisterServlet /back2Menu.html controller");
-//    try {
-//        Integer sPortion = Integer.parseInt(req.getParameter("sPortion"));
-//        String cntMark = req.getParameter("cntMark");
-//        int cnt = Integer.parseInt(cntMark.split(" of ")[0]);
-//        int totPages = Integer.parseInt(cntMark.split(" of ")[1]);
-//
-//        if (cnt > 1) {
-//            cnt--;
-//        }
-//
-//        List notebookPortion = Menu.service.getNotebookTypesByPortion
-//                (sPortion, cnt);
-//        req.setAttribute("cnt", cnt);
-//        req.setAttribute("totPages", totPages);
-//        req.setAttribute("notebookPortion", notebookPortion);
-//        req.setAttribute("sPortion", sPortion);
-//        req.getRequestDispatcher("/hw7.notes/pages/updateNotebook.jsp")
-//                .forward(req, res);
-//        return;
-//    }
-//    catch (Exception e) {
-//        throw new ServletException(e.getMessage());
-//    }
-//
-//            return "dashboard";
-//        }
-
-
     @RequestMapping(value = "/register.html", method = RequestMethod.GET)
     public String register() throws ServletException{
         log.info("RegisterServlet /register.html controller");

@@ -12,6 +12,8 @@ public interface ClientService {
 
     boolean createClient(String name, String surname, String phone, String
             address) throws ClientException;
+    public boolean updateClient(Long id, String name, String surname, String
+            phone, String address) throws ClientException;
     Client read(Long id);
     Integer getClientsTotPages(int size) throws ClientException;
     List showClientsByPortion(int portionSize, int cnt) throws ClientException;
