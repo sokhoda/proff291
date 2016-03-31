@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="../../../js/angular.js"></script>
 <script src="../../../js/jquery-1.12.2.min.js"></script>
@@ -95,31 +96,33 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="cl" items="${clientList}" varStatus="count">
-        <tr>
-            <td class="shrink">${cl.id}</td>
-            <td align="left">${cl.name}</td>
-            <td align="left">${cl.surname}</td>
-            <td align="left">${cl.phone}</td>
-            <td align="left">${cl.address}</td>
+    <div ng-controller="listEntitiesCtrl">
+    <%--<c:forEach var="cl" items="${clientList}" varStatus="count">--%>
+        <tr ng-repeat="cl in clientList">
+            <td class="shrink">{{cl.id}}</td>
+            <td align="left">{{cl.name}}</td>
+            <td align="left">{{cl.surname}}</td>
+            <td align="left">{{cl.phone}}</td>
+            <td align="left">{{cl.address}}</td>
             <td align="left">
-                <fmt:formatDate value="${cl.lastOrderDate}"
+                <fmt:formatDate value="{{cl.lastOrderDate}}"
                                 pattern="dd.MM.yyyy"/>
             </td>
-            <td align="left">${cl.orderAmount}</td>
+            <td align="left">{{cl.orderAmount}}</td>
             <td>
-                <button id="butUpdate" onclick="onUpdate(${cl.id}, 0 )">Update
-                </button>
+                <button ng-click="doUpdateClient({{cl.id}})">Update</button>
             </td>
             <td>
-                <button id="butDelete" onclick="onUpdate(${cl.id}, 1)">Delete
-                </button>
+                <button ng-click="doDeleteClient({{cl.id}})">Delete</button>
             </td>
         </tr>
-    </c:forEach>
+    <%--</c:forEach>--%>
+    </div>
     </tbody>
 </table>
-
+<form>
+    <footer style="text-align: center">&copy;<spring:eval expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
+</form>
 <%--<c:if test="${cnt == totPages}">--%>
 <%--<script type="text/javascript">--%>
 <%--$("#nextInput").disabled = true;--%>

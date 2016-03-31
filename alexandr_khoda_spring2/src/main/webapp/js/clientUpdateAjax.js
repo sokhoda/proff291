@@ -111,8 +111,6 @@ app.controller("updClientCtrl", function ($scope, $window, $http) {
             function(data, status, headers, config) {
                 $scope.message = data;
                 console.log(JSON.stringify(data));
-                //$scope.messageColor = data.messageC
-                //alert('data=' + data.mText);
             });
 
         responsePromise.error(

@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: s_okhoda
@@ -50,7 +51,7 @@
             </label>
 
         </div>
-
+        <footer style="text-align: center">&copy;<spring:eval expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
     </form>
     </body>
 </html>

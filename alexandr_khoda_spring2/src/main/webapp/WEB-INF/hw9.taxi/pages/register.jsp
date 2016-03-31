@@ -1,8 +1,9 @@
- <%-- Created by IntelliJ IDEA.
-  User: s_okhoda
-  Date: 20.01.2016
-  Time: 17:52
-  To change this template use File | Settings | File Templates.
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%-- Created by IntelliJ IDEA.
+ User: s_okhoda
+ Date: 20.01.2016
+ Time: 17:52
+ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="../../../js/taxi.js" type="text/javascript">    </script>
@@ -51,6 +52,7 @@
         </label>
 
         </div>
+        <footer style="text-align: center">&copy;<spring:eval expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
     </form>
     </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%--
   Created by IntelliJ IDEA.
   User: s_okhoda
@@ -23,9 +24,9 @@
 <c:set var="defSumMax" value="2000"/>
 
 
-<center><img id="MenuImg"
-             src="../../../../src/main/resources/img/taxi_clients.jpg">
-</center>
+<%--<center><img id="MenuImg"--%>
+             <%--src="../../../../src/main/resources/img/taxi_clients.jpg">--%>
+<%--</center>--%>
 <h1 align="center">Welcome to the TAXI Service</h1>
 <div>
     <label align="left" style="font-size: larger; font-weight: bold;
@@ -147,8 +148,9 @@
     </tbody>
 
 </table>
+
 <form>
-<footer style="text-align: center">&copy;${AllRights}</footer>
+<footer style="text-align: center">&copy;<spring:eval expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
 </form>
 </body>
 </html>
