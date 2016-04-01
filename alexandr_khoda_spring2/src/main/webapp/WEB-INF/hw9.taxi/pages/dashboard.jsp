@@ -51,7 +51,7 @@
         </form>
     </tr>
     <tr>
-        <form action="/showClientsByPortion.html">
+        <form action="/clients.html">
             <td class="col0">
                 <input type="submit" name="listClientsByPortion"
                        value="2. List Clients by Portion">

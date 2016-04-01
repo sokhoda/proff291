@@ -1,5 +1,6 @@
 package hw9.taxi.controller;
 
+import hw9.taxi.domain.Client;
 import hw9.taxi.exception.ClientException;
 import hw9.taxi.service.ClientService;
 import org.apache.log4j.Logger;
@@ -27,20 +28,17 @@ public class PortionClientServlet {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping(value = "/showClientsByPortion.html", method = RequestMethod.GET)
-    public String showClientsByPortion(
+    @RequestMapping(value = "/clients.html", method = RequestMethod.GET)
+    public String clients(
             @RequestParam("listClientsByPortionPortion") String sPortion,
             Model model) throws ServletException {
-        log.info("/showClientsByPortion.html PortionClientServlet");
+        log.info("/clients.html PortionClientServlet");
         try {
             Integer sPortionC = String2Integer(sPortion);
             Integer totPagesC = clientService.getClientsTotPages(sPortionC);
-            List clientList = clientService.showClientsByPortion(sPortionC, 1);
-
+            model.addAttribute("sPortion", sPortionC);
             model.addAttribute("cnt", 1);
             model.addAttribute("totPages", totPagesC);
-            model.addAttribute("clientList", clientList);
-            model.addAttribute("sPortion", sPortionC);
             return "clients";
         }
         catch (Exception e) {
@@ -48,57 +46,19 @@ public class PortionClientServlet {
         }
     }
 
-    @RequestMapping(value = "/showNextClientPortion.html", method =
-            RequestMethod.POST)
-    public String showNextClientPortion(
+    @RequestMapping(value = "/showClientsByPortion.json", method = RequestMethod
+            .GET,  produces = "application/json")
+    public @ResponseBody List<Client> showClientsByPortion(
             @RequestParam("portionSize") String sPortion,
             @RequestParam("cnt") String cnt,
-            @RequestParam("totPages") String totPages,
             Model model) throws ServletException {
-        log.info("/showNextClientPortion.html PortionClientServlet");
+        log.info("/showClientsByPortion.json PortionClientServlet");
         try {
             Integer sPortionC = String2Integer(sPortion);
             int cntC = Integer.parseInt(cnt);
-            int totPagesC = Integer.parseInt(totPages);
-            if (cntC < totPagesC) {
-                cntC++;
-            }
-            List clientList = clientService.showClientsByPortion(sPortionC,
-                    cntC);
-
-            model.addAttribute("cnt", cntC);
-            model.addAttribute("totPages", totPagesC);
-            model.addAttribute("clientList", clientList);
-            model.addAttribute("sPortion", sPortionC);
-            return "clients";
-        }
-        catch (Exception e) {
-            throw new ServletException(e.getMessage());
-        }
-    }
-
-    @RequestMapping(value = "/showPreviousClientPortion.html", method =
-            RequestMethod.POST)
-    public String showPreviousClientPortion(
-            @RequestParam("portionSize") String sPortion,
-            @RequestParam("cnt") String cnt,
-            @RequestParam("totPages") String totPages,
-            Model model) throws ServletException {
-        log.info("/showPreviousClientPortion.html PortionClientServlet");
-        try {
-            Integer sPortionC = String2Integer(sPortion);
-            int cntC = Integer.parseInt(cnt);
-            int totPagesC = Integer.parseInt(totPages);
-            if (cntC > 1) {
-                cntC--;
-            }
-            List clientList = clientService.showClientsByPortion(sPortionC, cntC);
-
-            model.addAttribute("cnt", cntC);
-            model.addAttribute("totPages", totPagesC);
-            model.addAttribute("clientList", clientList);
-            model.addAttribute("sPortion", sPortionC);
-            return "clients";
+            List<Client> clientList = clientService.showClientsByPortion
+                    (sPortionC, cntC);
+            return clientList;
         }
         catch (Exception e) {
             throw new ServletException(e.getMessage());

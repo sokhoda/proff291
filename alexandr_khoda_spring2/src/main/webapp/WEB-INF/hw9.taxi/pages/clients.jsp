@@ -8,15 +8,26 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script src="../../../js/angular.js"></script>
+<%--<script src="../../../js/angular.js"></script>--%>
 <script src="../../../js/jquery-1.12.2.min.js"></script>
-<script src="../../../js/registerAjax.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+        src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <script src="../../../js/list.js"></script>
+<script src="../../../js/registerAjax.js"></script>
 
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
 
-<html ng-app="listEntitiesJSP">
+<html ng-app="listEntitiesJSP" ng-cloak style="margin-left: 1em">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <title>Client List</title>
     <style>
         <%@include file='../css/list.css' %>
@@ -26,21 +37,24 @@
 </head>
 <body>
 
+
+
 <input type="hidden" name="idVal" id="idVal" value="">
 
 <script type="text/javascript">
-    function onUpdate(id, deleteButton ) {
+    function onUpdate(id, deleteButton) {
 //            alert('butUpdate');
         if (deleteButton) {
             location.href = '/deleteClient.html?id=' + id;
         }
         else {
             location.href =
-                    '/editClient.html?cid=' + id+'&portionSize='+ ${sPortion} +
-                    '&cnt='+ ${cnt} +'&totPages=' + ${totPages};
+                    '/editClient.html?cid=' + id + '&portionSize=' + ${sPortion} +
+                            '&cnt=' + ${cnt} +'&totPages=' + ${totPages};
         }
     }
 </script>
+
 <div style="float: left;">
     <form action="/back2Menu.html">
         <input type="submit" class="but" value="&longleftarrow; to Dash">
@@ -48,88 +62,63 @@
 </div>
 <%--<a href="/back2Menu.html"><button>&longleftarrow; to Dash</button></a>--%>
 
-<div style="float: left;">
-    <c:url var="urlPrevious" value="/showPreviousClientPortion.html?">
-        <c:param name="cnt" value="${cnt}"/>
-        <c:param name="totPages" value="${totPages}"/>
-        <c:param name="portionSize" value="${sPortion}"/>
-    </c:url>
+<div ng-controller="listEntitiesCtrl"
+     ng-init='init(${sPortion}, ${totPages}, ${cnt})'>
+    <div style="display: inline-block;">
+        <button style="margin-left:8em" class="but"
+                ng-style="{'visibility': hidePrevious()};"
+                ng-click="doPreviousPortion()">&longleftarrow;
+        </button>
 
-    <form action="${urlPrevious}" method="POST">
-        <input type="submit" style="margin-left: 8em" class="but"
-               id="previousInput" value="&longleftarrow;">
-        <label class="cntMark">${cnt} of ${totPages}</label>
-    </form>
-</div>
+        <label class="cntMark">{{cnt}} of {{totPages}}</label>
 
-<div style="float: none;">
-    <c:url var="urlNext" value="/showNextClientPortion.html?">
-        <c:param name="cnt" value="${cnt}"/>
-        <c:param name="totPages" value="${totPages}"/>
-        <c:param name="portionSize" value="${sPortion}"/>
-    </c:url>
-    <form action="${urlNext}" method="POST">
-        <input type="submit" class="but" id="nextInput"
-               value="&longrightarrow;">
-        <label id="message" class="cntMark" style="color:${messageColor};
-                text-align: center; width: auto">${messageText}
+        <button class="but" ng-style="{'visibility': hideNext()};"
+                ng-click="doNextPortion()">&longrightarrow;
+        </button>
+        <label id="message" ng-style="{'width': '100%', 'margin-top': '10%',
+            'color': message.mcolor, 'text-align' : 'center', 'font-size' : 'x-large'}">
+            {{message.mtext}}
         </label>
-    </form>
-</div>
-<%--<a href="<c:url value="/showNextClientPortion.html">--%>
-<%--<c:param name="cntMark" value="${cnt} of ${totPages}"/>--%>
-<%--<c:param name="portionSize" value="${sPortion}"/>--%>
-<%--</c:url>--%>
-<%--"><button>&longrightarrow;</button></a>--%>
+    </div>
 
-<table>
-    <thead>
-    <tr>
-        <%--<th class="shrink"><h3>ID</h3></th>--%>
-        <th><h3>ID</h3></th>
-        <th><h3>Name</h3></th>
-        <th><h3>Surname</h3></th>
-        <th><h3>Phone</h3></th>
-        <th><h3>Address</h3></th>
-        <th><h3>Last Order Date</h3></th>
-        <th><h3>Order Amount</h3></th>
-    </tr>
-    </thead>
-    <tbody>
-    <div ng-controller="listEntitiesCtrl">
-    <%--<c:forEach var="cl" items="${clientList}" varStatus="count">--%>
+    <table>
+        <thead>
+        <tr>
+            <%--<th class="shrink"><h3>ID</h3></th>--%>
+            <th><h3>ID</h3></th>
+            <th><h3>Name</h3></th>
+            <th><h3>Surname</h3></th>
+            <th><h3>Phone</h3></th>
+            <th><h3>Address</h3></th>
+            <th><h3>Last Order Date</h3></th>
+            <th><h3>Order Amount</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <%--<c:forEach var="cl" items="${clientList}" varStatus="count">--%>
         <tr ng-repeat="cl in clientList">
             <td class="shrink">{{cl.id}}</td>
             <td align="left">{{cl.name}}</td>
             <td align="left">{{cl.surname}}</td>
             <td align="left">{{cl.phone}}</td>
             <td align="left">{{cl.address}}</td>
-            <td align="left">
-                <fmt:formatDate value="{{cl.lastOrderDate}}"
-                                pattern="dd.MM.yyyy"/>
-            </td>
+            <td align="left">{{cl.lastOrderDate == null ? 'N/A' : cl.lastOrderDate}}</td>
             <td align="left">{{cl.orderAmount}}</td>
             <td>
-                <button ng-click="doUpdateClient({{cl.id}})">Update</button>
+                <button ng-id="{{cl.id}}" ng-click="doUpdateClient($event)">Update</button>
             </td>
             <td>
-                <button ng-click="doDeleteClient({{cl.id}})">Delete</button>
+                <button ng-id="{{cl.id}}" ng-click="doDeleteClient($event)">Delete</button>
             </td>
         </tr>
-    <%--</c:forEach>--%>
-    </div>
-    </tbody>
+        <%--</c:forEach>--%>
+</div>
+</tbody>
 </table>
 <form>
-    <footer style="text-align: center">&copy;<spring:eval expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
+    <footer style="text-align: center">&copy;<spring:eval
+            expression="@propertyConfigurer.getProperty('AllRights')"/></footer>
 </form>
-<%--<c:if test="${cnt == totPages}">--%>
-<%--<script type="text/javascript">--%>
-<%--$("#nextInput").disabled = true;--%>
-<%--</script>--%>
-<%--</c:if>--%>
-<script type="text/javascript">
-    disableButtons(${cnt}, ${totPages});
-</script>
 </body>
 </html>
