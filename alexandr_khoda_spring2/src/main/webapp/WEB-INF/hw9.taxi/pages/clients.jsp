@@ -9,7 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<script src="../../../js/angular.js"></script>--%>
-<script src="../../../js/jquery-1.12.2.min.js"></script>
+<%--<script src="../../../js/jquery-1.12.2.min.js"></script>--%>
 
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script
@@ -28,6 +28,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <title>Client List</title>
     <style>
         <%@include file='../css/list.css' %>
@@ -38,32 +43,16 @@
 <body>
 
 
-
-<input type="hidden" name="idVal" id="idVal" value="">
-
-<script type="text/javascript">
-    function onUpdate(id, deleteButton) {
-//            alert('butUpdate');
-        if (deleteButton) {
-            location.href = '/deleteClient.html?id=' + id;
-        }
-        else {
-            location.href =
-                    '/editClient.html?cid=' + id + '&portionSize=' + ${sPortion} +
-                            '&cnt=' + ${cnt} +'&totPages=' + ${totPages};
-        }
-    }
-</script>
-
 <div style="float: left;">
     <form action="/back2Menu.html">
+        ${pageContext.request.contextPath}
         <input type="submit" class="but" value="&longleftarrow; to Dash">
     </form>
 </div>
 <%--<a href="/back2Menu.html"><button>&longleftarrow; to Dash</button></a>--%>
 
 <div ng-controller="listEntitiesCtrl"
-     ng-init='init(${sPortion}, ${totPages}, ${cnt})'>
+     ng-init='init(${sPortion}, ${totPages}, ${cnt})' class="container">
     <div style="display: inline-block;">
         <button style="margin-left:8em" class="but"
                 ng-style="{'visibility': hidePrevious()};"
@@ -81,7 +70,8 @@
         </label>
     </div>
 
-    <table>
+    <table class="table table-striped table-hover table-condensed"
+           style="width:75%;">
         <thead>
         <tr>
             <%--<th class="shrink"><h3>ID</h3></th>--%>
@@ -106,10 +96,12 @@
             <td align="left">{{cl.lastOrderDate == null ? 'N/A' : cl.lastOrderDate}}</td>
             <td align="left">{{cl.orderAmount}}</td>
             <td>
-                <button ng-id="{{cl.id}}" ng-click="doUpdateClient($event)">Update</button>
+                <button class="btn btn-primary btn-xs" ng-id="{{cl.id}}"
+                        ng-click="doUpdateClient($event)">Update</button>
             </td>
             <td>
-                <button ng-id="{{cl.id}}" ng-click="doDeleteClient($event)">Delete</button>
+                <button class="btn btn-warning btn-xs" ng-id="{{cl.id}}"
+                        ng-click="doDeleteClient($event)">Delete</button>
             </td>
         </tr>
         <%--</c:forEach>--%>
