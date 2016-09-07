@@ -36,7 +36,7 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
+<!--we-->
     <!--    <filter>
             <filter-name>springSecurityFilterChain</filter-name>
             <filter-class>
