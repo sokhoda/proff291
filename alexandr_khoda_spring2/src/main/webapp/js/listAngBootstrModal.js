@@ -13,12 +13,20 @@
 //    $('#myModal').modal('toggle');
 //});
 
-var app = angular.module('listEntitiesJSP', ['ui.bootstrap.modal']);
+//var app = angular.module('listEntitiesJSP', ['ngMaterial']);
+var app = angular.module('listEntitiesJSP', ['ngMaterial','ui.bootstrap.modal']);
 
-app.controller("listEntitiesCtrl", function ($scope, $window, $http) {
 
-    //$scope.showDialogue = function(item){
-    //    var cid = item.currentTarget.getAttribute("ng-id");
+app.controller("listEntitiesCtrl", function ($scope, $window, $http, $mdDialog, $mdMedia) {
+//app.controller("listEntitiesCtrl", function ($scope, $window, $http) {
+
+    $scope.showDialogue = function(item){
+        var cid = item.currentTarget.getAttribute("ng-id");
+        alert(cid);
+      $scope.showDialog = true;
+        console.log('showDialog=' + $scope.showDialog);
+    };
+
 
     var getCurrentPortion = function () {
         $http.get('/showClientsByPortion.json?portionSize=' + $scope.sPortion + '&cnt=' + $scope.cnt)
@@ -38,7 +46,7 @@ app.controller("listEntitiesCtrl", function ($scope, $window, $http) {
         $scope.totPages = totPages;
         $scope.cnt = cnt;
         $scope.showDialog = false;
-        //console.log('sPortion=' + $scope.sPortion + ', totPages=' + $scope.totPages + 'cnt=' + $scope.cnt);
+        console.log('sPortion=' + $scope.sPortion + ', totPages=' + $scope.totPages + 'cnt=' + $scope.cnt);
         getCurrentPortion();
     };
 
@@ -103,10 +111,27 @@ app.controller("listEntitiesCtrl", function ($scope, $window, $http) {
     };
 
 
+    $scope.showConfirm = function (ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your debt?')
+            .textContent('All of the banks have agreed to forgive you your debts.')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Please do it!')
+            .cancel('Sounds like a scam');
+        $mdDialog.show(confirm).then(function () {
+            $scope.status = 'You decided to get rid of your debt.';
+        }, function () {
+            $scope.status = 'You decided to keep your debt.';
+        });
+    };
+
     $scope.open = function(item) {
         var cid = item.currentTarget.getAttribute("ng-id");
         $scope.deleteElementId = cid;
         $scope.showModal = true;
+        console.log('open!!!' + $scope.showModal + ' ' + $scope.deleteElementId);
     };
 
     $scope.ok = function() {

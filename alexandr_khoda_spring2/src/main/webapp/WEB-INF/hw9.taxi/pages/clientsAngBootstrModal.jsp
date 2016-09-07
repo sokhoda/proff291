@@ -10,18 +10,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<script src="../../../js/angular.js"></script>--%>
 <%--<script src="../../../js/jquery-1.12.2.min.js"></script>--%>
-<%--AngularJS--%>
+
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+        src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<script
+        src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.min.js"></script>
+
 
 <script src="../../../js/list.js"></script>
 <script src="../../../js/angular-ui-bootstrap-modal.js"></script>
 
+<%--<script src="../../../js/modalShowDirective.js"></script>--%>
+
 <%--<%@ page errorPage="/hw7.notes/pages/generalErrorPage.jsp" %>--%>
-    
+
 <html ng-app="listEntitiesJSP" ng-cloak style="margin-left: 1em">
 <head>
-    <%--Bootstrap--%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%--Angular Material css--%>
+    <link rel="stylesheet"
+          href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
     <link rel="stylesheet"
           href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -44,6 +60,9 @@
     </form>
 </div>
 <%--<a href="/back2Menu.html"><button>&longleftarrow; to Dash</button></a>--%>
+${sPortion}
+${totPages}
+${cnt}
 
 <div ng-controller="listEntitiesCtrl"
      ng-init='init(${sPortion}, ${totPages}, ${cnt})' class="container">

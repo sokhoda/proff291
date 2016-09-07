@@ -32,40 +32,39 @@ public class CreateClientServlet {
 
     @RequestMapping(value = "/createClient.json", method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody
-    MessageResult createClient(@RequestParam ("name") String name,
-                    @RequestParam ("surname") String surname,
-                    @RequestParam ("phone") String phone,
-                    @RequestParam ("address") String address, Model model) {
+    public
+    @ResponseBody
+    MessageResult createClient(@RequestParam("name") String name,
+                               @RequestParam("surname") String surname,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("address") String address, Model model) {
         log.info("CreateClientServlet /createClient.json controller");
         try {
             if (clientService.createClient(name, surname, phone, address)) {
                 return new MessageResult("Client '" + name + ", " + surname + "' successfully created.", "green");
-            }
-            else {
+            } else {
                 throw new ClientException("Failed to create client.");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new MessageResult(e.getMessage(), "red");
         }
     }
 
-    @RequestMapping(value = "/registerClient.html", method = RequestMethod.GET )
+    @RequestMapping(value = "/registerClient.html", method = RequestMethod.GET)
     public String registerClient() {
         log.info("CreateClientServlet /registerClient.html controller");
         return "registerClient";
     }
 
     @RequestMapping(value = "/editClient.html", method = RequestMethod.GET)
-    public String editClient(@RequestParam ("cid") String id,
+    public String editClient(@RequestParam("cid") String id,
                              @RequestParam("portionSize") String sPortion,
                              @RequestParam("cnt") String cnt,
                              @RequestParam("totPages") String totPages,
                              Model model)
             throws ServletException {
         log.info("CreateClientServlet /editClient.html controller");
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
 
             Long clientId = String2Long(id);
@@ -76,20 +75,20 @@ public class CreateClientServlet {
             model.addAttribute("totPages", totPages);
             model.addAttribute("sPortion", sPortion);
             return "editClient";
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new ServletException(e.getMessage());
         }
     }
 
     @RequestMapping(value = "/updateClient.json", method = RequestMethod.GET,
             produces = "application/json")
-    public @ResponseBody
-    MessageResult updateClient(@RequestParam ("cid") String id,
-                               @RequestParam ("name") String name,
-                               @RequestParam ("surname") String surname,
-                               @RequestParam ("phone") String phone,
-                               @RequestParam ("address") String address, Model model) {
+    public
+    @ResponseBody
+    MessageResult updateClient(@RequestParam("cid") String id,
+                               @RequestParam("name") String name,
+                               @RequestParam("surname") String surname,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("address") String address, Model model) {
         log.info("CreateClientServlet /updateClient.json controller");
         try {
             Long clientId = String2Long(id);
@@ -97,12 +96,10 @@ public class CreateClientServlet {
                     address)) {
                 return new MessageResult("Client '" + name + ", " + surname +
                         "' successfully updated.", "green");
-            }
-            else {
+            } else {
                 throw new ClientException("Failed to update client.");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new MessageResult(e.getMessage(), "red");
         }
     }
