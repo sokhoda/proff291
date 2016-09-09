@@ -37,7 +37,7 @@ public class CreateClientServlet {
     MessageResult createClient(@RequestParam("name") String name,
                                @RequestParam("surname") String surname,
                                @RequestParam("phone") String phone,
-                               @RequestParam("address") String address, Model model) {
+                               @RequestParam("address") String address, Model model)  {
         log.info("CreateClientServlet /createClient.json controller");
         try {
             if (clientService.createClient(name, surname, phone, address)) {
@@ -88,7 +88,7 @@ public class CreateClientServlet {
                                @RequestParam("name") String name,
                                @RequestParam("surname") String surname,
                                @RequestParam("phone") String phone,
-                               @RequestParam("address") String address, Model model) {
+                               @RequestParam("address") String address, Model model)  {
         log.info("CreateClientServlet /updateClient.json controller");
         try {
             Long clientId = String2Long(id);

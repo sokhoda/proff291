@@ -12,11 +12,6 @@
   "dependencies": {
     "angular": "*",
     "bootstrap": "*",
-    "jquery": "*",
-    "180StartKit": "*",
-    "grunt": "^1.0.1",
-    "nlcst-test": "^0.2.1",
-    "simplesocket": "*",
-    "simpletabber": "^1.0.2"
+    "jquery": "*"
   }
 }

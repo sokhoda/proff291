@@ -88,11 +88,12 @@
         </td>
     </tr>
     <tr>
-        <td class="col0">
-            <input type="submit" name="crOrder"
-                   value="5. Create order"
-                   formaction="/createOrder.html">
-        </td>
+        <form action="/registerOrder.html">
+            <td class="col0">
+                <input type="submit" name="crOrder"
+                       value="5. Create order">
+            </td>
+        </form>
     </tr>
     <tr>
         <td class="col0">

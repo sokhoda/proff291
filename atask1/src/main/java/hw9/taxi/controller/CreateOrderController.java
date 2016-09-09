@@ -20,21 +20,39 @@ import static hw9.taxi.service.AuthorizationServiceImpl.String2Long;
  */
 @Controller
 @SessionAttributes("id")
-public class OrderCreateServlet {
-    public static final Logger log = Logger.getLogger(OrderCreateServlet.class);
+public class CreateOrderController {
+    public static final Logger log = Logger.getLogger(CreateOrderController.class);
 
     @Autowired
     private OrderService orderService;
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping(value = "/createOrder.html", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/registerOrder.html", method = RequestMethod.GET)
+    public String registerOrder() {
+        log.info("CreateOrderController /registerOrder.html");
+        return "createOrder";
+    }
+
+    @RequestMapping(value = "/createOrder.html", method = RequestMethod.GET,  produces = "application/json")
     public @ResponseBody String createOrder(
             @RequestParam ("clientID") String clientID,
             @RequestParam ("amount") String amount,
             @RequestParam ("addressFrom") String addressFrom,
             @RequestParam ("addressTo") String addressTo, Model model) throws
             OrderException{
+
+//        log.info("CreateOrderController /createOrder.json");
+//        try {
+//            if (clientService.createClient(name, surname, phone, address)) {
+//                return new MessageResult("Client '" + name + ", " + surname + "' successfully created.", "green");
+//            } else {
+//                throw new ClientException("Failed to create client.");
+//            }
+//        } catch (Exception e) {
+//            return new MessageResult(e.getMessage(), "red");
+//        }
 
         Client client = clientService.read(String2Long(clientID));
         if (orderService.createOrder(client, String2Double(amount), addressFrom,
