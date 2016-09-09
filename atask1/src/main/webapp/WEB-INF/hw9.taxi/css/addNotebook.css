@@ -23,7 +23,7 @@ label{
     line-height: 200%;
 }
 
-input[type=text]{
+input[type=text], select{
     display: inline-block;
     text-align: left;
     width: 200px;
