@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
 import static hw9.taxi.service.AuthorizationServiceImpl.String2Double;
 import static hw9.taxi.service.AuthorizationServiceImpl.String2Long;
 
@@ -27,12 +31,27 @@ public class CreateOrderController {
     private OrderService orderService;
     @Autowired
     private ClientService clientService;
+    private final Long CLIENT_INI_ID = 5L;
 
+
+    @RequestMapping(value = "/selectAllClients.json", method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody List<Client> selectAllClients() {
+        return  clientService.findAll();
+    }
 
     @RequestMapping(value = "/registerOrder.html", method = RequestMethod.GET)
-    public String registerOrder() {
+    public String registerOrder(HttpServletResponse response, Model model) throws IOException {
         log.info("CreateOrderController /registerOrder.html");
+        model.addAttribute("selectedClientId" , CLIENT_INI_ID);
         return "createOrder";
+    }
+
+    @RequestMapping(value = "/selectClient.json", method = RequestMethod.GET,
+            produces = "application/json")
+    public @ResponseBody Client selectClient(
+            @RequestParam ("id") String clientID) {
+        return clientService.read(String2Long(clientID));
     }
 
     @RequestMapping(value = "/createOrder.html", method = RequestMethod.GET,  produces = "application/json")

@@ -43,6 +43,12 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
+    public Client read(Long id) {
+        return clientDao.read(id);
+    }
+
+
+    @Override
     public boolean updateClient(Long id, String name, String surname, String
             phone, String address) throws ClientException {
         Session session = factory.getCurrentSession();
@@ -60,11 +66,6 @@ public class ClientServiceImpl implements ClientService{
             clientDao.update(client1);
             return true;
         }
-    }
-
-    @Override
-    public Client read(Long id) {
-        return clientDao.read(id);
     }
 
     @Override
@@ -97,6 +98,11 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public List showClientsLastMonth() {
         return null;
+    }
+
+    @Override
+    public List<Client> findAll() {
+        return  (List<Client>) clientDao.findAll();
     }
 
     public ClientDao getClientDao() {

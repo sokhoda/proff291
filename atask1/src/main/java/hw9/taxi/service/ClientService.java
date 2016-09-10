@@ -20,4 +20,6 @@ public interface ClientService {
     List showClientsGtSum(int sum);
     List showClientsLastMonth();
 
+    List<Client> findAll();
+
 }
